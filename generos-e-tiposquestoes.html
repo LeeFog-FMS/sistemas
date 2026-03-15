@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Gêneros e Tipos Textuais - Marcuschi</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #2980b9;
+            --secondary-color: #ecf0f1;
+            --accent-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #dcdde1;
+            --max-width: 850px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: #ebf5fb;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #1f6391;
+        }
+
+        /* Results Section */
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Resolutions Section */
+        #resolutions-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .resolution-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .resolution-item {
+            background: #f9f9f9;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .res-q-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .correct-answer-indicator {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .wrong-feedback {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        .correct-feedback {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+        }
+
+        .analysis-block {
+            margin-top: 40px;
+            padding: 30px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            h1 { font-size: 1.5rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Gêneros e Tipos Textuais</h1>
+        <p class="description">Perspectiva Sociointeracionista de Luiz Antônio Marcuschi - Estilo Fundatec</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <span class="question-number">Questão 01</span>
+            <div class="question-text">
+                Com base na obra de Luiz Antônio Marcuschi, analise as assertivas abaixo sobre a distinção entre gêneros e tipos textuais e assinale V, para as verdadeiras, ou F, para as falsas.<br><br>
+                ( ) O tipo textual é uma construção teórica definida pela natureza linguística de sua composição, envolvendo aspectos lexicais, sintáticos e tempos verbais.<br>
+                ( ) Os gêneros textuais são os textos materializados encontrados no cotidiano, caracterizados por suas propriedades funcionais, estilo e composição.<br>
+                ( ) A comunicação verbal só é possível por meio de algum gênero textual, sendo impossível não se comunicar verbalmente através de textos realizados em algum gênero.<br>
+                ( ) Um gênero textual é definido estritamente pela sua forma linguística, independentemente dos objetivos específicos ou das situações sociais de uso.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) V – V – V – V.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) V – V – V – F.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) F – V – F – V.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) V – F – V – F.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) F – F – F – F.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <span class="question-number">Questão 02</span>
+            <div class="question-text">
+                No que tange aos domínios discursivos e à organização dos gêneros conforme proposto por Marcuschi, considere as seguintes afirmações:<br><br>
+                I. O domínio discursivo não é um texto nem um discurso, mas uma esfera de atividade humana que propicia o surgimento de discursos específicos.<br>
+                II. O domínio instrucional engloba gêneros como artigos científicos, verbetes de dicionários e pareceres sobre teses.<br>
+                III. Editoriais, artigos de opinião e entrevistas coletivas são exemplos típicos do domínio jornalístico, e não do domínio instrucional ou acadêmico.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) I, II e III.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <span class="question-number">Questão 03</span>
+            <div class="question-text">Segundo Marcuschi, quando um sujeito domina um gênero textual, pode-se afirmar corretamente que:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) Ele domina plenamente uma forma linguística estática, visando exclusivamente o cumprimento de regras gramaticais.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) Ele domina uma forma de realizar linguisticamente objetivos específicos em situações sociais particulares.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) A situação social é irrelevante para a escolha do gênero, uma vez que o conteúdo determina a forma de maneira isolada.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) O domínio do gênero independe da relação entre o objetivo do texto e os interlocutores envolvidos na situação comunicativa.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) A forma e o conteúdo são aspectos secundários, sendo a estrutura sintática o único fator de definição do gênero.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <span class="question-number">Questão 04</span>
+            <div class="question-text">
+                Sobre a heterogeneidade tipológica e as sequências textuais na perspectiva sociointeracionista, analise o trecho a seguir: “Embora um texto possa ser classificado em um determinado gênero, ele raramente apresenta apenas um tipo de sequência textual em sua composição.”<br><br>
+                Com base nessa premissa de Marcuschi, assinale a alternativa INCORRETA:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) A heterogeneidade tipológica refere-se à presença de duas ou mais sequências (como narração e descrição) em um mesmo gênero.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) Um mesmo tipo textual pode ser utilizado por vários gêneros distintos, como o tipo narrativo presente em contos, romances e notícias.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) O tipo textual é caracterizado mais como uma sequência linguística do que como um texto materializados.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) Na análise de Marcuschi, a classificação de um texto como pertencente a um tipo se dá pelo texto como um todo, e não por trechos ou predominância de marcas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) Em uma carta pessoal, é comum observar a miscelânea de sequências narrativas, descritivas e até injuntivas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <span class="question-number">Questão 05</span>
+            <div class="question-text">
+                Considerando as características das sequências textuais (tipos) definidas por Marcuschi, associe a Coluna 1 à Coluna 2.<br><br>
+                <strong>Coluna 1</strong>: 1. Narrativa | 2. Descritiva | 3. Dissertativa/Argumentativa | 4. Injuntiva<br><br>
+                <strong>Coluna 2</strong><br>
+                ( ) Caracteriza-se pela progressão temporal e pelo uso predominante de verbos de ação, geralmente no pretérito perfeito.<br>
+                ( ) Foca na caracterização de cenas, objetos ou pessoas, com forte presença de adjetivos e verbos no pretérito imperfeito.<br>
+                ( ) Trabalha com pontos de vista e posicionamentos, visando a defesa de uma ideia ou a exposição de conhecimentos.<br>
+                ( ) Tem como objetivo orientar ou instruir o interlocutor a realizar uma ação, com uso frequente de verbos no imperativo ou infinitivo.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) 1 – 2 – 3 – 4.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) 2 – 1 – 4 – 3.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) 3 – 4 – 1 – 2.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) 4 – 3 – 2 – 1.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) 1 – 3 – 2 – 4.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <span class="question-number">Questão 06</span>
+            <div class="question-text">O fenômeno da intergenericidade (ou intertextualidade intergêneros) é um ponto central na teoria de Marcuschi. Sobre esse tema, assinale a alternativa correta:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) A intergenericidade ocorre quando um texto mantém a forma e a função do gênero original de maneira inalterada ao longo da história.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) Trata-se da apropriação de um gênero por outro para assumir funções distintas, como um anúncio publicitário que assume a forma de um poema.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) A intergenericidade é um erro de composição textual que deve ser evitado no ensino de língua portuguesa.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) Esse fenômeno ocorre apenas na modalidade oral da língua, não sendo observado em textos escritos ou digitais.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) Para Marcuschi, a forma é o elemento preponderante na classificação de um gênero, sobrepondo-se à função e à intencionalidade.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <span class="question-number">Questão 07</span>
+            <div class="question-text">
+                A situacionalidade é um dos critérios de textualidade discutidos por Marcuschi. Analise as assertivas abaixo sobre esse conceito:<br><br>
+                I. A situacionalidade refere-se à adequação da manifestação linguística à situação comunicativa e ao contexto de produção.<br>
+                II. O sentido de um discurso é direcionado tanto por sua produção quanto pelo entendimento da situação, influenciando o grau de formalidade e a variedade dialetal.<br>
+                III. A situacionalidade serve exclusivamente para interpretar o texto após sua produção, não exercendo influência no planejamento do autor.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) I, II e III.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <span class="question-number">Questão 08</span>
+            <div class="question-text">Sobre os "novos gêneros" e a Comunicação Mediada por Computador (CMC) na visão de Marcuschi, é correto afirmar que:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) As novas tecnologias criaram gêneros que não possuem nenhuma relação com gêneros pré-existentes na oralidade ou na escrita.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Gêneros como e-mail, chat e blog são formas estáticas de comunicação que não permitem a revisão de conceitos tradicionais de textualidade.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) A CMC exige repensar a relação entre oralidade e escrita, pois os gêneros digitais frequentemente apresentam hibridismo entre essas modalidades.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Marcuschi defende que o ensino de língua deve ignorar os gêneros digitais por estarem em fase de fixação e apresentarem muitas variações.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) Os gêneros eletrônicos são meras reproduções de gêneros antigos, sem apresentar peculiaridades formais próprias.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <span class="question-number">Questão 09</span>
+            <div class="question-text">Quanto à variação linguística na perspectiva sociointeracionista defendida por Marcuschi, assinale a alternativa correta:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) O ensino da língua deve focar exclusivamente na norma culta, pois as variações linguísticas são fenômenos que não afetam a construção do sentido.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) A adequação textual à situação comunicativa e à funcionalidade do texto exige que o falante mobilize variedades linguísticas adequadas ao interlocutor.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) A variação linguística é um fenômeno puramente mental e cognitivo, não sendo influenciada por fatores externos ou sociais.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) No sociointeracionismo, o sujeito é visto como um ser "assujeitado" que apenas reproduz estruturas gramaticais sem capacidade de agência.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) O estudo da língua deve ser feito em seus aspectos fonológicos e sintáticos, excluindo o uso real e contextualizado para evitar o preconceito linguístico.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <span class="question-number">Questão 10</span>
+            <div class="question-text">Na obra de Marcuschi, a intertextualidade é compreendida como:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) A simples repetição de palavras de um texto em outro, sem que haja qualquer relação de sentido ou dialogismo entre as obras.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) Um fenômeno raro que ocorre apenas em textos literários de alta complexidade, sendo inexistente em gêneros cotidianos.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) O processo de interação e dialogismo entre textos, visto que nenhuma produção acontece no vazio e toda produção se relaciona com outras prévias.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Uma característica imanente à gramática da frase, que pode ser analisada independentemente da situação comunicativa.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) O uso de citações diretas obrigatórias em todos os gêneros textuais para garantir a validade científica do discurso.</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" onclick="submitQuiz()">Finalizar Simulado</button>
+        </div>
+    </form>
+
+    <section id="results-section">
+        <div class="score-display" id="score-text"></div>
+        <p id="performance-msg"></p>
+    </section>
+
+    <section id="resolutions-section">
+        <h2 class="resolution-title">Resoluções e Análise Teórica Detalhada</h2>
+        
+        <div id="resolution-list">
+            <!-- As resoluções serão inseridas aqui via JS -->
+        </div>
+
+        <div class="analysis-block">
+            <h3>Análise Sistêmica dos Gêneros e Tipos na Visão de Marcuschi</h3>
+            <p>Para a compreensão integral da obra de Luiz Antônio Marcuschi, é necessário visualizar como os conceitos se interligam em uma arquitetura teórica coerente que privilegia a função social sobre a forma rígida.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nível de Organização</th>
+                        <th>Definição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Macroscópico (Domínios)</strong></td>
+                        <td>Esfera social. Define as "regras do jogo" da atividade humana.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mesoscópico (Gêneros)</strong></td>
+                        <td>O texto na vida real. Ferramenta de ação no mundo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Microscópico (Tipos)</strong></td>
+                        <td>Organização interna do dizer (peças de encaixe).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Comparativo: Tradicional vs. Marcuschi</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Abordagem Tradicional</th>
+                        <th>Perspectiva Marcuschi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Foco</td>
+                        <td>Gramática da frase</td>
+                        <td>Texto como evento situado</td>
+                    </tr>
+                    <tr>
+                        <td>Língua</td>
+                        <td>Código abstrato</td>
+                        <td>Atividade sociointerativa</td>
+                    </tr>
+                    <tr>
+                        <td>Ensino</td>
+                        <td>Redações artificiais</td>
+                        <td>Prática de gêneros reais</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'B', q2: 'E', q3: 'B', q4: 'D', q5: 'A',
+        q6: 'B', q7: 'C', q8: 'C', q9: 'B', q10: 'C'
+    };
+
+    const explanations = {
+        q1: "A análise de Marcuschi distingue o tipo textual (constructo teórico linguístico) do gênero textual (realização empírica e concreta). A última assertiva é falsa pois o gênero não é puramente formal, mas sócio-comunicativo.",
+        q2: "Marcuschi categoriza grandes esferas de atividade humana como domínios. Instrucional (acadêmico) e Jornalístico são exemplos de domínios que propiciam discursos específicos.",
+        q3: "No sociointeracionismo, dominar um gênero significa ter a competência de realizar objetivos específicos em situações sociais particulares. A língua é ação social.",
+        q4: "Incorreta a D: Marcuschi defende que a tipologia textual classifica trechos ou sequências predominantes, enquanto o gênero classifica o texto como um todo.",
+        q5: "Identificação das marcas linguísticas: 1-Narrativa (progressão temporal/ação); 2-Descritiva (adjetivos/imperfeito); 3-Dissertativa (argumentos/lógica); 4-Injuntiva (instrução/imperativo).",
+        q6: "A intergenericidade ocorre quando um gênero assume a forma de outro para cumprir uma função nova, como uma propaganda em formato de receita.",
+        q7: "A situacionalidade é a adequação à situação comunicativa. Ela influencia tanto a interpretação quanto o planejamento do texto (assertiva III errada).",
+        q8: "A CMC (comunicação por computador) cria gêneros híbridos entre oralidade e escrita (chat, e-mail), exigindo novas visões sobre a textualidade.",
+        q9: "A competência discursiva exige adequar a variedade linguística ao interlocutor e à situação, combatendo o foco exclusivo na norma culta estática.",
+        q10: "A intertextualidade é o dialogismo universal: nenhum texto nasce no vazio, todo texto dialoga e interage com outros prévios."
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        const total = 10;
+        const userAnswers = {};
+
+        // Coletar respostas
+        for(let i = 1; i <= total; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            userAnswers[`q${i}`] = selected ? selected.value : null;
+            
+            if(userAnswers[`q${i}`] === correctAnswers[`q${i}`]) {
+                score++;
+            }
+        }
+
+        // Mostrar Resultados
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        const perfMsg = document.getElementById('performance-msg');
+        
+        resultsSection.style.display = 'block';
+        scoreText.innerText = `${score} / ${total}`;
+        
+        if(score === total) perfMsg.innerText = "Excelente! Você domina a perspectiva de Marcuschi.";
+        else if(score >= 7) perfMsg.innerText = "Muito bom! Ótimo aproveitamento.";
+        else perfMsg.innerText = "Continue estudando os conceitos de interatividade e gêneros.";
+
+        // Gerar Resoluções
+        const resList = document.getElementById('resolution-list');
+        resList.innerHTML = '';
+
+        for(let i = 1; i <= total; i++) {
+            const isCorrect = userAnswers[`q${i}`] === correctAnswers[`q${i}`];
+            const div = document.createElement('div');
+            div.className = 'resolution-item';
+            div.innerHTML = `
+                <span class="res-q-title">Resolução da Questão 0${i}</span>
+                <span class="correct-answer-indicator">Gabarito: ${correctAnswers[`q${i}`]}</span><br>
+                <p><strong>Sua resposta:</strong> ${userAnswers[`q${i}`] || 'Não respondida'} 
+                <span class="${isCorrect ? 'correct-feedback' : 'wrong-feedback'}">
+                    (${isCorrect ? 'Acertou' : 'Errou'})
+                </span></p>
+                <p style="margin-top:10px;">${explanations[`q${i}`]}</p>
+            `;
+            resList.appendChild(div);
+        }
+
+        document.getElementById('resolutions-section').style.display = 'block';
+        
+        // Scroll suave para o resultado
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Estilização visual para seleção de opções
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const radio = this.querySelector('input');
+            radio.checked = true;
+            
+            // Remover classe selected de outros na mesma questão
+            const name = radio.getAttribute('name');
+            document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                r.parentElement.classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>

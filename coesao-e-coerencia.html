@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Teórico: Coesão e Coerência (Ingedore Koch)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .highlight-yellow {
+            background-color: #fefcbf;
+            font-weight: 600;
+            padding: 0 2px;
+        }
+
+        .section-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            color: #1a202c;
+            letter-spacing: -0.025em;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: hidden; /* Garantindo que não haja scroll horizontal */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            display: table;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #edf2f7;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsividade para Tabelas: vira lista em telas pequenas */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                border: 1px solid #e2e8f0;
+                margin-bottom: 1rem;
+                padding: 0.5rem;
+                border-radius: 8px;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                text-align: left;
+            }
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                font-weight: bold;
+                color: #4a5568;
+            }
+        }
+
+        .audio-section {
+            background-color: #f9fafb;
+            border: 2px dashed #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-footer:hover {
+            background-color: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="antialiased p-4 md:p-12 max-w-5xl mx-auto">
+
+    <!-- Cabeçalho Principal -->
+    <header class="text-center mb-12">
+        <div class="inline-block bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase mb-4 tracking-widest">
+            Tutor Especialista - Concurso IFC (EBTT)
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Coesão e Coerência Textual</h1>
+        <p class="text-xl text-gray-600">Aprofundamento didático baseado na obra de <strong>Ingedore Villaça Koch</strong></p>
+    </header>
+
+    <!-- Player de Áudio -->
+    <div class="audio-section text-center">
+        <h3 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">Escutar Resumo em Áudio</h3>
+        <!-- ESPAÇO PARA O NOME DO ARQUIVO MP3 -->
+        <audio controls class="w-full max-w-2xl mx-auto">
+            <source src="coesao-e-coerencia.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <!-- Introdução -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">1. Definição e Conceitos Essenciais</h2>
+        <p class="mb-4">
+            Para <strong>Ingedore Koch</strong>, a coerência não é algo que "está" no texto, mas sim o que se constrói <span class="highlight-yellow">na interação</span> texto-sujeito. O texto é visto como um <strong>processo</strong> e não apenas um produto.
+        </p>
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="font-bold mb-2">Coerência (O Sentido)</h4>
+                <p class="text-sm text-gray-700">Relacionada à <span class="highlight-yellow">continuidade de sentidos</span>. É global. Um texto pode ser coerente sem conectivos explícitos se o leitor conseguir reconstruir a unidade temática através do seu conhecimento de mundo.</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="font-bold mb-2">Coesão (A Forma)</h4>
+                <p class="text-sm text-gray-700">Relacionada à <span class="highlight-yellow">manifestação linguística</span> na superfície textual. São os fios que tecem a rede gramatical e lexical para guiar o leitor.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glossário Técnico para o dia da prova -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">2. Glossário para o Dia da Prova</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Termo Técnico</th>
+                        <th>Definição (Foco Fundatec)</th>
+                        <th>Exemplo Aplicado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Termo Técnico"><strong>Referência Endofórica</strong></td>
+                        <td data-label="Definição">Referência a elementos que estão <span class="highlight-yellow">dentro</span> do próprio texto.</td>
+                        <td data-label="Exemplo">"O IFC abriu vagas. <strong>Lá</strong> será meu trabalho."</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo Técnico"><strong>Referência Exofórica</strong></td>
+                        <td data-label="Definição">Referência a elementos <span class="highlight-yellow">fora</span> do texto (contexto situacional).</td>
+                        <td data-label="Exemplo">"Pegue <strong>isto</strong>." (apontando para um livro na sala).</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo Técnico"><strong>Anáfora</strong></td>
+                        <td data-label="Definição">Mecanismo que retoma um referente já mencionado anteriormente.</td>
+                        <td data-label="Exemplo">"Machado de Assis é gênio. <strong>O escritor</strong> mudou a literatura."</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo Técnico"><strong>Catáfora</strong></td>
+                        <td data-label="Definição">Mecanismo que antecipa um referente que ainda será citado.</td>
+                        <td data-label="Exemplo">"Só quero <strong>isto</strong>: sua aprovação."</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Termo Técnico"><strong>Anáfora Associativa</strong></td>
+                        <td data-label="Definição">Retomada por semântica (relação de parte-todo ou campo lexical).</td>
+                        <td data-label="Exemplo">"Entrei na <strong>escola</strong>. Os <strong>alunos</strong> estavam em silêncio."</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Coesão Sequencial -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">3. Mecanismos de Coesão Referencial e Sequencial</h2>
+        
+        <h3 class="text-lg font-bold mt-4 mb-2">A) Coesão Referencial Lexical</h3>
+        <p class="mb-4">Ocorre quando substituímos um termo para evitar repetição excessiva, mantendo o fluxo:</p>
+        <ul class="list-disc pl-6 mb-6 space-y-2">
+            <li><strong>Sinonímia:</strong> Uso de sinônimos (carro / veículo).</li>
+            <li><strong>Hiperonímia:</strong> Uso de termo genérico para um específico (Rosa / Flor).</li>
+            <li><strong>Hiponímia:</strong> Uso de termo específico para um genérico (Animal / Cachorro).</li>
+            <li><strong>Nominalização:</strong> Transformar um verbo em substantivo ("Analisaram os dados. Essa <span class="highlight-yellow">análise</span> foi útil").</li>
+        </ul>
+
+        <h3 class="text-lg font-bold mt-4 mb-2">B) Coesão Sequencial</h3>
+        <p class="mb-4">É o "motor" do texto, responsável pela continuidade temporal e lógica.</p>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="p-3 border rounded"><strong>Conectores Lógicos:</strong> Conjunções (adversativas, conclusivas, etc.).</div>
+            <div class="p-3 border rounded"><strong>Tempos Verbais:</strong> A manutenção do pretérito perfeito para narrar ações passadas, por exemplo.</div>
+        </div>
+    </section>
+
+    <!-- Progressão Temática -->
+    <section class="section-box">
+        <h2 class="text-2xl font-bold mb-6 border-b-2 border-gray-100 pb-2">4. Progressão Temática (Koch)</h2>
+        <p class="mb-4">Como a informação nova (Rema) se acopla à informação dada (Tema):</p>
+        <ol class="space-y-4">
+            <li class="flex items-start">
+                <span class="font-bold mr-2">I.</span> 
+                <div><strong>Progressão Linear:</strong> O rema da primeira frase torna-se o tema da segunda. <br><em class="text-sm text-gray-500">Ex: João comprou um <strong>carro</strong>. O <strong>carro</strong> é azul.</em></div>
+            </li>
+            <li class="flex items-start">
+                <span class="font-bold mr-2">II.</span> 
+                <div><strong>Tema Constante:</strong> O mesmo tema é mantido enquanto novas informações são adicionadas. <br><em class="text-sm text-gray-500">Ex: O <strong>IFC</strong> é grande. O <strong>IFC</strong> tem muitos cursos. O <strong>IFC</strong> preza pela qualidade.</em></div>
+            </li>
+            <li class="flex items-start">
+                <span class="font-bold mr-2">III.</span> 
+                <div><strong>Tema com Hipertema:</strong> Um tema geral é subdividido. <br><em class="text-sm text-gray-500">Ex: A <strong>escola</strong> é moderna. As <strong>salas</strong> são climatizadas, o <strong>pátio</strong> é amplo.</em></div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- Peguinhas Fundatec -->
+    <section class="section-box border-l-4 border-black">
+        <h2 class="text-2xl font-bold mb-6">🎯 Tendências e "Peguinhas" da Fundatec (EBTT)</h2>
+        <div class="space-y-6">
+            <div>
+                <h4 class="font-bold text-red-600 uppercase text-xs mb-1">Peguinha 01: O valor do Pronome "Isso"</h4>
+                <p>A banca adora cobrar o pronome <strong>isso</strong> como <span class="highlight-yellow">encapsulador</span>. Ele não retoma apenas a palavra anterior, mas toda a ideia ou oração dita antes.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-red-600 uppercase text-xs mb-1">Peguinha 02: Conjunções Concessivas</h4>
+                <p>Cuidado com o <strong>"Conquanto"</strong>. A Fundatec costuma perguntar se pode ser substituído por "Portanto". <span class="highlight-yellow">Falso</span>. Conquanto é concessivo (embora), Portanto é conclusivo.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-red-600 uppercase text-xs mb-1">Peguinha 03: Coesão vs Coerência</h4>
+                <p>A questão pode afirmar que "Sem coesão não há coerência". <strong>Errado</strong>. Segundo Koch, é possível ter coerência sem marcadores formais de coesão (ex: anúncios publicitários, poemas).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão de Ação -->
+    <div class="text-center mt-12 mb-20">
+        <a href="coesao-e-coerenciaquestoes.html" class="btn-footer">
+            Testar Conhecimentos: Banco de Questões
+        </a>
+        <p class="text-xs text-gray-400 mt-4">Página otimizada para visualização em todos os dispositivos.</p>
+    </div>
+
+    <footer class="border-t pt-8 text-center text-gray-500 text-sm mb-10">
+        Resumo exclusivo para candidatos ao concurso de Professor de Geografia - IFC. <br>
+        Base bibliográfica: KOCH, Ingedore Villaça. <em>A Coesão Textual</em> / <em>A Coerência Textual</em>.
+    </footer>
+
+</body>
+</html>

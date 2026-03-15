@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Mestra - Marcuschi - Gêneros e Tipos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .container-study {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 1px 3px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .audio-player {
+            background-color: #f9fafb;
+            border: 2px border #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 48px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #111827;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 0.5rem;
+        }
+
+        .table-container {
+            width: 100%;
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .trap-box {
+            border-left: 5px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 24px;
+            margin: 3rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-card {
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-action {
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
+            background-color: #000;
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-action:hover {
+            background-color: #374151;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            th, td { padding: 8px; font-size: 0.8rem; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-study">
+        <!-- Áudio Player -->
+        <div class="audio-player text-center">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-4">Material de Apoio Auditivo</span>
+            <audio controls class="w-full max-w-md mx-auto">
+                <source src="generos-e-tipos.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="mt-3 text-sm text-gray-500 italic">Arquivo configurado: <strong>aula_marcuschi_completa.mp3</strong></p>
+        </div>
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Gêneros e Tipos Textuais</h1>
+            <p class="text-xl text-gray-600">Perspectiva de Luiz Antônio Marcuschi para Concursos EBTT (Fundatec)</p>
+        </header>
+
+        <!-- 1. Definição do Tema -->
+        <section>
+            <h2>1. Definição e Perspectiva Sociointeracionista</h2>
+            <div class="info-card">
+                <p>Segundo Marcuschi, a linguagem é uma <mark class="highlight">forma de ação social</mark>. Os gêneros não são modelos rígidos, mas formas dinâmicas de interação.</p>
+                <ul class="list-disc ml-6 mt-4 space-y-2">
+                    <li><strong>Gêneros Textuais:</strong> São os textos encontrados em nossa vida diária e que apresentam padrões sociocomunicativos (Ex: notícia, tweet, aula, edital).</li>
+                    <li><strong>Tipos Textuais (Sequências):</strong> São sequências linguísticas teóricas definidas por sua natureza interna (Ex: narração, argumentação).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. Comparativo Marcuschi -->
+        <section>
+            <h2>2. Tabela de Memorização: Gênero vs. Tipo</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Gêneros Textuais</th>
+                            <th>Tipos Textuais</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Domínio</strong></td>
+                            <td><mark class="highlight">Sócio-comunicativo (Uso)</mark></td>
+                            <td>Linguístico e Cognitivo (Forma)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Classificação</strong></td>
+                            <td>Critérios funcionais (objetivos sociais)</td>
+                            <td>Critérios gramaticais/estruturais</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flexibilidade</strong></td>
+                            <td>Abertos, históricos, plásticos</td>
+                            <td>Fechados, categorias teóricas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relação</strong></td>
+                            <td>Um gênero pode ter vários tipos</td>
+                            <td>Um tipo pode compor vários gêneros</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. Sequências Textuais -->
+        <section>
+            <h2>3. Tipos de Sequências (Fundatec adora cobrar!)</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="info-card">
+                    <h3 class="font-bold text-lg mb-2">Narrativa</h3>
+                    <p class="text-sm">Foco na <mark class="highlight">mudança de estado</mark> ao longo do tempo. Presença de personagens e cronologia.</p>
+                </div>
+                <div class="info-card">
+                    <h3 class="font-bold text-lg mb-2">Descritiva</h3>
+                    <p class="text-sm">Foco na <mark class="highlight">simultaneidade</mark> e estados no espaço. Verbos de ligação e adjetivação.</p>
+                </div>
+                <div class="info-card">
+                    <h3 class="font-bold text-lg mb-2">Dissertativa/Expositiva</h3>
+                    <p class="text-sm">Foco na <mark class="highlight">informação e explicação</mark>. Ausência de defesa de ponto de vista agressivo.</p>
+                </div>
+                <div class="info-card">
+                    <h3 class="font-bold text-lg mb-2">Dissertativa/Argumentativa</h3>
+                    <p class="text-sm">Foco na <mark class="highlight">persuasão</mark>. Uso de operadores argumentativos e tese.</p>
+                </div>
+                <div class="info-card col-span-full">
+                    <h3 class="font-bold text-lg mb-2">Injuntiva (Instrucional)</h3>
+                    <p class="text-sm">Foco no <mark class="highlight">fazer agir</mark>. Uso predominante de <strong>verbos no imperativo</strong> ou infinitivo com valor de ordem/orientação.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Situação Comunicativa e Variações -->
+        <section>
+            <h2>4. Situação Comunicativa e Variações</h2>
+            <p>O texto só faz sentido dentro de uma <mark class="highlight">situação comunicativa</mark>. Isso envolve:</p>
+            <ul class="list-disc ml-6 mt-4 mb-6">
+                <li><strong>Participantes:</strong> Quem fala/escreve e para quem?</li>
+                <li><strong>Propósito:</strong> Qual a intenção (informar, convencer, ensinar)?</li>
+                <li><strong>Canal/Suporte:</strong> Onde o texto circula (jornal, tela, rádio)?</li>
+            </ul>
+            <p><strong>Variações Linguísticas:</strong> Marcuschi enfatiza o <mark class="highlight">Continuum Oralidade-Escrita</mark>. Não há oposição binária, mas níveis de formalidade que variam conforme a situação, do mais informal ao mais monitorado.</p>
+        </section>
+
+        <!-- 5. Intertextualidade e Intergenericidade -->
+        <section>
+            <h2>5. Intertextualidade e Hibridismo</h2>
+            <div class="info-card bg-gray-50">
+                <p><strong>Intertextualidade:</strong> Diálogo entre textos. Pode ser explícita (citação) ou implícita.</p>
+                <p class="mt-4"><strong>Intergenericidade (Hibridismo):</strong> Conceito chave de Marcuschi. Ocorre quando um gênero assume a <strong>forma</strong> de outro para cumprir sua função social. <mark class="highlight">Exemplo: Uma propaganda com "cara" de bula de remédio.</mark></p>
+            </div>
+        </section>
+
+        <!-- 6. Peguinhas Fundatec -->
+        <section class="trap-box">
+            <h2 class="text-red-800 border-none mt-0">⚠️ Alerta Fundatec (Tendências de Prova)</h2>
+            <div class="space-y-4 text-red-900">
+                <p><strong>1. Confusão Proposital:</strong> A banca vai trocar a definição de "Gênero" pela de "Tipo". Lembre-se: Gênero = Vida Real; Tipo = Gramática.</p>
+                <p><strong>2. O papel do Suporte:</strong> A banca pode dizer que o suporte (jornal, revista) é o gênero. <mark class="highlight">Mentira!</mark> O suporte é apenas o veículo físico.</p>
+                <p><strong>3. Oralidade:</strong> A banca costuma cobrar a visão de Marcuschi de que a fala possui sua própria organização e <mark class="highlight">não é apenas um desvio da norma culta</mark>.</p>
+                <p><strong>4. Retextualização:</strong> Termo comum em provas EBTT. Significa passar um texto de um gênero/modalidade para outro (ex: transformar entrevista oral em artigo escrito).</p>
+            </div>
+        </section>
+
+        <!-- 7. Geografía e EBTT -->
+        <section>
+            <h2>7. Aplicação no IFC (Geografia)</h2>
+            <p>Em cargos de Geografia, a Fundatec costuma aplicar esses conceitos em textos técnicos:</p>
+            <ul class="list-disc ml-6 mt-4">
+                <li><strong>Relatórios de Impacto Ambiental:</strong> Predomínio de sequências expositivas e descritivas.</li>
+                <li><strong>Artigos de Opinião sobre Geopolítica:</strong> Predomínio da sequência argumentativa.</li>
+                <li><strong>Mapas e Gráficos:</strong> Gêneros multimodais que exigem leitura de linguagem não-verbal.</li>
+            </ul>
+        </section>
+
+        <!-- CTA Final -->
+        <div class="pt-10">
+            <a href="generos-e-tiposquestoes.html" class="btn-action">
+                VAMOS PRATICAR: ABRIR QUESTÕES
+            </a>
+            <p class="text-center text-gray-400 text-xs mt-4">Página de Estudo Dirigido - Versão 2.0</p>
+        </div>
+    </div>
+
+</body>
+</html>

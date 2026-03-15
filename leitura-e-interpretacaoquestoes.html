@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Fundatec - Interpretação de Texto</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #3498db;
+            --correct-color: #27ae60;
+            --wrong-color: #e74c3c;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 { font-size: 2rem; color: #1a252f; }
+        h2 { font-size: 1.5rem; margin-top: 30px; color: var(--accent-color); border-left: 5px solid var(--accent-color); padding-left: 15px; }
+        
+        .texto-base {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .questao {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .pergunta-titulo {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .opcoes {
+            list-style: none;
+            padding: 0;
+        }
+
+        .opcao-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            transition: background 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .opcao-item:hover {
+            background-color: #f0f7fd;
+        }
+
+        .opcao-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+        }
+
+        .btn-finalizar {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-finalizar:hover {
+            background-color: #2980b9;
+        }
+
+        #resultado-secao {
+            display: none;
+            margin-top: 50px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .resolucao-card {
+            background: #fdfdfd;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            display: none; /* Só aparece no final */
+        }
+
+        .correta { color: var(--correct-color); font-weight: bold; }
+        .sua-escolha { background-color: #fdf2f2; border-color: #fab1a0; }
+        .opcao-correta { background-color: #e6ffed !important; border-color: #b7eb8f !important; }
+        
+        .marcador-assertiva {
+            display: block;
+            margin-bottom: 10px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Língua Portuguesa</h1>
+        <p>Padrão Fundatec - Teorias de Fiorin e Savioli</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- TEXTO I -->
+        <div class="texto-base">
+            <strong>Texto I: A Mulher Sozinha</strong><br><br>
+            Era magra e estava sempre com o mesmo vestido rasgado. Usava chinelos de feltro, velhíssimos. Ela própria parecia velhíssima, embora de perto mostrasse, sob a sujeira e as rugas, um rosto que era apenas maduro, gasto pela miséria. Acostumei-me a vê-la sentada, de manhã e de tarde, naquele canto, sobre o cimento cheio de poeira. Os que entravam apressados na igreja praticamente a ignoravam e só reparavam nela depois da missa, quando saíam devagar.<br><br>
+            Passando diante da igreja duas vezes por dia, certa cumplicidade criou-se entre nós duas: quando eu tinha tempo e ela não estava agradecendo as esmolas, conversávamos. Contou-me que vivia no outro extremo da cidade e que fazia uma longa caminhada, cedinho, até a estação, para tomar o trem, e outra até o lugar onde nos encontrávamos. Não me explicou por que escolhera um bairro tão distante para mendigar e nada lhe perguntei a respeito, receando lhe ferir a intimidade ou introduzir-me em seu segredo.<br><br>
+            Há uns dois meses encontrei-a radiante, com um pequeno vulto escuro entre os braços: era uma cachorrinha recém-nascida, Maria Isabel, que a mulher ninava e acarinhava com deslumbramento. Disse-me que a recolhera de uma lata de lixo e a batizara logo. Da sacola de palha que sempre trazia consigo retirou uma garrafa d'água e uma colherinha e, com infinita delicadeza, foi entornando algumas gotas na goela da bichinha, que gania baixo, ainda de olhos fechados. A mulher não desgrudava os olhos dela e, remoçada pela alegria e atenção que a cachorrinha ofertava e exigia, deu até para cantar uma música confusa e antiga.<br><br>
+            As duas não apareceram na última semana. Até que ontem o jornaleiro, compungido, contou-me uma das histórias mais tristes que já ouvi. Maria Isabel se transformara numa vira-lata peluda, encantadora, de focinho redondo e olhos de açúcar. Tão linda, que um malvado achou de roubá-la. A mulher passou a noite atrás da cadela, de um lado para o outro da estação, chorando, gemendo, chamando-a por nomes doces e implorantes. Depois sentou-se num banco e ali ficou imóvel, em silêncio, até o dia clarear.
+        </div>
+
+        <!-- QUESTÃO 1 -->
+        <div class="questao" id="q1">
+            <span class="pergunta-titulo">QUESTÃO 01</span>
+            <p>Com base na leitura do Texto I e na teoria de identificação de ideias principais e secundárias, analise as assertivas abaixo:</p>
+            <span class="marcador-assertiva">I. O núcleo informativo central que sustenta a progressão narrativa do texto é a transformação do estado de espírito da mulher a partir da relação de afeto estabelecida com o animal de estimação.</span>
+            <span class="marcador-assertiva">II. A descrição detalhada da aparência da mulher no primeiro parágrafo atua como uma ideia secundária que visa fundamentar a caracterização da personagem em sua condição de miséria extrema.</span>
+            <span class="marcador-assertiva">III. A rotina de mendicância em um bairro distante constitui a ideia principal do segundo parágrafo, subordinando as informações sobre a cumplicidade entre a narradora e a mulher.</span>
+            
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="opcao-item"><input type="radio" name="q1" value="B"> B) Apenas II.</label>
+                <label class="opcao-item"><input type="radio" name="q1" value="C"> C) Apenas I e II.</label>
+                <label class="opcao-item"><input type="radio" name="q1" value="D"> D) Apenas II e III.</label>
+                <label class="opcao-item"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolucao-card" id="res-q1">
+                <strong>Resolução:</strong> O núcleo informativo central é a relação de afeto e sua perda (I correta). A descrição da miséria é secundária para situar o cenário (II correta). No 2º parágrafo, a ideia principal é a "cumplicidade", sendo a rotina um detalhe secundário (III incorreta). <strong>Gabarito: C</strong>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 2 -->
+        <div class="questao" id="q2">
+            <span class="pergunta-titulo">QUESTÃO 02</span>
+            <p>No que concerne à análise de elementos implícitos e subentendidos, conforme a perspectiva de José Luiz Fiorin e Francisco Platão Savioli, avalie as afirmações:</p>
+            <span class="marcador-assertiva">I. O uso do adjetivo "remoçada" instaura um pressuposto linguístico de que a personagem apresentava, anteriormente, um aspecto envelhecido ou desgastado.</span>
+            <span class="marcador-assertiva">II. A passagem "Os que entravam apressados na igreja praticamente a ignoravam" carrega o subentendido de uma crítica à indiferença religiosa.</span>
+            <span class="marcador-assertiva">III. O advérbio "ainda" em "ainda de olhos fechados" funciona como um marcador de pressuposição, indicando que o estado de cegueira era transitório.</span>
+
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q2" value="A"> A) Apenas I.</label>
+                <label class="opcao-item"><input type="radio" name="q2" value="B"> B) Apenas II.</label>
+                <label class="opcao-item"><input type="radio" name="q2" value="C"> C) Apenas I e II.</label>
+                <label class="opcao-item"><input type="radio" name="q2" value="D"> D) Apenas II e III.</label>
+                <label class="opcao-item"><input type="radio" name="q2" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolucao-card" id="res-q2">
+                <strong>Resolução:</strong> "Remoçar" pressupõe velhice anterior (I). O contexto social gera o subentendido da crítica (II). "Ainda" é marcador clássico de pressuposição de mudança futura (III). Todas corretas. <strong>Gabarito: E</strong>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 3 -->
+        <div class="questao" id="q3">
+            <span class="pergunta-titulo">QUESTÃO 03</span>
+            <p>Sobre os efeitos de sentido no discurso no Texto I, assinale a alternativa <strong>INCORRETA</strong>:</p>
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q3" value="A"> A) O uso dos dois pontos na linha 11 produz um efeito de sentido explicativo.</label>
+                <label class="opcao-item"><input type="radio" name="q3" value="B"> B) A expressão "olhos de açúcar" constitui uma metáfora de doçura e afetividade.</label>
+                <label class="opcao-item"><input type="radio" name="q3" value="C"> C) A conjunção "embora" estabelece uma relação de concessão.</label>
+                <label class="opcao-item"><input type="radio" name="q3" value="D"> D) O termo "compungido" é empregado para descrever a neutralidade do jornaleiro.</label>
+                <label class="opcao-item"><input type="radio" name="q3" value="E"> E) Os gerúndios "chorando, gemendo, chamando-a" criam efeito de continuidade da dor.</label>
+            </div>
+            <div class="resolucao-card" id="res-q3">
+                <strong>Resolução:</strong> "Compungido" significa pesaroso ou triste, o que é o oposto de neutralidade. O jornaleiro estava emocionado com a história. <strong>Gabarito: D</strong>
+            </div>
+        </div>
+
+        <!-- TEXTO II -->
+        <div class="texto-base">
+            <strong>Texto II: Inteligência Artificial e Realidade Digital</strong><br><br>
+            A meio de IA, existe uma questão que vai além do uso de imagem. É necessário redobrar a atenção sobre o posicionamento e se questionar antes de usar.<br><br>
+            Por meio da análise de milhões de dados, as máquinas são capazes de perceber variáveis, tomar decisões e resolver problemas. São softwares e robôs que operam em uma lógica semelhante ao raciocínio humano. Essa ideia ainda pode parecer um tanto futurista, mas já está bem presente e provocando verdadeiras transformações nas mais diversas áreas. No comércio online, ela oferece opções de compra. Na área da saúde, permite ganhos que vão do diagnóstico ao tratamento. Ainda que a IA não possa substituir a sensibilidade de um ser humano, ela é capaz de perceber detalhes que médico algum poderia ver.
+        </div>
+
+        <!-- QUESTÃO 4 -->
+        <div class="questao" id="q4">
+            <span class="pergunta-titulo">QUESTÃO 04</span>
+            <p>Considerando a distinção entre fato e opinião, assinale a alternativa que apresenta um fragmento de natureza eminentemente <strong>OPINATIVA</strong>:</p>
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q4" value="A"> A) "A Inteligência Artificial (IA) é uma tecnologia que busca reproduzir a inteligência humana...".</label>
+                <label class="opcao-item"><input type="radio" name="q4" value="B"> B) "Por meio da análise de milhões de dados, as máquinas são capazes de perceber variáveis".</label>
+                <label class="opcao-item"><input type="radio" name="q4" value="C"> C) "Essa ideia ainda pode parecer um tanto futurista".</label>
+                <label class="opcao-item"><input type="radio" name="q4" value="D"> D) "No comércio online, ela oferece opções de compra".</label>
+                <label class="opcao-item"><input type="radio" name="q4" value="E"> E) "As máquinas são softwares e robôs que operam em uma lógica semelhante ao raciocínio humano".</label>
+            </div>
+            <div class="resolucao-card" id="res-q4">
+                <strong>Resolução:</strong> O uso do verbo "parecer" e do quantificador "um tanto" indica um juízo de valor subjetivo do autor, configurando opinião. <strong>Gabarito: C</strong>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 5 -->
+        <div class="questao" id="q5">
+            <span class="pergunta-titulo">QUESTÃO 05</span>
+            <p>Sobre a estruturação das ideias no Texto II, analise as assertivas:</p>
+            <span class="marcador-assertiva">I. O uso da conjunção "Entretanto" marca uma relação de oposição.</span>
+            <span class="marcador-assertiva">II. O advérbio "já" em "mas já está bem presente" instaura o pressuposto de realidade consolidada.</span>
+            <span class="marcador-assertiva">III. O adjetivo "novo" permite pressupor a existência de recursos tecnológicos anteriores.</span>
+
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q5" value="A"> A) Apenas I.</label>
+                <label class="opcao-item"><input type="radio" name="q5" value="B"> B) Apenas II.</label>
+                <label class="opcao-item"><input type="radio" name="q5" value="C"> C) Apenas I e II.</label>
+                <label class="opcao-item"><input type="radio" name="q5" value="D"> D) Apenas II e III.</label>
+                <label class="opcao-item"><input type="radio" name="q5" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolucao-card" id="res-q5">
+                <strong>Resolução:</strong> "Entretanto" é adversativo (I). "Já" pressupõe que algo que era futuro agora é presente (II). "Novo" pressupõe algo anterior "velho" (III). Todas corretas. <strong>Gabarito: E</strong>
+            </div>
+        </div>
+
+        <!-- TEXTO III -->
+        <div class="texto-base">
+            <strong>Texto III: O Wall-E do Espaço</strong><br><br>
+            Pesquisadores estão criando um “Wall-E do espaço” para limpar a órbita da Terra. Um fato preocupante é que a quantidade observada de detritos está crescendo mais depressa do que a taxa em que novos objetos são colocados no espaço. Pequeno ou grande, qualquer lixo espacial pode fazer estragos em espaçonaves, satélites ou estações espaciais: eles viajam a 28,2 mil quilômetros por hora. O projeto visa criar um robô autônomo capaz de identificar e coletar amontoados de detritos que, se não removidos, podem inviabilizar futuras missões espaciais.
+        </div>
+
+        <!-- QUESTÃO 6 -->
+        <div class="questao" id="q6">
+            <span class="pergunta-titulo">QUESTÃO 06</span>
+            <p>Analise a relação entre as ideias e os efeitos de sentido no Texto III:</p>
+            <span class="marcador-assertiva">I. A expressão "Wall-E do espaço" utiliza intertextualidade que pressupõe conhecimento cinematográfico do leitor.</span>
+            <span class="marcador-assertiva">II. A indicação da velocidade de "28,2 mil quilômetros por hora" constitui um dado factual.</span>
+            <span class="marcador-assertiva">III. O uso dos dois pontos na linha 04 introduz uma oração que explica a razão dos estragos.</span>
+
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q6" value="A"> A) Apenas I e II.</label>
+                <label class="opcao-item"><input type="radio" name="q6" value="B"> B) Apenas I e III.</label>
+                <label class="opcao-item"><input type="radio" name="q6" value="C"> C) Apenas II e III.</label>
+                <label class="opcao-item"><input type="radio" name="q6" value="D"> D) Apenas I.</label>
+                <label class="opcao-item"><input type="radio" name="q6" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolucao-card" id="res-q6">
+                <strong>Resolução:</strong> Referência ao filme (I). Velocidade é dado objetivo (II). Os dois pontos explicam a causa do estrigo ser a velocidade (III). Todas corretas. <strong>Gabarito: E</strong>
+            </div>
+        </div>
+
+        <!-- TEXTO IV -->
+        <div class="texto-base">
+            <strong>Texto IV: Notícia e Factualidade</strong><br><br>
+            O escritor morreu por volta de 18h30 de segunda-feira. O fato registra o fim de uma trajetória literária marcada pela reclusão. Dalton Trevisan, conhecido pelo epíteto de "Vampiro de Curitiba", desejava ser cremado e deixou instruções claras sobre a simplicidade de seu velório. Em seus últimos momentos, teria questionado de forma enigmática: "Estou desaparecendo?". A cerimônia foi restrita à família, mantendo a coerência com sua postura discreta em vida.
+        </div>
+
+        <!-- QUESTÃO 7 -->
+        <div class="questao" id="q7">
+            <span class="pergunta-titulo">QUESTÃO 07</span>
+            <p>Assinale a alternativa que descreve corretamente um elemento do Texto IV:</p>
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q7" value="A"> A) A menção ao horário "18h30" é uma informação subjetiva.</label>
+                <label class="opcao-item"><input type="radio" name="q7" value="B"> B) O desejo de ser cremado é apresentado como um fato verificável da vontade expressa.</label>
+                <label class="opcao-item"><input type="radio" name="q7" value="C"> C) O adjetivo "enigmática" é um relato factual puro.</label>
+                <label class="opcao-item"><input type="radio" name="q7" value="D"> D) "Vampiro de Curitiba" subentende hábitos alimentares sobrenaturais.</label>
+                <label class="opcao-item"><input type="radio" name="q7" value="E"> E) A discrição em vida é um fato científico comprovado por laboratórios.</label>
+            </div>
+            <div class="resolucao-card" id="res-q7">
+                <strong>Resolução:</strong> Vontades expressas são tratadas como fatos biográficos no contexto jornalístico. Horário é fato (A errada). Enigmática é opinião (C errada). Vampiro é apelido literário (D errada). Discrição não é dado laboratorial (E errada). <strong>Gabarito: B</strong>
+            </div>
+        </div>
+
+        <!-- TEXTO V -->
+        <div class="texto-base">
+            <strong>Texto V: Heavy Metal e Saúde</strong><br><br>
+            Estudo conclui que heavy metal é tranquilizador para os apreciadores. Que a música é capaz de mudar os sentimentos de uma pessoa, todos sabem. Pretende-se estender o achado da pesquisa com a apresentação da opinião da especialista, mostrando que o heavy metal funciona na situação apresentada porque se relaciona com a preferência musical dos pacientes, não estando os resultados ligados a um gênero específico. A terapia e o tratamento feitos com música são usados para que o indivíduo perceba não só sua condição psicológica, mas também física.
+        </div>
+
+        <!-- QUESTÃO 8 -->
+        <div class="questao" id="q8">
+            <span class="pergunta-titulo">QUESTÃO 08</span>
+            <p>Sobre o Texto V, analise as assertivas:</p>
+            <span class="marcador-assertiva">I. A ideia principal é que o heavy metal é o único gênero capaz de gerar tranquilidade.</span>
+            <span class="marcador-assertiva">II. A frase "todos sabem" evoca um subentendido baseado no senso comum.</span>
+            <span class="marcador-assertiva">III. A expressão "não só... mas também" estabelece uma relação de adição.</span>
+
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q8" value="A"> A) Apenas I e II.</label>
+                <label class="opcao-item"><input type="radio" name="q8" value="B"> B) Apenas I e III.</label>
+                <label class="opcao-item"><input type="radio" name="q8" value="C"> C) Apenas II e III.</label>
+                <label class="opcao-item"><input type="radio" name="q8" value="D"> D) Apenas II.</label>
+                <label class="opcao-item"><input type="radio" name="q8" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolucao-card" id="res-q8">
+                <strong>Resolução:</strong> O texto diz que não é restrito a um gênero (I incorreta). "Todos sabem" apela ao conhecimento compartilhado (II). "Não só... mas também" é aditivo (III). <strong>Gabarito: C</strong>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 9 -->
+        <div class="questao" id="q9">
+            <span class="pergunta-titulo">QUESTÃO 09</span>
+            <p>Preencha as lacunas conforme as definições de Fiorin e Savioli:</p>
+            <p>Os __________ são informações que decorrem logicamente de marcas linguísticas explícitas. Já os __________ são insinuações que dependem da interpretação do leitor a partir do contexto.</p>
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q9" value="A"> A) pressupostos – subentendidos.</label>
+                <label class="opcao-item"><input type="radio" name="q9" value="B"> B) subentendidos – pressupostos.</label>
+                <label class="opcao-item"><input type="radio" name="q9" value="C"> C) fatos – opiniões.</label>
+                <label class="opcao-item"><input type="radio" name="q9" value="D"> D) efeitos de sentido – subentendidos.</label>
+                <label class="opcao-item"><input type="radio" name="q9" value="E"> E) elementos implícitos – marcadores textuais.</label>
+            </div>
+            <div class="resolucao-card" id="res-q9">
+                <strong>Resolução:</strong> Pressupostos têm marca no texto. Subentendidos são deduzidos pelo contexto (pragmática). <strong>Gabarito: A</strong>
+            </div>
+        </div>
+
+        <!-- QUESTÃO 10 -->
+        <div class="questao" id="q10">
+            <span class="pergunta-titulo">QUESTÃO 10</span>
+            <p>No Texto II, o termo "sensibilidade" produz o efeito de sentido de:</p>
+            <div class="opcoes">
+                <label class="opcao-item"><input type="radio" name="q10" value="A"> A) Inferioridade técnica da máquina.</label>
+                <label class="opcao-item"><input type="radio" name="q10" value="B"> B) Irrelevância do fator humano.</label>
+                <label class="opcao-item"><input type="radio" name="q10" value="C"> C) Valorização da dimensão subjetiva e emocional humana.</label>
+                <label class="opcao-item"><input type="radio" name="q10" value="D"> D) Indiferença ética quanto ao uso de tecnologias.</label>
+                <label class="opcao-item"><input type="radio" name="q10" value="E"> E) Oposição factual entre rapidez e lentidão.</label>
+            </div>
+            <div class="resolucao-card" id="res-q10">
+                <strong>Resolução:</strong> O termo demarca o limite da IA: ela processa dados, mas não sente. Valoriza-se a subjetividade humana. <strong>Gabarito: C</strong>
+            </div>
+        </div>
+
+        <button type="button" class="btn-finalizar" onclick="finalizarQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="resultado-secao">
+        <div class="score-box">
+            <h2 style="border:none; padding:0;">Resultado do Simulado</h2>
+            <p id="total-acertos">Você acertou X de 10 questões.</p>
+        </div>
+        <p>Abaixo você pode conferir as resoluções detalhadas em cada questão acima.</p>
+        <button type="button" class="btn-finalizar" style="background:#7f8c8d" onclick="window.scrollTo(0,0)">Voltar ao Topo</button>
+    </div>
+</div>
+
+<script>
+    const gabarito = {
+        q1: 'C', q2: 'E', q3: 'D', q4: 'C', q5: 'E',
+        q6: 'E', q7: 'B', q8: 'C', q9: 'A', q10: 'C'
+    };
+
+    function finalizarQuiz() {
+        let acertos = 0;
+        const form = document.getElementById('quiz-form');
+        
+        for (let i = 1; i <= 10; i++) {
+            const questaoKey = 'q' + i;
+            const selecionada = form.elements[questaoKey].value;
+            const correta = gabarito[questaoKey];
+            const questaoDiv = document.getElementById(questaoKey);
+            const resolucaoDiv = document.getElementById('res-' + questaoKey);
+
+            // Mostrar resolução
+            resolucaoDiv.style.display = 'block';
+
+            // Marcar opções
+            const opcoesItems = questaoDiv.querySelectorAll('.opcao-item');
+            opcoesItems.forEach(item => {
+                const input = item.querySelector('input');
+                if (input.value === correta) {
+                    item.classList.add('opcao-correta');
+                }
+                if (input.checked && input.value !== correta) {
+                    item.classList.add('sua-escolha');
+                }
+            });
+
+            if (selecionada === correta) {
+                acertos++;
+            }
+        }
+
+        // Mostrar placar
+        document.getElementById('total-acertos').innerText = `Você acertou ${acertos} de 10 questões.`;
+        document.getElementById('resultado-secao').style.display = 'block';
+        
+        // Rolar para o resultado
+        document.getElementById('resultado-secao').scrollIntoView({ behavior: 'smooth' });
+
+        // Desativar inputs para não mudar depois de ver o gabarito
+        const allInputs = document.querySelectorAll('input[type="radio"]');
+        allInputs.forEach(input => input.disabled = true);
+        document.querySelector('.btn-finalizar').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
