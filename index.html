@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudelelezinha - Sua Caminhada rumo à Aprovação</title>
+    <title>Estudelele - Sua Caminhada rumo à Aprovação</title>
     
     <!-- Importação do Tailwind CSS para estilização rápida e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -146,27 +146,50 @@
             </div>
         </header>
 
-        <!-- GRADE DE AULAS (AQUI É ONDE A MÁGICA ACONTECE) -->
-        <!-- O grid-cols-4 garante as 4 aulas por linha em telas desktop -->
+        <!-- GRADE DE AULAS -->
         <div id="lessons-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-y-16 gap-x-12 max-w-4xl px-8 items-start justify-items-center">
             <!-- Os botões das aulas serão injetados aqui pelo JavaScript -->
         </div>
     </main>
 
     <script>
-        /* BANCO DE DADOS DAS AULAS:
-           Para adicionar uma nova aula, basta incluir o nome do tópico na lista correspondente.
-        */
+        /* BANCO DE DADOS DAS AULAS ATUALIZADO COM O DOCUMENTO DE GEOGRAFIA */
         const lessonsData = {
             geografia: {
                 title: "Geografia",
                 colorClass: "bg-geo",
                 icon: "fa-earth-americas",
                 topics: [
-                    "Fundamentos Epistemológicos", "Cartografia Geral", "Geotecnologias", "Geomorfologia e Pedologia",
-                    "Climatologia Dinâmica", "Domínios Morfoclimáticos", "Hidrografia Brasileira", "Questão Ambiental",
-                    "Geografia da População", "Urbanização Brasileira", "Geografia Agrária", "Geografia Econômica",
-                    "Regionalização do Brasil", "Geopolítica Mundial", "Metodologia do Ensino"
+                    "História e Epistemologia da Geografia", 
+                    "Categorias de Análise Geográfica", 
+                    "Fundamentos da Cartografia e Escalas", 
+                    "Projeções Cartográficas e Geopolítica do Olhar", 
+                    "Cartografia Temática e Linguagem Visual", 
+                    "Sensoriamento Remoto e Coleta de Dados", 
+                    "Sistemas de Informação Geográfica (SIG) e Análise Espacial", 
+                    "Geoprocessamento Aplicado ao Planejamento Territorial", 
+                    "Estrutura Interna da Terra e Tectônica de Placas", 
+                    "Geomorfologia I: Processos Endógenos e Formação do Relevo", 
+                    "Geomorfologia II: Processos Exógenos e Modelado da Paisagem", 
+                    "Pedologia e Dinâmica dos Solos no Brasil", 
+                    "Climatologia Dinâmica e Atuação das Massas de Ar", 
+                    "Hidrografia e Gestão de Bacias Hidrográficas", 
+                    "Biogeografia e os Domínios Morfoclimáticos de Ab'Sáber", 
+                    "Questão Ambiental, Riscos e Vulnerabilidades", 
+                    "Sustentabilidade e Mudanças Climáticas Globais", 
+                    "Teorias Demográficas e Transição Populacional", 
+                    "Dinâmica Populacional e Mobilidade no Brasil", 
+                    "Processo de Urbanização Mundial e Brasileira", 
+                    "Metropolização e Segregação Socioespacial", 
+                    "Capitalismo, Globalização e Reestruturação Produtiva", 
+                    "Divisão Internacional do Trabalho (DIT) e Redes Técnicas", 
+                    "Blocos Econômicos e Integração Regional", 
+                    "Espaço Agrário: Conflitos e Estrutura Fundiária", 
+                    "Agronegócio vs. Agricultura Familiar", 
+                    "Industrialização e Organização do Espaço Brasileiro", 
+                    "Geopolítica Mundial Pós-Guerra Fria e Conflitos", 
+                    "Metodologias Ativas e Ensino de Geografia na EPT", 
+                    "Geografia Aplicada aos Eixos Tecnológicos e Políticas Públicas"
                 ]
             },
             pedagogia: {
@@ -203,8 +226,7 @@
 
         /**
          * FUNÇÃO SLUGIFY: 
-         * Transforma o nome da aula em um formato aceitável para arquivo.
-         * Ex: "Geografia da População" vira "geografia-da-populacao"
+         * Transforma o nome da aula em um formato aceitável para arquivo .html
          */
         function slugify(text) {
             return text.toString().toLowerCase()
@@ -218,7 +240,7 @@
 
         /**
          * FUNÇÃO PARA MUDAR A MATÉRIA:
-         * Limpa o grid atual e gera os novos botões com seus respectivos nomes de arquivos.
+         * Renderiza os botões com os nomes dos arquivos prontos.
          */
         function changeSubject(subjectKey) {
             const subject = lessonsData[subjectKey];
@@ -226,26 +248,20 @@
             const title = document.getElementById('subject-title');
             const progressBar = document.getElementById('progress-bar');
             
-            // 1. Atualiza visual do menu lateral
             document.querySelectorAll('.sidebar-item').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${subjectKey}`).classList.add('active');
 
-            // 2. Atualiza cabeçalho e progresso fictício
             title.innerText = subject.title;
             progressBar.style.width = '10%'; 
 
-            // 3. Limpa as aulas antigas
             grid.innerHTML = '';
             
             console.log(`--- LISTA DE ARQUIVOS PARA: ${subject.title} ---`);
 
-            // 4. Cria cada botão de aula
             subject.topics.forEach((topic) => {
                 const slug = slugify(topic);
-                // ESTE É O NOME DO ARQUIVO QUE VOCÊ DEVE CRIAR: ex: geografia-geopolitica-mundial.html
                 const fileName = `${subjectKey}-${slug}.html`;
                 
-                // Log no console para você copiar e colar os nomes dos arquivos
                 console.log(`Criar: ${fileName}`);
 
                 const node = document.createElement('div');
@@ -264,10 +280,9 @@
             });
         }
 
-        // Inicia o site carregando a matéria de Geografia por padrão
         window.onload = () => {
             changeSubject('geografia');
-            console.log("DICA: Abra o console (F12) para ver a lista de nomes de arquivos que você precisa criar!");
+            console.log("DICA: Abra o console (F12) para ver a lista de nomes de arquivos das 30 aulas de Geografia!");
         };
     </script>
 </body>
