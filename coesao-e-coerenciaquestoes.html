@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Coesão e Coerência - Ingedore Koch (Fundatec)</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --incorrect-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+            --max-width: 850px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: var(--max-width);
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 { font-size: 1.8rem; color: #1a1a1a; }
+        p.subtitle { color: #636e72; font-style: italic; }
+
+        .quiz-container {
+            width: 100%;
+            max-width: var(--max-width);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-finish {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-finish:hover {
+            background-color: #0873c4;
+            transform: translateY(-2px);
+        }
+
+        #result-section, #resolution-section {
+            display: none;
+            width: 100%;
+            max-width: var(--max-width);
+            margin-top: 20px;
+        }
+
+        .score-box {
+            background: var(--accent-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-box h2 { margin: 0; font-size: 2.5rem; }
+
+        .resolution-title {
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin: 50px 0 30px;
+            color: #1a1a1a;
+        }
+
+        .res-item {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .res-item h3 { margin-top: 0; color: var(--accent-color); border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        table th, table td {
+            border: 1px solid #dfe6e9;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th { background: #f8f9fa; }
+
+        .correct-answer { background-color: #d1f2eb !important; border-color: var(--correct-color) !important; }
+        .wrong-answer { background-color: #fadbd8 !important; border-color: var(--incorrect-color) !important; }
+
+        pre { white-space: pre-wrap; word-wrap: break-word; font-family: inherit; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Simulado: Coesão e Coerência Textual</h1>
+        <p class="subtitle">Baseado na obra de Ingedore Villaça Koch - Padrão Banca Fundatec</p>
+    </header>
+
+    <div class="quiz-container" id="quiz">
+        <!-- Questão 01 -->
+        <div class="question-card" data-id="q1" data-correct="C">
+            <span class="question-text">Questão 01: Analise as assertivas abaixo (V ou F) segundo Ingedore Koch:</span>
+            <p>( ) Coesão são marcas de superfície que orientam o sentido.<br>
+               ( ) A coerência reside exclusivamente na organização sintática, independente do receptor.<br>
+               ( ) Coesão referencial faz remissão a elementos presentes ou inferíveis.<br>
+               ( ) Retomada de termos e encadeamento auxiliam na progressão do fluxo.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) V – V – F – F.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) F – V – V – F.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) V – F – V – V.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) F – F – V – V.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) V – V – V – V.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-id="q2" data-correct="A">
+            <span class="question-text">Questão 02: Analise as ocorrências do pronome "tudo":</span>
+            <p>"A inteligência artificial tem avançado... **Tudo** isso exige uma nova postura... entenda que **tudo** o que ele compartilha deixa um rastro."</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) Anáfora – Catáfora.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) Catáfora – Anáfora.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) Anáfora – Anáfora.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) Catáfora – Catáfora.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) Dêixis – Anáfora.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-id="q3" data-correct="B">
+            <span class="question-text">Questão 03: Identifique o processo de progressão temática predominante:</span>
+            <p>"O Pantanal é um bioma único... Essa planície alagada abriga... O ecossistema pantaneiro enfrenta..."</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) Progressão temática linear.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) Progressão com tema constante.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) Progressão com subdivisão do rema.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) Progressão com salto temático.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) Progressão por temas derivados.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-id="q4" data-correct="C">
+            <span class="question-text">Questão 04: Qual alternativa apresenta, obrigatoriamente, uma estrutura CATA FÓRICA?</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) Paulo e João foram ao mercado; este comprou frutas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) A inflação voltou a subir. Esse fenômeno econômico castiga.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) Só desejo isto: que a ética prevaleça nas relações.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) Maria saiu cedo de casa. Ela tinha uma reunião importante.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) Os alunos estudaram com afinco. Foram, por isso, aprovados.</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-id="q5" data-correct="A">
+            <span class="question-text">Questão 05: Defina as relações semânticas dos termos destacados:</span>
+            <p>"...preparou-se exaustivamente. **No entanto**, o nervosismo prejudicou... **visto que** não conseguiu organizar o tempo."</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) Oposição e Causa.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) Conclusão e Explicação.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) Adição e Consequência.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) Concessão e Finalidade.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) Condição e Proporção.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-id="q6" data-correct="C">
+            <span class="question-text">Questão 06: Analise as assertivas sobre processos de referenciação (Koch):</span>
+            <p>I. Referenciação é atividade discursiva (objetos do discurso).<br>
+               II. Elipse é recurso coesivo sintático com valor referencial.<br>
+               III. Pro-formas verbais são exemplos de coesão por substituição.<br>
+               IV. Repetição de palavras prejudica a qualidade do texto sempre.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) Apenas I, II e III.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) Apenas III e IV.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) I, II, III e IV.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-id="q7" data-correct="B">
+            <span class="question-text">Questão 07: Demonstre a progressão do fragmento:</span>
+            <p>"Políticas devem priorizar a formação docente. Tais iniciativas impactam o ensino. Esta é o alicerce fundamental."</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) Progressão com tema constante.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) Progressão linear.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) Progressão com salto temático.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) Progressão por desenvolvimento de tema subdividido.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) Progressão com temas derivados.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-id="q8" data-correct="B">
+            <span class="question-text">Questão 08: Sobre a construção de sentidos (Koch e Elias):</span>
+            <p>I. Coerência é princípio de interpretabilidade.<br>
+               II. Coesão garante automaticamente a coerência.<br>
+               III. Intertextualidade contribui para a coerência.<br>
+               IV. Conhecimentos prévios são irrelevantes na anáfora associativa.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) I e II, apenas.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) I e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) II e III, apenas.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) I, III e IV, apenas.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) II, III e IV, apenas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-id="q9" data-correct="C">
+            <span class="question-text">Questão 09: Exemplo de coesão referencial por substituição utilizando "palavra-ônibus":</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) O médico chegou... O profissional estava atendendo.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) Comprou um computador... O aparelho é rápido.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) Ele esqueceu a chave... Essa coisa sempre acontece.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) Visitamos Paris... A cidade estava repleta.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) As crianças jogavam bola... Elas pareciam felizes.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-id="q10" data-correct="C">
+            <span class="question-text">Questão 10: Sobre organizadores textuais:</span>
+            <p>I. "Em primeiro lugar" orienta ordenação lógica.<br>
+               II. Advérbios de tempo situam eventos na linha temporal.<br>
+               III. São fundamentais para fluxo sem rupturas.<br>
+               IV. Dispensam a necessidade de coerência temática.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) Apenas III e IV.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) Apenas I, II e III.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Apenas II, III e IV.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) I, II, III e IV.</label>
+            </div>
+        </div>
+
+        <button class="btn-finish" onclick="finishQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </div>
+
+    <div id="result-section">
+        <div class="score-box">
+            <p>Seu Resultado:</p>
+            <h2 id="final-score">0/10</h2>
+            <p id="score-msg"></p>
+        </div>
+    </div>
+
+    <div id="resolution-section">
+        <h2 class="resolution-title">Gabarito Comentado e Resoluções Detalhadas</h2>
+        
+        <div class="res-item">
+            <h3>Resolução Questão 01: Fundamentos da Textualidade</h3>
+            <p>Koch define a coesão como marcas de superfície (I-V). A coerência não é inerente ao texto, mas um princípio de interpretabilidade (II-F). A coesão referencial remete a elementos textuais ou inferíveis (III-V). Retomada e encadeamento garantem progressão (IV-V).</p>
+            <p><strong>Gabarito: C</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 02: Mecanismos de Referenciação</h3>
+            <p>O primeiro "Tudo" é anafórico (retoma a frase anterior sobre IA). O segundo "tudo" é catafórico (antecipa a oração "o que ele compartilha").</p>
+            <table>
+                <tr><th>Termo</th><th>Tipo</th></tr>
+                <tr><td>Tudo (1º)</td><td>Anáfora</td></tr>
+                <tr><td>Tudo (2º)</td><td>Catáfora</td></tr>
+            </table>
+            <p><strong>Gabarito: A</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 03: Progressão Temática</h3>
+            <p>O tema "O Pantanal" é mantido em todas as sentenças ("Essa planície", "O ecossistema pantaneiro"), caracterizando o modelo de tema constante.</p>
+            <p><strong>Gabarito: B</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 04: Anáfora vs Catáfora</h3>
+            <p>Na alternativa C, "isto" aponta para a informação que vem depois dos dois-pontos, sendo obrigatoriamente catafórico.</p>
+            <p><strong>Gabarito: C</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 05: Coesão Sequencial</h3>
+            <p>"No entanto" estabelece oposição. "Visto que" introduz a causa do baixo desempenho.</p>
+            <p><strong>Gabarito: A</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 06: Processos de Referenciação</h3>
+            <p>A repetição (iteração) é um recurso legítimo e necessário em muitos contextos para garantir a ênfase ou progressão, não sendo sempre prejudicial (IV-F).</p>
+            <p><strong>Gabarito: C</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 07: Progressão Linear</h3>
+            <p>O rema de uma frase vira o tema da próxima (Formação docente -> Tais iniciativas; Ensino básico -> Esta), caracterizando o modelo linear ou "em cascata".</p>
+            <p><strong>Gabarito: B</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 08: Dimensões da Coerência</h3>
+            <p>Coesão não garante coerência automaticamente (II-F). Anáfora associativa depende criticamente do conhecimento enciclopédico do leitor (IV-F).</p>
+            <p><strong>Gabarito: B</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 09: Palavra-Ônibus</h3>
+            <p>A palavra "coisa" é o exemplo clássico de substantivo genérico (palavra-ônibus) usado para substituir conceitos complexos de forma imprecisa mas coesa.</p>
+            <p><strong>Gabarito: C</strong></p>
+        </div>
+
+        <div class="res-item">
+            <h3>Resolução Questão 10: Marcadores de Articulação</h3>
+            <p>A organização formal (marcadores) nunca dispensa o sentido (coerência temática). Um texto pode estar bem articulado e ainda ser absurdo (IV-F).</p>
+            <p><strong>Gabarito: C</strong></p>
+        </div>
+    </div>
+
+    <script>
+        function finishQuiz() {
+            const quiz = document.getElementById('quiz');
+            const questions = document.querySelectorAll('.question-card');
+            let score = 0;
+            let total = questions.length;
+
+            questions.forEach(q => {
+                const qId = q.getAttribute('data-id');
+                const correct = q.getAttribute('data-correct');
+                const selected = document.querySelector(`input[name="${qId}"]:checked`);
+                
+                // Reset colors
+                const labels = q.querySelectorAll('.option-item');
+                labels.forEach(l => l.classList.remove('correct-answer', 'wrong-answer'));
+
+                if (selected) {
+                    if (selected.value === correct) {
+                        score++;
+                        selected.parentElement.classList.add('correct-answer');
+                    } else {
+                        selected.parentElement.classList.add('wrong-answer');
+                        // Show correct one too
+                        q.querySelector(`input[value="${correct}"]`).parentElement.classList.add('correct-answer');
+                    }
+                } else {
+                    // Highlight correct if none selected
+                    q.querySelector(`input[value="${correct}"]`).parentElement.classList.add('correct-answer');
+                }
+            });
+
+            // Show results
+            document.getElementById('final-score').innerText = `${score} / ${total}`;
+            document.getElementById('result-section').style.display = 'block';
+            document.getElementById('resolution-section').style.display = 'block';
+
+            let msg = "";
+            if (score === total) msg = "Excelente! Você domina a obra de Koch.";
+            else if (score >= 7) msg = "Muito bom! Revise apenas os pontos onde houve dúvida.";
+            else msg = "Continue estudando. A coesão e coerência são pilares da Fundatec.";
+            document.getElementById('score-msg').innerText = msg;
+
+            // Scroll to results
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+            
+            // Disable inputs
+            document.querySelectorAll('input[type="radio"]').forEach(i => i.disabled = true);
+            document.querySelector('.btn-finish').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
