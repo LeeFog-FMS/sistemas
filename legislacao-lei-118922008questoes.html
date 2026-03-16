@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Lei nº 11.892/2008 - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #2980b9;
+            --border-color: #e0e0e0;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-top: 5px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Status colors for after submission */
+        .option-item.correct {
+            background-color: #e8f5e9;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-item.wrong {
+            background-color: #ffebee;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f6391;
+        }
+
+        #results-container {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            border: 1px solid #cce5ff;
+            text-align: center;
+        }
+
+        #score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .resolution-section h2 {
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 10px;
+        }
+
+        .resolution-item {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--accent-color);
+        }
+
+        .math {
+            font-style: italic;
+            font-family: serif;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Lei Federal nº 11.892/2008</h1>
+        <p>Institui a Rede Federal de Educação Profissional, Científica e Tecnológica.</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" data-q="1">
+            <span class="question-header">Questão 01</span>
+            <div class="question-text">Com base na Lei nº 11.892/2008, analise a seguinte afirmação sobre a natureza jurídica dessas instituições:
+
+Os Institutos Federais são instituições de educação superior, básica e profissional, pluricurriculares e multicampi, especializados na oferta de educação profissional e tecnológica nas diferentes modalidades de ensino, detendo a natureza jurídica de ______________, vinculados ao Ministério da Educação. No desenvolvimento de sua ação acadêmica, os Institutos Federais são ______________ às universidades federais para efeito da incidência das disposições que regem a regulação, avaliação e supervisão das instituições e dos cursos de educação superior.
+
+Assinale a alternativa que preenche, correta e respectivamente, as lacunas do trecho acima.</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q1" value="A" id="q1a"> <label for="q1a">A) fundação pública / subordinados</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="B" id="q1b"> <label for="q1b">B) autarquia / equiparados</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="C" id="q1c"> <label for="q1c">C) sociedade de economia mista / vinculados</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="D" id="q1d"> <label for="q1d">D) autarquia / submetidos</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="E" id="q1e"> <label for="q1e">E) empresa pública / associados</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-q="2">
+            <span class="question-header">Questão 02</span>
+            <div class="question-text">De acordo com o Art. 6º da Lei nº 11.892/2008, os Institutos Federais têm por finalidades e características diretrizes fundamentais. Sobre este tema, analise as assertivas abaixo:
+
+I. Ofertar educação profissional e tecnológica, em todos os seus níveis e modalidades, formando e qualificando cidadãos com vistas na atuação profissional nos diversos setores da economia, com ênfase no desenvolvimento socioeconômico local, regional e nacional.
+II. Desenvolver programas de extensão e de divulgação científica e tecnológica.
+III. Realizar e estimular a pesquisa aplicada, a produção cultural, o empreendedorismo, o cooperativismo e o desenvolvimento científico e tecnológico.
+IV. Promover a produção, o desenvolvimento e a transferência de tecnologias sociais, notadamente as voltadas à preservação do meio ambiente.
+
+Quais estão corretas?</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q2" value="A" id="q2a"> <label for="q2a">A) Apenas I e II.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="B" id="q2b"> <label for="q2b">B) Apenas II e III.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="C" id="q2c"> <label for="q2c">C) Apenas I, III e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="D" id="q2d"> <label for="q2d">D) Apenas II, III e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="E" id="q2e"> <label for="q2e">E) I, II, III e IV.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-q="3">
+            <span class="question-header">Questão 03</span>
+            <div class="question-text">A Lei nº 11.892/2008 estabelece objetivos específicos para os Institutos Federais. No que se refere ao compromisso de oferta de vagas em cada exercício, analise as afirmações a seguir:
+
+1. O Instituto Federal deve garantir o mínimo de 50% de suas vagas para atender à oferta de educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados.
+2. O Instituto Federal deve garantir o mínimo de 20% de suas vagas para atender à oferta de cursos de licenciatura, bem como programas especiais de formação pedagógica.
+3. O Instituto Federal deve garantir o mínimo de 10% de suas vagas para cursos de pós-graduação stricto sensu, voltados à inovação.
+
+O resultado da somatória dos números correspondentes às afirmações corretas é:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q3" value="A" id="q3a"> <label for="q3a">A) 01.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="B" id="q3b"> <label for="q3b">B) 02.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="C" id="q3c"> <label for="q3c">C) 03.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="D" id="q3d"> <label for="q3d">D) 04.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="E" id="q3e"> <label for="q3e">E) 06.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-q="4">
+            <span class="question-header">Questão 04</span>
+            <div class="question-text">Considere as disposições da Lei nº 11.892/2008 sobre a estrutura organizacional e a administração superior dos Institutos Federais. Assinale a alternativa INCORRETA:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q4" value="A" id="q4a"> <label for="q4a">A) A administração dos Institutos Federais terá como órgãos superiores o Colégio de Dirigentes e o Conselho Superior.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="B" id="q4b"> <label for="q4b">B) O Conselho Superior, de caráter consultivo e deliberativo, é o órgão máximo de cada Instituto Federal.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="C" id="q4c"> <label for="q4c">C) O Colégio de Dirigentes, de caráter meramente deliberativo, é presidido pelo Reitor e composto pelos Diretores-Gerais de cada campus.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="D" id="q4d"> <label for="q4d">D) A Reitoria é o órgão executivo do Instituto Federal, composta por um Reitor e cinco Pró-Reitores.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="E" id="q4e"> <label for="q4e">E) O Conselho Superior deve contar com representação de docentes, de estudantes, de servidores técnico-administrativos, dos egressos da instituição, da sociedade civil e do Ministério da Educação.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-q="5">
+            <span class="question-header">Questão 05</span>
+            <div class="question-text">Conforme o Art. 11 da Lei nº 11.892/2008, sobre o mandato e a nomeação do Reitor, assinale a alternativa correta:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q5" value="A" id="q5a"> <label for="q5a">A) Os Reitores serão nomeados pelo Ministro da Educação, para mandato de 4 anos, permitida uma recondução.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="B" id="q5b"> <label for="q5b">B) O Reitor será nomeado pelo Presidente da República, para mandato de 4 anos, permitida uma recondução.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="C" id="q5c"> <label for="q5c">C) O mandato do Reitor será de 5 anos, vedada a recondução, sendo a nomeação de competência exclusiva do Conselho Superior.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="D" id="q5d"> <label for="q5d">D) Poderão candidatar-se ao cargo de Reitor apenas docentes que possuam, no mínimo, 10 anos de efetivo exercício na instituição.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="E" id="q5e"> <label for="q5e">E) A nomeação do Reitor é precedida de consulta à comunidade escolar, com peso de 50% para o voto docente e 25% para os demais segmentos.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-q="6">
+            <span class="question-header">Questão 06</span>
+            <div class="question-text">No que tange aos Diretores-Gerais de campus, conforme a Lei nº 11.892/2008, analise as seguintes afirmações e preencha as lacunas:
+
+O Diretor-Geral será nomeado pelo _____________, para mandato de 4 anos, permitida uma recondução, precedida de _______________ à comunidade do respectivo campus. Para candidatar-se ao cargo, o servidor deve contar com, no mínimo, ______ anos de efetivo exercício em instituição federal de educação profissional e tecnológica.
+
+Assinale a alternativa que preenche, correta e respectivamente, as lacunas do trecho acima.</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q6" value="A" id="q6a"> <label for="q6a">A) Presidente da República / eleição direta / 2</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="B" id="q6b"> <label for="q6b">B) Ministro da Educação / consulta / 5</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="C" id="q6c"> <label for="q6c">C) Reitor / consulta / 5</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="D" id="q6d"> <label for="q6d">D) Conselho Superior / indicação / 3</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="E" id="q6e"> <label for="q6e">E) Reitor / assembleia / 10</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-q="7">
+            <span class="question-header">Questão 07</span>
+            <div class="question-text">A Lei nº 11.892/2008 definiu a composição da Rede Federal. Sobre as instituições que compõem esta Rede, assinale a alternativa que NÃO faz parte da Rede Federal conforme o Art. 1º:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q7" value="A" id="q7a"> <label for="q7a">A) Os Institutos Federais de Educação, Ciência e Tecnologia.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="B" id="q7b"> <label for="q7b">B) A Universidade Tecnológica Federal do Paraná (UTFPR).</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="C" id="q7c"> <label for="q7c">C) O Colégio Pedro II.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="D" id="q7d"> <label for="q7d">D) As Escolas Técnicas Vinculadas às Universidades Federais.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="E" id="q7e"> <label for="q7e">E) As Fundações Estaduais de Educação Tecnológica sem vínculo com o MEC.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-q="8">
+            <span class="question-header">Questão 08</span>
+            <div class="question-text">Com base no Art. 2º da Lei nº 11.892/2008, assinale a alternativa que descreve corretamente uma das prerrogativas acadêmicas dos IFs:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q8" value="A" id="q8a"> <label for="q8a">A) Os Institutos Federais dependem de autorização prévia das universidades federais vizinhas para a criação de novos cursos de graduação.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="B" id="q8b"> <label for="q8b">B) Os Institutos Federais exercerão o papel de instituições acreditadoras e certificadoras de competências profissionais.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="C" id="q8c"> <label for="q8c">C) A autonomia para criar e extinguir cursos nos Institutos Federais é condicionada à aprovação anual do Congresso Nacional.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="D" id="q8d"> <label for="q8d">D) Os Institutos Federais são impedidos de ofertar cursos de pós-graduação lato sensu, focando apenas no nível técnico.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="E" id="q8e"> <label for="q8e">E) O registro de diplomas expedidos pelos Institutos Federais deve ser obrigatoriamente efetuado pela Secretaria de Educação Estadual.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-q="9">
+            <span class="question-header">Questão 09</span>
+            <div class="question-text">Quanto aos requisitos para a candidatura ao cargo de Reitor, de acordo com o Art. 11 da Lei nº 11.892/2008, assinale a alternativa que apresenta corretamente esses requisitos:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q9" value="A" id="q9a"> <label for="q9a">A) Possuir obrigatoriamente o título de Pós-Doutor e 15 anos de docência.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="B" id="q9b"> <label for="q9b">B) Ser ocupante de cargo público efetivo da carreira docente ou técnico-administrativa de nível superior, possuir o título de doutor ou estar posicionado na classe mais elevada da carreira, e contar com no mínimo 5 anos de efetivo exercício na instituição.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="C" id="q9c"> <label for="q9c">C) Estar em exercício de cargo de direção CD-1 por pelo menos dois mandatos consecutivos.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="D" id="q9d"> <label for="q9d">D) Ser docente integrante do Quadro de Pessoal Ativo Permanente e possuir obrigatoriamente mestrado em Educação.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="E" id="q9e"> <label for="q9e">E) Ser servidor estável, independentemente do nível de escolaridade, desde que eleito por maioria absoluta do Conselho Superior.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-q="10">
+            <span class="question-header">Questão 10</span>
+            <div class="question-text">Sobre a integração do Colégio Pedro II à Rede Federal, conforme as disposições da Lei nº 11.892/2008, assinale a alternativa correta:</div>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q10" value="A" id="q10a"> <label for="q10a">A) O Colégio Pedro II mantém sua estrutura de colégio de aplicação vinculado à UFRJ, sem autonomia administrativa.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="B" id="q10b"> <label for="q10b">B) O Colégio Pedro II é equiparado aos Institutos Federais para efeito da incidência das disposições que regem a autonomia e a utilização dos instrumentos de gestão do quadro de pessoal.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="C" id="q10c"> <label for="q10c">C) É vedada ao Colégio Pedro II a oferta de licenciaturas, devendo focar exclusivamente no ensino fundamental.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="D" id="q10d"> <label for="q10d">D) O Colégio Pedro II não integra a Rede Federal, sendo apenas uma instituição associada para fins de financiamento.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="E" id="q10e"> <label for="q10e">E) A nomeação do Reitor do Colégio Pedro II é feita pelo Governador do Estado do Rio de Janeiro.</label></div>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado</button>
+    </form>
+
+    <div id="results-container">
+        <p>Você completou o simulado!</p>
+        <div id="score-display">0 / 10</div>
+        <p id="performance-msg"></p>
+    </div>
+
+    <div class="resolution-section" id="resolutions">
+        <h2>Resoluções Comentadas</h2>
+        
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 01 (Gabarito: B)</span>
+            <p>A primeira questão foca na identidade administrativa e acadêmica dos Institutos Federais. O enunciado exige o conhecimento do Art. 2º, que define os IFs como autarquias. Na estrutura da administração pública brasileira, a autarquia é uma pessoa jurídica de direito público, criada por lei, com autonomia para gerir seus próprios recursos e atividades, mas vinculada ao Ministério da Educação. O parágrafo 1º do Art. 2º estabelece que os Institutos são "equiparados às universidades federais".</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 02 (Gabarito: E)</span>
+            <p>O Art. 6º da Lei 11.892/2008 funciona como a "missão" das instituições. Todas as assertivas estão corretas: I (desenvolvimento local/regional - inciso I), II (extensão - inciso VII), III (pesquisa aplicada e empreendedorismo - inciso VIII) e IV (tecnologias sociais e meio ambiente - inciso IX).</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 03 (Gabarito: C)</span>
+            <p>Baseada no Art. 8º. Item 1 está correto (50% para nível médio - inciso I). Item 2 está correto (20% para licenciaturas - inciso II). Item 3 está incorreto (não há percentual de 10% fixado na lei para pós stricto sensu). Somatória: 1 + 2 = 3.</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 04 (Gabarito: C)</span>
+            <p>O erro da alternativa C está em classificar o Colégio de Dirigentes como "meramente deliberativo". Segundo o Art. 10, § 2º, o Colégio de Dirigentes possui caráter <strong>consultivo</strong>. O órgão máximo com poder deliberativo é o Conselho Superior.</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 05 (Gabarito: B)</span>
+            <p>Conforme o Art. 11, o Reitor é nomeado pelo Presidente da República para um mandato de 4 anos, permitida uma recondução. O processo é precedido de consulta à comunidade.</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 06 (Gabarito: C)</span>
+            <p>Conforme o Art. 12, o Diretor-Geral de campus é nomeado pelo Reitor, após consulta à comunidade, e deve ter no mínimo 5 anos de efetivo exercício em instituição federal de EPCT.</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 07 (Gabarito: E)</span>
+            <p>O Art. 1º lista as instituições da Rede: IFs, UTFPR, CEFETs, Escolas Técnicas Vinculadas e Colégio Pedro II. Fundações Estaduais não fazem parte da Rede Federal regida por esta lei.</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 08 (Gabarito: B)</span>
+            <p>O Art. 2º, § 2º afirma que os IFs são "instituições acreditadoras e certificadoras de competências profissionais", permitindo a certificação de conhecimentos adquiridos no trabalho (Programa Certific).</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 09 (Gabarito: B)</span>
+            <p>Requisitos do Art. 11, § 1º: ocupante de cargo efetivo (docente ou TAE nível superior), doutor OU classe mais elevada da carreira, e mínimo de 5 anos de casa.</p>
+        </div>
+
+        <div class="resolution-item">
+            <span class="resolution-title">Resolução Questão 10 (Gabarito: B)</span>
+            <p>O Art. 4º equipara o Colégio Pedro II aos Institutos Federais para fins de autonomia, gestão de pessoal e regulação de cursos, permitindo-lhe atuar em todos os níveis, inclusive superior.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'B', q2: 'E', q3: 'C', q4: 'C', q5: 'B',
+        q6: 'C', q7: 'E', q8: 'B', q9: 'B', q10: 'B'
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const resultsContainer = document.getElementById('results-container');
+        const resolutionSection = document.getElementById('resolutions');
+
+        // Check each question
+        for (let i = 1; i <= 10; i++) {
+            const qName = 'q' + i;
+            const selected = form.elements[qName].value;
+            const correctValue = answers[qName];
+            
+            // Highlight options
+            const questionCard = document.querySelector(`.question-card[data-q="${i}"]`);
+            const options = questionCard.querySelectorAll('.option-item');
+            
+            options.forEach(option => {
+                const radio = option.querySelector('input');
+                // Remove previous classes if any
+                option.classList.remove('correct', 'wrong');
+                
+                if (radio.value === correctValue) {
+                    option.classList.add('correct');
+                } else if (radio.checked && radio.value !== correctValue) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            if (selected === correctValue) {
+                score++;
+            }
+        }
+
+        // Show Results
+        document.getElementById('score-display').innerText = `${score} / 10`;
+        resultsContainer.style.display = 'block';
+        resolutionSection.style.display = 'block';
+
+        let msg = "";
+        if (score === 10) msg = "Excelente! Você domina a Lei 11.892/2008.";
+        else if (score >= 7) msg = "Muito bom! Continue revisando os detalhes.";
+        else msg = "Continue estudando. Analise as resoluções abaixo para entender os erros.";
+        
+        document.getElementById('performance-msg').innerText = msg;
+
+        // Smooth scroll to results
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Lei 8.112/1990 - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --box-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .question-card {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f0f4f8;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .selected {
+            background-color: #e8f0fe !important;
+            border-color: #4285f4 !important;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a252f;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px double var(--accent-color);
+        }
+
+        .score-board {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .resolution-box {
+            background-color: #f9f9f9;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .correct-answer {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .wrong-answer {
+            color: var(--wrong-color);
+            font-weight: bold;
+            text-decoration: line-through;
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .status-correct { background: #d4edda; color: #155724; }
+        .status-wrong { background: #f8d7da; color: #721c24; }
+
+        @media (max-width: 600px) {
+            .container { width: 95%; padding: 20px 10px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Simulado: Lei Federal nº 8.112/1990</h1>
+            <p>Banca: Estilo Fundatec | 10 Questões Completas</p>
+        </header>
+
+        <form id="quiz-form">
+            <div id="questions-container">
+                <!-- As questões serão inseridas aqui pelo JS -->
+            </div>
+
+            <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Simulado e Ver Resoluções</button>
+        </form>
+
+        <section id="results-section">
+            <div class="score-board" id="score-display">
+                <!-- Placar aqui -->
+            </div>
+            <div id="resolutions-container">
+                <!-- Resoluções detalhadas aqui -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const questionsData = [
+            {
+                id: 1,
+                text: "No que concerne às disposições preliminares e aos requisitos básicos para a investidura em cargo público federal, conforme estabelecido na Lei nº 8.112/1990, analise as assertivas abaixo:<br><br>I. O Regime Jurídico Único instituído pela referida lei aplica-se aos servidores públicos civis da União, das autarquias — inclusive as em regime especial — e das fundações públicas federais.<br>II. São requisitos básicos para a investidura em cargo público, entre outros: a nacionalidade brasileira, o gozo dos direitos políticos, a quitação com as obrigações militares e eleitorais, o nível de escolaridade exigido para o exercício do cargo, a idade mínima de dezesseis anos e a aptidão física e mental.<br>III. Às pessoas portadoras de deficiência é assegurado o direito de se inscrever em concurso público para provimento de cargo cujas atribuições sejam compatíveis com a deficiência de que são portadoras, sendo-lhes reservadas até 20% (vinte por cento) das vagas oferecidas no certame.",
+                options: ["Apenas I.", "Apenas II.", "Apenas I e III.", "Apenas II e III.", "I, II e III."],
+                correct: 2, // C
+                resolution: "<b>Gabarito: C</b><br>A Assertiva II está incorreta pois a idade mínima é de 18 anos (Art. 5º, V). A I está correta (Art. 1º) e a III está correta (Art. 5º, § 2º)."
+            },
+            {
+                id: 2,
+                text: "Acerca do provimento, da posse e do exercício em cargos públicos, nos termos da Lei Federal nº 8.112/1990, analise as assertivas a seguir e assinale a alternativa correta:<br><br>I. A posse ocorrerá no prazo de 30 (trinta) dias contados da publicação do ato de provimento, podendo haver posse mediante procuração específica.<br>II. O prazo para o servidor empossado em cargo público entrar em exercício é de 15 (quinze) dias, contados da data da posse.<br>III. Será exonerado o servidor empossado que não entrar em exercício no prazo legal, enquanto que será tornado sem efeito o ato de provimento se a posse não ocorrer no prazo estabelecido.",
+                options: ["Todas as assertivas estão corretas.", "Todas as assertivas estão incorretas.", "Apenas a assertiva I está correta.", "Apenas a assertiva II está correta.", "Apenas as assertivas I e III estão corretas."],
+                correct: 0, // A
+                resolution: "<b>Gabarito: A</b><br>I: Art. 13 caput e §3º. II: Art. 15, §1º. III: Art. 13, §6º (posse) e Art. 15, §2º (exercício)."
+            },
+            {
+                id: 3,
+                text: "Considere as normas relativas ao estágio probatório e à estabilidade do servidor público federal previstas na Lei nº 8.112/1990 e na Constituição Federal de 1988. Sobre o tema, assinale a alternativa INCORRETA:",
+                options: [
+                    "Ao entrar em exercício, o servidor nomeado para cargo de provimento efetivo ficará sujeito a estágio probatório por período de 24 (vinte e quatro) meses, conforme o texto literal da Lei nº 8.112/1990, embora a Constituição Federal estabeleça o prazo de 3 (três) anos de efetivo exercício para a aquisição da estabilidade.",
+                    "Durante o estágio probatório, a aptidão e a capacidade do servidor serão objeto de avaliação para o desempenho do cargo, observados fatores como assiduidade, disciplina, capacidade de iniciativa, produtividade e responsabilidade.",
+                    "O servidor em estágio probatório poderá exercer quaisquer cargos de provimento em comissão ou funções de direção, chefia ou assessoramento no órgão ou entidade de lotação.",
+                    "O servidor estável só perderá o cargo em virtude de sentença judicial transitada em julgado ou de processo administrativo disciplinar no qual lhe seja assegurada ampla defesa, não sendo admitida a perda do cargo por insuficiência de desempenho.",
+                    "O servidor não aprovado no estágio probatório será exonerado ou, se estável, reconduzido ao cargo anteriormente ocupado."
+                ],
+                correct: 3, // D
+                resolution: "<b>Gabarito: D</b><br>A alternativa D é incorreta pois a Constituição Federal (Art. 41, § 1º, III) admite sim a perda do cargo por insuficiência de desempenho, mediante avaliação periódica."
+            },
+            {
+                id: 4,
+                text: "A vacância do cargo público decorre de eventos que rompem o vínculo funcional entre o agente e a Administração Pública. Com base na Lei Federal nº 8.112/1990, analise as afirmações abaixo:<br><br>I. A vacância do cargo público decorrerá de exoneração, demissão, promoção, readaptação, aposentadoria, posse em outro cargo inacumulável e falecimento.<br>II. A readaptação e a promoção são institutos que configuram, simultaneamente, formas de provimento e de vacância de cargo público.<br>III. A exoneração de cargo efetivo dar-se-á a pedido do servidor ou de ofício, sendo que a exoneração de ofício ocorrerá obrigatoriamente quando o servidor não satisfizer as condições do estágio probatório ou quando, tendo tomado posse, não entrar em exercício no prazo estabelecido.",
+                options: ["Apenas I.", "Apenas II.", "Apenas III.", "Apenas I e II.", "I, II e III."],
+                correct: 4, // E
+                resolution: "<b>Gabarito: E</b><br>Todas as assertivas refletem fielmente o texto da lei (Arts. 33 e 34)."
+            },
+            {
+                id: 5,
+                text: "Sobre os institutos da remoção e da redistribuição tratados na Lei nº 8.112/1990, analise as seguintes asserções e a relação proposta entre elas:<br><br>I. A remoção é o deslocamento do servidor, a pedido ou de ofício, no âmbito do mesmo quadro, com ou sem mudança de sede.<br><br>PORQUE<br><br>II. A redistribuição é o deslocamento de cargo de provimento efetivo, ocupado ou vago no âmbito do quadro geral de pessoal, para outro órgão ou entidade do mesmo Poder, com prévia apreciação do órgão central do Sistema de Pessoal Civil (SIPEC).",
+                options: [
+                    "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+                    "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+                    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+                    "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+                    "Ambas as asserções são proposições falsas."
+                ],
+                correct: 1, // B
+                resolution: "<b>Gabarito: B</b><br>Ambas definições estão corretas (Arts. 36 e 37), mas a redistribuição (movimentação de cargo) não é a causa/justificativa da remoção (movimentação de servidor)."
+            },
+            {
+                id: 6,
+                text: "A Lei nº 8.112/1990 prevê diversas vantagens aos servidores, como indenizações, gratificações e adicionais. No que tange às indenizações, assinale a alternativa correta conforme o texto legal:",
+                options: [
+                    "As indenizações, como ajuda de custo e diárias, incorporam-se ao vencimento ou provento para todos os efeitos legais, inclusive para cálculo de aposentadoria.",
+                    "A ajuda de custo destina-se a compensar as despesas de instalação do servidor que, no interesse do serviço, passar a ter exercício em nova sede, com mudança de domicílio em caráter permanente, sendo vedado o seu pagamento se o deslocamento ocorrer para sede no exterior.",
+                    "O auxílio-moradia consiste no ressarcimento das despesas comprovadamente realizadas pelo servidor com aluguel de moradia ou meio de hospedagem, sendo devido mesmo que o cônjuge ou companheiro do servidor ocupe imóvel funcional.",
+                    "O servidor que receber diárias e não se afastar da sede, por qualquer motivo, fica obrigado a restituílas integralmente, no prazo de 5 (cinco) dias.",
+                    "A indenização de transporte é devida ao servidor que realizar despesas com a utilização de meio próprio de locomoção para a execução de serviços externos, por força das atribuições próprias do cargo, conforme se dispuser em regulamento."
+                ],
+                correct: 4, // E
+                resolution: "<b>Gabarito: E</b><br>A 'E' é a literalidade do Art. 60. Erros: A (indenizações não se incorporam - Art. 49, §1º); B (pode no exterior - Art. 53); C (vedado se cônjuge tem imóvel funcional - Art. 60-B, II); D (prazo é de 5 dias, mas a E é a definição técnica mais precisa)."
+            },
+            {
+                id: 7,
+                text: "No tocante às licenças e afastamentos previstos no Regime Jurídico Único (Lei nº 8.112/1990), analise as assertivas abaixo:<br><br>I. Poderá ser concedida licença ao servidor por motivo de doença do cônjuge ou companheiro, dos pais, dos filhos, do padrasto ou madrasta e enteado, ou dependente que viva a suas expensas e conste do seu assentamento funcional, mediante comprovação por junta médica oficial.<br>II. A licença para capacitação poderá ser concedida, no interesse da Administração, após cada quinquênio de efetivo exercício, por até três meses, para que o servidor se afaste com a respectiva remuneração para participar de curso de capacitação profissional.<br>III. O servidor em estágio probatório não poderá usufruir de licença por motivo de afastamento do cônjuge, nem de licença para atividade política ou para tratar de interesses particulares.",
+                options: ["Apenas I.", "Apenas II.", "Apenas I e II.", "Apenas II e III.", "I, II e III."],
+                correct: 2, // C
+                resolution: "<b>Gabarito: C</b><br>A Assertiva III está errada: o servidor em estágio PODE ter licença por afastamento de cônjuge e atividade política (Art. 81, §1º). Somente a de interesses particulares é vedada no estágio."
+            },
+            {
+                id: 8,
+                text: "Em relação ao regime disciplinar, às responsabilidades e às penalidades previstas na Lei Federal nº 8.112/1990, assinale a alternativa correta:",
+                options: [
+                    "A responsabilidade administrativa do servidor não será afastada no caso de absolvição criminal que negue a existência do fato ou sua autoria, devido à independência das instâncias.",
+                    "A penalidade de suspensão será aplicada em caso de reincidência das faltas punidas com advertência e de violação das demais proibições que não tipifiquem infração sujeita a demissão, podendo ser convertida em multa, na base de 50% por dia de vencimento ou remuneração, por conveniência do serviço.",
+                    "A demissão é a penalidade aplicável nos casos de abandono de cargo, entendendo-se como tal a ausência intencional do servidor ao serviço por mais de 60 (sessenta) dias consecutivos.",
+                    "A ação disciplinar prescreve em 180 (cento e oitenta) dias quanto às infrações puníveis com demissão, contados da data em que o fato se tornou conhecido pela autoridade competente.",
+                    "O registro da penalidade de advertência será cancelado após o decurso de 5 (cinco) anos de efetivo exercício, se o servidor não houver, nesse período, praticado nova infração disciplinar."
+                ],
+                correct: 1, // B
+                resolution: "<b>Gabarito: B</b><br>B: Arts. 129 e 130. Erros: A (afasta sim se negar fato/autoria - Art. 126); C (abandono é > 30 dias - Art. 138); D (demissão prescreve em 5 anos - Art. 142); E (advertência cancela em 3 anos - Art. 131)."
+            },
+            {
+                id: 9,
+                text: "Sobre a acumulação remunerada de cargos públicos, considerando as disposições da Constituição Federal e da Lei nº 8.112/1990, analise as assertivas abaixo:<br><br>I. É vedada a acumulação remunerada de cargos públicos, exceto quando houver compatibilidade de horários para a acumulação de dois cargos de professor, de um cargo de professor com outro técnico ou científico, ou de dois cargos ou empregos privativos de profissionais de saúde com profissões regulamentadas.<br>II. A proibição de acumular estende-se a cargos, empregos e funções em autarquias, fundações públicas, empresas públicas, sociedades de economia mista, suas subsidiárias e sociedades controladas, direta ou indiretamente, pelo poder público.<br>III. O servidor que acumular licitamente dois cargos efetivos, quando investido em cargo de provimento em comissão, ficará afastado de ambos os cargos efetivos, salvo se houver compatibilidade de horário e local com o exercício de um deles e declarada a vacância do outro.",
+                options: ["Apenas I.", "Apenas II.", "Apenas I e II.", "Apenas II e III.", "I, II e III."],
+                correct: 2, // C
+                resolution: "<b>Gabarito: C</b><br>A Assertiva III está incorreta pois não se declara vacância do outro cargo, apenas afastamento (Art. 119)."
+            },
+            {
+                id: 10,
+                text: "Acerca do processo administrativo disciplinar (PAD) regulado pela Lei nº 8.112/1990, analise as assertivas abaixo:<br><br>I. O processo disciplinar será conduzido por comissão composta de três servidores estáveis designados pela autoridade competente, que indicará, entre eles, o seu presidente, o qual deverá ser ocupante de cargo efetivo superior ou de mesmo nível, ou ter nível de escolaridade igual ou superior ao do indiciado.<br>II. Não poderá participar de comissão de sindicância ou de inquérito o cônjuge, companheiro ou parente do acusado, consanguíneo ou afim, em linha reta ou colateral, até o terceiro grau.<br>III. O processo disciplinar poderá ser revisto, a qualquer tempo, a pedido ou de ofício, quando se aduzirem fatos novos ou circunstâncias suscetíveis de justificar a inocência do punido ou a inadequação da penalidade aplicada, podendo a revisão resultar em agravamento da penalidade original se as provas assim o permitirem.",
+                options: ["Apenas I.", "Apenas II.", "Apenas I e II.", "Apenas II e III.", "I, II e III."],
+                correct: 2, // C
+                resolution: "<b>Gabarito: C</b><br>A Assertiva III está incorreta pois na revisão não pode haver agravamento da penalidade (Art. 182, parágrafo único)."
+            }
+        ];
+
+        function initQuiz() {
+            const container = document.getElementById('questions-container');
+            questionsData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-card';
+                questionDiv.id = `q-card-${index}`;
+                
+                let optionsHtml = '';
+                q.options.forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <label class="option-item" id="label-${index}-${optIndex}">
+                            <input type="radio" name="question-${index}" value="${optIndex}">
+                            <span>${opt}</span>
+                        </label>
+                    `;
+                });
+
+                questionDiv.innerHTML = `
+                    <div class="question-text">Questão ${index + 1}:</div>
+                    <p>${q.text}</p>
+                    <div class="options-list">
+                        ${optionsHtml}
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+
+            // Adicionar evento para destacar opção selecionada
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const name = e.target.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
+                        inp.parentElement.classList.remove('selected');
+                    });
+                    e.target.parentElement.classList.add('selected');
+                });
+            });
+        }
+
+        function gradeQuiz() {
+            let score = 0;
+            const resContainer = document.getElementById('resolutions-container');
+            resContainer.innerHTML = '';
+            
+            questionsData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+                const userChoice = selected ? parseInt(selected.value) : null;
+                const isCorrect = userChoice === q.correct;
+
+                if (isCorrect) score++;
+
+                // Criar bloco de resolução
+                const resBox = document.createElement('div');
+                resBox.className = 'question-card';
+                
+                const statusTag = isCorrect ? 
+                    '<span class="status-tag status-correct">Acertou</span>' : 
+                    '<span class="status-tag status-wrong">Errou</span>';
+
+                let userChoiceText = userChoice !== null ? q.options[userChoice] : "Nenhuma opção selecionada";
+                
+                resBox.innerHTML = `
+                    ${statusTag}
+                    <div class="question-text">Questão ${index + 1}</div>
+                    <p>Sua resposta: <span class="${isCorrect ? 'correct-answer' : 'wrong-answer'}">${userChoiceText}</span></p>
+                    ${!isCorrect ? `<p>Resposta correta: <span class="correct-answer">${q.options[q.correct]}</span></p>` : ''}
+                    <div class="resolution-box">
+                        <strong>Comentário Técnico:</strong><br>
+                        ${q.resolution}
+                    </div>
+                `;
+                resContainer.appendChild(resBox);
+
+                // Scroll para o topo dos resultados
+                document.getElementById('results-section').style.display = 'block';
+                document.getElementById('score-display').innerHTML = `
+                    <strong>Resultado Final</strong><br>
+                    Você acertou ${score} de ${questionsData.length} questões (${(score/questionsData.length)*100}%).
+                `;
+                
+                window.scrollTo({ top: document.getElementById('results-section').offsetTop - 50, behavior: 'smooth' });
+            });
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>

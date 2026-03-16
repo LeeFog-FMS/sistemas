@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Lei Federal nº 12.772/2012</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 3rem 1.5rem 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1e272e;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #636e72;
+            margin-bottom: 2rem;
+        }
+
+        main {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 0 1.5rem 5rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1e272e;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f9f9f9;
+        }
+
+        .option:hover {
+            border-color: var(--accent-color);
+            background: #f0f7ff;
+        }
+
+        .option.selected {
+            border-color: var(--accent-color);
+            background: #e1f0ff;
+            box-shadow: 0 0 0 1px var(--accent-color);
+        }
+
+        .option input {
+            margin-top: 0.35rem;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        .option-label {
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        #submit-btn:hover {
+            background-color: #0873c4;
+        }
+
+        /* Results Section */
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            border-top: 2px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 2rem;
+            background: #f1f2f6;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .resolution-card {
+            margin-bottom: 3rem;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 1.5rem;
+        }
+
+        .resolution-card.correct { border-left-color: var(--success-color); }
+        .resolution-card.incorrect { border-left-color: var(--error-color); }
+
+        .res-header {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .res-status {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .res-status.correct { background: #dff9fb; color: var(--success-color); }
+        .res-status.incorrect { background: #ffeaa7; color: #e67e22; }
+
+        .res-body {
+            font-size: 1rem;
+            color: #4b4b4b;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .correct-answer-indicator {
+            font-weight: bold;
+            color: var(--success-color);
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 2rem 1rem 1rem; }
+            h1 { font-size: 1.5rem; }
+            .question-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Lei Federal nº 12.772/2012</h1>
+    <p class="subtitle">Plano de Carreiras e Cargos de Magistério Federal - Estilo Fundatec</p>
+</header>
+
+<main>
+    <div id="quiz-container">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <button id="submit-btn" onclick="gradeQuiz()">Finalizar Simulado e Ver Resoluções</button>
+
+    <section id="results-section">
+        <div class="score-box">
+            <span class="score-number" id="score-display">0/10</span>
+            <p id="score-text">Você concluiu o simulado!</p>
+        </div>
+
+        <div id="resolutions-container">
+            <!-- Resolutions will be injected here -->
+        </div>
+    </section>
+</main>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "A Lei Federal nº 12.772, de 28 de dezembro de 2012, estabelece a estruturação do Plano de Carreiras e Cargos de Magistério Federal. Considerando as alterações recentes promovidas pela Lei nº 15.141, de 2 de junho de 2025, e pela Medida Provisória nº 1.286/2024, no que diz respeito à organização da Carreira de Magistério Superior, assinale a alternativa que apresenta corretamente a atual configuração das classes, do início para o topo da carreira:",
+            options: [
+                "Classe A (Professor Auxiliar), Classe B (Professor Assistente), Classe C (Professor Adjunto), Classe D (Professor Associado) e Classe E (Professor Titular).",
+                "Classe A (Professor Assistente), Classe B (Professor Adjunto), Classe C (Professor Associado) e Classe D (Professor Titular).",
+                "Classe A (Professor Auxiliar), Classe B (Professor Adjunto), Classe C (Professor Titular) e Classe D (Professor Emérito).",
+                "Classe Única de Magistério Superior, estruturada em dezesseis níveis de vencimento básico.",
+                "Classe A (Professor Adjunto), Classe B (Professor Associado) e Classe C (Professor Titular)."
+            ],
+            answer: 1, // B
+            resolution: "A organização das carreiras do Magistério Federal passou por um processo de simplificação e reestruturação profunda entre 2012 e 2025. Com a Lei nº 15.141/2025, a estrutura foi consolidada em quatro classes principais para a Carreira de Magistério Superior: Classe A – Professor Assistente, Classe B – Professor Adjunto, Classe C – Professor Associado e Classe D – Professor Titular. Esta reestruturação visou unificar o percurso docente, reduzindo o tempo total para atingir o topo da carreira."
+        },
+        {
+            id: 2,
+            text: "No que se refere ao ingresso na Carreira de Magistério Superior e na Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT), conforme as disposições da Lei nº 12.772/2012, analise as seguintes assertivas e assinale V, se verdadeiras, ou F, se falsas:<br><br>( ) O ingresso na Carreira de Magistério Superior ocorrerá sempre no primeiro nível de vencimento da Classe A, mediante aprovação em concurso público de provas e títulos.<br>( ) Para o cargo de Professor do Magistério Superior, o edital do concurso poderá dispensar a exigência do título de Doutor em casos de áreas com escassez de profissionais qualificados, mediante autorização do conselho superior da instituição.<br>( ) Na Carreira de EBTT, o ingresso ocorre obrigatoriamente na Classe D I, Nível 1, sendo vedada a entrada de docentes com titulação de doutorado diretamente em classes superiores.<br>( ) O concurso público para o cargo de Professor Titular-Livre exige que a comissão especial de avaliação seja composta por, no mínimo, 75% de profissionais externos à instituição.",
+            options: [
+                "V – V – F – V.",
+                "V – F – V – F.",
+                "F – V – V – F.",
+                "V – V – V – V.",
+                "F – F – F – V."
+            ],
+            answer: 0, // A
+            resolution: "A primeira é verdadeira (Art. 8º). A segunda é verdadeira; o Doutorado é padrão, mas flexível sob autorização (Art. 8º). A terceira é falsa; o ingresso em EBTT agora também segue a lógica das Classes A a D, e a nomenclatura 'D I' é obsoleta. A quarta é verdadeira; o cargo isolado de Professor Titular-Livre exige comissão com 75% de membros externos para garantir isenção."
+        },
+        {
+            id: 3,
+            text: "Sobre o desenvolvimento na carreira docente federal, a Lei nº 12.772/2012 define os conceitos de progressão e promoção. Com base na redação atualizada da norma, é correto afirmar que:",
+            options: [
+                "A progressão é a passagem do servidor de uma classe para outra subsequente, exigindo sempre o título de doutor para qualquer mudança.",
+                "A promoção é a passagem do servidor para o nível de vencimento imediatamente superior dentro de uma mesma classe, ocorrendo a cada 18 meses.",
+                "O desenvolvimento na Carreira de Magistério Superior ocorrerá mediante progressão, que é a passagem para o nível superior dentro da mesma classe, e promoção, que é a passagem de uma classe para outra subsequente.",
+                "Para fins de promoção para a Classe D (Titular), o docente está dispensado de avaliação de memorial, bastando o cumprimento do interstício de 24 meses.",
+                "A progressão funcional independe da aprovação em avaliação de desempenho, sendo um direito automático decorrente do tempo de serviço efetivo."
+            ],
+            answer: 2, // C
+            resolution: "Progressão é a evolução horizontal (nível dentro da classe). Promoção é a evolução vertical (entre classes). Ambas exigem interstício de 24 meses e avaliação de desempenho. A promoção para Titular exige defesa de memorial ou tese."
+        },
+        {
+            id: 4,
+            text: "De acordo com o Plano de Carreiras e Cargos de Magistério Federal, a avaliação especial de desempenho do servidor em estágio probatório é uma etapa crítica para a estabilidade. Segundo a Lei nº 12.772/2012, essa avaliação deverá considerar os seguintes fatores, EXCETO:",
+            options: [
+                "Assiduidade e disciplina.",
+                "Capacidade de iniciativa e responsabilidade.",
+                "Produtividade e desempenho didático-pedagógico.",
+                "Filiação partidária e engajamento em movimentos sindicais.",
+                "Cumprimento dos deveres e obrigações do servidor público."
+            ],
+            answer: 3, // D
+            resolution: "Os fatores legais são: assiduidade, disciplina, capacidade de iniciativa, responsabilidade, produtividade e desempenho didático-pedagógico. Filiação partidária ou engajamento sindical não podem ser critérios de avaliação funcional sob os princípios da impessoalidade e direitos fundamentais."
+        },
+        {
+            id: 5,
+            text: "Considerando as normas de transição e as novas regras de promoção estabelecidas pela Lei nº 15.141/2025 para a Carreira de Magistério Superior, analise a seguinte situação: Um docente ingressou na Classe A (Professor Assistente) em março de 2025. Para que este docente possa ser promovido para a Classe B (Professor Adjunto), quais requisitos devem ser observados?<br><br>I. Cumprimento do interstício mínimo de 36 (trinta e seis) meses no nível único da classe inicial.<br>II. Aprovação em avaliação de desempenho individual.<br>III. Obtenção obrigatória do título de Doutor antes do término do primeiro ano de exercício.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            answer: 2, // C
+            resolution: "Com a nova lei, a aceleração da promoção foi revogada. O percurso agora exige 36 meses na classe inicial (I) e aprovação em avaliação de desempenho (II). O doutorado não é obrigatório no primeiro ano, embora seja importante para promoções futuras (III está incorreto)."
+        },
+        {
+            id: 6,
+            text: "A respeito dos regimes de trabalho previstos na Lei nº 12.772/2012 para os ocupantes de cargo efetivo do Plano de Carreiras e Cargos de Magistério Federal, assinale a alternativa correta:",
+            options: [
+                "O regime de dedicação exclusiva implica o impedimento do exercício de qualquer outra atividade remunerada, pública ou privada, sem qualquer exceção prevista em lei.",
+                "O docente poderá ser submetido ao regime de 20 horas semanais de trabalho apenas se comprovar que possui outro vínculo empregatício na iniciativa privada.",
+                "O regime de 40 horas com dedicação exclusiva é o regime padrão para o magistério federal, permitindo-se, contudo, a percepção de retribuição por direitos autorais ou direitos de propriedade intelectual.",
+                "A alteração do regime de trabalho de 20 horas para 40 horas com dedicação exclusiva é um direito subjetivo do docente, não dependendo de análise de conveniência da instituição.",
+                "Professores em regime de 20 horas semanais fazem jus à percepção de gratificação por dedicação exclusiva de forma proporcional à jornada."
+            ],
+            answer: 2, // C
+            resolution: "O regime de DE é o padrão, mas a lei (Art. 21) prevê diversas exceções como direitos autorais, propriedade intelectual, e colaborações científicas eventuais. A alteração de regime não é direito subjetivo, depende de interesse da administração."
+        },
+        {
+            id: 7,
+            text: "A Lei nº 12.772/2012 prevê a possibilidade de afastamento de docentes para a realização de programas de pós-graduação stricto sensu. Sobre as condições desses afastamentos, é correto afirmar que:",
+            options: [
+                "O afastamento para cursar doutorado no exterior só poderá ser concedido a docentes que já possuam dez anos de efetivo exercício na instituição.",
+                "Os períodos de afastamento para cursar mestrado ou doutorado no País não são considerados como de efetivo exercício para fins de aposentadoria.",
+                "O servidor poderá afastar-se de suas funções, com a respectiva remuneração, para participar de programas de pós-graduação stricto sensu em instituição de ensino superior no País ou no exterior.",
+                "É vedado o afastamento para pós-graduação a docentes que ainda estejam cumprindo o estágio probatório, conforme alteração da Lei 15.141/2025.",
+                "O afastamento para pós-doutorado é limitado a um período máximo de 6 (seis) meses, improrrogáveis."
+            ],
+            answer: 2, // C
+            resolution: "O Artigo 30 permite o afastamento remunerado para mestrado, doutorado ou pós-doutorado, sendo considerado efetivo exercício. Docentes em estágio probatório podem se afastar para pós-graduação stricto sensu."
+        },
+        {
+            id: 8,
+            text: "No que concerne à remuneração dos cargos do Plano de Carreiras e Cargos de Magistério Federal, a estrutura é composta por Vencimento Básico e Retribuição por Titulação (RT). Sobre a RT, a legislação estabelece que:",
+            options: [
+                "A RT é devida apenas a docentes que possuam o título de Doutor, não sendo paga para especialização ou mestrado.",
+                "Os valores da RT são fixos e idênticos para todos os regimes de trabalho, independentemente da carga horária.",
+                "A RT possui natureza temporária, sendo extinta após o servidor completar cinco anos de exercício no mesmo nível.",
+                "A RT é paga em conformidade com a carreira, cargo, classe, nível e titulação comprovada pelo docente, observados os valores estabelecidos em lei.",
+                "A apresentação de um novo título de pós-graduação gera efeitos financeiros retroativos à data da matrícula no respectivo curso."
+            ],
+            answer: 3, // D
+            resolution: "A RT é um adicional permanente pago conforme a titulação comprovada (Especialização, Mestrado ou Doutorado) e varia conforme a classe/nível e regime de trabalho. Efeitos financeiros valem a partir do requerimento, não da matrícula."
+        },
+        {
+            id: 9,
+            text: "Para a promoção à Classe de Professor Titular (Classe D no Magistério Superior ou Classe Titular no EBTT), a Lei nº 12.772/2012 exige, além do interstício e da titulação de doutor, uma avaliação específica. Essa avaliação consiste em:",
+            options: [
+                "Exame escrito de conhecimentos gerais sobre a área de atuação, aplicado pelo Ministério da Educação.",
+                "Defesa de memorial que considere as atividades de ensino, pesquisa, extensão, gestão institucional e produção acadêmica, ou defesa de tese acadêmica inédita.",
+                "Entrevista individual com o dirigente máximo da Instituição Federal de Ensino.",
+                "Apresentação de, no mínimo, dez artigos publicados em periódicos com classificação Qualis A1 nos últimos dois anos.",
+                "Aprovação em curso de capacitação em gestão pública com carga horária mínima de 360 horas."
+            ],
+            answer: 1, // B
+            resolution: "A promoção para o topo da carreira (Professor Titular) exige defesa de memorial descritivo da trajetória acadêmica ou de tese inédita, perante comissão especial com 75% de membros externos."
+        },
+        {
+            id: 10,
+            text: "A respeito da substituição de docentes nas Instituições Federais de Ensino, a Lei nº 12.772/2012, em conjunto com a Lei nº 8.745/1993, disciplina a contratação de professores substitutos e visitantes. Sobre este tema, assinale a alternativa INCORRETA:",
+            options: [
+                "O professor substituto é contratado para suprir a falta de docentes efetivos em casos de vacância, afastamentos ou licenças.",
+                "A contratação de professores visitantes visa a atender a necessidade de desenvolvimento de programas de pós-graduação stricto sensu ou de pesquisa.",
+                "O professor substituto pode ser contratado para jornada de 20 horas ou 40 horas semanais.",
+                "A remuneração do professor substituto é calculada com base no vencimento inicial da carreira, acrescido da RT correspondente à sua titulação.",
+                "O contrato do professor substituto pode ter duração de até 5 (cinco) anos, sendo permitida a renovação sucessiva por iguais períodos."
+            ],
+            answer: 4, // E
+            resolution: "A alternativa E está incorreta porque, segundo a Lei 8.745/1993, o contrato de professor substituto tem duração máxima de 1 ano, prorrogável por mais 1 ano (totalizando 2 anos). A renovação sucessiva até 5 anos não existe para esta modalidade."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                const letter = String.fromCharCode(65 + optIndex);
+                optionsHtml += `
+                    <label class="option" onclick="selectOption(${index}, ${optIndex})">
+                        <input type="radio" name="q${index}" value="${optIndex}" id="q${index}o${optIndex}">
+                        <div class="option-label"><strong>${letter}.</strong> ${opt}</div>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-text">${index + 1}. ${q.text}</div>
+                <div class="options-container">
+                    ${optionsHtml}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, optIdx) {
+        // Deselect others in the same question
+        const options = document.querySelectorAll(`[name="q${qIdx}"]`);
+        options.forEach(opt => {
+            opt.parentElement.classList.remove('selected');
+        });
+        
+        // Select current
+        const radio = document.getElementById(`q${qIdx}o${optIdx}`);
+        radio.checked = true;
+        radio.parentElement.classList.add('selected');
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const resContainer = document.getElementById('resolutions-container');
+        resContainer.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const selectedIdx = selected ? parseInt(selected.value) : -1;
+            const isCorrect = selectedIdx === q.answer;
+            
+            if (isCorrect) score++;
+
+            // Visual feedback on question cards
+            const card = document.getElementById(`q-card-${index}`);
+            card.style.borderColor = isCorrect ? 'var(--success-color)' : 'var(--error-color)';
+
+            // Build resolution
+            const resCard = document.createElement('div');
+            resCard.className = `resolution-card ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            const statusText = isCorrect ? 'Acertou' : 'Errou';
+            const statusClass = isCorrect ? 'correct' : 'incorrect';
+            const correctAnswerLetter = String.fromCharCode(65 + q.answer);
+
+            resCard.innerHTML = `
+                <div class="res-header">Questão ${index + 1}</div>
+                <span class="res-status ${statusClass}">${statusText}</span>
+                <div class="res-body">
+                    ${q.resolution}
+                    <span class="correct-answer-indicator">Gabarito Oficial: Alternativa ${correctAnswerLetter}</span>
+                </div>
+            `;
+            resContainer.appendChild(resCard);
+        });
+
+        // Show results
+        document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Scroll to results
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>
