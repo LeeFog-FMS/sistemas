@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Categorias de Análise Geográfica</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #2980b9;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #1a252f;
+        }
+
+        .info-header {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f8ff;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--accent-color);
+        }
+
+        /* Classes para o resultado */
+        .option-item.correct {
+            background-color: #d4edda;
+            border-color: var(--correct-color);
+            color: #155724;
+        }
+
+        .option-item.wrong {
+            background-color: #f8d7da;
+            border-color: var(--wrong-color);
+            color: #721c24;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 40px 0;
+        }
+
+        .submit-btn:hover {
+            background-color: #1f6391;
+        }
+
+        .resolution {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+
+        .resolution h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .result-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-box {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .hidden { display: none; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado de Geografia: Categorias de Análise</h1>
+        <p class="info-header">Padrão Fundatec | Foco em Milton Santos e Categorias Geográficas</p>
+    </header>
+
+    <div id="resultSummary" class="result-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-box" id="scoreDisplay">0 / 10</div>
+        <p id="feedbackText"></p>
+        <button onclick="window.location.reload()" class="submit-btn" style="margin: 10px auto; width: auto;">Reiniciar Simulado</button>
+    </div>
+
+    <form id="quizForm">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <div class="question-text">QUESTÃO 01: Considere a concepção de espaço geográfico na obra de Milton Santos, especificamente no que tange à definição de espaço como um "conjunto indissociável, solidário e contraditório de sistemas de objetos e sistemas de ações". Com base nessa perspectiva teórica, analise as assertivas abaixo:</div>
+            <div style="margin-bottom: 15px;">
+                I. Os sistemas de objetos referem-se à materialidade, aos fixos geográficos que, cada vez mais, são carregados de técnica e informação.<br>
+                II. Os sistemas de ações representam o movimento, o dinamismo da sociedade e as intencionalidades que dão vida e sentido aos objetos.<br>
+                III. A solidariedade mencionada por Santos indica que objetos e ações operam de forma isolada.<br>
+                IV. O caráter contraditório do espaço manifesta-se no conflito entre a racionalidade dos objetos técnicos e as necessidades da vida social.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q1" value="A"> A) Apenas I e II.</li>
+                <li class="option-item"><input type="radio" name="q1" value="B"> B) Apenas II e III.</li>
+                <li class="option-item"><input type="radio" name="q1" value="C"> C) Apenas I, II e IV.</li>
+                <li class="option-item"><input type="radio" name="q1" value="D"> D) Apenas II, III e IV.</li>
+                <li class="option-item"><input type="radio" name="q1" value="E"> E) I, II, III e IV.</li>
+            </ul>
+            <div class="resolution" id="res1">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: C</strong></p>
+                <p>A definição de Milton Santos integra fixos (objetos) e fluxos (ações). A <strong>Assertiva III</strong> está incorreta porque a "solidariedade" implica interdependência, e não isolamento. A Geografia Crítica busca a integração dialética desses elementos.</p>
+                <table>
+                    <tr><th>Componente</th><th>Definição Técnica</th></tr>
+                    <tr><td>Sistemas de Objetos</td><td>Fixos geográficos: estradas, prédios, redes. Carregados de técnica.</td></tr>
+                    <tr><td>Sistemas de Ações</td><td>Fluxos e dinâmicas: trabalho, consumo. Intenções que dão função aos objetos.</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <div class="question-text">QUESTÃO 02: No âmbito das categorias de análise da Geografia, o conceito de território é frequentemente abordado pela banca Fundatec sob a ótica das relações de poder. Assinale a alternativa correta:</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q2" value="A"> A) O território é uma categoria puramente natural, definida por limites geológicos.</li>
+                <li class="option-item"><input type="radio" name="q2" value="B"> B) Na perspectiva clássica, era a base do Estado-Nação, mas a Geografia contemporânea o redefine como campo de forças e poder.</li>
+                <li class="option-item"><input type="radio" name="q2" value="C"> C) O conceito de "território usado" foca exclusivamente na propriedade jurídica da terra.</li>
+                <li class="option-item"><input type="radio" name="q2" value="D"> D) A globalização eliminou a importância do território e das fronteiras.</li>
+                <li class="option-item"><input type="radio" name="q2" value="E"> E) Território e espaço geográfico são sinônimos absolutos sem distinção.</li>
+            </ul>
+            <div class="resolution" id="res2">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: B</strong></p>
+                <p>O território moderno é entendido como um espaço apropriado por relações de poder (Raffestin, Souza, Santos). Não é apenas a base física do Estado, mas um campo de forças em múltiplas escalas.</p>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <div class="question-text">QUESTÃO 03: A paisagem permite a leitura da realidade através das formas. Analise as seguintes afirmações:</div>
+            <div style="margin-bottom: 15px;">
+                I. A paisagem é o resultado acumulado de tempos históricos distintos, manifestando-se como um "palimpsesto".<br>
+                II. A análise deve restringir-se à descrição morfológica dos elementos naturais.<br>
+                III. No rural brasileiro, ilustra a contradição entre a modernização do agronegócio e a resistência camponesa.<br>
+                IV. A leitura da paisagem é um exercício de percepção que envolve todos os sentidos.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q3" value="A"> A) Apenas I e II.</li>
+                <li class="option-item"><input type="radio" name="q3" value="B"> B) Apenas III e IV.</li>
+                <li class="option-item"><input type="radio" name="q3" value="C"> C) Apenas I, III e IV.</li>
+                <li class="option-item"><input type="radio" name="q3" value="D"> D) Apenas II, III e IV.</li>
+                <li class="option-item"><input type="radio" name="q3" value="E"> E) I, II, III e IV.</li>
+            </ul>
+            <div class="resolution" id="res3">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: C</strong></p>
+                <p>A <strong>Assertiva II</strong> está errada pois a Geografia Crítica exige ir além do visível para entender os processos sociais (o "invisível") que produziram a paisagem.</p>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <div class="question-text">QUESTÃO 04: Sobre o conceito de lugar na ciência geográfica e seu ensino, assinale a alternativa INCORRETA:</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q4" value="A"> A) Refere-se à dimensão do mundo percebido através do corpo e da afetividade.</li>
+                <li class="option-item"><input type="radio" name="q4" value="B"> B) Na abordagem humanística, é estudado a partir da "topofilia".</li>
+                <li class="option-item"><input type="radio" name="q4" value="C"> C) O lugar é uma unidade espacial isolada, sem influência dos fluxos globais.</li>
+                <li class="option-item"><input type="radio" name="q4" value="D"> D) Significa valorizar saberes prévios do aluno para alcançar escalas complexas.</li>
+                <li class="option-item"><input type="radio" name="q4" value="E"> E) É o ponto de encontro entre a ordem global (fluxos) e a ordem local (objetos).</li>
+            </ul>
+            <div class="resolution" id="res4">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: C</strong></p>
+                <p>O lugar não é isolado. Na contemporaneidade, o mundo inteiro se faz presente em cada lugar através da economia, informação e cultura ("o mundo no lugar").</p>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <div class="question-text">QUESTÃO 05: Sobre a evolução e o uso atual do conceito de região, analise as assertivas abaixo (V ou F):</div>
+            <div style="margin-bottom: 15px;">
+                (__) Na Geografia Clássica, era síntese entre o natural e o humano ("gênero de vida").<br>
+                (__) A Geografia Quantitativa utilizou a região como modelo matemático abstrato.<br>
+                (__) Atualmente, regionalizar é classificar o espaço por critérios objetivos.<br>
+                (__) A região perdeu sua utilidade científica com a globalização.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q5" value="A"> A) V – V – V – F.</li>
+                <li class="option-item"><input type="radio" name="q5" value="B"> B) V – F – V – V.</li>
+                <li class="option-item"><input type="radio" name="q5" value="C"> C) F – V – F – V.</li>
+                <li class="option-item"><input type="radio" name="q5" value="D"> D) V – V – F – F.</li>
+                <li class="option-item"><input type="radio" name="q5" value="E"> E) F – F – V – V.</li>
+            </ul>
+            <div class="resolution" id="res5">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: A</strong></p>
+                <p>A última assertiva é falsa porque a globalização aprofundou as desigualdades regionais, tornando a análise regional ainda mais vital para entender a fragmentação do espaço.</p>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <div class="question-text">QUESTÃO 06: Sobre a aplicação didática das categorias geográficas (abstração estratégica), é correto afirmar:</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q6" value="A"> A) O ensino deve focar na memorização de definições estáticas.</li>
+                <li class="option-item"><input type="radio" name="q6" value="B"> B) A interpretação da realidade dispensa o rigor conceitual, baseando-se no senso comum.</li>
+                <li class="option-item"><input type="radio" name="q6" value="C"> C) Associar o espaço geográfico a problemas reais fortalece a formação cidadã.</li>
+                <li class="option-item"><input type="radio" name="q6" value="D"> D) O papel do professor é descrever a paisagem de forma neutra.</li>
+                <li class="option-item"><input type="radio" name="q6" value="E"> E) Território e lugar são irrelevantes para o Ensino Fundamental.</li>
+            </ul>
+            <div class="resolution" id="res6">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: C</strong></p>
+                <p>A Geografia Escolar deve ser crítica e conectada à realidade. O ensino não pode ser neutro (D) e deve transcender o senso comum (B) através de conceitos rigorosos aplicados ao cotidiano.</p>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <div class="question-text">QUESTÃO 07: Considere a relação entre escala geográfica e as categorias de análise:</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q7" value="A"> A) Escalas menores (1:1.000.000) são adequadas para representar o lugar vivido.</li>
+                <li class="option-item"><input type="radio" name="q7" value="B"> B) Escalas maiores (1:100) permitem detalhar objetos no espaço da sala de aula.</li>
+                <li class="option-item"><input type="radio" name="q7" value="C"> C) A escala cartográfica não possui relevância política ou social.</li>
+                <li class="option-item"><input type="radio" name="q7" value="D"> D) O conceito de escala deve ser trabalhado de forma isolada.</li>
+                <li class="option-item"><input type="radio" name="q7" value="E"> E) Mapas participativos são ineficazes por falta de rigor técnico.</li>
+            </ul>
+            <div class="resolution" id="res7">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: B</strong></p>
+                <p>Escala Grande (denominador pequeno) = Mais detalhes, menor área. Ideal para o estudo do <strong>Lugar</strong>. Escala Pequena = Menos detalhes, maior área (Brasil, Mundo).</p>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <div class="question-text">QUESTÃO 08: Relacionando "fixos e fluxos" com o território na globalização, é correto afirmar:</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q8" value="A"> A) Os fluxos circulam de forma democrática e igualitária.</li>
+                <li class="option-item"><input type="radio" name="q8" value="B"> B) Os fixos são projetados exclusivamente para necessidades locais.</li>
+                <li class="option-item"><input type="radio" name="q8" value="C"> C) O território brasileiro apresenta "seletividade tecnológica" atendendo ao capital hegemônico.</li>
+                <li class="option-item"><input type="radio" name="q8" value="D"> D) A seletividade tecnológica extinguiu a fragmentação do espaço.</li>
+                <li class="option-item"><input type="radio" name="q8" value="E"> E) Fixos representam a dimensão subjetiva do lugar.</li>
+            </ul>
+            <div class="resolution" id="res8">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: C</strong></p>
+                <p>A seletividade tecnológica explica por que certas áreas recebem infraestruturas modernas (portos, fibra óptica) enquanto outras são negligenciadas, aprofundando as desigualdades.</p>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <div class="question-text">QUESTÃO 09: Sobre a relação sociedade-natureza na Geografia Crítica, analise:</div>
+            <div style="margin-bottom: 15px;">
+                I. O espaço geográfico é uma "segunda natureza" reconstruída pelo trabalho.<br>
+                II. A natureza é um recurso infinito e estático.<br>
+                III. A agroecologia busca uma nova ética contraposta à lógica predatória.<br>
+                IV. O clima e relevo determinam de forma absoluta o desenvolvimento.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q9" value="A"> A) Apenas I e II.</li>
+                <li class="option-item"><input type="radio" name="q9" value="B"> B) Apenas III e IV.</li>
+                <li class="option-item"><input type="radio" name="q9" value="C"> C) Apenas I e III.</li>
+                <li class="option-item"><input type="radio" name="q9" value="D"> D) Apenas II, III e IV.</li>
+                <li class="option-item"><input type="radio" name="q9" value="E"> E) I, II, III e IV.</li>
+            </ul>
+            <div class="resolution" id="res9">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: C</strong></p>
+                <p>A Assertiva IV descreve o <strong>Determinismo Geográfico</strong>, visão superada pela ciência atual que entende a capacidade humana de transformar e se adaptar ao meio via técnica.</p>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-text">QUESTÃO 10: Assinale a alternativa que descreve uma prática pedagógica coerente com o conceito de lugar:</div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q10" value="A"> A) Memorizar latitude e longitude de monumentos históricos.</li>
+                <li class="option-item"><input type="radio" name="q10" value="B"> B) Realizar trabalho de campo no bairro para identificar marcas do tempo e pertencimento.</li>
+                <li class="option-item"><input type="radio" name="q10" value="C"> C) Utilizar exclusivamente livros estrangeiros.</li>
+                <li class="option-item"><input type="radio" name="q10" value="D"> D) Proibir tecnologias digitais e focar em mapas mudos manuais.</li>
+                <li class="option-item"><input type="radio" name="q10" value="E"> E) Ensinar Geografia Física isolada da Humana.</li>
+            </ul>
+            <div class="resolution" id="res10">
+                <h4>Resolução Comentada</h4>
+                <p><strong>Gabarito: B</strong></p>
+                <p>O trabalho de campo é a metodologia ideal para unir observação da paisagem (marcas do tempo) com a subjetividade do lugar (pertencimento).</p>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" class="submit-btn">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C', q2: 'B', q3: 'C', q4: 'C', q5: 'A',
+        q6: 'C', q7: 'B', q8: 'C', q9: 'C', q10: 'B'
+    };
+
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const radio = this.querySelector('input[type="radio"]');
+            if (!radio.disabled) {
+                radio.checked = true;
+                // Remover classe selected de outros na mesma questão
+                const name = radio.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            }
+        });
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        let score = 0;
+        const form = document.getElementById('quizForm');
+        const formData = new FormData(form);
+
+        // Validar se todas foram respondidas
+        let answeredCount = 0;
+        for(let key of formData.keys()) answeredCount++;
+        
+        if (answeredCount < 10) {
+            alert("Por favor, responda todas as 10 questões antes de finalizar.");
+            return;
+        }
+
+        // Processar respostas
+        for (let i = 1; i <= 10; i++) {
+            const qName = 'q' + i;
+            const userAnswer = formData.get(qName);
+            const correctAnswer = correctAnswers[qName];
+            const options = document.querySelectorAll(`input[name="${qName}"]`);
+            
+            options.forEach(opt => {
+                const parent = opt.parentElement;
+                opt.disabled = true; // Desabilita após envio
+                
+                if (opt.value === correctAnswer) {
+                    parent.classList.add('correct');
+                } else if (opt.value === userAnswer && userAnswer !== correctAnswer) {
+                    parent.classList.add('wrong');
+                }
+            });
+
+            if (userAnswer === correctAnswer) {
+                score++;
+            }
+
+            // Mostrar resoluções
+            document.getElementById('res' + i).style.display = 'block';
+        }
+
+        // Mostrar resumo
+        const summary = document.getElementById('resultSummary');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const feedbackText = document.getElementById('feedbackText');
+        
+        summary.style.display = 'block';
+        scoreDisplay.textContent = `${score} / 10`;
+        
+        if (score >= 8) {
+            feedbackText.textContent = "Excelente desempenho! Você domina as categorias de análise geográfica.";
+            scoreDisplay.style.color = "var(--correct-color)";
+        } else if (score >= 5) {
+            feedbackText.textContent = "Bom trabalho. Revise as resoluções abaixo para consolidar os pontos onde houve dúvida.";
+            scoreDisplay.style.color = "#f39c12";
+        } else {
+            feedbackText.textContent = "Continue estudando. A obra de Milton Santos exige leitura atenta dos sistemas de objetos e ações.";
+            scoreDisplay.style.color = "var(--wrong-color)";
+        }
+
+        // Esconder botão de submit
+        this.classList.add('hidden');
+        
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>

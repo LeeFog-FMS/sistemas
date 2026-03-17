@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor IFC: Cartografia e Escalas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            border-bottom: 2px solid #fcd34d;
+            font-weight: 600;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 2rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* Garante legibilidade em telas pequenas */
+        }
+        th, td {
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        th {
+            background-color: #f8fafc;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        .math-box {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #475569;
+            margin: 1.5rem 0;
+        }
+        .audio-player {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <!-- Cabeçalho -->
+        <header class="mb-12 border-b pb-8">
+            <div class="text-blue-600 font-bold uppercase tracking-widest text-sm mb-2">Concurso Professor EBTT - IFC</div>
+            <h1 class="text-4xl font-extrabold text-slate-900 leading-tight">Fundamentos da Cartografia, Escalas e Sistemas de Coordenadas</h1>
+            <p class="mt-4 text-lg text-slate-600">Um guia técnico e didático focado no perfil de cobrança da Banca Fundatec.</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="audio-player shadow-sm">
+            <h3 class="text-sm font-bold text-slate-500 mb-3 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                OUVIR RESUMO DA AULA
+            </h3>
+            <audio controls class="w-full">
+                <source src="geografia-fundamentos-da-cartografia-e-escalas.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="text-[10px] text-slate-400 mt-2 uppercase">Arquivo: aula_cartografia_ifc.mp3</p>
+        </div>
+
+        <!-- Seção 1: Conceito e Abstração -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 border-l-4 border-blue-500 pl-4">1. A Natureza do Mapa: Abstração e Política</h2>
+            <p class="mb-4">
+                A cartografia não é uma reprodução neutra da realidade, mas uma <span class="highlight">forma de linguagem e poder</span>. Para o concurso do IFC, domine dois conceitos de abstração:
+            </p>
+            <ul class="list-disc ml-6 space-y-2 text-slate-700">
+                <li><strong>Generalização:</strong> O processo de selecionar o que mostrar. Quanto menor a escala, maior a generalização (perda de detalhes).</li>
+                <li><strong>Decisão Política:</strong> O que é omitido (silêncio cartográfico) ou centralizado no mapa reflete a visão de mundo do cartógrafo ou da instituição.</li>
+            </ul>
+        </section>
+
+        <!-- Seção 2: Escalas -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 border-l-4 border-blue-500 pl-4">2. A Matemática da Escala (Numérica e Gráfica)</h2>
+            <p class="mb-4">Escala é a relação de proporcionalidade: <span class="math-box block text-center">E = d / D</span></p>
+            
+            <div class="space-y-4">
+                <p><strong>Escala Numérica:</strong> Expressa por uma fração (1:100.000). <span class="highlight">Não possui unidade de medida explícita</span>, mas trabalhamos sempre em centímetros.</p>
+                <p><strong>Escala Gráfica:</strong> Representada por uma linha graduada. Sua maior vantagem é <span class="highlight">permanecer correta em caso de ampliação ou redução</span> do mapa.</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de Escala</th>
+                            <th>Denominador</th>
+                            <th>Nível de Detalhe</th>
+                            <th>Área Representada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">GRANDE (Ex: 1:500)</td>
+                            <td>Pequeno</td>
+                            <td class="text-green-600 font-bold">Rico em Detalhes</td>
+                            <td>Área Pequena (Bairros, Lotes)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">PEQUENA (Ex: 1:1.000.000)</td>
+                            <td>Grande</td>
+                            <td class="text-red-600 font-bold">Pobre em Detalhes</td>
+                            <td>Área Grande (Países, Continentes)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="math-box">
+                <p class="font-bold mb-2">🔥 Regra de Conversão Fundatec (Regra dos 5 Zeros):</p>
+                <ul class="space-y-1">
+                    <li>Convertendo <strong>cm → km</strong>: Corte 5 zeros. (1:100.000 = 1cm para 1km)</li>
+                    <li>Convertendo <strong>cm → m</strong>: Corte 2 zeros. (1:100.000 = 1cm para 1.000m)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção 3: Coordenadas e Datum -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 border-l-4 border-blue-500 pl-4">3. Sistemas de Coordenadas e Geodésia</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-blue-800 mb-2">Geográficas (L/λ e φ)</h4>
+                    <p class="text-sm">Baseadas em ângulos (Graus, Minutos, Segundos). Latitude (N/S) e Longitude (L/O).</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-800 mb-2">Projetadas (UTM)</h4>
+                    <p class="text-sm">Baseadas em metros (plano-retangulares). <span class="highlight">Universal Transversa de Mercator</span>.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-slate-50 border rounded">
+                <p><strong>O Datum Brasileiro:</strong> O padrão oficial é o <span class="highlight">SIRGAS 2000</span>. Ele é geocêntrico (centro de massa da Terra), essencial para o funcionamento preciso do GPS. A Fundatec costuma citar o antigo SAD-69 (topocêntrico) para confundir o candidato.</p>
+            </div>
+
+            <div class="math-box mt-6">
+                <p class="font-bold">Coordenadas UTM no Hemisfério Sul:</p>
+                <p>Norte (N): Inicia em <span class="highlight">10.000.000m</span> no Equador e <span class="underline">diminui</span> para o Sul.<br>
+                Este (E): O Meridiano Central de cada fuso vale <span class="highlight">500.000m</span>.</p>
+            </div>
+        </section>
+
+        <!-- Seção 4: Fusos Horários -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 border-l-4 border-blue-500 pl-4">4. Fusos Horários: O Padrão Brasil</h2>
+            <p class="mb-4">O Brasil possui <span class="highlight">quatro fusos horários</span>, todos a Oeste de Greenwich (negativos):</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fuso</th>
+                            <th>Localidades</th>
+                            <th>Diferença UTC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">1º Fuso</td>
+                            <td>Ilhas Oceânicas (Fernando de Noronha)</td>
+                            <td>- 2 horas</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-blue-700">2º Fuso</td>
+                            <td><span class="highlight">Brasília (Oficial)</span>, Sul, Sudeste, Nordeste, GO, TO, PA, AP</td>
+                            <td>- 3 horas</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">3º Fuso</td>
+                            <td>AM, RR, RO, MT, MS</td>
+                            <td>- 4 horas</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">4º Fuso</td>
+                            <td>Acre e parte extrema do Amazonas</td>
+                            <td>- 5 horas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Seção 5: Projeções -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 border-l-4 border-blue-500 pl-4">5. Projeções e Deformações</h2>
+            <ul class="space-y-4">
+                <li><strong>Mercator (Cilíndrica Conforme):</strong> Preserva a forma, mas <span class="highlight">deforma o tamanho</span> (eurocêntrica, amplia áreas de altas latitudes). Ótima para navegação.</li>
+                <li><strong>Peters (Cilíndrica Equivalente):</strong> Preserva o tamanho real, mas <span class="highlight">deforma as formas</span> (foco nos países subdesenvolvidos).</li>
+                <li><strong>Robinson (Afilática/Mediadora):</strong> Não preserva nem forma nem área perfeitamente, mas busca um equilíbrio visual para mapas-múndi didáticos.</li>
+            </ul>
+        </section>
+
+        <!-- Peguinhas da Fundatec -->
+        <section class="mb-12 bg-slate-900 text-white p-8 rounded-2xl shadow-xl">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <span class="bg-yellow-400 text-black px-2 py-1 rounded mr-3 text-sm">ALERTA</span> 
+                Tendências de Cobrança Fundatec
+            </h2>
+            <div class="space-y-4 text-slate-300">
+                <p><strong class="text-white">1. Inversão de Lógica:</strong> A banca vai dizer que a escala 1:1.000.000 é "maior" que 1:5.000 porque o número é maior. <span class="text-red-400 font-bold">ERRO!</span> O denominador é maior, logo a escala é <span class="underline">menor</span>.</p>
+                <p><strong class="text-white">2. Unidades de Medida:</strong> Questões de cálculo que misturam metros e quilômetros para induzir ao erro na vírgula.</p>
+                <p><strong class="text-white">3. Fusos no Acre:</strong> Lembre que o Acre voltou a ter 2 horas de diferença para Brasília em 2013. A banca ama esse "histórico".</p>
+                <p><strong class="text-white">4. Cartografia Temática:</strong> Diferença entre anamorfose (deformação por dado estatístico) e mapas coropléticos (cores por intensidade).</p>
+            </div>
+        </section>
+
+        <!-- Botão Final -->
+        <footer class="text-center py-10">
+            <a href="geografia-fundamentos-da-cartografia-e-escalasquestoes.html" class="inline-flex items-center justify-center px-10 py-5 bg-blue-600 text-white font-extrabold text-xl rounded-xl hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg">
+                PRATICAR COM QUESTÕES
+                <svg class="w-6 h-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </a>
+            <p class="mt-6 text-slate-500 text-sm">Este resumo é focado na prova objetiva do IFC. Revise as fórmulas antes de iniciar as questões.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Cartografia - Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #2980b9;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --resolution-bg: #f9fbfd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        p.subtitle {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+
+        .question-block {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f0f7ff;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+        }
+
+        .option-item.selected {
+            background-color: #e8f4fd;
+            border-color: var(--accent-color);
+        }
+
+        /* Results Styling */
+        .result-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #f4f7f6;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--resolution-bg);
+            border-left: 5px solid var(--accent-color);
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .is-correct {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .is-wrong {
+            color: var(--wrong-color);
+            font-weight: bold;
+        }
+
+        button.submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button.submit-btn:hover {
+            background-color: #2c3e50;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .math {
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Avaliação Técnica: Cartografia e Sistemas Geoespaciais</h1>
+        <p class="subtitle">Estilo Banca Fundatec - 10 Questões</p>
+    </header>
+
+    <div id="quiz-container">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <button id="submit-quiz" class="submit-btn">Finalizar Simulado e Ver Resoluções</button>
+
+    <div id="results" class="result-section">
+        <div class="score-display" id="score-text"></div>
+        <p>Confira abaixo o gabarito detalhado e as resoluções de cada questão.</p>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No contexto de uma avaliação de planejamento urbano conduzida por uma administração municipal, um topógrafo recebeu a tarefa de transpor as medidas de um levantamento planimétrico para um mapa base. O profissional identificou que a distância real (D) entre o ponto de captação de água e o reservatório central da cidade é de exatamente 12,5 quilômetros. Para que essa distância seja representada no mapa com um comprimento (d) de 25 centímetros, a escala numérica (1/M) a ser adotada e a correspondente escala gráfica, considerando um segmento de 1 cm no mapa, devem ser, respectivamente:",
+            options: [
+                "1:50.000 e uma barra onde 1 cm representa 500 metros.",
+                "1:500.000 e uma barra onde 1 cm representa 5 quilômetros.",
+                "1:5.000 e uma barra onde 1 cm representa 50 metros.",
+                "1:25.000 e uma barra onde 1 cm representa 250 metros.",
+                "1:100.000 e uma barra onde 1 cm representa 1.000 metros."
+            ],
+            correct: 0,
+            resolution: "<b>Resolução:</b><br>1. Cálculo da Escala Numérica: D = 12,5 km = 1.250.000 cm. d = 25 cm. Escala = d/D = 25 / 1.250.000. Simplificando por 25, temos 1:50.000.<br>2. Escala Gráfica: Se 1 cm = 50.000 cm, então 1 cm = 500 metros. Alternativa A."
+        },
+        {
+            id: 2,
+            text: "A escala cartográfica é frequentemente interpretada como uma simples razão matemática; entretanto, na cartografia sistemática e temática, ela define o nível de abstração, a generalização dos fenômenos e a decisão política sobre a visibilidade de elementos no território. Analise as assertivas abaixo:<br><br>I. Uma escala de 1:2.000 é considerada maior que uma escala de 1:1.000.000, implicando que o mapa de escala maior possui um denominador menor e, consequentemente, permite a representação de mais detalhes.<br>II. O processo de generalização cartográfica, intrínseco à redução da escala, é uma atividade puramente técnica e neutra.<br>III. Mapas de pequena escala, como os mapas-múndi, exigem um alto grau de abstração.<br>IV. A escolha da escala de um mapa oficial pode ser utilizada como ferramenta de poder ao decidir não representar certas áreas.",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, III e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: "<b>Resolução:</b> A assertiva II está incorreta porque a generalização cartográfica não é neutra; envolve escolhas políticas e ideológicas sobre o que omitir ou destacar. I, III e IV estão tecnicamente corretas. Alternativa C."
+        },
+        {
+            id: 3,
+            text: "Londres (UK, UTC 0) realiza uma videoconferência com Brasília (BR, UTC -3). Se a reunião começa às 14h00 de uma segunda-feira em Londres (sem horário de verão), qual o horário em Brasília e o horário em Tóquio (Japão, UTC +9) no exato momento do início?",
+            options: [
+                "11h00 de segunda-feira e 23h00 de segunda-feira.",
+                "17h00 de segunda-feira e 05h00 de terça-feira.",
+                "11h00 de segunda-feira e 01h00 de terça-feira.",
+                "17h00 de segunda-feira e 23h00 de segunda-feira.",
+                "09h00 de segunda-feira e 21h00 de segunda-feira."
+            ],
+            correct: 0,
+            resolution: "<b>Resolução:</b><br>Brasília: 14h00 - 3h = 11h00 (Segunda).<br>Tóquio: 14h00 + 9h = 23h00 (Segunda).<br>Ambos permanecem no mesmo dia. Alternativa A."
+        },
+        {
+            id: 4,
+            text: "Sobre os fusos horários do Brasil, assinale V (verdadeiro) ou F (falso):<br>( ) O Brasil possui atualmente quatro fusos horários oficiais.<br>( ) Em 2008, o Acre mudou para -4h, mas após referendo retornou ao fuso de -5h em 2013.<br>( ) Fernando de Noronha está adiantado uma hora em relação a Brasília.<br>( ) O Brasil adota horário de verão permanente desde 2019 em todos os estados.",
+            options: [
+                "V – V – V – F.",
+                "V – F – V – V.",
+                "F – V – F – V.",
+                "V – V – F – F.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: "<b>Resolução:</b> O Brasil tem 4 fusos (V). O Acre retornou ao fuso -5h (V). Fernando de Noronha é UTC -2 (uma hora à frente de Brasília UTC -3) (V). O horário de verão foi extinto/suspenso em 2019, não é permanente (F). Alternativa A."
+        },
+        {
+            id: 5,
+            text: "Sobre sistemas de coordenadas e geodésia, analise:<br>I. As altitudes de receptores GNSS são geométricas (elipsoidais).<br>II. O geoide representa o nível médio dos mares e é referência para altitudes ortométricas.<br>III. No Brasil, o datum oficial é o SIRGAS2000.<br>IV. Coordenadas geodésicas são idênticas às astronômicas.",
+            options: [
+                "Apenas I e II.",
+                "Apenas I, II e III.",
+                "Apenas II e IV.",
+                "Apenas III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 1,
+            resolution: "<b>Resolução:</b> IV está incorreta porque coordenadas geodésicas (elipsoide) diferem das astronômicas (direção da vertical/gravidade) devido ao desvio da vertical. I, II e III são definições clássicas da geodésia moderna. Alternativa B."
+        },
+        {
+            id: 6,
+            text: "Sobre a Projeção Universal Transversa de Mercator (UTM), assinale a correta:",
+            options: [
+                "Divide a Terra em 24 zonas longitudinais de 15° cada.",
+                "A projeção UTM é do tipo cilíndrica secante, minimizando distorções nos meridianos centrais.",
+                "As coordenadas são dadas em graus, minutos e segundos.",
+                "O meridiano central de cada fuso possui valor E = 0 metros.",
+                "É ideal para representar a totalidade do continente americano sem distorções em uma única folha."
+            ],
+            correct: 1,
+            resolution: "<b>Resolução:</b> UTM divide a Terra em 60 zonas de 6°. É plana/métrica (não graus). O meridiano central é E = 500.000m. A característica de secância é o que permite a precisão técnica do sistema. Alternativa B."
+        },
+        {
+            id: 7,
+            text: "Analise a classificação dos produtos cartográficos:<br>( ) Mapas temáticos representam fenômenos específicos sobre base simplificada.<br>( ) Mapas técnicos exigem alta precisão e escalas grandes.<br>( ) Mapas genéricos buscam mostrar o máximo de elementos possíveis.<br>( ) Cartas-imagem são resultantes exclusivamente de desenhos manuais.",
+            options: [
+                "V – V – V – F.",
+                "F – V – F – V.",
+                "V – F – V – F.",
+                "V – V – F – V.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: "<b>Resolução:</b> Cartas-imagem são baseadas em sensoriamento remoto (satélites/aviões), não apenas desenhos manuais. As demais definições estão corretas. Alternativa A."
+        },
+        {
+            id: 8,
+            text: "Sobre as projeções de Mercator e Peters, é correto afirmar:",
+            options: [
+                "Mercator é equivalente, preservando as proporções das áreas.",
+                "Peters é conforme, mantendo a forma exata dos continentes.",
+                "Mercator é conforme, preserva formas e ângulos, mas aumenta áreas em altas latitudes.",
+                "Peters é azimutal, usada para regiões polares.",
+                "Ambas são simultaneamente equivalentes e conformes."
+            ],
+            correct: 2,
+            resolution: "<b>Resolução:</b> Mercator é cilíndrica conforme (formas OK, áreas distorcidas). Peters é cilíndrica equivalente (áreas OK, formas distorcidas). Alternativa C."
+        },
+        {
+            id: 9,
+            text: "Considere:<br>1. Representação por pontos, linhas e polígonos (x, y).<br>2. Grade regular de células (pixels).<br>3. Ideal para fenômenos contínuos (temperatura).<br>4. Eficiente para cálculos de redes e distâncias precisas.<br><br>As características referem-se, respectivamente, a:",
+            options: [
+                "1-Vetorial; 2-Matricial; 3-Matricial; 4-Vetorial.",
+                "1-Matricial; 2-Vetorial; 3-Vetorial; 4-Matricial.",
+                "1-Vetorial; 2-Vetorial; 3-Matricial; 4-Matricial.",
+                "1-Matricial; 2-Matricial; 3-Vetorial; 4-Vetorial.",
+                "1-Vetorial; 2-Matricial; 3-Vetorial; 4-Matricial."
+            ],
+            correct: 0,
+            resolution: "<b>Resolução:</b> 1 e 4 são pontos fortes do modelo vetorial (precisão e topologia). 2 e 3 definem o modelo matricial/raster (imagens e superfícies contínuas). Alternativa A."
+        },
+        {
+            id: 10,
+            text: "Se um mapa possui escala de 1:250.000, uma área quadrada no mapa com 2 cm de lado corresponde, no mundo real, a:",
+            options: [
+                "5 km².",
+                "25 km².",
+                "50 km².",
+                "125 km².",
+                "625 km²."
+            ],
+            correct: 1,
+            resolution: "<b>Resolução:</b> Lado no mapa = 2cm. Real: 2 * 250.000 = 500.000 cm = 5 km. Área real = Lado * Lado = 5 km * 5 km = 25 km². Alternativa B."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+
+    // Load Questions
+    function loadQuiz() {
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-block';
+            questionDiv.innerHTML = `
+                <div class="question-text">Questão ${index + 1}:</div>
+                <div class="question-body">${q.text}</div>
+                <ul class="options-list" id="q${index}-options">
+                    ${q.options.map((opt, i) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${i})">
+                            <input type="radio" name="q${index}" id="q${index}o${i}" value="${i}">
+                            <label for="q${index}o${i}">${String.fromCharCode(65 + i)}) ${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="resolution-box" id="res-${index}">
+                    ${q.resolution}
+                </div>
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+    }
+
+    window.selectOption = function(qIndex, oIndex) {
+        const items = document.querySelectorAll(`#q${qIndex}-options .option-item`);
+        items.forEach(item => item.classList.remove('selected'));
+        items[oIndex].classList.add('selected');
+        items[oIndex].querySelector('input').checked = true;
+    }
+
+    document.getElementById('submit-quiz').addEventListener('click', function() {
+        let score = 0;
+        const total = questions.length;
+        let answeredAll = true;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            const options = document.querySelectorAll(`#q${index}-options .option-item`);
+            
+            resBox.style.display = 'block';
+
+            if (selected) {
+                const answer = parseInt(selected.value);
+                if (answer === q.correct) {
+                    score++;
+                    options[answer].classList.add('is-correct');
+                } else {
+                    options[answer].classList.add('is-wrong');
+                    options[q.correct].classList.add('is-correct');
+                }
+            } else {
+                answeredAll = false;
+                options[q.correct].classList.add('is-correct');
+            }
+        });
+
+        const resultsDiv = document.getElementById('results');
+        const scoreText = document.getElementById('score-text');
+        resultsDiv.style.display = 'block';
+        scoreText.innerHTML = `Sua Pontuação: ${score} de ${total}`;
+        
+        window.scrollTo({ top: resultsDiv.offsetTop - 50, behavior: 'smooth' });
+        this.innerHTML = "Simulado Finalizado";
+        this.disabled = true;
+        this.style.opacity = "0.7";
+    });
+
+    loadQuiz();
+</script>
+
+</body>
+</html>

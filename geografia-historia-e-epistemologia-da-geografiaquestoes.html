@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: História e Epistemologia da Geografia</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #2980b9;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        main {
+            width: 100%;
+            max-width: 850px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f7fc;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        #submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        #submit-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            width: 100%;
+        }
+
+        .score-box {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-box h2 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .resolution {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .resolution h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .status-correct { background-color: #d4edda; color: #155724; }
+        .status-incorrect { background-color: #f8d7da; color: #721c24; }
+
+        .correct-answer-highlight {
+            background-color: #e8f5e9 !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .incorrect-answer-highlight {
+            background-color: #ffebee !important;
+            border-color: var(--incorrect-color) !important;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: História e Epistemologia da Geografia</h1>
+    <p class="subtitle">Estudo da evolução do pensamento geográfico (Banca Estilo Fundatec)</p>
+</header>
+
+<main>
+    <div id="quiz-container">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="checkAnswers()">Finalizar e Ver Resultados</button>
+    </div>
+
+    <div id="results-area">
+        <div class="score-box">
+            <p>Resultado Final</p>
+            <h2 id="score-display">0/10</h2>
+            <p id="score-commentary"></p>
+        </div>
+        <div id="resolutions-container">
+            <!-- Detailed resolutions injected here -->
+        </div>
+    </div>
+</main>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "A história do pensamento geográfico revela que a sistematização da Geografia como ciência no século XIX não ocorreu em um vácuo, mas foi precedida por milênios de acumulação de saber espacial, técnico e filosófico. Na Antiguidade, a Geografia emergiu sob duas vertentes principais: uma matemática-cartográfica e outra descritiva-regional. Com base nos fundamentos da Geografia na Antiguidade e sua transição para a Idade Média, assinale a alternativa que descreve corretamente as contribuições desse período para a evolução do conhecimento geográfico:",
+            options: [
+                "A. Eratóstenes de Cirene, embora tenha cunhado o termo Geografia, restringiu seu trabalho à descrição literária dos costumes dos povos bárbaros, sem utilizar métodos geométricos para a medição da Terra.",
+                "B. Estrabão, em sua obra Geographia, sintetizou o conhecimento da época com uma perspectiva puramente teórica e metafísica, ignorando a utilidade prática do saber geográfico para a administração do Império Romano.",
+                "C. Cláudio Ptolomeu estabeleceu as bases da cartografia científica ao propor um sistema de projeções e coordenadas de latitude e longitude, influenciando a representação do mundo até o Renascimento, apesar de subestimar a circunferência terrestre.",
+                "D. A Idade Média representou o auge do avanço técnico cartográfico na Europa Ocidental, onde os mapas \"T-O\" superaram o rigor matemático grego ao integrar dados empíricos precisos das navegações vikings.",
+                "E. Tales de Mileto e Anaximandro de Mileto foram os primeiros a propor que a Terra possuía a forma de um disco plano flutuando sobre a água, visão que foi mantida como verdade absoluta e inquestionável por toda a escola pitagórica."
+            ],
+            correct: "C",
+            resolution: "Cláudio Ptolomeu é a figura central da cartografia antiga. Ele sistematizou o uso de coordenadas (latitude e longitude) e desenvolveu métodos de projeção cartográfica para representar a esfericidade da Terra em um plano. Sua obra, o Guia de Geografia, foi o texto padrão até o Renascimento. O erro de Ptolomeu foi subestimar a circunferência da Terra (seguindo Posidônio em vez de Eratóstenes), o que, ironicamente, encorajou Cristóvão Colombo séculos depois a acreditar que a Ásia estava mais próxima da Europa pelo Atlântico."
+        },
+        {
+            id: 2,
+            question: "No início do século XIX, a Geografia passou por um processo de sistematização científica na Alemanha, sendo Alexander von Humboldt e Carl Ritter considerados os pais fundadores da Geografia Moderna. Embora compartilhassem o objetivo de elevar a disciplina ao status de ciência, suas abordagens metodológicas possuíam nuances distintas. Sobre a obra desses autores e o contexto de institucionalização da Geografia, analise as assertivas abaixo:<br><br>I. Humboldt adotou o método do \"empirismo raciocinado\", fundamentado na observação direta, na mensuração rigorosa de fenômenos e na busca pela harmonia e unidade da natureza, conforme exposto em sua obra Kosmos.<br>II. Ritter desenvolveu uma Geografia Comparada com forte viés teleológico, entendendo a configuração dos continentes como um plano divino destinado a propiciar o desenvolvimento das civilizações humanas.<br>III. A institucionalização da Geografia na Universidade de Berlim em 1820, com a criação da primeira cátedra para Carl Ritter, deveu-se exclusivamente ao interesse acadêmico puramente filosófico, sem qualquer relação com as necessidades de unificação e expansão do Estado Prussiano.<br><br>Quais estão corretas?",
+            options: [
+                "A. Apenas I.",
+                "B. Apenas II.",
+                "C. Apenas III.",
+                "D. Apenas I e II.",
+                "E. I, II e III."
+            ],
+            correct: "D",
+            resolution: "Humboldt (I) propôs o 'empirismo raciocinado' e a busca pela harmonia em 'Kosmos'. Ritter (II) focou na Geografia Comparada com viés teleológico. A III está incorreta porque a institucionalização esteve ligada às necessidades políticas do Estado Prussiano para unificação e administração territorial."
+        },
+        {
+            id: 3,
+            question: "A institucionalização das escolas nacionais de Geografia no final do século XIX foi marcada pela influência do positivismo e do evolucionismo biológico. Na Alemanha, Friedrich Ratzel formulou conceitos que buscavam explicar a relação entre o Estado, a sociedade e o território. Com base no pensamento de Ratzel e na escola determinista alemã, assinale a alternativa correta:",
+            options: [
+                "A. O conceito de \"Espaço Vital\" (Lebensraum) de Ratzel pressupunha que o Estado é um organismo vivo que necessita de território para crescer, sendo a expansão territorial uma necessidade biológica e política inerente às nações fortes.",
+                "B. Ratzel defendia que as condições naturais, como clima e relevo, possuíam influência desprezível sobre o desenvolvimento cultural das sociedades, focando sua análise na autonomia da vontade humana.",
+                "C. A Geografia de Ratzel era essencialmente crítica e visava denunciar as injustiças do sistema capitalista industrial na Europa do século XIX.",
+                "D. Para Ratzel, o território era uma construção puramente simbólica e afetiva, desprovida de valor estratégico ou militar para a sobrevivência do Estado.",
+                "E. A obra de Ratzel foi influenciada primordialmente pelo possibilismo francês, o que o levou a rejeitar a ideia de leis gerais que regessem a distribuição dos povos na superfície terrestre."
+            ],
+            correct: "A",
+            resolution: "Ratzel aplicou conceitos biológicos ao Estado. O 'Espaço Vital' (Lebensraum) via o Estado como um organismo que necessita de território para seu desenvolvimento, fundamentando a geopolítica expansionista alemã do século XIX."
+        },
+        {
+            id: 4,
+            question: "Em contraposição ao determinismo geográfico alemão, a Escola Francesa de Geografia, sob a liderança de Paul Vidal de La Blache, propôs uma nova abordagem teórica que enfatizava a interação entre o homem e o meio. Sobre os conceitos fundamentais da escola possibilista francesa, considere as seguintes afirmações:<br><br>I. O conceito de \"Gênero de Vida\" refere-se ao conjunto de técnicas, costumes e tradições que um grupo humano desenvolve para utilizar as possibilidades oferecidas pelo meio natural.<br>II. O Possibilismo defende que a natureza não impõe um destino fatalista às sociedades, mas oferece um leque de opções que o homem, enquanto agente ativo, pode transformar.<br>III. Para La Blache, a \"Região\" é a unidade de análise fundamental, resultante da longa interação histórica entre um gênero de vida e um determinado quadro natural, consolidada na forma de paisagem.<br><br>Quais estão corretas?",
+            options: [
+                "A. Apenas I.",
+                "B. Apenas II.",
+                "C. Apenas I e III.",
+                "D. Apenas II e III.",
+                "E. I, II e III."
+            ],
+            correct: "E",
+            resolution: "Todas as assertivas estão corretas. A escola francesa de La Blache foca no 'Gênero de Vida' (técnicas de adaptação), no 'Possibilismo' (o homem como agente ativo) e na 'Região' (síntese histórica e geográfica)."
+        },
+        {
+            id: 5,
+            question: "A Geografia Regional clássica dominou a disciplina até meados do século XX, focando na síntese das características singulares de cada porção do espaço. No entanto, após a Segunda Guerra Mundial, surgiu a Geografia Pragmática ou Quantitativa, que buscava um novo rigor científico. Sobre essa transição epistemológica, assinale a alternativa correta:",
+            options: [
+                "A. A Geografia Quantitativa rejeitou o uso da estatística e da matemática, por considerá-las ferramentas subjetivas que distanciavam o geógrafo da realidade empírica dos lugares.",
+                "B. O movimento de renovação teorético-quantitativa baseou-se no neopositivismo (positivismo lógico), buscando a formulação de leis gerais e modelos espaciais com capacidade preditiva.",
+                "C. Richard Hartshorne, em sua obra A Natureza da Geografia, defendeu que a Geografia deveria abandonar o estudo das diferenciações de áreas e focar exclusivamente na luta de classes urbana.",
+                "D. A Geografia Pragmática pregava a ruptura com o planejamento estatal, defendendo que a ciência geográfica não deveria ter utilidade prática para o desenvolvimento econômico.",
+                "E. A principal característica da Geografia Teorética foi a valorização da subjetividade e dos sentimentos dos indivíduos em relação ao espaço vivido."
+            ],
+            correct: "B",
+            resolution: "A Geografia Quantitativa buscou rigor matemático e neopositivista. O objetivo era criar modelos e leis gerais para planejamento espacial, contrastando com o caráter puramente descritivo da escola regional clássica."
+        },
+        {
+            id: 6,
+            question: "A década de 1970 marcou o surgimento da Geografia Crítica ou Radical, que propôs uma ruptura profunda com a chamada Geografia Tradicional e com a Geografia Quantitativa. Esta corrente introduziu o materialismo histórico e dialético na análise espacial. Sobre a renovação crítica da Geografia, é correto afirmar que:",
+            options: [
+                "A. A Geografia Crítica defende a neutralidade científica do geógrafo, argumentando que a análise do espaço deve ser feita sem considerar ideologias ou conflitos sociais.",
+                "B. Milton Santos, um dos principais expoentes desta corrente no Brasil, propôs a análise do espaço geográfico como um conjunto indissociável de sistemas de objetos e sistemas de ações.",
+                "C. Yves Lacoste, em sua obra clássica, defendeu que a Geografia é uma ciência puramente acadêmica e escolar, sem qualquer serventia para fins militares ou de dominação política.",
+                "D. A renovação crítica buscou retomar os pressupostos do determinismo ambiental para explicar a pobreza nos países do Terceiro Mundo através das limitações do clima tropical.",
+                "E. O foco central da Geografia Crítica é a aplicação de modelos matemáticos de localização industrial para maximizar o lucro das empresas transnacionais."
+            ],
+            correct: "B",
+            resolution: "Milton Santos definiu o espaço geográfico como o conjunto indissociável de sistemas de objetos (suporte material) e sistemas de ações (vida e sociedade). A geografia crítica rompe com a neutralidade e usa o marxismo para denunciar as desigualdades."
+        },
+        {
+            id: 7,
+            question: "A Geografia Cultural e a Geografia Humanista emergiram como alternativas às abordagens quantitativas e marxistas, focando na dimensão subjetiva e simbólica do espaço. Um dos conceitos centrais dessa vertente é o de \"Lugar\". De acordo com a perspectiva humanista e cultural contemporânea, o \"Lugar\" é definido como:",
+            options: [
+                "A. Uma localização geométrica precisa definida exclusivamente por coordenadas de latitude e longitude em um sistema de informação geográfica.",
+                "B. Um espaço de vivência dotado de significados, afetividade e identidade, onde se processam as experiências cotidianas dos indivíduos.",
+                "C. Uma porção do território nacional delimitada por fronteiras políticas rígidas e controlada pelo poder coercitivo do Estado.",
+                "D. O palco onde ocorrem as trocas mercantis e a circulação de capital financeiro, independentemente da percepção dos sujeitos.",
+                "E. Uma unidade da paisagem natural que não sofreu interferência humana, mantendo-se em seu estado primitivo de equilíbrio ecológico."
+            ],
+            correct: "B",
+            resolution: "Para a Geografia Humanista (como a de Yi-Fu Tuan), o 'Lugar' é o espaço transformado pelo significado, afeto e vivência. Opõe-se ao conceito de 'Espaço' abstrato e geométrico da geografia quantitativa."
+        },
+        {
+            id: 8,
+            question: "A epistemologia da Geografia envolve o estudo dos princípios que regem a investigação científica do espaço. Relacione os princípios geográficos clássicos às suas respectivas definições:<br><br>1. Extensão. / 2. Analogia. / 3. Causalidade. / 4. Conexão.<br><br>( ) Estabelece que o geógrafo deve buscar as causas que explicam os fenômenos observados na superfície terrestre.<br>( ) Determina que os fenômenos geográficos devem ser delimitados e localizados precisamente no espaço.<br>( ) Prega que os fenômenos não ocorrem de forma isolada, mas estão inter-relacionados em uma teia de influências mútuas.<br>( ) Envolve a comparação de fenômenos e áreas diferentes para identificar semelhanças, diferenças e generalizações.",
+            options: [
+                "A. 3 – 1 – 4 – 2.",
+                "B. 1 – 3 – 2 – 4.",
+                "C. 4 – 2 – 1 – 3.",
+                "D. 2 – 4 – 3 – 1.",
+                "E. 3 – 4 – 1 – 2."
+            ],
+            correct: "A",
+            resolution: "A ordem correta é: Causalidade (3) busca explicações; Extensão (1) localiza e delimita; Conexão (4) vê as inter-relações; Analogia (2) faz comparações entre áreas distintas."
+        },
+        {
+            id: 9,
+            question: "Milton Santos, ao discutir a evolução do pensamento geográfico, critica a fragmentação da ciência e propõe uma teoria que integre o espaço à dinâmica social. Sobre o conceito de \"Território Usado\" e a função social da Geografia na obra de Milton Santos, assinale a alternativa correta:",
+            options: [
+                "A. O território usado deve ser compreendido como um objeto estático, uma base física onde a sociedade se instala sem alterar as leis da natureza.",
+                "B. A análise do território usado foca na indissociabilidade entre o suporte material (objetos) e a vida que o anima (ações), sendo o centro da explicação geográfica contemporânea.",
+                "C. Milton Santos defende que a Geografia deve focar exclusivamente nos \"fluxos\" virtuais da internet, abandonando o estudo dos \"fixos\" como estradas e cidades.",
+                "D. Para o autor, a técnica é um elemento neutro que se desenvolve de forma independente das relações de poder e do modo de produção capitalista.",
+                "E. A função social da Geografia, segundo Milton Santos, é fornecer subsídios para que as elites dominantes possam organizar o território de forma a excluir as populações mais pobres do consumo."
+            ],
+            correct: "B",
+            resolution: "O 'Território Usado' é o centro da explicação geográfica contemporânea para Milton Santos. Ele foca na relação entre o suporte material (fixos) e a dinâmica social (fluxos/ações)."
+        },
+        {
+            id: 10,
+            question: "Considerando a ruptura com a neutralidade científica proposta pelas correntes contemporâneas (Crítica e Cultural) e a função social da ciência geográfica hoje, assinale a alternativa que reflete o papel do geógrafo na atualidade:",
+            options: [
+                "A. O geógrafo deve atuar como um mero catalogador de dados estatísticos, abstendo-se de emitir julgamentos sobre a segregação socioespacial ou degradação ambiental.",
+                "B. A Geografia deve ser utilizada como um instrumento de conscientização e transformação social, analisando as contradições do espaço para promover a justiça e a cidadania.",
+                "C. O papel fundamental da Geografia hoje é reforçar o eurocentrismo no ensino básico, ignorando as dinâmicas dos países do Sul Global.",
+                "D. A ciência geográfica deve focar na descrição de paisagens exóticas para fins de exploração turística, sem considerar as relações de poder envolvidas.",
+                "E. O geógrafo contemporâneo deve limitar sua atuação ao ensino de nomes de rios e montanhas, evitando discussões sobre a globalização ou o meio técnico-científico-informacional."
+            ],
+            correct: "B",
+            resolution: "A geografia contemporânea é uma ciência social aplicada. O geógrafo deve analisar criticamente o território para promover cidadania e justiça, rompendo com a neutralidade de épocas passadas."
+        }
+    ];
+
+    function initQuiz() {
+        const container = document.getElementById('quiz-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt) => {
+                const letter = opt.charAt(0);
+                optionsHtml += `
+                    <label class="option-item" for="q${index}-${letter}">
+                        <input type="radio" name="question${index}" value="${letter}" id="q${index}-${letter}">
+                        ${opt}
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${q.id}</span>
+                <div class="question-text">${q.question}</div>
+                <div class="options-list">
+                    ${optionsHtml}
+                </div>
+                <div id="res-${index}" class="resolution" style="display:none;">
+                    <h4>Resolução:</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = ''; // Clear previous results
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            const card = document.getElementById(`q-card-${index}`);
+            const resolutionDiv = document.getElementById(`res-${index}`);
+            
+            const isCorrect = selected && selected.value === q.correct;
+            if (isCorrect) score++;
+
+            // Highlight options in the card
+            const options = card.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                const input = opt.querySelector('input');
+                // Highlight correct one in green
+                if (input.value === q.correct) {
+                    opt.classList.add('correct-answer-highlight');
+                }
+                // If user selected wrong one, highlight in red
+                if (selected && selected.value === input.value && selected.value !== q.correct) {
+                    opt.classList.add('incorrect-answer-highlight');
+                }
+                // Disable inputs
+                input.disabled = true;
+            });
+
+            // Show resolution
+            resolutionDiv.style.display = 'block';
+            
+            // Add status badge
+            const statusLabel = document.createElement('div');
+            statusLabel.className = isCorrect ? 'status-badge status-correct' : 'status-badge status-incorrect';
+            statusLabel.innerText = isCorrect ? 'ACERTOU' : (selected ? `ERROU (Resposta: ${q.correct})` : `NÃO RESPONDIDA (Resposta: ${q.correct})`);
+            resolutionDiv.prepend(statusLabel);
+        });
+
+        // Show result box
+        document.getElementById('submit-btn').style.display = 'none';
+        document.getElementById('results-area').style.display = 'block';
+        document.getElementById('score-display').innerText = `${score} / ${quizData.length}`;
+        
+        const commentary = document.getElementById('score-commentary');
+        if (score === 10) commentary.innerText = "Excelente! Você domina a Epistemologia da Geografia.";
+        else if (score >= 7) commentary.innerText = "Muito bom! Ótimo desempenho para a banca Fundatec.";
+        else if (score >= 5) commentary.innerText = "Bom, mas revise os pontos onde houve dúvida.";
+        else commentary.innerText = "Recomendamos uma nova leitura da teoria para fixar os conceitos.";
+
+        // Scroll to results
+        window.scrollTo({ top: document.getElementById('results-area').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>
