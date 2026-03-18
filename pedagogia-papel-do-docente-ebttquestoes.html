@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: O Papel do Docente EBTT nos Institutos Federais</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --incorrect-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+            border-color: #b2bec3;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            border-color: var(--accent-color);
+            background-color: #e3f2fd;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        #submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .score-box {
+            background: #2d3436;
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            display: block;
+            color: #55efc4;
+        }
+
+        .resolution-card {
+            border-left: 5px solid var(--accent-color);
+            background: #fdfdfd;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .res-correct { border-left-color: var(--correct-color); }
+        .res-incorrect { border-left-color: var(--incorrect-color); }
+
+        .res-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .res-status-correct { color: var(--correct-color); }
+        .res-status-incorrect { color: var(--incorrect-color); }
+
+        .res-content {
+            font-size: 1rem;
+            color: #4a4a4a;
+            white-space: pre-line;
+        }
+
+        .table-res {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        .table-res th, .table-res td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .table-res th { background-color: #f2f2f2; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 10px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>O papel do docente EBTT na indissociabilidade entre ensino, pesquisa aplicada e extensão</h1>
+        <p class="intro-text">Simulado Estilo Fundatec - 10 Questões</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questions will be injected here -->
+        <div id="questions-container"></div>
+        <button id="submit-btn" onclick="calculateScore()">Finalizar e Ver Resoluções</button>
+    </div>
+
+    <div id="results-area">
+        <div class="score-box">
+            <span>Seu Resultado:</span>
+            <span class="score-value" id="final-score">0/10</span>
+            <p id="score-msg"></p>
+        </div>
+        <div id="resolutions-container">
+            <!-- Resolutions will be injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            text: "Com base na Lei nº 11.892/2008, que institui a Rede Federal de Educação Profissional, Científica e Tecnológica e cria os Institutos Federais de Educação, Ciência e Tecnologia, analise as assertivas a seguir sobre as finalidades e objetivos dessas instituições:\n\nI. Uma das finalidades centrais é ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados, para os concluintes do ensino fundamental e para o público da educação de jovens e adultos.\nII. Os Institutos Federais têm por objetivo realizar pesquisas aplicadas, estimulando o desenvolvimento de soluções técnicas e tecnológicas, cujos benefícios devem ser estendidos à comunidade.\nIII. É finalidade dos Institutos Federais promover a integração e a verticalização do ensino, desde a educação básica até a pós-graduação, focando exclusivamente na formação de profissionais para o setor industrial de grande porte.\nIV. Atuar como centros de referência no apoio à oferta de ensino de ciências nas escolas públicas e no oferecimento de capacitação técnica para agentes públicos é um dos objetivos previstos em lei.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: `A alternativa correta é a **C**.
+
+            **Assertiva I (Correta):** De acordo com o Art. 7º, inciso I, é objetivo dos IFs ministrar educação profissional técnica de nível médio, prioritariamente na forma de cursos integrados.
+            **Assertiva II (Correta):** Conforme o Art. 6º, inciso VII, as IFs têm por finalidade realizar pesquisas aplicadas, estimulando soluções técnicas e estendendo benefícios à comunidade.
+            **Assertiva III (Incorreta):** O erro reside na palavra "exclusivamente" e no foco restrito ao "setor industrial de grande porte". A lei estabelece que os IFs devem atender aos diversos setores da economia.
+            **Assertiva IV (Correta):** Reflete o Art. 7º, incisos IV e VI, que posicionam o IF como um polo de irradiação de conhecimento.`
+        },
+        {
+            id: 2,
+            text: "No âmbito da carreira do Magistério do Ensino Básico, Técnico e Tecnológico (EBTT), a indissociabilidade entre ensino, pesquisa e extensão é um princípio que orienta a atuação integral do docente. Sobre esse tema, e considerando a relação entre a instituição e a comunidade, analise as afirmações abaixo:\n\n1. A indissociabilidade implica que o conhecimento produzido na pesquisa aplicada deve retroalimentar o ensino, enriquecendo o currículo com demandas reais do mundo do trabalho e da sociedade.\n2. A extensão, nos Institutos Federais, deve ser entendida primordialmente como uma prestação de serviços remunerados para empresas privadas, visando à sustentabilidade financeira do campus.\n3. O princípio da indissociabilidade fortalece a formação integral do estudante, permitindo que ele transite entre a teoria da sala de aula e a prática de projetos que atendam a necessidades sociais.\n4. A atuação docente para além da sala de aula inclui a gestão de projetos de inovação tecnológica e o diálogo permanente com os arranjos produtivos, sociais e culturais locais.",
+            options: [
+                "V – F – V – V.",
+                "V – V – F – F.",
+                "F – V – V – V.",
+                "V – F – F – V.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: `A alternativa correta é a **A**.
+
+            **1. Verdadeira:** A pesquisa aplicada retroalimenta o ensino com demandas reais.
+            **2. Falsa:** A extensão tem finalidade educativa e social, não primordialmente lucrativa.
+            **3. Verdadeira:** Fortalece a formação integral e a transição teoria-prática.
+            **4. Verdadeira:** A atuação docente inclui gestão e diálogo com Arranjos Produtivos Locais (APLs).`
+        },
+        {
+            id: 3,
+            text: "A Lei nº 12.772/2012 dispõe sobre o Plano de Carreiras e Cargos de Magistério Federal. De acordo com essa legislação e as normas que regem os Institutos Federais, as atividades inerentes ao exercício do cargo de Professor EBTT compreendem:\n\nI. Atividades relacionadas ao ensino em cursos de formação inicial e continuada, educação técnica de nível médio, graduação e pós-graduação.\nII. Atividades de pesquisa aplicada que visem à geração de inovação tecnológica e ao desenvolvimento de soluções para problemas territoriais.\nIII. Atividades de extensão que promovam a interação entre a ciência e a comunidade, respeitando as vocações regionais.\nIV. Atividades de gestão, assistência e assessoria na própria instituição ou em órgãos do Ministério da Educação.",
+            options: [
+                "Apenas I e II.",
+                "Apenas I, II e III.",
+                "Apenas III e IV.",
+                "Apenas I, II e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 4,
+            resolution: `A alternativa correta é a **E**.
+
+            Todas as atividades listadas estão previstas na Lei 12.772/2012 e na 11.892/2008 como inerentes ao cargo docente EBTT, demonstrando a natureza multifacetada da carreira que integra ensino, pesquisa, extensão e gestão.`
+        },
+        {
+            id: 4,
+            text: "Sobre a verticalização do ensino nos Institutos Federais e seu impacto na prática docente, assinale a alternativa INCORRETA:",
+            options: [
+                "A verticalização permite que o docente atue em diferentes níveis e modalidades de ensino simultaneamente.",
+                "O ensino verticalizado favorece a continuidade dos estudos, permitindo contato precoce com pesquisa.",
+                "A verticalização é um conceito que se limita à oferta de cursos em diferentes níveis, não possuindo relação direta com a integração curricular.",
+                "A prática docente no contexto verticalizado exige planejamento coletivo para assegurar sentido pedagógico.",
+                "Um desafio da verticalização para o professor EBTT é a gestão do tempo entre diferentes níveis de ensino."
+            ],
+            correct: 2,
+            resolution: `A alternativa correta (a INCORRETA) é a **C**.
+
+            A verticalização **não** é apenas administrativa ou de oferta de cursos. Ela é um conceito pedagógico que visa à integração curricular e ao aproveitamento de saberes, estando diretamente ligada à indissociabilidade.`
+        },
+        {
+            id: 5,
+            text: "Considere as asserções abaixo sobre a função social do docente EBTT e a relação proposta entre elas:\n\nI. O docente EBTT deve atuar como um mediador entre o saber científico e as demandas da comunidade local, utilizando a pesquisa aplicada e a extensão como ferramentas de transformação social.\n\nPORQUE\n\nII. A legislação de criação dos Institutos Federais estabelece como objetivo o estímulo ao desenvolvimento de soluções técnicas e tecnológicas que contribuam para a geração de trabalho e renda e a emancipação cidadã.",
+            options: [
+                "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+                "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+                "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+                "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+                "As asserções I e II são proposições falsas."
+            ],
+            correct: 0,
+            resolution: `A alternativa correta é a **A**.
+
+            Ambas são verdadeiras e a segunda justifica a primeira. O professor atua como mediador social porque a base legal da instituição define o desenvolvimento regional e a emancipação cidadã como objetivos centrais.`
+        },
+        {
+            id: 6,
+            text: "De acordo com o documento \"Concepções e Diretrizes dos Institutos Federais\", a atuação do professor EBTT deve estar pautada no trabalho como princípio educativo. Sobre esse conceito, analise as assertivas abaixo:\n\nI. O trabalho como princípio educativo visa à formação integral do ser humano, superando a dicotomia entre formação técnica e formação humanística.\nII. A ciência, a cultura e a tecnologia devem ser integradas ao currículo como dimensões do trabalho, permitindo ao estudante compreender o processo produtivo em sua totalidade.\nIII. O princípio do trabalho educativo restringe a atuação do professor ao ensino de competências práticas demandadas pelo mercado de trabalho imediato, dispensando a formação científica teórica.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: `A alternativa correta é a **C**.
+
+            As assertivas I e II definem corretamente o trabalho como princípio educativo nos IFs. A III está incorreta pois o conceito repudia o tecnicismo puro; ele exige forte base científica para que o trabalhador compreenda e transforme sua realidade.`
+        },
+        {
+            id: 7,
+            text: "No que se refere à organização das atividades de pesquisa nos Institutos Federais e à função do docente nesse pilar, assinale a alternativa correta:",
+            options: [
+                "A pesquisa básica teórica é a única modalidade permitida para docentes EBTT.",
+                "A pesquisa aplicada deve ser desenvolvida de forma articulada com o ensino e a extensão, priorizando problemas técnicos e sociais locais.",
+                "O docente EBTT não possui carga horária destinada à pesquisa.",
+                "A pesquisa nos Institutos Federais deve ser dissociada da extensão para garantir neutralidade.",
+                "A finalidade da pesquisa no IF é exclusivamente a produção de artigos científicos sem necessidade de prática imediata."
+            ],
+            correct: 1,
+            resolution: `A alternativa correta é a **B**.
+
+            A pesquisa aplicada é a marca dos IFs. Ela deve nascer de problemas reais do território e retornar para a sala de aula como conhecimento novo, integrando-se à extensão.`
+        },
+        {
+            id: 8,
+            text: "A extensão nos Institutos Federais é um dos pilares da indissociabilidade. Sobre as diretrizes da extensão na Rede Federal, analise as assertivas abaixo:\n\nI. A extensão deve ser entendida como um processo educativo, cultural, científico e tecnológico que promove a interação transformadora entre as instituições e os outros setores da sociedade.\nII. A participação dos estudantes em projetos de extensão é facultativa e não deve ser contabilizada como carga horária curricular, sendo uma atividade exclusivamente extracurricular.\nIII. As ações de extensão devem estar em consonância com as finalidades da educação profissional e tecnológica, articuladas com o mundo do trabalho e os segmentos sociais locais.",
+            options: [
+                "Apenas I.",
+                "Apenas III.",
+                "Apenas I e II.",
+                "Apenas I e III.",
+                "I, II e III."
+            ],
+            correct: 3,
+            resolution: `A alternativa correta é a **D**.
+
+            **I. Correta:** Definição clássica de extensão transformadora.
+            **II. Incorreta:** Existe a "Curricularização da Extensão" (mínimo de 10% da carga horária em cursos de graduação), logo ela é parte do currículo.
+            **III. Correta:** Alinhamento obrigatório com o mundo do trabalho e EPT.`
+        },
+        {
+            id: 9,
+            text: "A identidade profissional do docente EBTT é frequentemente caracterizada pela multiplicidade de espaços de atuação. Sobre os desafios dessa identidade no contexto institucional dos IFs, analise as seguintes afirmações:\n\n1. O professor EBTT transita entre a educação básica, o ensino técnico e a educação superior, o que exige saberes docentes que integrem a técnica, a pedagogia e a gestão.\n2. A dedicação exclusiva é o regime de trabalho preferencial para que o docente possa se envolver integralmente com os projetos de pesquisa aplicada e extensão.\n3. A burocratização excessiva dos processos de registro de atividades de pesquisa e extensão é um fator que pode dificultar a plena execução do princípio da indissociabilidade.\n4. O papel do docente EBTT resume-se ao cumprimento de horas-aula, sendo a pesquisa e a extensão atribuições exclusivas de pesquisadores contratados.",
+            options: [
+                "V – V – V – F.",
+                "V – F – V – V.",
+                "F – V – V – V.",
+                "V – V – F – F.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: `A alternativa correta é a **A**.
+
+            As afirmações 1, 2 e 3 são verdadeiras e retratam a complexidade da carreira. A 4 é falsa porque a lei de criação e o plano de carreira estabelecem pesquisa e extensão como deveres do próprio docente.`
+        },
+        {
+            id: 10,
+            text: "Considerando os objetivos dos Institutos Federais previstos na Lei nº 11.892/2008 quanto ao estímulo ao empreendedorismo e ao desenvolvimento local, assinale a alternativa correta:",
+            options: [
+                "O estímulo ao empreendedorismo no IF deve focar apenas na criação de empresas de tecnologia de ponta.",
+                "O professor EBTT atua no apoio a processos educativos voltados à geração de trabalho e renda, promovendo emancipação cidadã.",
+                "Os Institutos Federais devem evitar parcerias com segmentos sociais para não comprometer a autonomia.",
+                "A geração de trabalho e renda é um objetivo secundário, subordinado ao acesso ao ensino superior tradicional.",
+                "O desenvolvimento socioeconômico local deve ser promovido exclusivamente por meio de cursos de graduação teóricos."
+            ],
+            correct: 1,
+            resolution: `A alternativa correta é a **B**.
+
+            O professor EBTT é executor de políticas de desenvolvimento regional. Ao apoiar a geração de renda e trabalho (Art. 7º), ele promove a missão institucional de transformação socioeconômica.`
+        }
+    ];
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                        <input type="radio" name="question-${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                        <label for="q${index}o${optIndex}">${opt}</label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${index + 1}</span>
+                <span class="question-text">${q.text.replace(/\n/g, '<br>')}</span>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, oIndex) {
+        const options = document.querySelectorAll(`input[name="question-${qIndex}"]`);
+        options[oIndex].checked = true;
+        
+        // Remove 'selected' class from all in this question
+        const items = document.querySelectorAll(`#q-card-${qIndex} .option-item`);
+        items.forEach(item => item.classList.remove('selected'));
+        // Add to current
+        items[oIndex].classList.add('selected');
+    }
+
+    function calculateScore() {
+        let score = 0;
+        let unanswered = false;
+        const resultsContainer = document.getElementById('resolutions-container');
+        resultsContainer.innerHTML = '<h2>Resoluções Detalhadas</h2>';
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === q.correct;
+            if(isCorrect) score++;
+            if(!selected) unanswered = true;
+
+            // Build Resolution Card
+            const resCard = document.createElement('div');
+            resCard.className = `resolution-card ${isCorrect ? 'res-correct' : 'res-incorrect'}`;
+            
+            const userChoiceText = selected ? q.options[selected.value] : "Não respondida";
+            const correctChoiceText = q.options[q.correct];
+
+            resCard.innerHTML = `
+                <div class="res-header">
+                    <span>Questão ${index + 1}</span>
+                    <span class="${isCorrect ? 'res-status-correct' : 'res-status-incorrect'}">
+                        ${isCorrect ? '✓ ACERTOU' : '✗ ERROU'}
+                    </span>
+                </div>
+                <div style="margin-bottom: 15px; font-size: 0.95rem;">
+                    <strong>Sua resposta:</strong> ${userChoiceText}<br>
+                    <strong>Resposta correta:</strong> ${correctChoiceText}
+                </div>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+                <div class="res-content">
+                    <strong>Explicação:</strong><br>
+                    ${q.resolution.replace(/\n/g, '<br>')}
+                </div>
+            `;
+            resultsContainer.appendChild(resCard);
+        });
+
+        // Show Results
+        document.getElementById('quiz-form').style.display = 'none';
+        document.getElementById('results-area').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score}/10`;
+        
+        let msg = "";
+        if(score === 10) msg = "Excelente! Você domina o papel do docente EBTT.";
+        else if(score >= 7) msg = "Muito bom! Você tem um ótimo conhecimento da base legal e institucional.";
+        else if(score >= 5) msg = "Bom desempenho, mas vale revisar as resoluções abaixo.";
+        else msg = "Recomendamos revisar as leis 11.892/08 e 12.772/12 através das explicações abaixo.";
+        
+        document.getElementById('score-msg').innerText = msg;
+
+        // Scroll to top of results
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

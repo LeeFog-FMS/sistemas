@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Concepções de EMI e Trabalho como Princípio Educativo</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --max-width: 850px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            max-width: var(--max-width);
+            margin: 0 auto 3rem auto;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            font-style: italic;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        #quiz-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .question-text {
+            margin-bottom: 1.5rem;
+            white-space: pre-line;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            padding: 10px 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: #ccc;
+        }
+
+        .option-item input {
+            margin-top: 6px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Classes de Resultado */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback.visible {
+            display: block;
+        }
+
+        .feedback-correct {
+            background-color: #e8f5e9;
+            border-left: 5px solid var(--correct-color);
+        }
+
+        .feedback-incorrect {
+            background-color: #ffebee;
+            border-left: 5px solid var(--incorrect-color);
+        }
+
+        .resolution-box {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #444;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 1rem;
+        }
+
+        #result-summary {
+            max-width: var(--max-width);
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+        }
+
+        .correct-answer-marker {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .score-text {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .table-resumo {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .table-resumo th, .table-resumo td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .question-card { padding: 1.2rem; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Desafio Técnico: Ensino Médio Integrado</h1>
+    <p class="description">Concepções de Currículo Integrado e o Trabalho como Princípio Educativo (Estilo Fundatec)</p>
+</header>
+
+<div id="quiz-container">
+    <!-- As questões serão inseridas aqui via JS -->
+</div>
+
+<div class="btn-container">
+    <button id="submit-btn" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+</div>
+
+<div id="result-summary">
+    <div class="score-text" id="score-display"></div>
+    <p>Confira abaixo as resoluções detalhadas de cada questão.</p>
+    <button onclick="window.location.reload()" style="margin-top: 1rem; background: #95a5a6; padding: 0.5rem 1.5rem; font-size: 0.9rem;">Reiniciar Quiz</button>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No que tange às concepções de Ensino Médio Integrado (EMI) defendidas por Marise Ramos e Maria Ciavatta, a noção de integração não se reduz a um arranjo administrativo ou a uma técnica de organização de conteúdos. Sobre a dimensão ontológica e epistemológica da integração curricular, analise as assertivas abaixo:\n\nI. A integração em sua forma \"intransitiva\" pressupõe que o ensino médio não deve ser um preparatório para o mercado ou para o ensino superior, mas uma etapa da formação humana que articula trabalho, ciência e cultura.\nII. O conceito de currículo integrado fundamenta-se na superação da dualidade entre formação geral e formação técnica, visando a constituição de uma escola unitária.\nIII. A integração curricular implica que a ciência e a tecnologia sejam ensinadas como produtos históricos da ação humana sobre a natureza, mediadas pelo trabalho.\nIV. A proposta de integração visa, primordialmente, aumentar a competitividade dos jovens no mercado de trabalho globalizado, focando em competências de adaptabilidade e flexibilidade.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: "A integração no EMI não é apenas uma 'justaposição' de conteúdos técnicos e gerais, mas uma tentativa de reconstruir a totalidade do conhecimento humano. O termo 'intransitivo' sugere que o ensino médio deve *ser* integração. A assertiva IV está incorreta porque 'adaptabilidade e flexibilidade' são termos do neoliberalismo, enquanto o EMI visa a autonomia contra a lógica de subordinação ao mercado."
+        },
+        {
+            id: 2,
+            question: "Gaudêncio Frigotto, ao discutir o \"paradoxo da falta e sobra de jovens qualificados\", critica as políticas educacionais que reduzem a educação profissional ao treinamento instrumental. Com base na obra do autor e nos fundamentos da formação humana integral, assinale a alternativa que descreve corretamente a relação entre o projeto societário e o EMI:",
+            options: [
+                "A profissionalização compulsória do ensino médio é o caminho necessário para garantir a universalização da educação básica em sociedades que produzem a miséria.",
+                "O Ensino Médio Integrado é um projeto de formação omnilateral que se choca com o projeto de desenvolvimento dependente e com a lógica de exclusão do mercado de trabalho capitalista.",
+                "A integração curricular deve privilegiar a formação socioemocional, uma vez que o mercado de trabalho atual demanda mais atitudes do que conhecimentos científicos sólidos.",
+                "O paradoxo da qualificação é resolvido quando as escolas públicas adotam currículos flexíveis baseados em itinerários formativos, conforme as demandas locais das empresas.",
+                "A formação omnilateral é sinônimo de polivalência técnica, permitindo que o trabalhador execute múltiplas tarefas manuais com eficiência e rapidez."
+            ],
+            correct: 1,
+            resolution: "Frigotto argumenta que o EMI é um projeto contra-hegemônico. Em uma sociedade que se alimenta da miséria, a educação integral questiona as bases da exploração. A formação omnilateral visa o desenvolvimento de todos os lados do ser humano, o que se choca com a lógica de redução do jovem a mero 'recurso' econômico."
+        },
+        {
+            id: 3,
+            question: "Considere o fragmento: \"O trabalho, como princípio educativo, incorpora a relação indissociável entre trabalho, ciência, tecnologia e cultura\". De acordo com as Diretrizes Curriculares Nacionais para a Educação Profissional Técnica de Nível Médio, o trabalho é princípio educativo quando:",
+            options: [
+                "Se torna a base para o aprendizado de ferramentas manuais específicas, visando a eficiência produtiva imediata.",
+                "É utilizado como metodologia de ensino para tornar as aulas teóricas mais dinâmicas e atrativas aos alunos desinteressados.",
+                "Significa que o ser humano é produtor de sua realidade e, por meio do conhecimento dos fundamentos científicos da produção, pode transformá-la.",
+                "Antecipa a escolha profissional do adolescente, evitando a dispersão em conteúdos das humanidades e artes.",
+                "Restringe-se às atividades de estágio supervisionado realizadas em empresas parceiras para simular o ambiente corporativo."
+            ],
+            correct: 2,
+            resolution: "O trabalho é educativo porque é a atividade pela qual o ser humano produz sua própria existência. Significa apreender fundamentos científicos e relações sociais de produção, percebendo-se como sujeito capaz de transformar a realidade, superando o simples 'ensinar a fazer'."
+        },
+        {
+            id: 4,
+            question: "A legislação que rege a Educação Profissional e Tecnológica (EPT) no Brasil sofreu mudanças significativas nas últimas décadas. Relacione a Coluna 1 à Coluna 2:\n\nColuna 1\n1. Decreto nº 2.208/1997.\n2. Decreto nº 5.154/2004.\n3. Lei nº 13.415/2017.\n\nColuna 2\n( ) Instituiu a separação obrigatória entre o ensino médio e a educação profissional.\n( ) Retomou a possibilidade do Ensino Médio Integrado como forma prioritária.\n( ) Criou os itinerários formativos, permitindo a fragmentação do currículo.",
+            options: [
+                "1 – 2 – 3.",
+                "2 – 1 – 3.",
+                "3 – 1 – 2.",
+                "2 – 3 – 1.",
+                "1 – 3 – 2."
+            ],
+            correct: 1,
+            resolution: "A sequência é 2-1-3. O Decreto 2.208/97 proibiu a integração (dualidade). O Decreto 5.154/04 restabeleceu o EMI como prioridade. A Lei 13.415/17 (Reforma do EM) reintroduziu a fragmentação via itinerários formativos."
+        },
+        {
+            id: 5,
+            question: "No debate sobre a formação omnilateral, Karl Marx e os autores contemporâneos utilizam o trabalho como categoria de análise central. Analise as afirmações e assinale V (verdadeiro) ou F (falso):\n\n( ) O trabalho é a atividade vital que define a especificidade do ser humano.\n( ) A tese do trabalho como princípio educativo afirma que o jovem deve ser inserido precocemente na fábrica.\n( ) A formação omnilateral busca desenvolver todas as dimensões humanas, superando a divisão social do trabalho.\n( ) O currículo integrado deve ser estruturado exclusivamente a partir de competências técnicas.",
+            options: [
+                "V – F – V – F.",
+                "V – V – F – F.",
+                "F – F – V – V.",
+                "V – F – F – V.",
+                "F – V – V – F."
+            ],
+            correct: 0,
+            resolution: "A sequência é V-F-V-F. O trabalho é central na ontologia humana (V). O TPE não é trabalho alienado ou precoce na fábrica (F). Omnilateralidade é o desenvolvimento integral contra a divisão social do trabalho (V). O EMI combate o foco exclusivo em competências técnicas (F)."
+        },
+        {
+            id: 6,
+            question: "Analise as asserções abaixo e a relação proposta entre elas:\n\nI. A integração curricular deve ocorrer de forma que os componentes da formação geral e da formação profissional se articulem em um projeto pedagógico unitário.\n\nPORQUE\n\nII. A indissociabilidade entre teoria e prática permite ao estudante compreender a tecnologia como aplicação da ciência e o trabalho como processo de humanização.",
+            options: [
+                "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.",
+                "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.",
+                "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+                "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira.",
+                "As asserções I e II são proposições falsas."
+            ],
+            correct: 0,
+            resolution: "Ambas são verdadeiras e a II justifica a I. A integração exige um projeto unitário que só se efetiva quando se entende que a tecnologia é ciência aplicada e o trabalho é humanização, quebrando a barreira entre o 'fazer' e o 'pensar'."
+        },
+        {
+            id: 7,
+            question: "Dermeval Saviani, ao formular a Pedagogia Histórico-Crítica (PHC), estabelece uma mediação entre a prática social e a formação escolar. No contexto do EMI, qual é o papel do conhecimento clássico (sistematizado)?",
+            options: [
+                "O conhecimento clássico deve ser abandonado, pois o EMI foca na inovação tecnológica constante.",
+                "O conhecimento clássico é a base indispensável para que o aluno compreenda as leis da natureza e da sociedade, permitindo sua emancipação intelectual.",
+                "Os conteúdos clássicos servem apenas como ornamento cultural, devendo ser ministrados de forma isolada.",
+                "O saber sistematizado deve ser substituído pelo 'aprender a aprender', focando em competências de autogestão.",
+                "A PHC defende que a escola não deve transmitir conteúdos, mas apenas facilitar a vivência prática manual."
+            ],
+            correct: 1,
+            resolution: "Para Saviani, o acesso ao saber sistematizado (ciência, arte, filosofia) é um direito da classe trabalhadora. Um trabalhador que domina as leis da natureza e da sociedade tem ferramentas para compreender e combater a exploração."
+        },
+        {
+            id: 8,
+            question: "O conceito de \"Educação Politécnica\" é frequentemente associado à concepção de Ensino Médio Integrado. Sobre a politecnia, é correto afirmar:",
+            options: [
+                "Refere-se à polivalência profissional, capacitando o trabalhador a operar diferentes máquinas.",
+                "Significa o domínio técnico das diversas profissões liberais, visando a formação de uma elite intelectual.",
+                "Consiste na compreensão dos princípios científicos fundamentais presentes em todos os processos produtivos, unindo mente e mão.",
+                "É uma proposta pedagógica que visa excluir as disciplinas de arte e literatura.",
+                "Define-se pela especialização precoce em um único ofício."
+            ],
+            correct: 2,
+            resolution: "Politecnia não é polivalência (que é termo do mercado). Politecnia é a compreensão dos princípios científicos e sociais que regem o trabalho em geral, unindo a prática manual ao entendimento intelectual de forma emancipatória."
+        },
+        {
+            id: 9,
+            question: "Marise Ramos destaca que o currículo integrado se sustenta na tríade Trabalho, Ciência e Cultura. Analise as afirmações:\n\n1. O trabalho é o eixo ético-político que orienta a finalidade da educação.\n2. A ciência é compreendida apenas como controle técnico da natureza, sem preocupações sociais.\n3. A cultura abrange as dimensões estéticas e éticas que humanizam os processos produtivos.\n4. A integração ocorre por meio da superação das barreiras disciplinares e construção de projetos comuns.",
+            options: [
+                "Apenas 1 e 2.",
+                "Apenas 2 e 3.",
+                "Apenas 1, 3 e 4.",
+                "Apenas 3 e 4.",
+                "1, 2, 3 e 4."
+            ],
+            correct: 2,
+            resolution: "As afirmações 1, 3 e 4 estão corretas. A ciência no EMI não é apenas controle técnico neutro; ela é inseparável das relações sociais e históricas. O trabalho guia a ética, e a cultura humaniza a formação técnica."
+        },
+        {
+            id: 10,
+            question: "No âmbito das dificuldades de implementação do Ensino Médio Integrado à Educação de Jovens e Adultos (EJA), Maria Ciavatta aponta como entrave significativo:",
+            options: [
+                "A falta de maturidade dos alunos da EJA para compreenderem conceitos técnicos.",
+                "A incompatibilidade histórica entre a organização do tempo escolar e o tempo de vida/trabalho dos estudantes trabalhadores.",
+                "O excesso de oferta de vagas em escolas públicas nos grandes centros urbanos.",
+                "A recusa dos professores da base comum em trabalhar com conteúdos do mundo do trabalho.",
+                "A legislação brasileira, que proíbe expressamente a integração entre EJA e Educação Profissional."
+            ],
+            correct: 1,
+            resolution: "O maior entrave é estrutural: conciliar a jornada de trabalho exaustiva com um currículo integrado exigente. Além disso, a escola muitas vezes não adapta metodologias para a vasta experiência de vida do adulto trabalhador."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        container.innerHTML = quizData.map((q, qIndex) => `
+            <div class="question-card" id="q-card-${qIndex}">
+                <span class="question-header">Questão ${q.id}</span>
+                <div class="question-text">${q.question}</div>
+                <div class="options-list">
+                    ${q.options.map((opt, optIndex) => `
+                        <div class="option-item" onclick="selectOption(${qIndex}, ${optIndex})">
+                            <input type="radio" name="q${qIndex}" id="q${qIndex}o${optIndex}" value="${optIndex}">
+                            <label for="q${qIndex}o${optIndex}">${String.fromCharCode(65 + optIndex)}) ${opt}</label>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="feedback" id="feedback-${qIndex}">
+                    <div class="feedback-status"></div>
+                    <div class="resolution-box">
+                        <strong>Resolução:</strong> ${q.resolution}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function selectOption(qIndex, optIndex) {
+        document.getElementById(`q${qIndex}o${optIndex}`).checked = true;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        let answeredAll = true;
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const feedbackDiv = document.getElementById(`feedback-${index}`);
+            const statusDiv = feedbackDiv.querySelector('.feedback-status');
+            const card = document.getElementById(`q-card-${index}`);
+
+            if (!selected) {
+                answeredAll = false;
+            }
+
+            feedbackDiv.classList.add('visible');
+            
+            if (selected && parseInt(selected.value) === q.correct) {
+                score++;
+                feedbackDiv.classList.add('feedback-correct');
+                statusDiv.innerHTML = '<span class="correct-answer-marker">✓ Resposta Correta!</span>';
+            } else {
+                feedbackDiv.classList.add('feedback-incorrect');
+                const userAnswer = selected ? String.fromCharCode(65 + parseInt(selected.value)) : "Não respondida";
+                const correctAnswer = String.fromCharCode(65 + q.correct);
+                statusDiv.innerHTML = `<span style="color:var(--incorrect-color); font-weight:bold;">✗ Resposta Incorreta.</span><br>Sua resposta: ${userAnswer} | <strong>Gabarito: ${correctAnswer}</strong>`;
+            }
+        });
+
+        // Mostrar resumo
+        const summary = document.getElementById('result-summary');
+        const scoreDisplay = document.getElementById('score-display');
+        summary.style.display = 'block';
+        scoreDisplay.innerHTML = `Você acertou ${score} de ${quizData.length} questões (${(score/quizData.length*100).toFixed(0)}%)`;
+        
+        // Esconder botão de envio
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Scroll suave até o topo do resumo
+        summary.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicializar o quiz ao carregar a página
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

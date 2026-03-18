@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Lei nº 11.892/2008 - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #2980b9;
+            --secondary-color: #ecf0f1;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #dfe6e9;
+            --max-width: 800px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: var(--max-width);
+            padding-bottom: 5rem;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: #636e72;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .option-item label:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input[type="radio"] {
+            margin-top: 0.4rem;
+            margin-right: 1rem;
+            transform: scale(1.2);
+        }
+
+        /* Styles for results */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1c5980;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 2rem;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            background: #ffffff;
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: #444;
+            display: none; /* Only show in results mode */
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .correct-badge { background: #dff9fb; color: var(--correct-color); }
+        .wrong-badge { background: #fab1a0; color: var(--wrong-color); }
+
+        .selected-correct { background-color: #e8f5e9 !important; border-color: var(--correct-color) !important; }
+        .selected-wrong { background-color: #ffebee !important; border-color: var(--wrong-color) !important; }
+        .actual-correct { border: 2px solid var(--correct-color) !important; font-weight: bold; }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 1rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Rede Federal e Lei nº 11.892/2008</h1>
+</header>
+
+<div class="container">
+    <div class="intro-text">
+        Este simulado contém 10 questões inéditas baseadas no perfil da banca Fundatec. 
+        Responda a todas as questões e clique no botão ao final para conferir seu desempenho e as resoluções detalhadas.
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions will be injected here by JS -->
+        </div>
+
+        <button type="button" class="btn-submit" id="submit-btn" onclick="processResults()">Finalizar Quiz e Ver Resultados</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box">
+            <div id="score-text">Você acertou</div>
+            <div class="score-number" id="final-score">0 / 10</div>
+            <p>Confira abaixo a correção detalhada de cada questão.</p>
+        </div>
+
+        <div id="detailed-review">
+            <!-- Review items will be injected here -->
+        </div>
+        
+        <button type="button" class="btn-submit" style="background: #636e72; margin-top: 2rem;" onclick="window.location.reload()">Refazer Simulado</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No âmbito do sistema federal de ensino, a Rede Federal de Educação Profissional, Científica e Tecnológica é vinculada ao Ministério da Educação e constituída por diversas instituições. De acordo com a Lei nº 11.892/2008, analise as assertivas abaixo e assinale a alternativa correta:\n\nI. Os Institutos Federais de Educação, Ciência e Tecnologia.\nII. A Universidade Tecnológica Federal do Paraná.\nIII. Os Centros Federais de Educação Tecnológica Celso Suckow da Fonseca e de Minas Gerais.\nIV. O Colégio Pedro II.",
+            options: [
+                "Apenas as assertivas I e II estão corretas.",
+                "Apenas as assertivas I, II e III estão corretas.",
+                "Apenas as assertivas II, III e IV estão corretas.",
+                "Apenas as assertivas I, III e IV estão corretas.",
+                "Todas as assertivas estão corretas."
+            ],
+            correct: 4,
+            resolution: "Art. 1º da Lei nº 11.892/2008. A Rede Federal é constituída pelos Institutos Federais, pela UTFPR, pelos CEFETs-RJ e MG e pelas Escolas Técnicas vinculadas às Universidades Federais. O Colégio Pedro II foi incluído posteriormente pela Lei nº 12.677/2012. Portanto, todas as instituições citadas fazem parte da Rede Federal."
+        },
+        {
+            id: 2,
+            text: "Conforme estabelecido no Art. 2º da Lei nº 11.892/2008, os Institutos Federais são especializados na oferta de educação profissional e tecnológica nas diferentes modalidades de ensino. Sobre a natureza e as prerrogativas dos Institutos Federais, é INCORRETO afirmar que:",
+            options: [
+                "São instituições de educação superior, básica e profissional, pluricurriculares e multicampi.",
+                "Possuem natureza jurídica de autarquia, detentoras de autonomia administrativa, patrimonial, financeira, didático-pedagógica e disciplinar.",
+                "Têm autonomia para criar e extinguir cursos nos limites de sua área de atuação territorial.",
+                "Dependem de autorização prévia e registro do Conselho Nacional de Educação para a expedição e registro de diplomas de seus cursos superiores.",
+                "Devem orientar sua oferta de cursos em harmonia com os arranjos produtivos, sociais e culturais locais e regionais."
+            ],
+            correct: 3,
+            resolution: "Art. 2º, §§ 1º e 2º da Lei nº 11.892/2008. Os Institutos Federais possuem autonomia para criar e extinguir cursos, bem como para registrar diplomas dos cursos por eles oferecidos, mediante autorização de seu próprio Conselho Superior, não dependendo de registro em outros órgãos."
+        },
+        {
+            id: 3,
+            text: "A Lei nº 11.892/2008 prevê finalidades específicas para os Institutos Federais. Assinale a alternativa que apresenta corretamente uma dessas finalidades, conforme o Art. 6º da referida lei:",
+            options: [
+                "Priorizar o ensino fundamental regular para crianças de 6 a 14 anos, visando a alfabetização na idade certa.",
+                "Realizar pesquisa básica desvinculada das demandas sociais, com o intuito de promover a ciência pura em laboratórios isolados.",
+                "Ofertar educação profissional e tecnológica, em todos os seus níveis e modalidades, formando e qualificando cidadãos com vistas à atuação profissional nos diversos setores da economia.",
+                "Atuar exclusivamente na pós-graduação stricto sensu para formação de doutores em áreas teóricas.",
+                "Promover a integração com escolas privadas de ensino técnico para a terceirização da oferta de cursos de formação inicial e continuada."
+            ],
+            correct: 2,
+            resolution: "Art. 6º, inciso I da Lei nº 11.892/2008. A finalidade primordial é ofertar EPCT em todos os níveis, formando cidadãos para os setores da economia. As outras opções citam competências de outros entes ou contrariam a natureza pública e o foco em pesquisa aplicada da Rede."
+        },
+        {
+            id: 4,
+            text: "Quanto à obrigatoriedade de oferta de cursos e vagas nos Institutos Federais, analise as afirmações abaixo e assinale a alternativa que preenche corretamente as lacunas conforme a Lei nº 11.892/2008:\n\nEm sua organização, os Institutos Federais deverão garantir o mínimo de __________ de suas vagas para a educação profissional técnica de nível médio, prioritariamente na forma integrada, e o mínimo de __________ para cursos de licenciatura, bem como programas especiais de formação pedagógica.",
+            options: [
+                "40% – 10%",
+                "50% – 20%",
+                "50% – 15%",
+                "60% – 20%",
+                "70% – 25%"
+            ],
+            correct: 1,
+            resolution: "Art. 7º, incisos I e VI da Lei nº 11.892/2008. Estes percentuais são fixos em lei: 50% para nível médio técnico (preferencialmente integrado) e 20% para licenciaturas."
+        },
+        {
+            id: 5,
+            text: "A estrutura administrativa dos Institutos Federais prevê órgãos executivos e colegiados. Segundo a Lei nº 11.892/2008, o órgão executivo da instituição é a Reitoria, composta por um Reitor e:",
+            options: [
+                "Dois Vice-Reitores e três Diretores Executivos.",
+                "Um Conselho de Curadores e uma Secretaria-Geral.",
+                "Cinco Pró-Reitores.",
+                "Uma Diretoria de Administração Financeira e dez Coordenadorias de Campus.",
+                "Um Colégio de Dirigentes de caráter deliberativo e um Conselho Superior."
+            ],
+            correct: 2,
+            resolution: "Art. 9º da Lei nº 11.892/2008. A Reitoria é composta pelo Reitor e por 5 Pró-Reitores. É a estrutura executiva padrão definida pela lei para todos os Institutos Federais."
+        },
+        {
+            id: 6,
+            text: "No que diz respeito ao processo de escolha e nomeação do Reitor de um Instituto Federal, considere as seguintes condições:\n\nI. O Reitor será nomeado pelo Presidente da República para um mandato de quatro anos, permitida uma recondução.\nII. O processo de consulta à comunidade acadêmica atribui o peso de 1/3 para a manifestação do corpo docente, 1/3 para os servidores técnico-administrativos e 1/3 para o corpo discente.\nIII. Para concorrer ao cargo, o candidato deve possuir o título de doutor ou estar posicionado na classe de professor titular da carreira de Magistério do EBTT ou na Classe E da carreira de Magistério Superior.\n\nQuais estão corretas?",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 4,
+            resolution: "Art. 12 da Lei nº 11.892/2008. Todas as assertivas estão corretas e refletem a gestão democrática (voto paritário) e os requisitos de titulação/carreira para o cargo de Reitor."
+        },
+        {
+            id: 7,
+            text: "De acordo com a Lei nº 11.892/2008, os Institutos Federais têm por objetivo estimular e apoiar processos educativos voltados à geração de trabalho e renda e à emancipação cidadã na perspectiva do desenvolvimento socioeconômico local e regional. Para alcançar esse objetivo, a lei destaca a importância de:",
+            options: [
+                "Programas de extensão e de divulgação científica e tecnológica.",
+                "Extinção gradual dos cursos de nível médio para foco total no ensino superior.",
+                "Cobrança de mensalidades nos cursos de pós-graduação para financiamento da instituição.",
+                "Limitação do acesso de egressos de escolas públicas aos cursos técnicos.",
+                "Promoção de cursos de formação exclusivamente para o setor de serviços e comércio."
+            ],
+            correct: 0,
+            resolution: "Art. 7º, inciso III da Lei nº 11.892/2008. A extensão e a divulgação científica são os meios previstos para a articulação com a sociedade e o mundo do trabalho, visando o desenvolvimento regional."
+        },
+        {
+            id: 8,
+            text: "Analise as assertivas abaixo sobre o Conselho Superior dos Institutos Federais, assinalando V, se verdadeiras, ou F, se falsas, conforme a Lei nº 11.892/2008:\n\n( ) O Conselho Superior possui caráter consultivo e deliberativo, sendo o órgão máximo da instituição.\n( ) O Conselho Superior é presidido pelo Reitor do Instituto Federal.\n( ) A composição do Conselho Superior deve contar com representantes do Ministério da Educação, de egressos da instituição e da sociedade civil.\n( ) Os representantes dos segmentos internos (docentes, técnicos e alunos) não possuem direito a voto no Conselho Superior, apenas voz.",
+            options: [
+                "V – V – V – F.",
+                "V – F – V – V.",
+                "F – V – F – V.",
+                "V – V – F – V.",
+                "F – F – V – F."
+            ],
+            correct: 0,
+            resolution: "Art. 10 da Lei nº 11.892/2008. O Conselho Superior é deliberativo e presidido pelo reitor. A última assertiva é falsa porque os segmentos internos têm, sim, direito a voto pleno."
+        },
+        {
+            id: 9,
+            text: "Com base na atualização trazida pela Lei nº 14.695/2023 à Lei nº 11.892/2008, os Institutos Federais poderão conceder bolsas de pesquisa, de desenvolvimento, de inovação e de intercâmbio. Assinale a alternativa que apresenta corretamente o grupo que pode ser beneficiado por tais bolsas, desde que envolvido nessas atividades:",
+            options: [
+                "Apenas docentes efetivos com mais de 10 anos de casa.",
+                "Exclusivamente alunos de graduação com rendimento acadêmico superior a 9,0.",
+                "Alunos, docentes, ocupantes de cargo público efetivo, detentores de função ou de emprego público e pesquisadores externos ou de empresas.",
+                "Somente pesquisadores estrangeiros vinculados a organismos internacionais como a ONU.",
+                "Apenas diretores-gerais de campi e pró-reitores em exercício."
+            ],
+            correct: 2,
+            resolution: "Art. 5º, § 6º da Lei nº 11.892/2008 (redação 2023). A nova legislação ampliou consideravelmente o rol de beneficiários das bolsas para incluir técnicos, alunos, docentes e até pesquisadores de empresas parceiras."
+        },
+        {
+            id: 10,
+            text: "A Lei nº 11.892/2008 estabelece que os Institutos Federais exercerão o papel de instituições acreditadoras e certificadoras de competências profissionais. Isso significa que as instituições podem:",
+            options: [
+                "Emitir carteiras de trabalho e previdência social para todos os seus alunos.",
+                "Avaliar e reconhecer conhecimentos e habilidades adquiridos por trabalhadores, seja no trabalho ou em processos informais de educação.",
+                "Funcionar como tribunais arbitrais para questões de dissídio coletivo entre sindicatos.",
+                "Certificar empresas privadas como padrão de qualidade para exportação.",
+                "Substituir a necessidade de exames da Ordem dos Advogados do Brasil (OAB) para seus egressos de cursos jurídicos."
+            ],
+            correct: 1,
+            resolution: "Art. 6º, inciso VII da Lei nº 11.892/2008. A certificação de competências (Saber Profissional) permite que o IF valide o conhecimento prévio do trabalhador e o certifique tecnicamente."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('questions-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, optIndex) => {
+                const label = String.fromCharCode(65 + optIndex); // A, B, C...
+                optionsHTML += `
+                    <li class="option-item">
+                        <label id="label-${index}-${optIndex}">
+                            <input type="radio" name="question-${index}" value="${optIndex}">
+                            <span><strong>${label})</strong> ${opt}</span>
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-text">Questão ${index + 1}:</span>
+                <p style="white-space: pre-line;">${q.text}</p>
+                <ul class="options-list">
+                    ${optionsHTML}
+                </ul>
+                <div class="resolution-card" id="res-${index}">
+                    <strong>Resolução:</strong><br>
+                    ${q.resolution}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function processResults() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        questions.forEach((q, index) => {
+            const selected = form.querySelector(`input[name="question-${index}"]:checked`);
+            const card = document.getElementById(`q-card-${index}`);
+            const resolution = document.getElementById(`res-${index}`);
+            
+            // Marks correct answer visually
+            const correctLabel = document.getElementById(`label-${index}-${q.correct}`);
+            correctLabel.classList.add('actual-correct');
+
+            if (selected) {
+                const selectedVal = parseInt(selected.value);
+                const selectedLabel = document.getElementById(`label-${index}-${selectedVal}`);
+                
+                if (selectedVal === q.correct) {
+                    score++;
+                    selectedLabel.classList.add('selected-correct');
+                    card.insertAdjacentHTML('afterbegin', '<span class="status-badge correct-badge">Correta</span>');
+                } else {
+                    selectedLabel.classList.add('selected-wrong');
+                    card.insertAdjacentHTML('afterbegin', '<span class="status-badge wrong-badge">Incorreta</span>');
+                }
+            } else {
+                card.insertAdjacentHTML('afterbegin', '<span class="status-badge wrong-badge">Não respondida</span>');
+            }
+
+            // Show resolution
+            resolution.style.display = 'block';
+            
+            // Disable inputs
+            const inputs = form.querySelectorAll(`input[name="question-${index}"]`);
+            inputs.forEach(i => i.disabled = true);
+        });
+
+        // Display summary
+        document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+        document.getElementById('results-section').style.display = 'block';
+        submitBtn.style.display = 'none';
+
+        // Scroll to results
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>
