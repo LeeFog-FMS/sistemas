@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Fundatec: Semântica e Figuras de Linguagem</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-secondary: #636e72;
+            --accent: #0984e3;
+            --success: #27ae60;
+            --error: #d63031;
+            --border: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .quiz-container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .instructions {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        label:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .submit-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        /* Results Section */
+        #results-area {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f1f2f6;
+            border-radius: 12px;
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .resolution-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .res-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--accent);
+        }
+
+        .correct-answer { color: var(--success); font-weight: bold; }
+        .wrong-answer { color: var(--error); font-weight: bold; }
+
+        .res-content {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .quiz-container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <header>
+        <h1>Simulado: Semântica e Figuras de Linguagem</h1>
+        <p class="instructions">Estilo Banca Fundatec | 10 Questões com Resolução</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 01. Considere as seguintes propostas de substituição e analise as afirmações: <br><br>
+            I. A palavra "rixa" poderia ser substituída por "desavença", sem provocar alteração no sentido global do texto.<br>
+            II. Na expressão "Outro fator maiúsculo", o vocábulo "maiúsculo" expressa uma ideia de superioridade e relevância.<br>
+            III. Em "Somos teimosos até a medula", a expressão destacada poderia ser substituída por "Somos demasiadamente teimosos".</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q1" value="A"> A) Apenas I.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="B"> B) Apenas II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="C"> C) Apenas I e II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="D"> D) Apenas II e III.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="E"> E) I, II e III.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 02. No que se refere às relações de antonímia, assinale a alternativa que apresenta possíveis antônimos para “engenhosas”, “estreitas” e “reflexão”, respectivamente:</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q2" value="A"> A) Práticas – mofinas – ponderação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="B"> B) Eficientes – contraídas – equivocação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="C"> C) Simples – amplas – alienação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="D"> D) Ordinárias – afuniladas – observação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="E"> E) Adaptadas – plainas – consideração.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 03. Assinale a figura de linguagem presente na frase: “A corrupção **mina** a confiança nas instituições”.</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q3" value="A"> A) Hipérbole.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="B"> B) Metáfora.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="C"> C) Personificação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="D"> D) Comparação.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="E"> E) Pleonasmo.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 04. Considere o trecho: “Manoela é uma flor desabrochando em meio ao concreto da cidade”. É correto afirmar que:</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q4" value="A"> A) Ocorre metonímia, pois "flor" substitui uma característica física.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="B"> B) O autor utiliza uma hipérbole para exagerar a beleza.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="C"> C) Trata-se de uma metáfora, pois há uma comparação implícita.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="D"> D) Verifica-se uma ironia, sugerindo que Manoela não se adapta.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="E"> E) Há um paradoxo, visto que é impossível uma pessoa ser uma planta.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 05. Sobre o estudo das relações semânticas, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q5" value="A"> A) Homônimos homógrafos são como "sessão" e "seção".</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="B"> B) Parônimos são palavras que possuem sentidos opostos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="C"> C) A palavra "ratificar" é sinônimo de "corrigir".</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="D"> D) Homônimos homófonos possuem o mesmo som, como "conserto" e "concerto".</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="E"> E) A sinonímia perfeita é a regra na língua portuguesa.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 06. Assinale a alternativa que apresenta a figura de linguagem metonímia:</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q6" value="A"> A) "O jardim sorria para a primavera que chegava."</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="B"> B) "Ele comeu dois pratos de feijão após o trabalho pesado."</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="C"> C) "Sua voz é um doce mel que acalma minha alma."</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="D"> D) "Morri de rir com as piadas do comediante."</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="E"> E) "O sol é um grande balão de fogo no horizonte."</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 07. Avalie as assertivas sobre figuras de linguagem:<br><br>
+            I. São figuras de palavras: metáfora, metonímia e catacrese.<br>
+            II. A elipse é caracterizada pela omissão de um termo subentendido.<br>
+            III. Antítese, eufemismo, hipérbole e ironia são figuras de pensamento.</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q7" value="A"> A) Apenas I.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="B"> B) Apenas II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="C"> C) Apenas I e II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="D"> D) Apenas II e III.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="E"> E) I, II e III.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 08. Qual palavra substitui, sem prejudicar o sentido original, a expressão “em prol da”?</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q8" value="A"> A) Contra a.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="B"> B) A favor da.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="C"> C) Com desinteresse à.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="D"> D) Por indiferença à.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="E"> E) Em desvantagem da.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 09. Assinale a alternativa com o uso correto dos parônimos ou homônimos:</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q9" value="A"> A) O deputado teve seu mandado cassado (cargo).</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="B"> B) O mergulhador precisou emergir rapidamente.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="C"> C) A descrição do funcionário manteve o sigilo.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="D"> D) O laudo do perito era eminente (prestes a ocorrer).</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="E"> E) O concerto do relógio foi mais caro.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-block">
+            <span class="question-text">QUESTÃO 10. Na frase: “...aponta para um modelo em ruínas”, a expressão destacada configura:</span>
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q10" value="A"> A) Uma metáfora.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="B"> B) Uma hipérbole.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="C"> C) Uma metonímia.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="D"> D) Uma ironia.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="E"> E) Uma personificação.</label></div>
+            </div>
+        </div>
+
+        <button type="button" class="submit-btn" onclick="checkAnswers()">Finalizar Simulado</button>
+    </form>
+
+    <div id="results-area">
+        <div class="score-box" id="score-text"></div>
+        <div id="resolutions-container"></div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'E', q2: 'C', q3: 'B', q4: 'C', q5: 'D', 
+        q6: 'B', q7: 'E', q8: 'B', q9: 'B', q10: 'A'
+    };
+
+    const resolutions = {
+        q1: "A palavra 'rixa' denota contenda; 'maiúsculo' indica grande relevância no sentido figurado; 'até a medula' indica totalidade/intensidade (demasiadamente). Todas corretas.",
+        q2: "Engenhosas (complexas) x Simples; Estreitas (limitadas) x Amplas; Reflexão (pensamento crítico) x Alienação.",
+        q3: "O verbo 'mina' é usado fora do sentido literal para descrever a destruição gradual da confiança, configurando uma metáfora.",
+        q4: "Relação de identidade direta entre Manoela e flor baseada em semelhança (beleza/delicadeza), sem conectivo comparativo.",
+        q5: "'Conserto' (reparo) e 'concerto' (música) têm o mesmo som, mas grafias/sentidos diferentes (homófonos).",
+        q6: "Substituição do conteúdo (comida) pelo continente (pratos). Caso clássico de metonímia.",
+        q7: "Classificações corretas conforme a gramática: tropos (palavras), omissão (construção) e ideias (pensamento).",
+        q8: "'Em prol de' significa agir no interesse de, ou seja, 'a favor da'.",
+        q9: "'Emergir' (vir à tona) está correto. Erros nas outras: Mandato (cargo), Discrição (sigilo), Iminente (prestes), Conserto (reparo).",
+        q10: "Uso de termo da arquitetura (ruínas) para descrever a decadência de um sistema social abstrato. Metáfora."
+    };
+
+    function checkAnswers() {
+        const form = document.getElementById('quiz-form');
+        const resultsArea = document.getElementById('results-area');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        let score = 0;
+        let total = 10;
+        let htmlResolutions = '';
+
+        for (let i = 1; i <= total; i++) {
+            const questionName = 'q' + i;
+            const selected = form.querySelector(`input[name="${questionName}"]:checked`);
+            const userChoice = selected ? selected.value : 'Não respondida';
+            const isCorrect = userChoice === answers[questionName];
+
+            if (isCorrect) score++;
+
+            htmlResolutions += `
+                <div class="resolution-card">
+                    <span class="res-title">Questão ${i.toString().padStart(2, '0')}</span>
+                    <p>Sua resposta: <span class="${isCorrect ? 'correct-answer' : 'wrong-answer'}">${userChoice}</span> | 
+                       Gabarito: <span class="correct-answer">${answers[questionName]}</span></p>
+                    <div class="res-content"><strong>Resolução:</strong> ${resolutions[questionName]}</div>
+                </div>
+            `;
+        }
+
+        document.getElementById('score-text').innerHTML = `Resultado: ${score} de ${total} acertos (${(score/total*100).toFixed(0)}%)`;
+        resolutionsContainer.innerHTML = htmlResolutions;
+        resultsArea.style.display = 'block';
+        
+        // Scroll suave para os resultados
+        resultsArea.scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilita o form para evitar re-submissão
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+        form.querySelector('button').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

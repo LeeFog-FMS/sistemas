@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Morfossintaxe: Pronomes e Verbos</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #2980b9;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .text-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 40px;
+            font-style: italic;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.2s ease;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .options-container {
+            margin-top: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f1f7ff;
+            border-color: var(--accent-color);
+        }
+
+        .option input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--accent-color);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #2c3e50;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .score-banner {
+            text-align: center;
+            padding: 30px;
+            background: #f1f8e9;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--correct-color);
+        }
+
+        .resolution-card {
+            border-left: 4px solid var(--accent-color);
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-tag {
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .status-correct { background-color: var(--correct-color); }
+        .status-wrong { background-color: var(--wrong-color); }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .synthesis {
+            background: #f4f7f9;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Morfossintaxe: Pronomes e Verbos</h1>
+        <p>Estilo Fundatec | Baseado em Bechara e Celso Cunha</p>
+    </header>
+
+    <div class="text-box">
+        <strong>Texto de apoio para as questões 01 a 04</strong><br><br>
+        A era da informação trouxe consigo desafios que transcendem a mera capacidade técnica de processamento de dados. Quando observamos o comportamento do cidadão digital, percebemos que <strong>este</strong> se encontra imerso em um fluxo contínuo de estímulos que, muitas vezes, obliteram <strong>sua</strong> capacidade de discernimento crítico. Se os algoritmos <strong>tivessem</strong> uma consciência ética, talvez as plataformas não <strong>seriam</strong> meros campos de batalha ideológica. Atualmente, processam-se bilhões de informações por segundo, e cada clique nosso é registrado por sistemas que visam antecipar desejos. Esse registro, no entanto, nem sempre nos beneficia, pois a lógica comercial sobrepõe-se à proteção da privacidade. Os desenvolvedores dizem que as ferramentas nos ajudam, mas não <strong>lhes</strong> conferimos confiança total, pois a opacidade dos processos gera desconfiança. Caso a legislação <strong>proteger</strong> efetivamente o usuário, o cenário urbano do futuro <strong>será</strong> mais equilibrado e humano.
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card">
+            <span class="question-number">Questão 01</span>
+            <p>Considerando o emprego de pronomes no texto de apoio, analise as assertivas abaixo:</p>
+            <p>I. O pronome demonstrativo “este” (l. 03) exerce função coesiva anafórica, retomando o termo “cidadão digital”.<br>
+            II. O pronome possessivo “sua” (l. 04) refere-se morfologicamente a “estímulos”, estabelecendo uma relação de posse com a capacidade de discernimento.<br>
+            III. O pronome pessoal oblíquo “lhes” (l. 11) funciona sintaticamente como objeto indireto, referindo-se aos “desenvolvedores”.</p>
+            <p>Quais estão corretas?</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q1" value="B"> B) Apenas II.</label>
+                <label class="option"><input type="radio" name="q1" value="C"> C) Apenas III.</label>
+                <label class="option"><input type="radio" name="q1" value="D"> D) Apenas I e III.</label>
+                <label class="option"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card">
+            <span class="question-number">Questão 02</span>
+            <p>Em relação às formas verbais destacadas e às normas de correlação verbal, assinale a alternativa INCORRETA:</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q2" value="A"> A) A forma “tivessem” está flexionada no pretérito imperfeito do subjuntivo, indicando uma hipótese.</label>
+                <label class="option"><input type="radio" name="q2" value="B"> B) A substituição de “tivessem” por “tiverem” exigiria a alteração de “seriam” para “serão”, de modo a manter a correta correlação.</label>
+                <label class="option"><input type="radio" name="q2" value="C"> C) A forma “seriam” está no futuro do pretérito do indicativo, tempo que expressa um fato dependente de uma condição.</label>
+                <label class="option"><input type="radio" name="q2" value="D"> D) No trecho “Caso a legislação proteger”, a forma verbal está correta de acordo com a norma culta, representando o futuro do subjuntivo.</label>
+                <label class="option"><input type="radio" name="q2" value="E"> E) A forma “será” indica uma certeza futura no modo indicativo.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card">
+            <span class="question-number">Questão 03</span>
+            <p>Sobre as vozes verbais presentes no texto, analise as afirmações a seguir:</p>
+            <p>I. No trecho “processam-se bilhões de informações”, o verbo está na voz passiva sintética, sendo “se” uma partícula apassivadora.<br>
+            II. A conversão da oração “cada clique nosso é registrado por sistemas” para a voz ativa resultaria em “sistemas registram cada clique nosso”.<br>
+            III. O sujeito da oração “processam-se bilhões de informações” é indeterminado, visto que o pronome “se” funciona como índice de indeterminação do sujeito.</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q3" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q3" value="B"> B) Apenas II.</label>
+                <label class="option"><input type="radio" name="q3" value="C"> C) Apenas III.</label>
+                <label class="option"><input type="radio" name="q3" value="D"> D) Apenas I e II.</label>
+                <label class="option"><input type="radio" name="q3" value="E"> E) I, II e III.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card">
+            <span class="question-number">Questão 04</span>
+            <p>Quanto ao uso dos pronomes demonstrativos e sua função referencial no texto e na gramática de Celso Cunha, assinale a alternativa correta:</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q4" value="A"> A) O uso de “este” é inadequado, pois pronomes de primeira pessoa devem referir-se apenas ao que ainda será dito.</label>
+                <label class="option"><input type="radio" name="q4" value="B"> B) O pronome “esse” em “Esse registro” possui valor anafórico, pois retoma a ideia de que o clique é registrado por sistemas.</label>
+                <label class="option"><input type="radio" name="q4" value="C"> C) Se o autor quisesse referir-se a um local distante, o pronome adequado seria “isto”.</label>
+                <label class="option"><input type="radio" name="q4" value="D"> D) Segundo Celso Cunha, os pronomes demonstrativos não possuem função de localização espacial, apenas temporal.</label>
+                <label class="option"><input type="radio" name="q4" value="E"> E) Na frase “cada clique nosso”, a palavra “nosso” é um pronome demonstrativo de posse.</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card">
+            <span class="question-number">Questão 05</span>
+            <p>Com base na morfossintaxe do pronome pessoal conforme Evanildo Bechara, assinale a alternativa que apresenta a correta substituição do termo sublinhado pelo pronome oblíquo correspondente na frase: “O pesquisador encontrou <u>os resultados</u> na base de dados.”</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q5" value="A"> A) O pesquisador encontrou-lhes na base de dados.</label>
+                <label class="option"><input type="radio" name="q5" value="B"> B) O pesquisador encontrou-os na base de dados.</label>
+                <label class="option"><input type="radio" name="q5" value="C"> C) O pesquisador encontrou eles na base de dados.</label>
+                <label class="option"><input type="radio" name="q5" value="D"> D) O pesquisador lhe encontrou na base de dados.</label>
+                <label class="option"><input type="radio" name="q5" value="E"> E) O pesquisador os encontrou-os na base de dados.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card">
+            <span class="question-number">Questão 06</span>
+            <p>Analise a frase abaixo quanto à flexão verbal e às vozes:<br>
+            “As propostas de emenda à constituição <strong>foram analisadas</strong> pelos consultores jurídicos ontem.”</p>
+            <p>Sobre este período, é correto afirmar que:</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q6" value="A"> A) O verbo está na voz passiva sintética.</label>
+                <label class="option"><input type="radio" name="q6" value="B"> B) O termo “pelos consultores jurídicos” exerce a função de objeto indireto.</label>
+                <label class="option"><input type="radio" name="q6" value="C"> C) A locução verbal é formada pelo auxiliar “ser” no pretérito perfeito do indicativo e o particípio do verbo principal.</label>
+                <label class="option"><input type="radio" name="q6" value="D"> D) Caso passássemos o verbo para a voz ativa, o sujeito seria “as propostas de emenda”.</label>
+                <label class="option"><input type="radio" name="q6" value="E"> E) Segundo Celso Cunha, o verbo auxiliar da passiva deve obrigatoriamente estar no presente do indicativo.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card">
+            <span class="question-number">Questão 07</span>
+            <p>Assinale a alternativa que apresenta uma oração na voz reflexiva, conforme as definições de Bechara:</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q7" value="A"> A) Alugam-se apartamentos de luxo no centro.</label>
+                <label class="option"><input type="radio" name="q7" value="B"> B) O atleta feriu-se durante o treinamento intensivo.</label>
+                <label class="option"><input type="radio" name="q7" value="C"> C) A casa foi construída em poucos meses.</label>
+                <label class="option"><input type="radio" name="q7" value="D"> D) Vive-se bem nesta cidade do interior.</label>
+                <label class="option"><input type="radio" name="q7" value="E"> E) Eles foram cercados pelos adversários.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card">
+            <span class="question-number">Questão 08</span>
+            <p>Considere o seguinte trecho: “Se você <strong>tivesse estudado</strong> as gramáticas de Cunha e Bechara, <strong>teria compreendido</strong> a questão.”</p>
+            <p>Sobre as formas verbais sublinhadas, assinale a alternativa que descreve corretamente sua estrutura e função:</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q8" value="A"> A) Trata-se de formas simples do pretérito perfeito do indicativo.</label>
+                <label class="option"><input type="radio" name="q8" value="B"> B) São tempos compostos, sendo o primeiro o pretérito mais-que-perfeito composto do subjuntivo e o segundo o futuro do pretérito composto do indicativo.</label>
+                <label class="option"><input type="radio" name="q8" value="C"> C) O primeiro verbo indica um fato certo no passado, enquanto o segundo indica uma hipótese no presente.</label>
+                <label class="option"><input type="radio" name="q8" value="D"> D) Ambas as formas estão no modo imperativo afirmativo.</label>
+                <label class="option"><input type="radio" name="q8" value="E"> E) Segundo Bechara, tempos compostos não são admitidos na voz ativa.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card">
+            <span class="question-number">Questão 09</span>
+            <p>Analise o emprego dos pronomes possessivos na frase: “O diretor comunicou ao secretário que <strong>suas</strong> ideias seriam implementadas.”</p>
+            <p>De acordo com a norma culta e a possibilidade de ambiguidade mencionada por Bechara, o pronome “suas” pode referir-se a:</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q9" value="A"> A) Apenas às ideias do diretor.</label>
+                <label class="option"><input type="radio" name="q9" value="B"> B) Apenas às ideias do secretário.</label>
+                <label class="option"><input type="radio" name="q9" value="C"> C) Tanto às ideias do diretor quanto às do secretário, gerando ambiguidade.</label>
+                <label class="option"><input type="radio" name="q9" value="D"> D) Exclusivamente às ideias da empresa, termo implícito no contexto.</label>
+                <label class="option"><input type="radio" name="q9" value="E"> E) Apenas ao verbo comunicar, indicando o modo da ação.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card">
+            <span class="question-number">Questão 10</span>
+            <p>No que se refere aos processos de conversão entre vozes verbais, assinale a alternativa que apresenta a correta transformação da voz ativa para a passiva analítica da frase: “A banca Fundatec elaborará provas complexas no próximo ano.”</p>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q10" value="A"> A) Provas complexas serão elaboradas pela banca Fundatec no próximo ano.</label>
+                <label class="option"><input type="radio" name="q10" value="B"> B) Provas complexas seriam elaboradas pela banca Fundatec no próximo ano.</label>
+                <label class="option"><input type="radio" name="q10" value="C"> C) Elaborar-se-ão provas complexas no próximo ano.</label>
+                <label class="option"><input type="radio" name="q10" value="D"> D) Provas complexas foram elaboradas pela banca Fundatec no próximo ano.</label>
+                <label class="option"><input type="radio" name="q10" value="E"> E) A banca Fundatec terá elaborado provas complexas no próximo ano.</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <section id="results-section">
+        <div class="score-banner">
+            <h2>Resultado da Avaliação</h2>
+            <div class="score-value" id="final-score">0 / 10</div>
+            <p id="score-comment"></p>
+        </div>
+
+        <div id="detailed-resolutions">
+            <!-- As resoluções serão inseridas aqui via JS -->
+        </div>
+
+        <div class="synthesis">
+            <h3>Análise Sistêmica: Bechara vs. Cunha (Perspectiva Fundatec)</h3>
+            <p>Para o candidato que enfrenta a banca Fundatec, é imperativo compreender que a morfossintaxe não é uma disciplina estática. As perspectivas de Evanildo Bechara e Celso Cunha fornecem a base para questões que exploram nuances de significado e estrutura.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tema</th>
+                            <th>Visão de Celso Cunha</th>
+                            <th>Visão de Evanildo Bechara</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Voz Passiva</strong></td>
+                            <td>Admite vários auxiliares (ser, ficar, ir, vir).</td>
+                            <td>Foca na transposição do objeto para o sujeito.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pronomes</strong></td>
+                            <td>Ênfase na localização textual (anáfora/catáfora).</td>
+                            <td>Ênfase na classificação morfológica e sintática.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modos Verbais</strong></td>
+                            <td>O subjuntivo expressa a dúvida e o desejo.</td>
+                            <td>O subjuntivo é o modo do fato psicológico.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Partícula "se"</strong></td>
+                            <td>Analisa a partícula como morfema de reflexividade.</td>
+                            <td>Detalha as funções de partícula apassivadora vs. índice.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </header>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: "D", q2: "D", q3: "D", q4: "B", q5: "B",
+        q6: "C", q7: "B", q8: "B", q9: "C", q10: "A"
+    };
+
+    const resolutions = {
+        q1: "Assertiva I (Correta): 'este' retoma o termo mais próximo (cidadão digital). Assertiva II (Incorreta): 'sua' refere-se ao possuidor (cidadão digital), não a estímulos. Assertiva III (Correta): 'lhes' funciona como objeto indireto retomando 'desenvolvedores'.",
+        q2: "Alternativa D (Incorreta/Gabarito): O erro é a flexão de 'proteger'. Com a conjunção 'Caso', exige-se o presente do subjuntivo: 'Caso a legislação proteja'. 'Proteger' seria o futuro do subjuntivo com a conjunção 'Se'.",
+        q3: "Assertiva I (Correta): Verbo transitivo direto + 'se' = voz passiva sintética. Assertiva II (Correta): Conversão correta mantendo o tempo presente. Assertiva III (Incorreta): O sujeito é determinado ('bilhões de informações').",
+        q4: "Alternativa B (Correta): O pronome 'esse' possui valor anafórico pois retoma a ideia mencionada anteriormente no texto.",
+        q5: "Alternativa B (Correta): 'encontrou' é VTD. O objeto direto masculino plural 'os resultados' é substituído por 'os'. Como termina em vogal, mantém-se a forma '-os'.",
+        q6: "Alternativa C (Correta): A locução 'foram analisadas' usa o auxiliar 'ser' no pretérito perfeito do indicativo e o particípio do verbo principal.",
+        q7: "Alternativa B (Correta): 'O atleta feriu-se'. O sujeito pratica e sofre a ação simultaneamente, caracterizando a voz reflexiva.",
+        q8: "Alternativa B (Correta): 'tivesse estudado' é Pretérito Mais-que-perfeito Composto do Subjuntivo; 'teria compreendido' é Futuro do Pretérito Composto do Indicativo.",
+        q9: "Alternativa C (Correta): O pronome 'suas' gera ambiguidade, podendo referir-se tanto ao diretor quanto ao secretário, conforme aponta Bechara.",
+        q10: "Alternativa A (Correta): Deve-se manter o tempo futuro do presente. 'elaborará' (ativa) vira 'serão elaboradas' (passiva analítica)."
+    };
+
+    function submitQuiz() {
+        const form = document.getElementById('quiz-form');
+        const resultsSection = document.getElementById('results-section');
+        const detailedDiv = document.getElementById('detailed-resolutions');
+        let score = 0;
+
+        detailedDiv.innerHTML = '<h3>Resoluções Detalhadas</h3>';
+
+        for (let i = 1; i <= 10; i++) {
+            const questionName = 'q' + i;
+            const selected = form.querySelector(`input[name="${questionName}"]:checked`);
+            const userAnswer = selected ? selected.value : "Não respondida";
+            const isCorrect = userAnswer === correctAnswers[questionName];
+
+            if (isCorrect) score++;
+
+            // Criar card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            resCard.innerHTML = `
+                <div class="resolution-header">
+                    <span>Questão ${i}</span>
+                    <span class="status-tag ${isCorrect ? 'status-correct' : 'status-wrong'}">
+                        ${isCorrect ? 'ACERTOU' : 'ERROU'}
+                    </span>
+                </div>
+                <p><strong>Sua resposta:</strong> ${userAnswer} | <strong>Gabarito:</strong> ${correctAnswers[questionName]}</p>
+                <p><em>${resolutions[questionName]}</em></p>
+            `;
+            detailedDiv.appendChild(resCard);
+        }
+
+        // Atualizar score
+        document.getElementById('final-score').innerText = `${score} / 10`;
+        const comment = document.getElementById('score-comment');
+        if (score >= 8) comment.innerText = "Excelente desempenho! Você domina a morfossintaxe de Bechara e Cunha.";
+        else if (score >= 5) comment.innerText = "Bom desempenho. Revise os pontos onde houve dúvida para fixar a norma culta.";
+        else comment.innerText = "Continue estudando. A morfossintaxe exige atenção aos detalhes de regência e coesão.";
+
+        // Mostrar resultados e rolar
+        resultsSection.style.display = 'block';
+        window.scrollTo({ top: resultsSection.offsetTop - 20, behavior: 'smooth' });
+
+        // Desativar inputs após envio
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+        form.querySelector('.btn-submit').style.display = 'none';
+    }
+
+    // Efeito visual ao selecionar opção
+    document.querySelectorAll('.option').forEach(label => {
+        label.addEventListener('click', function() {
+            const name = this.querySelector('input').name;
+            document.querySelectorAll(`label[class*="option"]`).forEach(l => {
+                if (l.querySelector('input').name === name) l.classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>

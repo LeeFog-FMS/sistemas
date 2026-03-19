@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morfossintaxe para Concursos: Pronomes e Verbos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .container-custom {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .highlight-yellow {
+            background-color: #fefcbf;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .highlight-bold {
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: #cbd5e0;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* Garante legibilidade sem espremer */
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #2d3748;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .audio-player-box {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            color: #2d3748;
+            border-left: 5px solid #2d3748;
+            padding-left: 15px;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            background-color: #2d3748;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        .summary-box {
+            background: #fff;
+            border: 1px dashed #cbd5e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-custom">
+        <!-- Cabeçalho -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800">Morfossintaxe: Pronome e Verbo</h1>
+            <p class="text-xl text-gray-500 mt-2">Tutor Especialista: Preparação IFC (EBTT) - Banca Fundatec</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="audio-player-box">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-gray-600 mb-3">Escutar Resumo da Aula</h3>
+            <audio controls class="w-full">
+                <source src="lp-morfossintaxe-pronome-e-verbo.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2 italic">Dica: Ouça enquanto revisa os tópicos abaixo.</p>
+        </div>
+
+        <!-- Conteúdo Teórico -->
+        <section>
+            <h2 class="section-title">1. Pronomes Pessoais e a Norma Culta (Bechara)</h2>
+            <p>
+                Para Bechara, o pronome pessoal refere-se diretamente às pessoas do discurso. O foco da Fundatec costuma ser a substituição para evitar repetição (coesão).
+            </p>
+            <ul class="list-disc ml-6 mt-4 space-y-2">
+                <li><span class="highlight-yellow">Casos Retos:</span> Exercem função de <span class="highlight-bold">sujeito</span>. Não podem ser usados como objeto direto (Ex: "Vi ele" ❌ → "Vi-o" ✅).</li>
+                <li><span class="highlight-yellow">Casos Oblíquos Átonos:</span> Funcionam como complementos (OD/OI).
+                    <ul class="ml-6 list-circle">
+                        <li><strong>O, A, OS, AS:</strong> Sempre Objeto Direto.</li>
+                        <li><strong>LHE, LHES:</strong> Sempre Objeto Indireto (substitui "a ele", "para ele").</li>
+                        <li><strong>Valor Possessivo do LHE:</strong> Bechara destaca o uso do <i>lhe</i> indicando posse (Ex: "Roubaram-lhe a carteira" = Roubaram a carteira <i>dele</i>).</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="section-title">2. Pronomes Possessivos e Ambiguidade</h2>
+            <p>
+                Celso Cunha destaca que o uso da 3ª pessoa (<span class="highlight-bold">seu/sua</span>) pode gerar confusão de referência.
+            </p>
+            <div class="summary-box">
+                <strong>Exemplo Clássico:</strong> "O professor disse ao aluno que sua nota era baixa." (Nota de quem?) <br>
+                <span class="highlight-yellow">Dica Fundatec:</span> A banca pode pedir para reescrever para eliminar a ambiguidade usando "dele" ou "dela".
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">3. Pronomes Demonstrativos (Tríade de Referência)</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pronome</th>
+                            <th>Espacial (Lugar)</th>
+                            <th>Temporal (Tempo)</th>
+                            <th>Textual (Anafórico)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-blue-800">Este/Isto</td>
+                            <td>Próximo ao "Eu"</td>
+                            <td><span class="highlight-yellow">Presente</span></td>
+                            <td>Catáfora (vai dizer)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-blue-800">Esse/Isso</td>
+                            <td>Próximo ao "Tu"</td>
+                            <td>Passado/Futuro próximo</td>
+                            <td>Anáfora (já disse)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-blue-800">Aquele/Aquilo</td>
+                            <td>Longe de ambos</td>
+                            <td>Passado <span class="highlight-bold">distante</span></td>
+                            <td>Referente mais distante no texto</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">4. Verbos: Tempos, Modos e Correlação</h2>
+            <p>A Fundatec ama a <span class="highlight-bold">semântica verbal</span> (o sentido que o tempo carrega).</p>
+            <ul class="space-y-4 mt-4">
+                <li class="p-4 border-l-4 border-gray-200 bg-gray-50">
+                    <span class="font-bold">Futuro do Pretérito (Indicativo):</span> Indica incerteza, polidez ou uma condição (Ex: "Eu <span class="highlight-yellow">iria</span> se pudesse").
+                </li>
+                <li class="p-4 border-l-4 border-gray-200 bg-gray-50">
+                    <span class="font-bold">Pretérito Imperfeito (Subjuntivo):</span> Expressa hipótese. É o famoso final <span class="highlight-yellow">-SSE</span>.
+                </li>
+            </ul>
+            <p class="mt-4">
+                <strong>Regra de Correlação:</strong> Se o verbo da oração principal está no Futuro do Pretérito, a subordinada deve estar no Pretérito Imperfeito do Subjuntivo (<span class="highlight-bold">Faria + Se tivesse</span>).
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">5. Vozes Verbais e Processos de Conversão</h2>
+            <p>A conversão entre Voz Ativa e Voz Passiva é figurinha carimbada no IFC.</p>
+            
+            <div class="summary-box">
+                <h4 class="font-bold mb-2">Passo a Passo da Conversão (Ativa para Passiva):</h4>
+                <ol class="list-decimal ml-6 space-y-2">
+                    <li>O <span class="highlight-bold">Objeto Direto</span> da ativa vira o <span class="highlight-yellow">Sujeito Paciente</span> da passiva.</li>
+                    <li>O <span class="highlight-bold">Sujeito</span> da ativa vira o <span class="highlight-yellow">Agente da Passiva</span> (precedido por "por" ou "de").</li>
+                    <li>O verbo principal vira uma <span class="highlight-bold">Locução Verbal</span> (Verbo SER + Particípio). O verbo SER herda o tempo do verbo original.</li>
+                </ol>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Voz Ativa</th>
+                            <th>Voz Passiva Analítica</th>
+                            <th>Voz Passiva Sintética</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>O professor <span class="highlight-bold">avaliou</span> os alunos.</td>
+                            <td>Os alunos <span class="highlight-yellow">foram avaliados</span> pelo professor.</td>
+                            <td><span class="highlight-yellow">Avaliaram-se</span> os alunos.</td>
+                        </tr>
+                        <tr>
+                            <td>O IFC <span class="highlight-bold">organiza</span> o concurso.</td>
+                            <td>O concurso <span class="highlight-yellow">é organizado</span> pelo IFC.</td>
+                            <td><span class="highlight-yellow">Organiza-se</span> o concurso.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm italic text-gray-600 mt-2">
+                *Nota: Verbos que não possuem Objeto Direto (VTI/VI) <span class="highlight-bold">não admitem</span> voz passiva (exeto casos raros citados por Bechara que não caem na Fundatec).
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">6. O "Peguinha" Final: Partícula SE</h2>
+            <ul class="list-none space-y-3">
+                <li class="flex items-start">
+                    <span class="text-red-500 font-bold mr-2">!</span>
+                    <span><strong>Pronome Apassivador:</strong> Com VTD. O verbo <span class="highlight-bold">concorda</span> com o sujeito (Ex: "Vende-se casa" / "Vendem-se casas").</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-red-500 font-bold mr-2">!</span>
+                    <span><strong>Índice de Indeterminação:</strong> Com VTI/VI. O verbo fica <span class="highlight-yellow">sempre no singular</span> (Ex: "Precisa-se de técnicos").</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Botão de Questões -->
+        <a href="lp-morfossintaxe-pronome-e-verboquestões.html" class="btn-action">
+            TESTAR CONHECIMENTOS →
+        </a>
+
+        <footer class="mt-20 text-center text-gray-400 text-sm border-top pt-8">
+            <p>Material elaborado conforme as gramáticas de Bechara e Cunha para fins didáticos.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

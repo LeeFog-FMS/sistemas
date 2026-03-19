@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Morfologia - Professor IFC (Fundatec)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+            font-weight: 600;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Fallback, mas tentaremos evitar scroll */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .audio-player-container {
+            background-color: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+        }
+        .btn-questoes {
+            display: inline-block;
+            background-color: #1e293b;
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .btn-questoes:hover {
+            background-color: #334155;
+            transform: scale(1.02);
+        }
+        h2 {
+            border-left: 5px solid #3b82f6;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #1e3a8a;
+        }
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .box-aviso {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12 max-w-5xl mx-auto">
+
+    <!-- Áudio Player no Início -->
+    <div class="audio-player-container shadow-md">
+        <h3 class="text-xs font-bold mb-3 text-blue-600 uppercase tracking-widest mt-0">Reprodutor de Áudio da Aula</h3>
+        <audio controls class="w-full">
+            <source src="lp-morfologia.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+        <p class="text-xs text-slate-500 mt-2">Dica: Ouça o resumo enquanto revisa os pontos destacados abaixo.</p>
+    </div>
+
+    <header class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Morfologia e Classes de Palavras</h1>
+        <p class="text-xl text-slate-500 font-medium">Estratégias de Prova para Professor de Geografia - IFC (Banca Fundatec)</p>
+    </header>
+
+    <main>
+        <!-- Definição e Conceitos -->
+        <section>
+            <h2>1. Definição e Estrutura das Palavras</h2>
+            <p class="mb-4">Morfologia é o estudo da estrutura interna das palavras e suas flexões. Para a <strong>Fundatec</strong>, o foco não é apenas "dar nome", mas entender como a palavra foi construída no texto.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-4 border border-slate-200 rounded-lg">
+                    <h4 class="font-bold text-blue-800 mb-2">Processos de Derivação</h4>
+                    <ul class="text-sm space-y-1">
+                        <li><strong>Prefixal:</strong> <span class="highlight">In</span>feliz, <span class="highlight">Des</span>fazer.</li>
+                        <li><strong>Sufixal:</strong> Feliz<span class="highlight">mente</span>, Território → Territori<span class="highlight">al</span>.</li>
+                        <li><strong>Parassintética:</strong> <span class="highlight">En</span>velhe<span class="highlight">cer</span> (Prefix + Sufix simultâneos).</li>
+                        <li><strong>Regressiva:</strong> Verbo vira substantivo (O debate, o ataque).</li>
+                        <li><strong>Imprópria:</strong> Mudança de classe sem mudar a forma (O <strong>jantar</strong> foi ótimo).</li>
+                    </ul>
+                </div>
+                <div class="p-4 border border-slate-200 rounded-lg">
+                    <h4 class="font-bold text-blue-800 mb-2">Processos de Composição</h4>
+                    <ul class="text-sm space-y-1">
+                        <li><strong>Justaposição:</strong> Une radicais sem perda de sons. <span class="highlight">Passatempo</span>, <span class="highlight">Guarda-chuva</span>.</li>
+                        <li><strong>Aglutinação:</strong> Ocorre perda ou alteração fonética. <span class="highlight">Planalto</span> (Plano + Alto), <span class="highlight">Aguardente</span> (Água + Ardente).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Substantivos -->
+        <section>
+            <h2>2. Substantivos: O Coração do Discurso</h2>
+            <p class="mb-4">Responsáveis pela <strong>nomeação</strong>. No texto de Geografia, organizam os objetos de estudo (espaço, região, lugar).</p>
+            
+            <h3>Flexão de Número (Substantivos Compostos)</h3>
+            <p class="text-sm mb-4">A Fundatec adora cobrar regras de plural em questões de reescrita.</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Regra</th>
+                            <th>O que acontece?</th>
+                            <th>Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Variável + Variável</td>
+                            <td>Ambos vão para o plural</td>
+                            <td>Couves-flores, Tenentes-coronéis</td>
+                        </tr>
+                        <tr>
+                            <td>Invariável + Variável</td>
+                            <td>Apenas o segundo varia</td>
+                            <td>Sempre-vivas, <span class="highlight">Vice-diretores</span></td>
+                        </tr>
+                        <tr>
+                            <td>Verbo + Substantivo</td>
+                            <td>Apenas o substantivo varia</td>
+                            <td>Beija-flores, <span class="highlight">Guarda-roupas</span></td>
+                        </tr>
+                        <tr>
+                            <td>Subst + Prep + Subst</td>
+                            <td>Apenas o primeiro varia</td>
+                            <td>Mulas sem cabeça, <span class="highlight">Pés de moleque</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="box-aviso">
+                <p><strong>Diferença Semântica:</strong> 
+                <br>• <strong>Concretos:</strong> Existência independente (Mar, nuvem).
+                <br>• <strong>Abstratos:</strong> Dependem de algo/alguém; indicam ações, sentimentos ou qualidades (Globalização, pobreza, <span class="highlight">fome</span>).</p>
+            </div>
+        </section>
+
+        <!-- Adjetivos -->
+        <section>
+            <h2>3. Adjetivos: Caracterização e Relação</h2>
+            <p class="mb-4">O adjetivo não apenas "dá qualidade", mas delimita o sentido do substantivo no texto acadêmico.</p>
+            
+            <h3>Adjetivo Relacional (Tema de Nível Superior)</h3>
+            <ul class="list-disc pl-6 mb-4 space-y-2">
+                <li>Não admite grau (não existe "muito presidencial").</li>
+                <li>Deriva de um substantivo e é objetivo.</li>
+                <li><strong>Exemplo:</strong> Voto <span class="highlight">presidencial</span>, Clima <span class="highlight">equatorial</span>, Crise <span class="highlight">econômica</span>.</li>
+            </ul>
+
+            <h3>Plural dos Adjetivos Compostos</h3>
+            <p class="text-sm italic mb-2">Regra Geral: Apenas o <strong>último</strong> elemento varia.</p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Padrão</td>
+                            <td>Instituições <span class="highlight">luso-brasileiras</span></td>
+                        </tr>
+                        <tr>
+                            <td>Cores (Subst. como Adj.)</td>
+                            <td>Camisas <span class="highlight">verde-abacate</span> (Invariável)</td>
+                        </tr>
+                        <tr>
+                            <td>Exceção Frequente</td>
+                            <td>Surdos-mudos (Ambos variam)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Artigos e Numerais -->
+        <section>
+            <h2>4. Artigos e Numerais: Organização Textual</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3>Artigos</h3>
+                    <p class="text-sm"><strong>Definidos (o, a):</strong> Especificam, retomam termos conhecidos (anáfora).</p>
+                    <p class="text-sm mt-2"><strong>Indefinidos (um, uma):</strong> Generalizam, introduzem novos tópicos.</p>
+                    <p class="text-sm font-bold mt-2 text-red-600">⚠ Peguinha: "O um" ou "Um o". O artigo pode substantivar qualquer classe.</p>
+                </div>
+                <div>
+                    <h3>Numerais</h3>
+                    <p class="text-sm"><strong>Cardinais:</strong> Quantidade exata.</p>
+                    <p class="text-sm mt-2"><strong>Ordinais:</strong> Hierarquia e ordem. Em textos dissertativos, o uso de "Primeiramente", "Segundo" ajuda na <span class="highlight">coesão sequencial</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tendências Fundatec -->
+        <section class="bg-slate-50 p-8 rounded-2xl mt-12 border border-slate-200">
+            <h2 class="mt-0">5. "Raio-X" da Fundatec (Tendências EBTT)</h2>
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✔</span>
+                    <p><strong>Substantivação:</strong> A banca pergunta se a palavra "X" funciona como substantivo no texto. Procure pelo artigo antes dela.</p>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✔</span>
+                    <p><strong>Mudança de Posição:</strong> "Grande homem" (valorativo/subjetivo) vs "Homem grande" (descritivo/objetivo).</p>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✔</span>
+                    <p><strong>Valor dos Numerais:</strong> Diferenciar o "um" artigo (indeterminação) do "um" numeral (quantidade).</p>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-red-500 mr-2">✘</span>
+                    <p><strong>Cuidado com o Plural:</strong> "Cidadãos" (correto) vs "Cidadões" (erro comum em provas).</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Conclusão de Memorização -->
+        <section class="mt-12">
+            <h2 class="text-xl">Resumo para o Dia da Prova</h2>
+            <div class="p-6 bg-blue-100 rounded-xl border-l-8 border-blue-600">
+                <p class="font-bold mb-2">Mnemônico das Flexões:</p>
+                <p class="text-lg"><strong>S.A.N.P.V.</strong> (Subst, Adj, Num, Pron, Verbo) = <span class="highlight text-blue-800">VARIÁVEIS</span></p>
+                <p class="text-lg"><strong>P.I.C.A.</strong> (Prep, Interj, Conj, Advérbio) = <span class="highlight text-red-800">INVARIÁVEIS</span></p>
+            </div>
+        </section>
+
+        <!-- Botão Final -->
+        <div class="flex justify-center mt-16 mb-24">
+            <a href="lp-morfologiaquestoes.html" class="btn-questoes shadow-xl">
+                📝 PRATICAR AGORA: QUESTÕES DA BANCA
+            </a>
+        </div>
+    </main>
+
+    <footer class="text-center text-slate-400 text-sm border-t pt-8 pb-12">
+        Conteúdo elaborado para o concurso IFC - Professor de Geografia.
+    </footer>
+
+</body>
+</html>

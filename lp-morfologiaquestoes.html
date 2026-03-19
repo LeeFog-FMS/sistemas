@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Morfologia - Padrão Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --border-color: #e0e0e0;
+            --correct-bg: #f1f8e9;
+            --wrong-bg: #fffde7;
+            --resolution-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Georgia, serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+       .container {
+            max-width: 850px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+       .text-box {
+            background: var(--bg-color);
+            border-left: 5px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+       .question {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+       .question-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.15rem;
+        }
+
+       .options {
+            list-style: none;
+            padding: 0;
+        }
+
+       .options li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+       .options li:hover {
+            background: #f0f0f0;
+        }
+
+       .options input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+       .btn-finish {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: opacity 0.2s;
+        }
+
+       .btn-finish:hover {
+            opacity: 0.9;
+        }
+
+        #result-summary {
+            display: none;
+            background: var(--accent-color);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.3rem;
+        }
+
+       .resolution {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--resolution-bg);
+            border-top: 3px solid var(--accent-color);
+            font-size: 0.95rem;
+        }
+
+       .correct { color: #2e7d32; font-weight: bold; }
+       .wrong { color: #c62828; font-weight: bold; }
+
+        @media (max-width: 600px) {
+           .container { padding: 15px; }
+           .text-box { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Simulado de Morfologia: Fundatec</h1>
+
+    <div class="text-box">
+        <strong>Texto 1</strong><br><br>
+        As inovações tecnológicas no campo da inteligência artificial (IA) têm provocado transformações profundas na sociedade contemporânea. Na última década, o desenvolvimento de algoritmos capazes de processar bilhões de dados transformou a forma como interagimos com o conhecimento. No entanto, essa revolução técnica não deve obscurecer a importância da ética. Um sistema bem-estar social depende de critérios humanos para que os avanços beneficiem a todos, independentemente da condição socioeconômica. Muitas vezes, as pessoas imaginam a IA como um bicho-papão ou como uma solução milagrosa para todos os problemas. Contudo, a realidade situa-se em um ponto médio, onde a colaboração entre homem e máquina se mostra essencial. Ao desromantizar o papel da tecnologia, percebe-se que ela é uma ferramenta potente, mas desprovida de consciência moral. É crucial que seus desenvolvedores se atentem aos prejuízos de uma utilização desmedida, observando o momento ideal para a intervenção humana.
+    </div>
+
+    <form id="quiz-form">
+        <div class="question" id="q1">
+            <div class="question-title">Questão 01 - Analise as assertivas a respeito de vocábulos do Texto 1:</div>
+            <p>I. Em “As inovações tecnológicas”, “As” é artigo definido e “tecnológicas” é adjetivo.<br>
+               II. “algoritmos” é substantivo comum e concreto, núcleo do objeto direto no contexto.<br>
+               III. “bilhões” é classificado como numeral cardinal.</p>
+            <ul class="options">
+                <li><input type="radio" name="q1" value="A"> A) Apenas I.</li>
+                <li><input type="radio" name="q1" value="B"> B) Apenas II.</li>
+                <li><input type="radio" name="q1" value="C"> C) Apenas III.</li>
+                <li><input type="radio" name="q1" value="D"> D) Apenas I e III.</li>
+                <li><input type="radio" name="q1" value="E"> E) I, II e III.</li>
+            </ul>
+            <div class="resolution" id="res1">
+                <span class="correct-answer">Gabarito: D</span><br>
+                <strong>Resolução:</strong> A assertiva II está incorreta porque "algoritmos" em "desenvolvimento de algoritmos" não é objeto direto, mas sim parte de um complemento nominal ou adjunto adnominal do substantivo "desenvolvimento".
+            </div>
+        </div>
+
+        <div class="question" id="q2">
+            <div class="question-title">Questão 02 - Sobre a palavra “desromantizar”:</div>
+            <p>I. Formada por derivação parassintética.<br>
+               II. O prefixo “des-” expressa negação ou reversão.<br>
+               III. Substituindo “-izar” por “-ismo”, a palavra passa a ser substantivo sufixal.</p>
+            <ul class="options">
+                <li><input type="radio" name="q2" value="A"> A) Apenas I.</li>
+                <li><input type="radio" name="q2" value="B"> B) Apenas II.</li>
+                <li><input type="radio" name="q2" value="C"> C) Apenas I e II.</li>
+                <li><input type="radio" name="q2" value="D"> D) Apenas II e III.</li>
+                <li><input type="radio" name="q2" value="E"> E) I, II e III.</li>
+            </ul>
+            <div class="resolution" id="res2">
+                <span class="correct-answer">Gabarito: D</span><br>
+                <strong>Resolução:</strong> A assertiva I está incorreta. A derivação não é parassintética, pois "romantizar" existe sem o prefixo "des-". Trata-se de derivação prefixal e sufixal.
+            </div>
+        </div>
+
+        <div class="question" id="q3">
+            <div class="question-title">Questão 03 - Sobre flexão e classificação no Texto 1:</div>
+            <p>I. “profundas” é adjetivo biforme flexionado para concordar com “transformações”.<br>
+               II. “bem-estar” é substantivo composto; no plural, ambos os elementos mudam.<br>
+               III. “essencial” é um adjetivo uniforme.</p>
+            <ul class="options">
+                <li><input type="radio" name="q3" value="A"> A) Apenas I.</li>
+                <li><input type="radio" name="q3" value="B"> B) Apenas II.</li>
+                <li><input type="radio" name="q3" value="C"> C) Apenas III.</li>
+                <li><input type="radio" name="q3" value="D"> D) Apenas I e III.</li>
+                <li><input type="radio" name="q3" value="E"> E) I, II e III.</li>
+            </ul>
+            <div class="resolution" id="res3">
+                <span class="correct-answer">Gabarito: D</span><br>
+                <strong>Resolução:</strong> A assertiva II está incorreta. Em "bem-estar" (advérbio + verbo), as classes são invariáveis. O plural substantivado aceito é "bem-estares".
+            </div>
+        </div>
+
+        <div class="question" id="q4">
+            <div class="question-title">Questão 04 - “O desenvolvedor se atenta aos prejuízos de uma utilização desmedida.”</div>
+            <p>Se mudarmos “O desenvolvedor” para o plural, quantas outras palavras mudam obrigatoriamente?</p>
+            <ul class="options">
+                <li><input type="radio" name="q4" value="A"> A) Uma.</li>
+                <li><input type="radio" name="q4" value="B"> B) Duas.</li>
+                <li><input type="radio" name="q4" value="C"> C) Três.</li>
+                <li><input type="radio" name="q4" value="D"> D) Quatro.</li>
+                <li><input type="radio" name="q4" value="E"> E) Cinco.</li>
+            </ul>
+            <div class="resolution" id="res4">
+                <span class="correct-answer">Gabarito: B</span><br>
+                <strong>Resolução:</strong> Mudam apenas o artigo (Os) e o verbo (atentam). O "se" e o restante da frase permanecem graficamente iguais.
+            </div>
+        </div>
+
+        <div class="question" id="q5">
+            <div class="question-title">Questão 05 - Classifique: “depende de critérios humanos para que os avanços beneficiem a todos”.</div>
+            <ul class="options">
+                <li><input type="radio" name="q5" value="A"> A) Substantivo simples – adjetivo biforme – pronome indefinido.</li>
+                <li><input type="radio" name="q5" value="B"> B) Adjetivo – substantivo comum – numeral cardinal.</li>
+                <li><input type="radio" name="q5" value="C"> C) Substantivo abstrato – adjetivo uniforme – pronome pessoal.</li>
+                <li><input type="radio" name="q5" value="D"> D) Substantivo simples – adjetivo biforme – substantivo comum.</li>
+                <li><input type="radio" name="q5" value="E"> E) Adjetivo – adjetivo – pronome demonstrativo.</li>
+            </ul>
+            <div class="resolution" id="res5">
+                <span class="correct-answer">Gabarito: A</span><br>
+                <strong>Resolução:</strong> "Critérios" (substantivo simples), "humanos" (adjetivo biforme), "todos" (pronome indefinido).
+            </div>
+        </div>
+
+        <div class="question" id="q6">
+            <div class="question-title">Questão 06 - Sobre numerais e artigos conforme Cegalla:</div>
+            <p>I. “última” possui valor de numeral ordinal.<br>
+               II. O artigo “um” em “um bicho-papão” generaliza o objeto.<br>
+               III. Séculos e papas: ordinais até o 10º, cardinais de 11 em diante.</p>
+            <ul class="options">
+                <li><input type="radio" name="q6" value="A"> A) Apenas I.</li>
+                <li><input type="radio" name="q6" value="B"> B) Apenas II.</li>
+                <li><input type="radio" name="q6" value="C"> C) Apenas I e II.</li>
+                <li><input type="radio" name="q6" value="D"> D) Apenas II e III.</li>
+                <li><input type="radio" name="q6" value="E"> E) I, II e III.</li>
+            </ul>
+            <div class="resolution" id="res6">
+                <span class="correct-answer">Gabarito: E</span><br>
+                <strong>Resolução:</strong> Todas as assertivas seguem fielmente a gramática normativa e o estilo de cobrança da Fundatec.
+            </div>
+        </div>
+
+        <div class="question" id="q7">
+            <div class="question-title">Questão 07 - Assinale a alternativa INCORRETA sobre plural de compostos:</div>
+            <ul class="options">
+                <li><input type="radio" name="q7" value="A"> A) Bicho-papão -> bichos-papões.</li>
+                <li><input type="radio" name="q7" value="B"> B) Adjetivo de cor + substantivo (verde-oliva) é invariável.</li>
+                <li><input type="radio" name="q7" value="C"> C) Verbo + substantivo (guarda-chuva): só o 2º varia.</li>
+                <li><input type="radio" name="q7" value="D"> D) Azul-claro -> azuis-claros.</li>
+                <li><input type="radio" name="q7" value="E"> E) Com preposição (pés-de-moleque): só o 1º varia.</li>
+            </ul>
+            <div class="resolution" id="res7">
+                <span class="correct-answer">Gabarito: D</span><br>
+                <strong>Resolução:</strong> Incorreto. Em adjetivos compostos (adj + adj), apenas o ÚLTIMO elemento varia: azul-claros.
+            </div>
+        </div>
+
+        <div class="question" id="q8">
+            <div class="question-title">Questão 08 - Classifique: “A potente ferramenta, embora desprovida... auxilia milhares de usuários.”</div>
+            <ul class="options">
+                <li><input type="radio" name="q8" value="A"> A) Substantivo – Preposição – Numeral.</li>
+                <li><input type="radio" name="q8" value="B"> B) Adjetivo – Conjunção – Numeral.</li>
+                <li><input type="radio" name="q8" value="C"> C) Adjetivo – Advérbio – Pronome.</li>
+                <li><input type="radio" name="q8" value="D"> D) Substantivo – Conjunção – Substantivo.</li>
+                <li><input type="radio" name="q8" value="E"> E) Adjetivo – Preposição – Pronome.</li>
+            </ul>
+            <div class="resolution" id="res8">
+                <span class="correct-answer">Gabarito: B</span><br>
+                <strong>Resolução:</strong> "Potente" (adjetivo), "Embora" (conjunção concessiva), "Milhares" (numeral).
+            </div>
+        </div>
+
+        <div class="question" id="q9">
+            <div class="question-title">Questão 09 - Sobre a palavra “utilização”:</div>
+            <p>I. Substantivo abstrato formado por derivação sufixal.<br>
+               II. É uma palavra paroxítona.<br>
+               III. Compõe um sintagma onde “desmedida” é modificador.</p>
+            <ul class="options">
+                <li><input type="radio" name="q9" value="A"> A) Apenas I.</li>
+                <li><input type="radio" name="q9" value="B"> B) Apenas II.</li>
+                <li><input type="radio" name="q9" value="C"> C) Apenas I e II.</li>
+                <li><input type="radio" name="q9" value="D"> D) Apenas I e III.</li>
+                <li><input type="radio" name="q9" value="E"> E) I, II e III.</li>
+            </ul>
+            <div class="resolution" id="res9">
+                <span class="correct-answer">Gabarito: D</span><br>
+                <strong>Resolução:</strong> A assertiva II é falsa. "Utilização" é oxítona (tônica no 'ção').
+            </div>
+        </div>
+
+        <div class="question" id="q10">
+            <div class="question-title">Questão 10 - Considere as afirmações:</div>
+            <p>I. “consciência” é substantivo abstrato.<br>
+               II. “ideal” funciona como adjetivo de “momento”.<br>
+               III. “homem” e “máquina” seguem a regra geral de plural (-s).</p>
+            <ul class="options">
+                <li><input type="radio" name="q10" value="A"> A) Apenas I.</li>
+                <li><input type="radio" name="q10" value="B"> B) Apenas II.</li>
+                <li><input type="radio" name="q10" value="C"> C) Apenas I e II.</li>
+                <li><input type="radio" name="q10" value="D"> D) Apenas II e III.</li>
+                <li><input type="radio" name="q10" value="E"> E) I, II e III.</li>
+            </ul>
+            <div class="resolution" id="res10">
+                <span class="correct-answer">Gabarito: E</span><br>
+                <strong>Resolução:</strong> Todas as assertivas estão gramaticalmente corretas dentro do contexto morfológico solicitado.
+            </div>
+        </div>
+
+        <button type="button" class="btn-finish" onclick="checkQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="result-summary"></div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'D', q2: 'D', q3: 'D', q4: 'B', q5: 'A',
+        q6: 'E', q7: 'D', q8: 'B', q9: 'D', q10: 'E'
+    };
+
+    function checkQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Processar respostas
+        for (let i = 1; i <= 10; i++) {
+            const qId = 'q' + i;
+            const userAnswer = formData.get(qId);
+            const questionDiv = document.getElementById(qId);
+            const resDiv = document.getElementById('res' + i);
+
+            // Mostrar resolução
+            resDiv.style.display = 'block';
+
+            if (userAnswer === answers[qId]) {
+                score++;
+                questionDiv.style.backgroundColor = 'var(--correct-bg)';
+            } else {
+                questionDiv.style.backgroundColor = 'var(--wrong-bg)';
+            }
+        }
+
+        // Mostrar Sumário
+        const summary = document.getElementById('result-summary');
+        summary.innerHTML = `Você acertou ${score} de 10 questões! <br> Confira as resoluções detalhadas abaixo de cada pergunta.`;
+        summary.style.display = 'block';
+        
+        // Scroll para o topo do resultado
+        summary.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
