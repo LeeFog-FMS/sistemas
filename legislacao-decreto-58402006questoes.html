@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado PROEJA - Decreto 5.840/2006</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d2d2d;
+            --accent-color: #2563eb;
+            --secondary-color: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item label:hover {
+            background-color: #f8fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-top: 5px;
+            margin-right: 12px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Result Section */
+        #result-section {
+            display: none;
+            margin-top: 50px;
+            padding: 30px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .resolutions-title {
+            margin-top: 60px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+            display: none;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .correct-answer {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .user-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .feedback-correct { color: var(--success-color); }
+        .feedback-wrong { color: var(--error-color); }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Decreto Federal nº 5.840/2006 (PROEJA)</h1>
+        <p class="subtitle">Estilo Banca Fundatec - 10 Questões com Resolução</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions will be injected here -->
+        </div>
+        
+        <button type="button" class="btn-submit" id="submit-btn" onclick="submitQuiz()">Finalizar e Ver Resultados</button>
+    </form>
+
+    <div id="result-section">
+        <div class="score-display" id="score-text"></div>
+        <p id="performance-msg"></p>
+        <button type="button" class="btn-submit" style="margin-top: 20px; background-color: var(--secondary-color);" onclick="window.location.reload()">Refazer Simulado</button>
+    </div>
+
+    <h2 class="resolutions-title" id="res-title">Gabarito Comentado</h2>
+    <div id="resolutions-container">
+        <!-- Resolutions will be shown here -->
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Com fundamento no Decreto nº 5.840/2006, que institui o Programa Nacional de Integração da Educação Profissional com a Educação Básica na Modalidade de Educação de Jovens e Adultos (PROEJA), analise as assertivas abaixo:\n\nI. O PROEJA abrangerá a formação inicial e continuada de trabalhadores e a educação profissional técnica de nível médio.\nII. Os cursos e programas do PROEJA deverão considerar as características dos jovens e adultos atendidos.\nIII. Os cursos de formação inicial e continuada de trabalhadores podem ser articulados ao ensino fundamental ou ao ensino médio, objetivando a elevação do nível de escolaridade do trabalhador.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 4,
+            resolution: "**Gabarito: E**. O § 1º do Art. 1º define os dois grandes eixos do programa: I - formação inicial e continuada de trabalhadores (FIC); e II - educação profissional técnica de nível médio. O § 2º afirma que os cursos deverão considerar as características dos jovens e adultos atendidos. E o inciso I do § 2º detalha que a FIC pode ser articulada ao ensino fundamental ou médio."
+        },
+        {
+            id: 2,
+            text: "Segundo o Art. 1º, § 4º do Decreto nº 5.840/2006, os cursos e programas do PROEJA deverão ser oferecidos, em qualquer caso, a partir da construção prévia de:",
+            options: [
+                "Dois projetos pedagógicos independentes, um para a educação básica e outro para a profissional.",
+                "Um projeto pedagógico integrado único, inclusive quando envolver articulações interinstitucionais ou intergovernamentais.",
+                "Um plano de aula simplificado, focado exclusivamente na prática laboratorial.",
+                "Um convênio de cooperação técnica firmado obrigatoriamente com o Sistema S.",
+                "Uma matriz curricular flexível que dispense a oferta das disciplinas de base comum da educação nacional."
+            ],
+            correct: 1,
+            resolution: "**Gabarito: B**. A legislação é imperativa ao exigir que, independentemente de haver mais de uma instituição envolvida, o projeto pedagógico deve ser um só (único). Isso garante a integração entre a base comum e a técnica no currículo."
+        },
+        {
+            id: 3,
+            text: "De acordo com o dispositivo legal que trata da rede de instituições federais de educação profissional para fins do PROEJA, assinale a alternativa que NÃO corresponde a uma instituição integrante dessa rede conforme o texto original do decreto:",
+            options: [
+                "Universidade Federal Tecnológica do Paraná.",
+                "Centros Federais de Educação Tecnológica.",
+                "Escolas Agrotécnicas Federais.",
+                "Escolas Técnicas vinculadas às Universidades Federais.",
+                "Faculdades Privadas de Tecnologia vinculadas ao sistema estadual de ensino."
+            ],
+            correct: 4,
+            resolution: "**Gabarito: E**. O § 5º do Art. 1º lista taxativamente as instituições federais (UTFPR, CEFETs, Agrotécnicas e vinculadas). Faculdades privadas não integram a Rede Federal de Educação Profissional, embora possam adotar o programa sob outras condições."
+        },
+        {
+            id: 4,
+            text: "Considere o Art. 3º do Decreto nº 5.840/2006, que estabelece os objetivos do PROEJA. Assinale a alternativa que apresenta corretamente um desses objetivos:",
+            options: [
+                "Redução drástica da carga horária das disciplinas de humanidades para acelerar a formação técnica.",
+                "Atendimento às características socioculturais e econômicas dos jovens e adultos, visando à elevação do nível de escolaridade do trabalhador.",
+                "Implementação de cursos técnicos voltados exclusivamente para o setor de serviços e comércio.",
+                "Promoção do ensino médio regular para alunos na idade própria, de forma concomitante ao ensino superior.",
+                "Extinção da modalidade de Educação de Jovens e Adultos nos sistemas municipais de ensino."
+            ],
+            correct: 1,
+            resolution: "**Gabarito: B**. O objetivo central (Art. 3º) é atender as características específicas do público EJA, permitindo que ele eleve sua escolaridade enquanto se qualifica profissionalmente."
+        },
+        {
+            id: 5,
+            text: "Sobre a implementação e a oferta dos cursos do PROEJA pelas instituições da rede federal de educação profissional, o Art. 2º do Decreto nº 5.840/2006 dispõe que estes deverão ser oferecidos:",
+            options: [
+                "Mediante o pagamento de taxas de inscrição e mensalidades proporcionais à renda do aluno.",
+                "Exclusivamente em parceria com empresas multinacionais instaladas no território nacional.",
+                "Em regime de colaboração com os Estados, o Distrito Federal e os Municípios.",
+                "Apenas para alunos que já concluíram o ensino médio e buscam reorientação profissional.",
+                "Sem a necessidade de observância das diretrizes curriculares nacionais estabelecidas pelo Conselho Nacional de Educação."
+            ],
+            correct: 2,
+            resolution: "**Gabarito: C**. Conforme o Art. 2º, a oferta deve ocorrer em regime de colaboração entre os entes federados (União, Estados e Municípios), facilitando a capilaridade do programa."
+        },
+        {
+            id: 6,
+            text: "Analise as seguintes afirmações sobre as ações de apoio ao PROEJA previstas no Art. 5º do Decreto nº 5.840/2006:\n\nI. Fomento à formação continuada de docentes e demais profissionais da educação.\nII. Apoio à produção de material didático-pedagógico específico para os cursos e programas do PROEJA.\nIII. Financiamento integral de bolsas de estudo para os alunos em instituições privadas de ensino superior.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "**Gabarito: C**. Os itens I (formação docente) e II (material didático) constam no Art. 5º. O item III é incorreto, pois o decreto não prevê financiamento de bolsas em IES privadas como ação direta do PROEJA."
+        },
+        {
+            id: 7,
+            text: "Com base no Decreto nº 5.840/2006, a assistência técnica e financeira para o desenvolvimento de cursos, a produção de material didático e a formação de docentes do PROEJA será provida pelo(a):",
+            options: [
+                "Ministério da Ciência e Tecnologia.",
+                "Ministério do Trabalho e Emprego.",
+                "Ministério da Educação.",
+                "Confederação Nacional da Indústria.",
+                "Secretaria Especial de Políticas para as Mulheres."
+            ],
+            correct: 2,
+            resolution: "**Gabarito: C**. O Art. 7º vincula a responsabilidade pela assistência técnica e financeira especificamente ao Ministério da Educação (MEC)."
+        },
+        {
+            id: 8,
+            text: "Assinale a alternativa que descreve corretamente a articulação dos cursos de educação profissional técnica de nível médio no âmbito do PROEJA, conforme o Art. 1º, § 2º, inciso II do decreto:",
+            options: [
+                "Articulação exclusiva ao ensino superior, visando a graduação tecnológica.",
+                "Articulação ao ensino médio, de forma integrada ou concomitante.",
+                "Articulação facultativa ao ensino fundamental para menores de 15 anos.",
+                "Oferta de forma isolada, sem qualquer vínculo com a educação básica.",
+                "Articulação obrigatória com programas de pós-graduação stricto sensu."
+            ],
+            correct: 1,
+            resolution: "**Gabarito: B**. O texto legal (Art. 1º, § 2º, II) estabelece que para o nível médio técnico, a articulação deve ser integrada ou concomitante à educação básica."
+        },
+        {
+            id: 9,
+            text: "Conforme o Art. 10 do Decreto nº 5.840/2006, o PROEJA será objeto de acompanhamento e avaliação sob a coordenação de qual órgão?",
+            options: [
+                "Ministério da Educação.",
+                "Conselho Federal de Educação Profissional.",
+                "Tribunal de Contas da União.",
+                "Organização das Nações Unidas para a Educação, a Ciência e a Cultura (UNESCO).",
+                "Sindicatos de Trabalhadores da Educação."
+            ],
+            correct: 0,
+            resolution: "**Gabarito: A**. O monitoramento e a avaliação permanentes do programa são competências coordenadas pelo Ministério da Educação, visando o ajuste contínuo das políticas."
+        },
+        {
+            id: 10,
+            text: "O PROEJA poderá ser adotado por outras instituições além da rede federal. Segundo o § 3º do Art. 1º do Decreto nº 5.840/2006, o programa poderá ser adotado por:\n\nI. Instituições públicas dos sistemas de ensino estaduais e municipais.\nII. Entidades privadas nacionais de serviço social, aprendizagem e formação profissional vinculadas ao sistema sindical (Sistema S).\nIII. Escolas de idiomas e centros de formação de condutores não vinculados ao MEC.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas I e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "**Gabarito: C**. O § 3º cita expressamente os sistemas estaduais e municipais, além das entidades do Sistema S. Escolas de idiomas e CFCs não fazem parte do escopo do programa."
+        }
+    ];
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <li class="option-item">
+                        <label>
+                            <input type="radio" name="question-${index}" value="${optIndex}">
+                            <span>${opt}</span>
+                        </label>
+                    </li>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="question-header">Questão ${index + 1}</div>
+                <div class="question-text">${q.text}</div>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+                <div class="resolution-box" id="res-${index}">
+                    <span class="correct-answer">Resposta Correta: ${String.fromCharCode(65 + q.correct)}</span>
+                    <div class="user-feedback" id="feedback-${index}"></div>
+                    <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+                    <strong>Resolução Técnica:</strong><br>
+                    ${q.resolution}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        const total = questions.length;
+        let unanswered = false;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            const feedback = document.getElementById(`feedback-${index}`);
+            const card = document.getElementById(`q-card-${index}`);
+
+            resBox.style.display = 'block';
+
+            if (selected) {
+                const answerIndex = parseInt(selected.value);
+                if (answerIndex === q.correct) {
+                    score++;
+                    feedback.innerHTML = "✓ Você acertou!";
+                    feedback.className = "user-feedback feedback-correct";
+                    card.style.borderColor = "var(--success-color)";
+                } else {
+                    feedback.innerHTML = `✗ Você marcou Alternativa ${String.fromCharCode(65 + answerIndex)}.`;
+                    feedback.className = "user-feedback feedback-wrong";
+                    card.style.borderColor = "var(--error-color)";
+                }
+            } else {
+                unanswered = true;
+                feedback.innerHTML = "⚠ Questão não respondida.";
+                feedback.className = "user-feedback feedback-wrong";
+                card.style.borderColor = "#fbbf24";
+            }
+        });
+
+        // Show results
+        document.getElementById('result-section').style.display = 'block';
+        document.getElementById('res-title').style.display = 'block';
+        document.getElementById('score-text').innerText = `${score} / ${total}`;
+        
+        const perfMsg = document.getElementById('performance-msg');
+        const percentage = (score / total) * 100;
+        
+        if (percentage === 100) perfMsg.innerText = "Excelente! Você domina o Decreto 5.840/2006.";
+        else if (percentage >= 70) perfMsg.innerText = "Bom desempenho! Continue revisando os pontos de atenção.";
+        else perfMsg.innerText = "Continue estudando. Foque na literalidade dos artigos e parágrafos.";
+
+        // Scroll to results
+        document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+        
+        // Disable inputs
+        const inputs = document.querySelectorAll('input[type="radio"]');
+        inputs.forEach(i => i.disabled = true);
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>

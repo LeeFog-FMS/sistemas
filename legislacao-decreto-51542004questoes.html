@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Decreto Federal nº 5.154/2004</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.65;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .quiz-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: background 0.2s, border-color 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            align-self: center;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Results Styling */
+        #results-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .score-banner {
+            text-align: center;
+            padding: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-badge {
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .status-correct { background: var(--success-color); color: white; }
+        .status-wrong { background: var(--error-color); color: white; }
+
+        .resolution-text {
+            font-size: 1rem;
+            color: #444;
+            white-space: pre-line;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .correct-answer-info {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Decreto Federal nº 5.154/2004</h1>
+        <p>Estilo Banca Fundatec | 10 Questões com Resolução</p>
+    </header>
+
+    <div id="quiz-container">
+        <form id="quiz-form" class="quiz-form">
+            <!-- Questions will be injected here by JS -->
+        </form>
+        <div style="text-align: center;">
+            <button type="button" class="btn-submit" id="submit-quiz">Finalizar Simulado</button>
+        </div>
+    </div>
+
+    <div id="results-section">
+        <div class="score-banner">
+            <h2 id="score-text">Você acertou 0 de 10</h2>
+            <p>Confira abaixo as resoluções detalhadas.</p>
+        </div>
+        <div id="resolutions-list">
+            <!-- Resolutions will be injected here by JS -->
+        </div>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <button type="button" class="btn-submit" onclick="window.location.reload()">Refazer Simulado</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "Questão 01: No que concerne ao Artigo 1º do Decreto Federal nº 5.154/2004, a educação profissional será desenvolvida por meio de cursos e programas específicos. Analise as assertivas abaixo e assinale a alternativa que indica corretamente esses níveis e modalidades:\n\nI. Qualificação profissional, incluindo a formação inicial e continuada de trabalhadores.\nII. Educação profissional técnica de nível médio.\nIII. Educação profissional tecnológica de graduação e de pós-graduação.\nIV. Educação profissional básica para o exercício de ocupações elementares, sem necessidade de escolaridade prévia.",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2, // C
+            resolution: "A educação profissional é apresentada como uma modalidade que perpassa todos os níveis da educação básica e superior. O item I refere-se à Qualificação Profissional. O item II aborda a Educação Profissional Técnica de Nível Médio. O item III trata da Educação Profissional Tecnológica (superior). O item IV está incorreto porque o Decreto não cria uma categoria denominada 'educação profissional básica de ocupações elementares' como um nível formal autônomo com essas características."
+        },
+        {
+            id: 2,
+            question: "Questão 02: Segundo o Artigo 2º do Decreto nº 5.154/2004, a educação profissional observará as seguintes premissas, EXCETO:",
+            options: [
+                "A centralidade do trabalho como princípio educativo.",
+                "A indissociabilidade entre teoria e prática no processo de ensino-aprendizagem.",
+                "A articulação de esforços das áreas da educação, do trabalho e emprego, e da ciência e tecnologia.",
+                "A organização curricular fundamentada exclusivamente nas demandas imediatas do mercado de trabalho local.",
+                "A organização, por áreas profissionais, em função da estrutura socio-ocupacional e tecnológica."
+            ],
+            correct: 3, // D
+            resolution: "A alternativa D está incorreta porque o Decreto defende que a educação profissional deve considerar a estrutura socio-ocupacional e tecnológica de forma ampla, e não se submeter 'exclusivamente às demandas imediatas do mercado de trabalho local'. Uma educação baseada apenas no imediatismo empresarial corre o risco de formar trabalhadores obsoletos."
+        },
+        {
+            id: 3,
+            question: "Questão 03: Relacione as formas de articulação (1. Integrada, 2. Concomitante, 3. Subsequente) às características:\n\n( ) Oferecida a quem ingressa no ensino médio ou já o esteja cursando, com matrículas distintas.\n( ) Oferecida somente a quem já tenha concluído o ensino médio.\n( ) Oferecida a quem concluiu o fundamental, com matrícula única, conduzindo à habilitação técnica simultaneamente à formação geral.",
+            options: [
+                "1 – 2 – 3.",
+                "2 – 3 – 1.",
+                "3 – 1 – 2.",
+                "3 – 2 – 1.",
+                "1 – 3 – 2."
+            ],
+            correct: 1, // B
+            resolution: "A forma Concomitante (2) exige matrículas distintas. A Subsequente (3) é para quem já concluiu o Ensino Médio. A Integrada (1) possui matrícula única e currículo unificado para quem concluiu o Fundamental."
+        },
+        {
+            id: 4,
+            question: "Questão 04: Os cursos de educação profissional técnica de nível médio e tecnológica de graduação serão organizados por _______________, em consonância com as _______________ definidas pelo Conselho Nacional de Educação.",
+            options: [
+                "disciplinas isoladas – normas regimentais",
+                "eixos tecnológicos – diretrizes curriculares nacionais",
+                "competências laborais – demandas sindicais",
+                "módulos de gestão – avaliações externas",
+                "áreas de serviço – necessidades empresariais"
+            ],
+            correct: 1, // B
+            resolution: "O Decreto 5.154/2004 introduziu o conceito de eixos tecnológicos, que organizam os cursos a partir de uma matriz científica e tecnológica comum, respeitando as Diretrizes Curriculares Nacionais (DCNs) definidas pelo CNE."
+        },
+        {
+            id: 5,
+            question: "Questão 05: No âmbito do PROEJA, sobre a carga horária e a organização desses cursos, é correto afirmar que:",
+            options: [
+                "A carga horária mínima deve ser de 1.200 horas, focadas exclusivamente na prática.",
+                "Os cursos devem contar com carga horária mínima de 2.400 horas, assegurando formação geral e habilitação técnica.",
+                "É proibida a oferta de educação profissional técnica de nível médio na modalidade EJA.",
+                "A formação geral deve ser reduzida a 200 horas para privilegiar o treinamento técnico.",
+                "O PROEJA destina-se apenas a alunos que já possuem ensino médio completo."
+            ],
+            correct: 1, // B
+            resolution: "Conforme as normativas que detalham o PROEJA (articulado ao Dec. 5.154), a carga horária mínima para cursos técnicos integrados na modalidade EJA é de 2.400 horas, garantindo o equilíbrio entre base comum e formação técnica."
+        },
+        {
+            id: 6,
+            question: "Questão 06: Sobre a certificação e a verticalização, analise:\n\nI. Diplomas de técnicos têm validade nacional.\nII. Conclusão do nível técnico dá direito ao prosseguimento em nível superior.\nIII. Instituições podem emitir certificados de qualificação profissional intermediária se o curso for modular.\nIV. O diploma tem validade restrita à unidade federativa de origem.",
+            options: [
+                "Apenas I e II.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 1, // B
+            resolution: "Os itens I, II e III estão corretos. O item IV está incorreto pois a validade dos diplomas de técnicos, quando registrados, é nacional, permitindo a mobilidade do trabalhador."
+        },
+        {
+            id: 7,
+            question: "Questão 07: Segundo o Artigo 7º, para o acesso a cursos de educação profissional, as instituições de ensino podem realizar:",
+            options: [
+                "Testes de QI e avaliações psicológicas eliminatórias.",
+                "Avaliação, reconhecimento e certificação de conhecimentos adquiridos no trabalho ou por meios informais.",
+                "Exigência de experiência mínima comprovada de 5 anos em carteira.",
+                "Proibição total do aproveitamento de estudos realizados em outras instituições.",
+                "Cobrança de taxas adicionais para validar conhecimentos de alunos vindos da rede pública."
+            ],
+            correct: 1, // B
+            resolution: "O Artigo 7º permite o 'Reconhecimento de Saberes', onde conhecimentos adquiridos na prática laboral ou meios informais podem ser avaliados e reconhecidos pela instituição de ensino para fins de aproveitamento."
+        },
+        {
+            id: 8,
+            question: "Questão 08: A articulação concomitante em instituições distintas deve ser viabilizada por meio de:",
+            options: [
+                "Unificação das secretarias escolares.",
+                "Transferência compulsória de docentes.",
+                "Convênios ou acordos de intercooperação, visando à complementaridade pedagógica.",
+                "Extinção da carga horária de formação geral.",
+                "Pagamento de mensalidades pelo Estado sem projeto pedagógico."
+            ],
+            correct: 2, // C
+            resolution: "Quando o aluno estuda em duas escolas diferentes ao mesmo tempo (concomitante), o Decreto exige convênios de intercooperação para garantir que os projetos pedagógicos se complementem."
+        },
+        {
+            id: 9,
+            question: "Questão 09: Sobre a educação profissional tecnológica de graduação e pós-graduação, assinale a CORRETA:",
+            options: [
+                "Destinados exclusivamente a quem possui diploma técnico.",
+                "Devem manter distanciamento entre pesquisa e prática.",
+                "Podem ser organizados por eixos tecnológicos, permitindo verticalização.",
+                "Não estão sujeitos às diretrizes do CNE.",
+                "A pós-graduação tecnológica é permitida apenas como mestrado stricto sensu."
+            ],
+            correct: 2, // C
+            resolution: "Os cursos superiores de tecnologia seguem a lógica dos eixos tecnológicos, facilitando a verticalização do ensino (progredir de um técnico para um superior na mesma área de afinidade)."
+        },
+        {
+            id: 10,
+            question: "Questão 10: O princípio da 'centralidade do trabalho como princípio educativo' implica que:",
+            options: [
+                "O aluno deve ser preparado exclusivamente para operar máquinas.",
+                "O trabalho é entendido como processo de produção da existência e base para a realidade social e tecnológica.",
+                "A escola deve se transformar em uma fábrica 24 horas por dia.",
+                "As disciplinas de humanidades devem ser excluídas.",
+                "A educação deve ser subordinada apenas aos lucros das empresas."
+            ],
+            correct: 1, // B
+            resolution: "O trabalho como princípio educativo significa que ele é a base da cultura e da ciência. A educação profissional deve permitir que o aluno entenda o mundo do trabalho em sua totalidade (técnica, política e social)."
+        }
+    ];
+
+    const form = document.getElementById('quiz-form');
+    const submitBtn = document.getElementById('submit-quiz');
+    const resultsSection = document.getElementById('results-section');
+    const quizContainer = document.getElementById('quiz-container');
+
+    // Load Questions
+    function initQuiz() {
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            const qText = document.createElement('label');
+            qText.className = 'question-text';
+            qText.innerText = q.question;
+            card.appendChild(qText);
+
+            const optionsList = document.createElement('div');
+            optionsList.className = 'options-list';
+
+            q.options.forEach((opt, optIndex) => {
+                const label = document.createElement('label');
+                label.className = 'option-item';
+                
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question-${index}`;
+                radio.value = optIndex;
+                radio.required = true;
+
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(opt));
+                optionsList.appendChild(label);
+            });
+
+            card.appendChild(optionsList);
+            form.appendChild(card);
+        });
+    }
+
+    // Process results
+    submitBtn.addEventListener('click', () => {
+        const formData = new FormData(form);
+        let score = 0;
+        const answers = [];
+        let allAnswered = true;
+
+        for (let i = 0; i < quizData.length; i++) {
+            const selected = formData.get(`question-${i}`);
+            if (selected === null) {
+                allAnswered = false;
+                break;
+            }
+            answers.push(parseInt(selected));
+        }
+
+        if (!allAnswered) {
+            alert("Por favor, responda todas as questões antes de finalizar.");
+            return;
+        }
+
+        // Calculate score and build resolutions
+        const resList = document.getElementById('resolutions-list');
+        resList.innerHTML = '';
+
+        quizData.forEach((q, i) => {
+            const isCorrect = answers[i] === q.correct;
+            if (isCorrect) score++;
+
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const header = document.createElement('div');
+            header.className = 'resolution-header';
+            header.innerHTML = `
+                <span>Questão ${i + 1}</span>
+                <span class="status-badge ${isCorrect ? 'status-correct' : 'status-wrong'}">
+                    ${isCorrect ? 'Acertou' : 'Errou'}
+                </span>
+            `;
+
+            const chosenText = document.createElement('p');
+            chosenText.innerHTML = `Sua resposta: <strong>${String.fromCharCode(65 + answers[i])}) ${q.options[answers[i]]}</strong>`;
+            
+            const correctText = document.createElement('p');
+            correctText.className = 'correct-answer-info';
+            correctText.innerHTML = `Gabarito Oficial: <span style="color: var(--success-color)">${String.fromCharCode(65 + q.correct)}) ${q.options[q.correct]}</span>`;
+
+            const resolutionText = document.createElement('div');
+            resolutionText.className = 'resolution-text';
+            resolutionText.innerHTML = `<strong>Análise Técnica:</strong><br>${q.resolution}`;
+
+            resCard.appendChild(header);
+            resCard.appendChild(chosenText);
+            resCard.appendChild(correctText);
+            resCard.appendChild(resolutionText);
+            resList.appendChild(resCard);
+        });
+
+        document.getElementById('score-text').innerText = `Você acertou ${score} de ${quizData.length}`;
+        quizContainer.style.display = 'none';
+        resultsSection.style.display = 'block';
+        window.scrollTo(0, 0);
+    });
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado LDB - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfd;
+            --text-color: #2d3748;
+            --accent-color: #3182ce;
+            --success-color: #38a169;
+            --error-color: #e53e3e;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f7fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input {
+            margin-top: 6px;
+            margin-right: 12px;
+        }
+
+        /* Classes de feedback */
+        .option-label.correct {
+            background-color: #f0fff4;
+            border-color: var(--success-color);
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .option-label.incorrect {
+            background-color: #fff5f5;
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        .resolution-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #edf2f7;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.2s;
+        }
+
+        #submit-btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #ffffff;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .hidden { display: none; }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado LDB - Questões Inéditas</h1>
+        <p class="subtitle">Lei Federal nº 9.394/1996 e Atualizações 2024-2026 | Padrão Fundatec</p>
+    </header>
+
+    <div id="results-summary">
+        <h2>Resultado do Simulado</h2>
+        <div class="score-display" id="score-text">0 / 10</div>
+        <p id="performance-msg">Confira abaixo o gabarito comentado de cada questão.</p>
+        <button onclick="window.location.reload()" style="background:none; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-top: 10px;">Reiniciar Quiz</button>
+    </div>
+
+    <form id="quiz-form">
+        <!-- As questões serão injetadas aqui via JS -->
+        <div id="questions-container"></div>
+        
+        <button type="submit" id="submit-btn">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <footer>
+        Simulado Gerado para Fins Educacionais - LDB 2026
+    </footer>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Com base na Lei Federal nº 9.394/1996, que estabelece as diretrizes e bases da educação nacional, analise as seguintes assertivas relativas aos princípios e fins da educação nacional:<br><br>I. A educação, dever da família e do Estado, inspirada nos princípios de liberdade e nos ideais de solidariedade humana, tem por finalidade o pleno desenvolvimento do educando, seu preparo para o exercício da cidadania e sua qualificação para o trabalho.<br>II. O ensino será ministrado com base no princípio da gestão democrática do ensino público, na forma da LDB e da legislação dos respectivos Estados e Municípios e do Distrito Federal.<br>III. Entre os princípios do ensino, inclui-se a garantia de padrão de qualidade, a valorização da experiência extraescolar e a vinculação entre a educação escolar, o trabalho e as práticas sociais.<br>IV. A Lei nº 14.533/2023 incluiu como princípio a educação digital, com a garantia de conectividade de todas as instituições de educação básica e superior à internet de alta velocidade.<br><br>Quais estão corretas?",
+            options: {
+                A: "Apenas I e II.",
+                B: "Apenas III e IV.",
+                C: "Apenas I, II e III.",
+                D: "Apenas II, III e IV.",
+                E: "I, II, III e IV."
+            },
+            correct: "E",
+            resolution: "Gabarito: E. Todas as assertivas estão corretas. A assertiva I reflete o Art. 2º da LDB. A II cita a redação atualizada pela Lei nº 14.644/2023 sobre gestão democrática. A III compila incisos do Art. 3º (IX, X e XI). A IV traz a novidade da Lei nº 14.533/2023, que inseriu a Educação Digital como princípio no inciso XIV do Art. 3º."
+        },
+        {
+            id: 2,
+            text: "No que tange à Organização da Educação Nacional e às incumbências dos entes federados previstas na LDB, assinale a alternativa que descreve corretamente uma responsabilidade dos Municípios, considerando as alterações promovidas pela Lei nº 14.862/2024:",
+            options: {
+                A: "Organizar, manter e desenvolver os órgãos e instituições oficiais dos seus sistemas de ensino, integrando-os às políticas e planos educacionais da União e dos Estados.",
+                B: "Oferecer a educação infantil em creches e pré-escolas, e, com prioridade, o ensino médio, permitida a atuação em outros níveis de ensino somente quando atendidas as necessidades de sua área.",
+                C: "Assumir o transporte escolar dos alunos da rede estadual, de forma exclusiva, sem possibilidade de compartilhamento de veículos com profissionais da educação.",
+                D: "Autorizar, credenciar e supervisionar os estabelecimentos do sistema federal de ensino localizados em seu território.",
+                E: "Exercer ação redistributiva em relação às escolas de ensino fundamental da rede privada, garantindo-lhes insumos técnicos e financeiros."
+            },
+            correct: "A",
+            resolution: "Gabarito: A. Reproduz a literalidade do Art. 11, inciso I. A alternativa B está errada pois a prioridade do Município é o Ensino Fundamental (Art. 11, V). A C está errada porque a Lei nº 14.862/2024 agora permite expressamente o compartilhamento do transporte com profissionais da educação. A D é competência da União e a E descreve uma função redistributiva que cabe à União em relação aos entes federados, não aos municípios em relação à rede privada."
+        },
+        {
+            id: 3,
+            text: "Considere as recentes alterações na legislação educacional, especificamente a Lei nº 15.326, sancionada em janeiro de 2026, que dispõe sobre a valorização dos profissionais da educação infantil. Sobre o enquadramento desses profissionais na carreira do magistério, assinale a alternativa CORRETA:",
+            options: {
+                A: "Os profissionais que atuam em creches, independentemente de possuírem formação superior ou concurso público, são automaticamente considerados professores do magistério.",
+                B: "São considerados professores da educação infantil os profissionais que exerçam atividade docente direta com as crianças, possuam formação mínima em magistério ou nível superior, e tenham ingressado por concurso público.",
+                C: "A nova lei de 2026 veda o direito ao piso salarial nacional para os professores de educação infantil que atuam em instituições privadas conveniadas.",
+                D: "O enquadramento na carreira do magistério para profissionais de educação infantil é facultativo aos municípios, dependendo de lei municipal específica para cada cargo de monitoria.",
+                E: "A lei determina que o título de 'educador' ou 'monitor' impede, de forma definitiva, o reconhecimento do profissional como integrante da carreira do magistério, mesmo com atuação docente."
+            },
+            correct: "B",
+            resolution: "Gabarito: B. A Lei nº 15.326/2026 alterou o Art. 61 da LDB para garantir que profissionais de educação infantil sejam reconhecidos como professores desde que exerçam docência direta, tenham a formação exigida e tenham ingressado por concurso. Isso assegura direitos como o Piso Salarial Nacional."
+        },
+        {
+            id: 4,
+            text: "De acordo com o Art. 26 da LDB, que trata dos currículos da educação básica, e as atualizações trazidas pela Lei nº 14.986/2024, analise as afirmativas abaixo:<br><br>I. Os currículos do ensino fundamental e do ensino médio devem incluir a abordagem de conteúdos fundamentados nas experiências e nas perspectivas femininas.<br>II. O ensino da história do Brasil levará em conta as contribuições das diferentes etnias para a formação do povo brasileiro, especialmente das matrizes indígena, africana e europeia.<br>III. A exibição de filmes de produção nacional constituirá componente curricular complementar integrado à proposta pedagógica da escola, sendo a sua exibição obrigatória por, no mínimo, 2 (duas) horas mensais.<br>IV. O estudo da história e cultura afro-brasileira e indígena passou a ser facultativo nos estabelecimentos de ensino médio que optarem pelo itinerário de formação técnica e profissional.<br><br>Quais estão corretas?",
+            options: {
+                A: "Apenas I e II.",
+                B: "Apenas I e III.",
+                C: "Apenas I, II e III.",
+                D: "Apenas II, III e IV.",
+                E: "I, II, III e IV."
+            },
+            correct: "C",
+            resolution: "Gabarito: C. I está correta (Lei nº 14.986/2024 inseriu o § 11 no Art. 26). II está correta (Art. 26, § 4º). III está correta (Art. 26, § 8º). IV está incorreta, pois o estudo da cultura afro-brasileira e indígena é obrigatório em todo o currículo (Art. 26-A) e não se torna facultativo em nenhum itinerário."
+        },
+        {
+            id: 5,
+            text: "Sobre a organização do Ensino Médio, considerando as diretrizes estabelecidas pela Lei nº 14.945/2024 (Novo Ensino Médio), assinale a alternativa que apresenta a carga horária correta destinada à formação geral básica:",
+            options: {
+                A: "A carga horária destinada à formação geral básica deverá ser de, no máximo, 1.200 horas para o período integral.",
+                B: "A carga horária destinada à formação geral básica será de, no mínimo, 2.400 horas, ressalvadas as exceções previstas para a articulação com a educação profissional técnica.",
+                C: "Os currículos do ensino médio deverão ter carga horária total mínima de 2.400 horas, sem distinção entre formação básica e itinerários formativos.",
+                D: "A formação geral básica será composta exclusivamente pelas disciplinas de Língua Portuguesa e Matemática, sendo as demais disciplinas integradas aos itinerários.",
+                E: "O ensino médio terá carga horária de 1.000 horas anuais, sendo que 80% desse tempo deve ser dedicado aos itinerários formativos de livre escolha do estudante."
+            },
+            correct: "B",
+            resolution: "Gabarito: B. A Lei nº 14.945/2024 recompôs a carga horária da Formação Geral Básica (FGB) para 2.400 horas totais, corrigindo a redução excessiva anterior. A única exceção é para cursos técnicos integrados, onde pode ser ajustada para 2.100 horas."
+        },
+        {
+            id: 6,
+            text: "A Lei nº 14.952/2024 acrescentou o Art. 81-A à LDB, instituindo um regime escolar especial. Sobre esse regime, é correto afirmar que ele se destina a:",
+            options: {
+                A: "Estudantes impossibilitados de frequentar as aulas em razão de tratamento de saúde ou de condição de saúde que impossibilite o acesso à instituição de ensino, bem como a mães estudantes lactantes.",
+                B: "Alunos de áreas rurais que residam a mais de 50 quilômetros da escola, permitindo-lhes o ensino remoto integral.",
+                C: "Estudantes que exercem atividade laboral noturna, garantindo-lhes a dispensa de 50% da carga horária presencial.",
+                D: "Atletas de alto rendimento durante o período de competições oficiais, sem necessidade de compensação de conteúdos.",
+                E: "Estudantes surdos ou com deficiência auditiva, visando a substituição da frequência regular pelo ensino bilíngue domiciliar."
+            },
+            correct: "A",
+            resolution: "Gabarito: A. O Art. 81-A (Lei nº 14.952/2024) garante regime especial para estudantes com problemas de saúde impeditivos de frequência e para lactantes, assegurando o acompanhamento pedagógico."
+        },
+        {
+            id: 7,
+            text: "No que se refere à Educação Especial, conforme o Capítulo V da LDB e as tendências de inclusão atualizadas até 2025, analise os itens abaixo:<br><br>I. A educação especial é uma modalidade de educação escolar que deve ser oferecida preferencialmente na rede regular de ensino.<br>II. O atendimento educacional especializado tem início na educação infantil e estende-se ao longo da vida, abrangendo também a educação superior.<br>III. Os sistemas de ensino devem assegurar aos educandos com deficiência, transtornos globais do desenvolvimento e altas habilidades currículos, métodos e organização específicos.<br>IV. A Lei nº 14.191/2021 estabeleceu a educação bilíngue de surdos como uma modalidade de ensino independente, devendo ser oferecida em Língua Brasileira de Sinais (Libras) como primeira língua.<br><br>Quais estão corretas?",
+            options: {
+                A: "Apenas I e III.",
+                B: "Apenas II e IV.",
+                C: "Apenas I, II e III.",
+                D: "Apenas II, III e IV.",
+                E: "I, II, III e IV."
+            },
+            correct: "E",
+            resolution: "Gabarito: E. Todas as afirmações estão fundamentadas na LDB (Art. 58 e 59) e na importante alteração da Lei nº 14.191/2021, que criou a modalidade de Educação Bilíngue de Surdos (Art. 60-A)."
+        },
+        {
+            id: 8,
+            text: "A verificação do rendimento escolar na educação básica, nos níveis fundamental e médio, deve seguir critérios comuns estabelecidos no Art. 24 da LDB. Assinale a alternativa que apresenta um desses critérios de forma INCORRETA:",
+            options: {
+                A: "Avaliação contínua e cumulativa do desempenho do aluno, com prevalência dos aspectos qualitativos sobre os quantitativos.",
+                B: "Possibilidade de aceleração de estudos para alunos com atraso escolar.",
+                C: "Possibilidade de avanço nos cursos e nas séries mediante verificação do aprendizado.",
+                D: "Obrigatoriedade de estudos de recuperação, de preferência paralelos ao período letivo, para os casos de baixo rendimento escolar, a serem disciplinados pelas instituições de ensino em seus regimentos.",
+                E: "Prevalência dos resultados de eventuais provas finais sobre o desempenho do aluno ao longo do período letivo, visando garantir a isonomia avaliativa."
+            },
+            correct: "E",
+            resolution: "Gabarito: E (Incorreta). O Art. 24, V, alínea 'a' diz exatamente o contrário: há prevalência dos resultados ao longo do período sobre os de eventuais provas finais."
+        },
+        {
+            id: 9,
+            text: "A Educação de Jovens e Adultos (EJA) é regulamentada pelos Artigos 37 e 38 da LDB. Sobre o funcionamento e os exames desta modalidade, assinale a alternativa CORRETA:",
+            options: {
+                A: "A EJA é destinada apenas àqueles que não concluíram o ensino fundamental na idade própria, sendo vedada a oferta para o ensino médio.",
+                B: "O Poder Público responderá pela educação de jovens e adultos, visando apenas à alfabetização básica, sem obrigatoriedade de gratuidade para o nível médio.",
+                C: "Os conhecimentos e habilidades adquiridos pelos educandos por meios informais não podem ser aferidos ou reconhecidos para fins de certificação na EJA.",
+                D: "Os exames supletivos para a conclusão do ensino fundamental podem ser realizados por maiores de 15 anos, e para o ensino médio, por maiores de 18 anos.",
+                E: "A educação de jovens e adultos deverá articular-se, preferencialmente, com a educação superior para garantir o acesso imediato à universidade."
+            },
+            correct: "D",
+            resolution: "Gabarito: D. Esta é a regra de idade mínima para exames de certificação de EJA conforme o Art. 38, § 1º da LDB (15 anos para fundamental, 18 para médio). A EJA deve articular-se preferencialmente com a educação profissional (Art. 37, § 3º)."
+        },
+        {
+            id: 10,
+            text: "De acordo com o Art. 4º da LDB, o dever do Estado com a educação escolar pública será efetivado mediante a garantia de:",
+            options: {
+                A: "Educação básica obrigatória e gratuita dos 4 aos 17 anos de idade.",
+                B: "Atendimento educacional especializado gratuito aos educandos com deficiência, transtornos globais do desenvolvimento e altas habilidades ou superdotação, exclusivamente na rede privada conveniada.",
+                C: "Acesso público e gratuito aos ensinos fundamental e médio para todos os que não os concluíram na idade própria, exceto para aqueles que já exercem atividade remunerada.",
+                D: "Educação infantil em creche e pré-escola para crianças de 0 a 6 anos de idade, de forma opcional para o poder público municipal.",
+                E: "Oferta de ensino noturno regular, adequado às condições do educando, apenas para o nível fundamental."
+            },
+            correct: "A",
+            resolution: "Gabarito: A. Conforme o Art. 4º, inciso I, a educação básica obrigatória abrange dos 4 aos 17 anos. O dever do Estado inclui também a oferta de ensino noturno para ambos os níveis (inciso VI) e atendimento especializado preferencialmente na rede regular (inciso III)."
+        }
+    ];
+
+    const container = document.getElementById('questions-container');
+
+    // Função para renderizar as questões
+    function renderQuestions() {
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            let optionsHtml = '';
+            for (const [key, value] of Object.entries(q.options)) {
+                optionsHtml += `
+                    <label class="option-label" id="label-${index}-${key}">
+                        <input type="radio" name="q${index}" value="${key}" required>
+                        <span><strong>${key})</strong> ${value}</span>
+                    </label>
+                `;
+            }
+
+            card.innerHTML = `
+                <span class="question-text">Questão ${q.id}</span>
+                <p>${q.text}</p>
+                <div class="options-container">
+                    ${optionsHtml}
+                </div>
+                <div class="resolution-box" id="res-${index}">
+                    <h4>Resolução e Fundamentação</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Processar o formulário
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let score = 0;
+        const total = questions.length;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            
+            // Exibir a resolução
+            resolutionBox.style.display = 'block';
+
+            // Destacar correta
+            const correctLabel = document.getElementById(`label-${index}-${q.correct}`);
+            correctLabel.classList.add('correct');
+
+            if (selected) {
+                if (selected.value === q.correct) {
+                    score++;
+                } else {
+                    // Destacar erro do usuário
+                    const incorrectLabel = document.getElementById(`label-${index}-${selected.value}`);
+                    incorrectLabel.classList.add('incorrect');
+                }
+            }
+        });
+
+        // Mostrar resumo
+        document.getElementById('results-summary').style.display = 'block';
+        document.getElementById('score-text').innerText = `${score} / ${total}`;
+        
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Desativar inputs e botão
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+        document.getElementById('submit-btn').classList.add('hidden');
+    });
+
+    // Iniciar
+    renderQuestions();
+</script>
+
+</body>
+</html>
