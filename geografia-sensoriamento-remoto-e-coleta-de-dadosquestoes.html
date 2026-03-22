@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Técnico: Sensoriamento Remoto e Coleta de Dados</title>
+    <!-- MathJax para renderização de fórmulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-bg: #e8f5e9;
+            --correct-border: #4caf50;
+            --incorrect-bg: #ffebee;
+            --incorrect-border: #f44336;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .assertions {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f0f4f8;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input {
+            margin-right: 12px;
+        }
+
+        /* Classes de Resultado */
+        .option-label.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .option-label.incorrect {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+            color: #c62828;
+        }
+
+        .resolution {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f1f8ff;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            font-size: 0.95rem;
+        }
+
+        .resolution h4 {
+            margin-top: 0;
+            color: #0d47a1;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(52, 73, 94, 0.3);
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #2c3e50;
+        }
+
+        #result-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Sensoriamento Remoto</h1>
+        <p class="subtitle">Banca: Estilo Fundatec | 10 Questões Técnicas</p>
+    </header>
+
+    <div id="result-summary">
+        <h2>Resultado Final</h2>
+        <div class="score" id="score-display">0 / 10</div>
+        <p id="feedback-text"></p>
+        <button onclick="window.location.reload()" style="background:none; border: 1px solid #34495e; padding: 5px 15px; border-radius: 20px; cursor:pointer;">Refazer Simulado</button>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <span class="question-text">Questão 01 - No contexto dos princípios físicos do sensoriamento remoto, a interação da radiação eletromagnética (REM) com a atmosfera e com os alvos na superfície terrestre é o que possibilita a geração de imagens. Sobre esses princípios e os sistemas sensores, analise as seguintes assertivas:</span>
+            <div class="assertions">
+                I. Os sensores passivos, como os presentes nos satélites Landsat 8 e CBERS-4A, dependem de fontes externas de energia, predominantemente a radiação solar refletida pelos alvos ou a energia térmica emitida por eles.<br>
+                II. Sensores ativos, como o RADAR e o LiDAR, operam em comprimentos de onda que lhes permitem independência da iluminação solar, sendo capazes de adquirir dados durante o período noturno e, no caso do RADAR, atravessar a cobertura de nuvens.<br>
+                III. O espalhamento de Rayleigh ocorre quando o diâmetro das partículas atmosféricas é muito maior que o comprimento de onda da radiação incidente, sendo o principal responsável pela redução do contraste em imagens orbitais na faixa do visível.<br>
+                IV. A janela atmosférica refere-se a intervalos do espectro eletromagnético em que a radiação sofre pouca absorção ou espalhamento pelos gases atmosféricos, permitindo que a energia atinja os sensores orbitais com integridade.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A. Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B. Apenas III e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C. Apenas I, II e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution" id="res-q1">
+                <h4>Resolução:</h4>
+                A assertiva III está incorreta porque o espalhamento de Rayleigh ocorre com partículas muito <strong>menores</strong> que o comprimento de onda. O espalhamento com partículas maiores é o de Mie ou o não seletivo. As demais assertivas descrevem corretamente sensores passivos/ativos e janelas atmosféricas.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <span class="question-text">Questão 02 - A eficácia do monitoramento ambiental depende das resoluções do sistema sensor. Sobre as resoluções espacial, espectral, temporal e radiométrica, analise as assertivas abaixo:</span>
+            <div class="assertions">
+                I. A resolução espacial do sensor OLI a bordo do Landsat 8 é de 30 metros para as bandas multiespectrais, o que permite o mapeamento de feições urbanas e agrícolas em escala regional.<br>
+                II. A resolução temporal, ou tempo de revisita, do satélite CBERS-4A varia conforme o sensor: a câmera MUX possui um ciclo de 31 dias, enquanto a câmera WFI, devido à sua larga faixa de visada, permite revisitas a cada 5 dias.<br>
+                III. A resolução radiométrica de 12 bits do Landsat 8 possibilita a distinção de 4.096 níveis de cinza, oferecendo uma sensibilidade superior para identificar variações sutis na reflectância de alvos em áreas de sombra ou florestas densas.<br>
+                IV. A resolução espectral está relacionada à largura das bandas; bandas mais estreitas permitem uma identificação mais precisa de assinaturas espectrais, como a distinção entre diferentes tipos de minerais ou estados fisiológicos da vegetação.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A. Apenas I e III.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B. Apenas II e IV.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution" id="res-q2">
+                <h4>Resolução:</h4>
+                Todas as assertivas estão corretas. Elas descrevem com precisão as especificações técnicas de resolução espacial (30m), temporal (MUX 31d vs WFI 5d), radiométrica (12 bits) e a definição de resolução espectral.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <span class="question-text">Questão 03 - O comportamento espectral da vegetação, solo e água é a base para a interpretação de imagens. Assinale a alternativa que descreve corretamente as interações espectrais típicas:</span>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A. A vegetação saudável apresenta um "pico" de reflectância na região do vermelho devido à forte atividade fotossintética.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B. A água apresenta alta reflectância na região do infravermelho próximo (NIR), tornando-os alvos brilhantes.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C. O solo exposto e seco apresenta, geralmente, uma curva de reflectância crescente do visível para o infravermelho médio.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D. O infravermelho médio (SWIR) é a região onde a vegetação verde apresenta sua maior reflectância sempre.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E. A reflectância da vegetação no NIR é controlada pela concentração de pigmentos como caroteno.</label>
+            </div>
+            <div class="resolution" id="res-q3">
+                <h4>Resolução:</h4>
+                A alternativa C é a correta. Solos secos tendem a ter reflectância crescente com o aumento do comprimento de onda. A vegetação tem <strong>absorção</strong> no vermelho (não pico), a água <strong>absorve</strong> no NIR (aparece escura) e a reflectância no NIR é controlada pela estrutura celular (mesófilo), não por pigmentos.
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <span class="question-text">Questão 04 - A série Landsat é pioneira no monitoramento terrestre. Sobre as características técnicas dos satélites Landsat 8 e 9, analise as afirmações:</span>
+            <div class="assertions">
+                I. Ambos operam com dois sensores principais: o Operational Land Imager (OLI) e o Thermal Infrared Sensor (TIRS).<br>
+                II. A banda 9 (Cirrus) é utilizada especificamente para a detecção de nuvens altas e finas.<br>
+                III. As bandas térmicas 10 e 11 operam na região do infravermelho de ondas longas e são essenciais para o monitoramento de ilhas de calor urbanas.<br>
+                IV. Para uma composição colorida em "Falsa Cor" que destaque a vegetação em tons de vermelho, deve-se utilizar a combinação das bandas 5 (NIR), 4 (Red) e 3 (Green).
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A. Apenas I e IV.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B. Apenas II e III.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D. Apenas I, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution" id="res-q4">
+                <h4>Resolução:</h4>
+                Todas as assertivas estão corretas. A composição 5-4-3 (RGB) é o padrão de falsa cor para Landsat 8/9 onde a vegetação saudável aparece em vermelho intenso.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <span class="question-text">Questão 05 - O programa CBERS é fruto de uma cooperação técnica entre Brasil e China. Sobre o satélite CBERS-4A e seus sensores, assinale a alternativa correta:</span>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A. A câmera WPM fornece imagens com resolução espacial de 2 metros na banda pancromática.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B. A câmera MUX possui uma faixa de imageamento de 684 km.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C. O satélite CBERS-4A foi projetado exclusivamente para o monitoramento oceânico.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D. A resolução espacial da câmera WFI no CBERS-4A é de 20 metros.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E. As câmeras do CBERS-4A são imunes à cobertura de nuvens (SAR).</label>
+            </div>
+            <div class="resolution" id="res-q5">
+                <h4>Resolução:</h4>
+                A alternativa A é a correta. A câmera WPM do CBERS-4A é de alta resolução (2m pan / 8m multi). A WFI tem 55m (não 20m), a MUX tem 16,5m e faixa de 95km (não 684km), e o satélite é óptico (sofre com nuvens).
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <span class="question-text">Questão 06 - O monitoramento de queimadas é uma das aplicações mais críticas do sensoriamento remoto no Brasil. Referente a este tema, analise as assertivas:</span>
+            <div class="assertions">
+                I. A detecção de focos de calor é realizada primordialmente através de sensores que operam nas faixas do infravermelho médio e infravermelho termal.<br>
+                II. As cicatrizes de queimada apresentam baixa reflectância no infravermelho próximo (NIR) e alta reflectância no infravermelho de ondas curtas (SWIR).<br>
+                III. A combinação de bandas R(7) G(6) B(2) no Landsat 8 é ineficaz para identificar frentes de fogo.<br>
+                IV. O sensoriamento remoto permite não apenas localizar o fogo em tempo real, mas também estimar a severidade da queima.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A. Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B. Apenas III e IV.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C. Apenas I, II e IV.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution" id="res-q6">
+                <h4>Resolução:</h4>
+                A assertiva III está incorreta porque a composição 7-6-2 é, na verdade, <strong>muito eficaz</strong> para identificar frentes de fogo e cicatrizes recentes, pois o SWIR (bandas 7 e 6) consegue "ver" o calor intenso.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <span class="question-text">Questão 07 - Os índices de vegetação são ferramentas matemáticas que realçam propriedades biofísicas da cobertura vegetal. Sobre o NDVI e o monitoramento do desmatamento, analise:</span>
+            <div class="assertions">
+                I. O NDVI é calculado pela razão \(\frac{NIR - Red}{NIR + Red}\), onde valores próximos a 1 indicam vegetação densa.<br>
+                II. No processo de desmatamento por corte raso, os valores de NDVI sofrem uma redução drástica.<br>
+                III. O índice EVI (Enhanced Vegetation Index) é uma alternativa ao NDVI que reduz a influência da atmosfera e do brilho do solo.<br>
+                IV. O NDVI é insensível a variações sazonais, mantendo valores constantes para a vegetação de cerrado.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A. Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B. Apenas III e IV.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D. Apenas I, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution" id="res-q7">
+                <h4>Resolução:</h4>
+                A assertiva IV está incorreta. O NDVI é <strong>muito sensível</strong> à sazonalidade, especialmente em biomas como o Cerrado e a Caatinga, onde a perda de folhas na seca altera drasticamente o índice.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <span class="question-text">Questão 08 - O crescimento das cidades e a expansão urbana podem ser monitorados através de índices específicos. Assinale a alternativa que apresenta o índice e as bandas corretas para identificar áreas construídas:</span>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A. NDVI, utilizando as bandas do Verde e Azul.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B. NDBI (Normalized Difference Built-up Index), utilizando as bandas do SWIR e do NIR.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C. NDWI, utilizando o Vermelho e o Termal.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D. SAVI, que elimina a detecção de áreas urbanas.</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E. MNDWI, que é o índice primário para detectar verticalização.</label>
+            </div>
+            <div class="resolution" id="res-q8">
+                <h4>Resolução:</h4>
+                A alternativa B é a correta. O NDBI usa o SWIR e o NIR para destacar áreas impermeabilizadas/urbanas, onde a reflectância do SWIR é superior à do NIR.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <span class="question-text">Questão 09 - Sistemas de Informação Geográfica (SIG) e metadados são fundamentais para a organização de dados geoespaciais. Analise as assertivas abaixo:</span>
+            <div class="assertions">
+                I. O padrão STAC especifica como metadados de imagens de satélite são organizados para facilitar a consulta na web.<br>
+                II. No modelo de dados matricial (raster), a superfície é representada por uma grade de células (pixels).<br>
+                III. O modelo de dados vetorial armazena informações através de pontos, linhas e polígonos.<br>
+                IV. Metadados geoespaciais são irrelevantes para a perícia ambiental.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C. Apenas I e IV.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D. Apenas II e III.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution" id="res-q9">
+                <h4>Resolução:</h4>
+                A assertiva IV está incorreta. Metadados são <strong>cruciais</strong> para perícias, pois informam a data exata, as condições de aquisição e o nível de processamento da imagem, garantindo validade jurídica.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <span class="question-text">Questão 10 - A aplicação prática do sensoriamento remoto em perícias de crimes ambientais envolve o uso integrado de tecnologias. Assinale V para verdadeiro e F para falso:</span>
+            <div class="assertions">
+                ( ) A análise multitemporal permite identificar a evolução do desmatamento ilegal ao longo dos anos.<br>
+                ( ) Aeronaves Remotamente Pilotadas (Drones) oferecem altíssima resolução espacial para a identificação de espécies.<br>
+                ( ) O Cadastro Ambiental Rural (CAR) não pode ser integrado a sistemas de monitoramento por satélite.<br>
+                ( ) Imagens de radar (SAR) são capazes de detectar desmatamento em regiões com cobertura persistente de nuvens.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A. V – V – F – V.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B. V – F – V – F.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C. F – V – F – V.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D. V – V – V – F.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E. F – F – V – V.</label>
+            </div>
+            <div class="resolution" id="res-q10">
+                <h4>Resolução:</h4>
+                A ordem correta é V-V-F-V. O CAR <strong>pode e deve</strong> ser integrado aos dados de satélite para identificar os responsáveis pelas propriedades onde ocorrem as infrações.
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" id="submit-btn" onclick="checkAnswers()">Finalizar Simulado</button>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C',
+        q2: 'E',
+        q3: 'C',
+        q4: 'E',
+        q5: 'A',
+        q6: 'C',
+        q7: 'C',
+        q8: 'B',
+        q9: 'A',
+        q10: 'A'
+    };
+
+    function checkAnswers() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        const total = Object.keys(correctAnswers).length;
+
+        // Validar se todas foram respondidas
+        if (formData.getAll('q1').length === 0 || 
+            formData.getAll('q10').length === 0) {
+            if(!confirm("Você não respondeu todas as questões. Deseja finalizar assim mesmo?")) return;
+        }
+
+        // Processar respostas
+        for (let q in correctAnswers) {
+            const userAnswer = formData.get(q);
+            const questionDiv = document.getElementById(q);
+            const labels = questionDiv.querySelectorAll('.option-label');
+            const resolution = document.getElementById('res-' + q);
+
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                // Limpar estilos anteriores
+                label.classList.remove('correct', 'incorrect');
+                
+                // Destacar a correta
+                if (radio.value === correctAnswers[q]) {
+                    label.classList.add('correct');
+                }
+                
+                // Destacar se o usuário errou
+                if (userAnswer === radio.value && userAnswer !== correctAnswers[q]) {
+                    label.classList.add('incorrect');
+                }
+            });
+
+            if (userAnswer === correctAnswers[q]) {
+                score++;
+            }
+
+            // Mostrar resolução
+            resolution.style.display = 'block';
+        }
+
+        // Mostrar resumo
+        const summary = document.getElementById('result-summary');
+        const scoreDisplay = document.getElementById('score-display');
+        const feedback = document.getElementById('feedback-text');
+        
+        summary.style.display = 'block';
+        scoreDisplay.innerText = `${score} / ${total}`;
+        
+        if (score >= 8) {
+            feedback.innerText = "Excelente desempenho! Você domina os conceitos técnicos de sensoriamento remoto.";
+            feedback.style.color = "#2e7d32";
+        } else if (score >= 6) {
+            feedback.innerText = "Bom resultado. Revise os pontos onde houve dúvida para consolidar o conhecimento.";
+            feedback.style.color = "#f57c00";
+        } else {
+            feedback.innerText = "Continue estudando. O sensoriamento remoto possui muitos detalhes técnicos sobre bandas e resoluções.";
+            feedback.style.color = "#d32f2f";
+        }
+
+        // Desativar inputs e botão
+        form.querySelectorAll('input').forEach(input => input.disabled = true);
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

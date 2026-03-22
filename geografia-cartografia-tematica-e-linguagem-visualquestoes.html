@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Cartografia Temática e Linguagem Visual</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-bg: #e8f5e9;
+            --correct-border: #2e7d32;
+            --incorrect-bg: #ffebee;
+            --incorrect-border: #c62828;
+            --border-color: #dcdde1;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Georgia, serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            padding: 20px 0;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item.selected {
+            border-color: var(--accent-color);
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        button#submit-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.3s;
+        }
+
+        button#submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        #result-section {
+            display: none;
+            width: 100%;
+            margin-top: 40px;
+            padding-bottom: 100px;
+        }
+
+        .score-box {
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .resolution-card {
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .resolution-card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .correct-answer-label {
+            display: inline-block;
+            background: var(--correct-bg);
+            color: var(--correct-border);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .user-feedback {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .user-feedback.correct { color: var(--correct-border); }
+        .user-feedback.wrong { color: var(--incorrect-border); }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+
+        /* Estilo para tabelas nas resoluções */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Quiz: Cartografia Temática e Linguagem Visual</h1>
+    <p class="subtitle">Análise dos métodos de representação e semiologia gráfica aplicada às desigualdades socioespaciais.</p>
+</header>
+
+<main id="quiz-container">
+    <form id="quiz-form">
+        <!-- Questões serão inseridas via JS para manter o HTML limpo -->
+    </form>
+    <button type="button" id="submit-btn" onclick="calculateScore()">Finalizar Quiz e Ver Resultados</button>
+</main>
+
+<section id="result-section" class="main">
+    <div class="score-box">
+        <h2>Seu Desempenho</h2>
+        <div id="final-score" style="font-size: 3rem; font-weight: bold; color: var(--accent-color);">0/10</div>
+        <p id="performance-msg"></p>
+    </div>
+
+    <h2 style="text-align: center; margin-bottom: 30px;">Resoluções Detalhadas</h2>
+    <div id="resolutions-container">
+        <!-- Resoluções serão inseridas aqui -->
+    </div>
+</section>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "A Semiologia Gráfica, conforme estruturada por Jacques Bertin, estabelece que a comunicação cartográfica eficiente depende da seleção rigorosa de variáveis visuais que correspondam à natureza dos dados representados. Com base nos conceitos de sistemas monossêmicos e nas propriedades perceptivas das variáveis visuais, analise as seguintes assertivas:\n\nI. A variável visual 'tamanho' é a única que possui a propriedade perceptiva quantitativa, permitindo ao leitor estabelecer uma relação de proporcionalidade imediata entre os objetos (ex: um símbolo B é três vezes maior que A).\nII. A variável visual 'cor' (matiz) é dotada de propriedade ordenada e seletiva, sendo a mais indicada para representar gradientes de vulnerabilidade social em mapas coropléticos.\nIII. A variável visual 'valor' (variação de claridade ou brilho) possui propriedade ordenada, o que a torna adequada para representar hierarquias ou progressões, como níveis de renda ou escolaridade.\nIV. Sistemas monossêmicos são aqueles em que o significado de cada signo é definido a priori da observação, visando reduzir a ambiguidade na interpretação do mapa.",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, III e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2, // C
+            resolution: "A resolução desta questão exige a compreensão do sistema semiótico proposto por Jacques Bertin. Bertin defende que a cartografia temática deve operar como um sistema monossêmico, onde o sentido é fechado antes da leitura. A variável 'tamanho' é a única quantitativa. A 'cor' (matiz) é associativa/seletiva, não ordenada. O 'valor' (claridade) é ordenado, ideal para intensidades. Portanto, I, III e IV estão corretas."
+        },
+        {
+            id: 2,
+            text: "Os métodos de representação cartográfica variam de acordo com a geometria do fenômeno (pontual, linear ou zonal) e o nível de mensuração dos dados (qualitativo, ordenado ou quantitativo). Sobre as abordagens possíveis dentro da cartografia temática, assinale a alternativa INCORRETA:",
+            options: [
+                "Representações qualitativas expressam a existência e a localização dos fenômenos, focando na diversidade entre objetos que se diferenciam por sua natureza.",
+                "Representações ordenadas são empregadas quando as categorias dos fenômenos se inscrevem em sequências universalmente admitidas, sem indicar uma proporção exata entre elas.",
+                "Representações quantitativas absolutas devem ser transcritas por variáveis visuais de tamanho, garantindo a relação de proporcionalidade visual.",
+                "O método coroplético é a forma mais adequada para representar dados quantitativos absolutos, como o número total de habitantes de um estado, utilizando a variação de cores.",
+                "Símbolos lineares podem ser utilizados para representar fluxos, onde a espessura da linha (variável tamanho) indica a intensidade do deslocamento entre dois pontos."
+            ],
+            correct: 3, // D
+            resolution: "O erro da alternativa D reside em uma confusão comum: o método coroplético não deve ser usado para quantidades absolutas (como população total). Isso ocorre porque áreas administrativas têm tamanhos diferentes, o que distorce a percepção. Para dados absolutos, usam-se símbolos pontuais proporcionais. O método coroplético é reservado para dados relativos (taxas, densidades)."
+        },
+        {
+            id: 3,
+            text: "A anamorfose geográfica constitui uma técnica de representação do espaço em que os dados quantitativos comandam a deformação da geometria territorial. Analise as seguintes afirmações sobre este método e sua aplicação na leitura crítica de desigualdades socioespaciais:\n\nI. Na anamorfose, o formato dos países ou regiões sofre uma deformação proporcional segundo um tema de interesse, como o Produto Interno Bruto (PIB) ou o número de refugiados.\nII. O objetivo principal deste método é manter a fidelidade euclidiana das áreas e distâncias, facilitando a navegação aérea e marítima.\nIII. A anamorfose é um instrumento poderoso para revelar disparidades globais, pois choca o observador ao 'inflar' regiões com altos índices de um fenômeno e 'encolher' aquelas com baixos índices.\nIV. A construção de uma anamorfose dispensa a utilização de dados estatísticos precisos, baseando-se apenas na percepção subjetiva do cartógrafo.",
+            options: [
+                "Apenas I e II.",
+                "Apenas I e III.",
+                "Apenas II e IV.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 1, // B
+            resolution: "A anamorfose é uma 'imagem-choque' que prioriza a comunicação de desigualdades deformando o território. A assertiva II está incorreta pois ela sacrifica a fidelidade euclidiana. A assertiva IV é falsa porque a anamorfose baseia-se em algoritmos matemáticos e dados estatísticos rigorosos, não em subjetividade."
+        },
+        {
+            id: 4,
+            text: "A cartografia temática contemporânea atua como uma linguagem que pode mascarar ou revelar desigualdades. Um ponto crítico nesse processo é a escolha do método de classificação dos dados para a criação de classes em mapas coropléticos. Sobre os métodos de classificação, relacione a Coluna 1 com a Coluna 2:\n\nColuna 1\n1. Quantil.\n2. Intervalos Iguais.\n3. Quebras Naturais (Jenks).\n\nColuna 2\n( ) Baseia-se em algoritmos que minimizam a variância interna das classes e maximizam a variância entre as classes, respeitando os agrupamentos naturais dos dados.\n( ) Divide o conjunto de observações de forma que cada classe contenha exatamente o mesmo número de unidades territoriais.\n( ) Divide a amplitude total dos dados pelo número de classes desejado, criando faixas de valores com o mesmo intervalo numérico.",
+            options: [
+                "1 – 2 – 3.",
+                "2 – 1 – 3.",
+                "3 – 1 – 2.",
+                "3 – 2 – 1.",
+                "1 – 3 – 2."
+            ],
+            correct: 2, // C
+            resolution: "A sequência correta é Jenks (3) para variância, Quantil (1) para mesmo número de unidades, e Intervalos Iguais (2) para divisão da amplitude. Portanto: 3 - 1 - 2."
+        },
+        {
+            id: 5,
+            text: "Ao analisar a distribuição espacial da mortalidade infantil em um município, um analista percebe que o uso de cores variadas (azul, verde, amarelo, vermelho) para representar diferentes taxas de mortalidade em um mapa coroplético pode confundir o leitor. De acordo com a semiologia gráfica, para representar a intensidade desse fenômeno (taxas), a variável visual mais correta e sua respectiva propriedade perceptiva são:",
+            options: [
+                "Cor (matiz) e propriedade associativa.",
+                "Valor (claridade) e propriedade ordenada.",
+                "Tamanho e propriedade quantitativa.",
+                "Forma e propriedade seletiva.",
+                "Orientação e propriedade diferencial."
+            ],
+            correct: 1, // B
+            resolution: "Representar taxas exige a expressão de uma intensidade. O uso de matizes (cores diferentes) cria percepção associativa, mas não lógica de intensidade. A variável 'valor' (tons do claro ao escuro) é a correta pela sua propriedade ordenada."
+        },
+        {
+            id: 6,
+            text: "A capacidade de leitura crítica de mapas temáticos exige a compreensão de como a escala e a unidade de análise influenciam a percepção da realidade socioespacial. O fenômeno em que as desigualdades são 'suavizadas' ou ocultadas devido à agregação de dados em grandes unidades administrativas é conhecido como um desafio da:",
+            options: [
+                "Projeção cartográfica de Peters.",
+                "Generalização cartográfica e efeito de escala.",
+                "Semiologia gráfica polissêmica.",
+                "Cartografia topográfica sistemática.",
+                "Anamorfose não contígua."
+            ],
+            correct: 1, // B
+            resolution: "Ao mapear grandes áreas, a média estatística pode esconder disparidades internas. Mudar para uma escala de maior detalhe (ex: bairros em vez de estados) revela desigualdades que a generalização em escalas menores oculta."
+        },
+        {
+            id: 7,
+            text: "Considere um mapa que utiliza círculos de diferentes diâmetros localizados sobre as capitais dos estados brasileiros para representar o volume de exportações. Sobre essa representação, é correto afirmar que:",
+            options: [
+                "Trata-se de um mapa coroplético que utiliza a variável valor para indicar densidade.",
+                "É uma representação por símbolos pontuais proporcionais, onde o tamanho do círculo é diretamente proporcional ao valor do dado representado.",
+                "É uma anamorfose geográfica que distorce o limite dos estados para evidenciar a riqueza.",
+                "Trata-se de uma representação qualitativa, pois o círculo é uma forma geométrica simples que não indica quantidade.",
+                "O mapa está incorreto, pois volumes de exportação só podem ser representados por variáveis de cor."
+            ],
+            correct: 1, // B
+            resolution: "Volumes absolutos (como exportações) exigem símbolos pontuais proporcionais. A variável visual 'tamanho' é aplicada sobre uma implantação pontual para garantir a percepção de proporcionalidade ao valor numérico."
+        },
+        {
+            id: 8,
+            text: "Na semiologia de Bertin, as variáveis visuais são aplicadas sobre três tipos de implantação gráfica. Assinale a alternativa que indica corretamente esses tipos de implantação:",
+            options: [
+                "Norte, Sul e Leste.",
+                "Cor, Valor e Tamanho.",
+                "Ponto, Linha e Área.",
+                "Escala, Projeção e Legenda.",
+                "Latitude, Longitude e Altitude."
+            ],
+            correct: 2, // C
+            resolution: "Para Bertin, qualquer informação no mapa deve ser implantada sob uma das três formas geométricas fundamentais no plano: o ponto (localização), a linha (limites/fluxos) e a área (zonas)."
+        },
+        {
+            id: 9,
+            text: "(Adaptada Fundatec) No ensino da Geografia e da Cartografia Escolar, adotar caminhos que articulem a complexidade e a multidimensionalidade é essencial. No contexto da cartografia temática, isso significa que o mapa deve ser lido como:",
+            options: [
+                "Uma verdade absoluta e imutável sobre o território representado.",
+                "Uma representação neutra e puramente técnica, desprovida de intenções políticas.",
+                "Um instrumento de comunicação que envolve escolhas deliberadas do cartógrafo, podendo evidenciar ou ocultar conflitos espaciais.",
+                "Uma ferramenta exclusiva para a localização de acidentes geográficos naturais.",
+                "Um subproduto da geografia que não possui relação com as variáveis visuais de Bertin."
+            ],
+            correct: 2, // C
+            resolution: "A cartografia contemporânea afasta-se da ideia de neutralidade. O mapa envolve escolhas do autor (dados, escala, cores) que podem evidenciar ou silenciar realidades espaciais, sendo um instrumento de poder e comunicação."
+        },
+        {
+            id: 10,
+            text: "A variável visual 'orientação' e a variável 'forma' possuem propriedades perceptivas específicas que limitam seu uso em mapas temáticos. De acordo com a teoria clássica, essas variáveis são predominantemente:",
+            options: [
+                "Quantitativas, pois permitem medir ângulos e volumes.",
+                "Ordenadas, pois o olho humano estabelece uma hierarquia entre um quadrado e um triângulo.",
+                "Associativas e seletivas, servindo para diferenciar categorias qualitativas sem ordem intrínseca.",
+                "Universais, podendo substituir a variável tamanho em qualquer mapa de densidade.",
+                "Dissociativas, desaparecendo da vista quando o observador se afasta do mapa."
+            ],
+            correct: 2, // C
+            resolution: "Forma e orientação são excelentes para mapas qualitativos. Elas possuem propriedades associativa (agrupar iguais) e seletiva (isolar um grupo), mas não possuem ordem natural ou valor quantitativo."
+        }
+    ];
+
+    const letters = ['A', 'B', 'C', 'D', 'E'];
+
+    function renderQuiz() {
+        const form = document.getElementById('quiz-form');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            const qText = document.createElement('label');
+            qText.className = 'question-text';
+            qText.innerHTML = `Questão ${index + 1}:<br><br>${q.text.replace(/\n/g, '<br>')}`;
+            card.appendChild(qText);
+
+            const optionsList = document.createElement('div');
+            optionsList.className = 'options-list';
+
+            q.options.forEach((opt, optIndex) => {
+                const label = document.createElement('div');
+                label.className = 'option-item';
+                label.innerHTML = `
+                    <input type="radio" name="q${index}" value="${optIndex}" id="q${index}o${optIndex}">
+                    <span><strong>${letters[optIndex]})</strong> ${opt}</span>
+                `;
+                label.onclick = () => selectOption(index, optIndex);
+                optionsList.appendChild(label);
+            });
+
+            card.appendChild(optionsList);
+            form.appendChild(card);
+        });
+    }
+
+    function selectOption(qIndex, optIndex) {
+        const options = document.querySelectorAll(`#q-card-${qIndex} .option-item`);
+        options.forEach(opt => opt.classList.remove('selected'));
+        options[optIndex].classList.add('selected');
+        document.getElementById(`q${qIndex}o${optIndex}`).checked = true;
+    }
+
+    function calculateScore() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === q.correct;
+            if (isCorrect) score++;
+
+            // Criar card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            const userFeedback = document.createElement('div');
+            userFeedback.className = `user-feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            userFeedback.innerHTML = isCorrect ? '✓ Você acertou!' : `✗ Você errou (Sua resposta: ${selected ? letters[selected.value] : 'Em branco'})`;
+
+            resCard.innerHTML = `
+                <h3>Resolução da Questão ${index + 1}</h3>
+                ${userFeedback.outerHTML}
+                <div class="correct-answer-label">Gabarito Oficial: ${letters[q.correct]}</div>
+                <p>${q.resolution}</p>
+            `;
+            resolutionsContainer.appendChild(resCard);
+        });
+
+        // Mostrar resultados
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('result-section').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score}/10`;
+        
+        const msg = score >= 7 ? "Excelente desempenho! Você domina os conceitos de Semiologia Gráfica." : 
+                    score >= 5 ? "Bom desempenho. Revise os conceitos de variáveis visuais e métodos coropléticos." :
+                    "Recomendamos revisar a teoria de Bertin e as propriedades das variáveis visuais.";
+        document.getElementById('performance-msg').innerText = msg;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Adicionar bloco de aprofundamento final
+        const deepDiv = document.createElement('div');
+        deepDiv.className = 'resolution-card';
+        deepDiv.style.borderLeftColor = "#2c3e50";
+        deepDiv.innerHTML = `
+            <h3>Síntese das Variáveis Visuais</h3>
+            <table>
+                <thead>
+                    <tr><th>Variável</th><th>Nível de Percepção</th><th>Aplicação</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Tamanho</td><td>Quantitativo</td><td>Dados absolutos (população).</td></tr>
+                    <tr><td>Valor</td><td>Ordenado</td><td>Intensidades (IDH, Renda).</td></tr>
+                    <tr><td>Cor (Matiz)</td><td>Seletivo/Associativo</td><td>Dados qualitativos (Uso do solo).</td></tr>
+                    <tr><td>Forma</td><td>Seletivo/Associativo</td><td>Tipologias (Indústrias).</td></tr>
+                </tbody>
+            </table>
+            <p><em>Lembre-se: O mapa não é neutro. A escolha do método de classificação e da variável visual pode mudar drasticamente a interpretação da desigualdade socioespacial.</em></p>
+        `;
+        resolutionsContainer.appendChild(deepDiv);
+    }
+
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

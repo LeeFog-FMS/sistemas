@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Cartografia e Geopolítica do Olhar</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --border-color: #e0e0e0;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --highlight-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #ebf5fb;
+            border-color: #3498db;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1a252f;
+        }
+
+        /* Results Styles */
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding: 30px;
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+        }
+
+        .score-summary {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f0f4f8;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+        }
+
+        .correct {
+            background-color: #d4edda !important;
+            border-color: var(--correct-color) !important;
+            color: #155724;
+        }
+
+        .wrong {
+            background-color: #f8d7da !important;
+            border-color: var(--wrong-color) !important;
+            color: #721c24;
+        }
+
+        .info-correct {
+            color: var(--correct-color);
+            font-weight: bold;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .math-block {
+            font-family: 'Courier New', Courier, monospace;
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container { width: 95%; padding: 20px 10px; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Projeções Cartográficas e Geopolítica</h1>
+        <p>Padrão de banca Fundatec - 10 questões de nível superior</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions will be injected here -->
+        </div>
+        <button type="submit" class="btn-submit" id="submit-btn">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-summary">
+            <h2>Resultado Final</h2>
+            <div class="score-circle" id="score-display">0/10</div>
+            <p id="score-message"></p>
+        </div>
+        <div id="resolutions-list">
+            <!-- Detailed resolutions will appear after submission -->
+        </div>
+        <button onclick="window.location.reload()" class="btn-submit" style="background-color: #95a5a6; margin-top: 20px;">Refazer Simulado</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No que tange aos fundamentos da cartografia sistemática e à evolução das representações do planisfério, as projeções cilíndricas ocupam um papel central no debate sobre a técnica e a ideologia. Considerando as propriedades geométricas que regem a transferência da superfície do geoide para o plano, analise as assertivas abaixo, assinalando V, se verdadeiras, ou F, se falsas:<br><br>( ) A Projeção de Mercator, concebida em 1569, é classificada como cilíndrica conforme, o que implica a preservação da integridade dos ângulos e das formas de pequenas áreas, sendo matematicamente estruturada para que os meridianos e paralelos se cruzem em ângulos retos.<br>( ) A Projeção de Peters, ou Gall-Peters, embora utilize a mesma base geométrica cilíndrica de Mercator, é definida como equivalente, pois sua prioridade matemática reside na manutenção da proporção real das áreas continentais, sacrificando, para isso, a conformidade das formas.<br>( ) Em uma projeção cilíndrica equidistante, as distâncias são preservadas em todas as direções a partir de qualquer ponto do mapa, tornando-a a representação mais fiel para o cálculo de rotas aéreas globais.<br>( ) A distorção das áreas em latitudes elevadas na projeção de Mercator é um erro de cálculo histórico que foi corrigido por Arno Peters através da aplicação de uma escala logarítmica inversa na distribuição dos paralelos.",
+            options: [
+                { label: "A) V – V – F – F.", value: "A" },
+                { label: "B) V – F – V – V.", value: "B" },
+                { label: "C) F – V – V – F.", value: "C" },
+                { label: "D) V – V – V – F.", value: "D" },
+                { label: "E) F – F – V – V.", value: "E" }
+            ],
+            correct: "A",
+            resolution: "A Projeção de Mercator é cilíndrica conforme (preserva ângulos). A de Peters é equivalente (preserva áreas). Não existe projeção equidistante em todas as direções a partir de qualquer ponto simultaneamente. A distorção de Mercator é uma propriedade matemática deliberada da conformidade, não um erro."
+        },
+        {
+            id: 2,
+            text: "A 'Geopolítica do Olhar' e o conceito de 'abstração estratégica' sugerem que os mapas não são meras reproduções da realidade física, mas dispositivos de poder. Sobre o uso ideológico da cartografia e a dicotomia entre as visões eurocêntricas e terceiro-mundistas, assinale a alternativa correta:",
+            options: [
+                { label: "A) A projeção de Mercator é considerada neutra por ter sido desenvolvida para fins técnicos de navegação.", value: "A" },
+                { label: "B) O mapa de Peters é frequentemente associado a uma visão 'terceiro-mundista' por evidenciar o tamanho real das nações situadas em baixas latitudes.", value: "B" },
+                { label: "C) A abstração estratégica na cartografia refere-se à incapacidade técnica de representar o relevo.", value: "C" },
+                { label: "D) A projeção de Robinson, por ser afilática, é a única representação que consegue eliminar completamente o viés ideológico.", value: "D" },
+                { label: "E) O eurocentrismo cartográfico manifesta-se exclusivamente através da colocação da Europa no centro do mapa.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "O mapa de Peters surgiu na década de 70 como ferramenta de 'justiça cartográfica', dando destaque às proporções reais das nações do hemisfério sul, combatendo o domínio visual do Norte Global presente em Mercator."
+        },
+        {
+            id: 3,
+            text: "Considere as propriedades das projeções cartográficas e sua aplicação prática em diferentes contextos. Relacione a Coluna 1 à Coluna 2:<br><br><b>Coluna 1:</b> 1. Conforme | 2. Equivalente | 3. Equidistante | 4. Afilática<br><b>Coluna 2:</b><br>( ) Mapas de densidade demográfica.<br>( ) Navegação loxodrômica (rumos de bússola).<br>( ) Atlas escolares modernos (harmonia visual).<br>( ) Sistemas de radar e radiofusão (precisão de distância).",
+            options: [
+                { label: "A) 2 – 1 – 4 – 3.", value: "A" },
+                { label: "B) 1 – 2 – 3 – 4.", value: "B" },
+                { label: "C) 4 – 3 – 2 – 1.", value: "C" },
+                { label: "D) 2 – 1 – 3 – 4.", value: "D" },
+                { label: "E) 3 – 4 – 1 – 2.", value: "E" }
+            ],
+            correct: "A",
+            resolution: "Equivalente (2) é para áreas/densidade. Conforme (1) é para navegação. Afilática (4) é o padrão didático/atlas (Robinson). Equidistante (3) é para distâncias a partir de um centro (radar)."
+        },
+        {
+            id: 4,
+            text: "Sobre a Projeção de Peters e o contexto histórico de sua emergência na década de 1970, analise as afirmações a seguir:<br><br>I. Arno Peters defendeu que sua projeção era uma ferramenta de 'justiça cartográfica'.<br>II. A deformação vertical observada em Peters é uma consequência matemática necessária para manter a equivalência.<br>III. Foi rapidamente adotada como padrão oficial para a navegação aérea internacional.",
+            options: [
+                { label: "A) Apenas I.", value: "A" },
+                { label: "B) Apenas II.", value: "B" },
+                { label: "C) Apenas I e II.", value: "C" },
+                { label: "D) Apenas II e III.", value: "D" },
+                { label: "E) I, II e III.", value: "E" }
+            ],
+            correct: "C",
+            resolution: "As afirmações I e II estão corretas. A III está incorreta porque a projeção de Peters não serve para navegação, pois deforma drasticamente os ângulos; Mercator continua sendo o padrão técnico para esse fim."
+        },
+        {
+            id: 5,
+            text: "A respeito da construção matemática das projeções cartográficas e do fenômeno da distorção, é correto afirmar que:",
+            options: [
+                { label: "A) Na projeção de Mercator, o fator de escala local aumenta proporcionalmente à secante da latitude (sec φ), resultando em ampliação nos polos.", value: "A" },
+                { label: "B) A projeção de Peters mantém a conformidade local ao aplicar redução compensatória nos meridianos.", value: "B" },
+                { label: "C) Toda projeção equivalente é, por definição, equidistante.", value: "C" },
+                { label: "D) As projeções azimutais são as únicas que não apresentam distorções.", value: "D" },
+                { label: "E) O geoide, por ser uma esfera perfeita, permite transferência para o plano sem deformações.", value: "E" }
+            ],
+            correct: "A",
+            resolution: "Matematicamente, Mercator utiliza a função secante para ajustar os paralelos e manter a conformidade. Por isso, quanto maior a latitude, maior a distorção da área, tendendo ao infinito nos polos."
+        },
+        {
+            id: 6,
+            text: "O conceito de 'abstração estratégica' na cartografia crítica manifesta-se quando:",
+            options: [
+                { label: "A) O cartógrafo utiliza softwares para automatizar a coleta de dados.", value: "A" },
+                { label: "B) Determinadas características do espaço são selecionadas e enfatizadas para estabilizar uma ordem política.", value: "B" },
+                { label: "C) A escala do mapa é reduzida ao máximo.", value: "C" },
+                { label: "D) Ocorre a tradução fiel de todos os elementos da paisagem.", value: "D" },
+                { label: "E) A projeção é escolhida aleatoriamente pelo desenhista.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "A abstração estratégica ocorre quando o mapa deixa de ser neutro e passa a enfatizar elementos que reforçam hegemonias culturais ou visões políticas específicas."
+        },
+        {
+            id: 7,
+            text: "A escolha da Projeção de Robinson em detrimento da de Mercator para ilustrar planisférios em livros didáticos contemporâneos justifica-se porque:",
+            options: [
+                { label: "A) A projeção de Robinson não apresenta nenhum tipo de distorção.", value: "A" },
+                { label: "B) Oferece uma 'visão de compromisso' (afilática), atenuando as distorções extremas de forma e área.", value: "B" },
+                { label: "C) A projeção de Mercator foi proibida por organizações internacionais.", value: "D" },
+                { label: "D) Robinson utiliza satélites para projetar a Terra em um cilindro secante.", value: "D" },
+                { label: "E) Preserva as distâncias reais entre todos os pontos do mapa.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "A projeção de Robinson é preferida na pedagogia por ser afilática (nem equivalente, nem conforme), o que gera um visual mais harmônico que não deforma tanto as áreas quanto Mercator nem tanto as formas quanto Peters."
+        },
+        {
+            id: 8,
+            text: "A Projeção de Mercator (1569) é citada como exemplo de eurocentrismo. Tecnicamente, esse viés é reforçado visualmente por:",
+            options: [
+                { label: "A) Colocar o Polo Sul na parte superior do mapa.", value: "A" },
+                { label: "B) Manter a Groenlândia com uma área visualmente similar à da África, embora a África seja 14 vezes maior.", value: "B" },
+                { label: "C) Representar os oceanos com dimensões reduzidas.", value: "C" },
+                { label: "D) Utilizar uma projeção cônica que desloca o centro para o Mediterrâneo.", value: "D" },
+                { label: "E) Omitir completamente a representação da Antártida.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "A distorção de área em latitudes elevadas faz com que os países do Norte (Europa, Groenlândia, Canadá) pareçam muito maiores do que realmente são em comparação aos países tropicais, reforçando visualmente a superioridade eurocêntrica."
+        },
+        {
+            id: 9,
+            text: "Sobre a Projeção de Gall-Peters e sua classificação como 'projeção dos países subdesenvolvidos', assinale a alternativa que descreve sua propriedade geométrica:",
+            options: [
+                { label: "A) É uma projeção cilíndrica equivalente que mantém áreas reais, resultando em estiramento vertical nas regiões equatoriais.", value: "A" },
+                { label: "B) É uma projeção azimutal que coloca o Brasil no centro do mundo.", value: "B" },
+                { label: "C) É uma projeção conforme que preserva as formas do hemisfério sul.", value: "C" },
+                { label: "D) É uma projeção equidistante que facilita o cálculo de trajetórias de mísseis.", value: "D" },
+                { label: "E) É uma projeção afilática que ignora as coordenadas geográficas.", value: "E" }
+            ],
+            correct: "A",
+            resolution: "A equivalência de Peters garante que o tamanho dos territórios seja proporcional à realidade. Para manter isso num plano cilíndrico, os continentes próximos ao equador aparecem 'esticados' de cima para baixo."
+        },
+        {
+            id: 10,
+            text: "A utilização de mapas que 'invertem' o mundo, colocando o Sul na parte superior, é um exemplo de:",
+            options: [
+                { label: "A) Erro técnico grosseiro, pois o Norte deve sempre estar em cima.", value: "A" },
+                { label: "B) Abstração estratégica para desconstruir a convenção cultural de superioridade do Norte.", value: "B" },
+                { label: "C) Aplicação rigorosa da projeção de Lambert.", value: "C" },
+                { label: "D) Técnica cartográfica obsoleta antes da invenção da bússola.", value: "D" },
+                { label: "E) Uso ideológico para economizar combustível na aviação.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "Orientar o mapa com o Sul para cima é uma escolha política/ideológica que visa demonstrar que as convenções cartográficas (Norte em cima) não são leis da física, mas construções culturais de poder."
+        }
+    ];
+
+    const container = document.getElementById('questions-container');
+    const form = document.getElementById('quiz-form');
+    const resultsSection = document.getElementById('results-section');
+    const resolutionsList = document.getElementById('resolutions-list');
+    const scoreDisplay = document.getElementById('score-display');
+    const scoreMessage = document.getElementById('score-message');
+
+    // Renderize as questões
+    questions.forEach((q, index) => {
+        const qCard = document.createElement('div');
+        qCard.className = 'question-card';
+        qCard.id = `q-card-${index}`;
+
+        const optionsHtml = q.options.map(opt => `
+            <label class="option-item" data-q="${index}">
+                <input type="radio" name="q${index}" value="${opt.value}" required>
+                <span>${opt.label}</span>
+            </label>
+        `).join('');
+
+        qCard.innerHTML = `
+            <span class="question-number">Questão ${index + 1}</span>
+            <div class="question-text">${q.text}</div>
+            <div class="options-list">
+                ${optionsHtml}
+            </div>
+            <div class="resolution-box" id="res-${index}">
+                <strong>Resolução:</strong> ${q.resolution}
+            </div>
+        `;
+        container.appendChild(qCard);
+    });
+
+    // Listener para realçar opção selecionada
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const qIndex = this.getAttribute('data-q');
+            document.querySelectorAll(`.option-item[data-q="${qIndex}"]`).forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    // Lógica do Submit
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let score = 0;
+        const formData = new FormData(form);
+
+        questions.forEach((q, index) => {
+            const userAnswer = formData.get(`q${index}`);
+            const qCard = document.getElementById(`q-card-${index}`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            
+            // Mostrar resolução
+            resolutionBox.style.display = 'block';
+
+            // Marcar acerto/erro
+            const allOptions = qCard.querySelectorAll('.option-item');
+            allOptions.forEach(opt => {
+                const radio = opt.querySelector('input');
+                if (radio.value === q.correct) {
+                    opt.classList.add('correct');
+                    if (userAnswer === q.correct) {
+                        score++;
+                    }
+                } else if (radio.checked && radio.value !== q.correct) {
+                    opt.classList.add('wrong');
+                }
+                radio.disabled = true; // Travar após envio
+            });
+
+            if (userAnswer !== q.correct) {
+                const info = document.createElement('span');
+                info.className = 'info-correct';
+                info.innerText = `Gabarito correto: ${q.correct}`;
+                qCard.appendChild(info);
+            }
+        });
+
+        // Mostrar Resumo
+        form.style.display = 'none';
+        resultsSection.style.display = 'block';
+        scoreDisplay.innerText = `${score}/10`;
+        
+        if (score >= 8) {
+            scoreMessage.innerText = "Excelente! Você tem um domínio sólido sobre Geopolítica e Cartografia.";
+            scoreMessage.style.color = "var(--correct-color)";
+        } else if (score >= 5) {
+            scoreMessage.innerText = "Bom desempenho. Revise as resoluções abaixo para fixar os conceitos técnicos.";
+            scoreMessage.style.color = "#d35400";
+        } else {
+            scoreMessage.innerText = "Atenção: Revise as propriedades matemáticas das projeções de Mercator e Peters.";
+            scoreMessage.style.color = "var(--wrong-color)";
+        }
+
+        // Mover as questões respondidas para dentro da seção de resultados para revisão
+        const questionsClone = container.cloneNode(true);
+        resolutionsList.appendChild(questionsClone);
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>

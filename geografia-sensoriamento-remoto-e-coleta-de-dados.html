@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Elite: Sensoriamento Remoto - IFC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+        .highlight {
+            background-color: #fef08a;
+            padding: 1px 4px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+        .term-box {
+            border-left: 4px solid #2563eb;
+            background-color: #f8fafc;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #475569;
+        }
+        .audio-container {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+        h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto px-6 pb-20">
+
+    <!-- Reprodutor de Áudio Fixo -->
+    <div class="audio-container">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="text-xs font-bold text-blue-600 uppercase tracking-widest">Player de Estudo</h3>
+                <p class="text-sm text-gray-500">Ouça o resumo técnico para fixação</p>
+            </div>
+            <audio controls class="w-full md:w-72">
+                <source src="geografia-sensoriamento-remoto-e-coleta-de-dados.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+        </div>
+    </div>
+
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Sensoriamento Remoto e Coleta de Dados</h1>
+        <p class="text-lg text-gray-600">Guia Definitivo para o Concurso Professor de Geografia - IFC (Banca Fundatec)</p>
+    </header>
+
+    <main>
+        <!-- SEÇÃO 1: PRINCÍPIOS FÍSICOS -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">1. Princípios Físicos do Sensoriamento</h2>
+            <p>O Sensoriamento Remoto baseia-se na medição da <span class="highlight">Radiação Eletromagnética (REM)</span> que interage com os objetos da superfície terrestre.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <div class="term-box">
+                    <p class="font-bold">Interação com a Atmosfera:</p>
+                    <ul class="text-sm list-disc ml-4">
+                        <li><strong>Espalhamento Rayleigh:</strong> Ocorre em moléculas pequenas (nitrogênio/oxigênio). Explica o céu azul.</li>
+                        <li><strong>Espalhamento Mie:</strong> Ocorre em vapor d'água e poeira.</li>
+                        <li><strong>Absorção:</strong> Ozônio ($O_3$), Dióxido de Carbono ($CO_2$) e Vapor d'água ($H_2O$) "bloqueiam" certas faixas.</li>
+                    </ul>
+                </div>
+                <div class="term-box">
+                    <p class="font-bold">Interação com o Alvo:</p>
+                    <p class="text-sm">A energia que incide sobre um objeto pode ser: <span class="highlight">Refletida</span>, <span class="highlight">Absorvida</span> ou <span class="highlight">Transmitida</span>. O SR passivo mede a energia refletida e emitida.</p>
+                </div>
+            </div>
+
+            <p class="mt-4"><strong>Leis Fundamentais (Matemática de Prova):</strong></p>
+            <ul class="list-disc ml-8 mb-6">
+                <li><strong>Lei de Stefan-Boltzmann:</strong> A energia total emitida por um corpo negro aumenta com a <span class="highlight">quarta potência da sua temperatura absoluta</span>.</li>
+                <li><strong>Lei de Wien:</strong> Determina o comprimento de onda predominante. <span class="highlight">Quanto mais quente o corpo, menor o comprimento de onda</span> da emissão máxima (Relação Inversa).</li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO 2: COMPORTAMENTO ESPECTRAL -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">2. Comportamento Espectral dos Alvos</h2>
+            <p class="mb-4">Cada alvo possui uma "assinatura" que varia conforme o comprimento de onda ($\lambda$).</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Alvo</th>
+                        <th>Visível (0.4 - 0.7 $\mu m$)</th>
+                        <th>Infravermelho Próximo (NIR)</th>
+                        <th>Infravermelho Médio (SWIR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">Vegetação Verde</td>
+                        <td>Baixa (Clorofila absorve Azul/Vermelho). Pequeno pico no Verde.</td>
+                        <td><span class="highlight">Altíssima Refletividade</span> (devido à estrutura celular - mesofilo).</td>
+                        <td>Sensível ao <span class="highlight">conteúdo de água</span> nas folhas.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Água Limpa</td>
+                        <td>Refletividade moderada no Azul/Verde.</td>
+                        <td><span class="highlight">Absorção Total</span>. A água aparece preta em imagens NIR.</td>
+                        <td>Absorção Total.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Solo Seco</td>
+                        <td>Refletividade cresce linearmente conforme aumenta o $\lambda$.</td>
+                        <td>Refletividade alta.</td>
+                        <td>Influenciado por textura e matéria orgânica.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SEÇÃO 3: RESOLUÇÕES E SATÉLITES -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">3. Resoluções e Tipos de Satélites</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6 text-center">
+                <div class="p-2 bg-gray-100 rounded"><strong>Espacial</strong><br><small>Tamanho do Pixel (m)</small></div>
+                <div class="p-2 bg-gray-100 rounded"><strong>Temporal</strong><br><small>Tempo de Revisitada</small></div>
+                <div class="p-2 bg-gray-100 rounded"><strong>Espectral</strong><br><small>Nº de Bandas</small></div>
+                <div class="p-2 bg-gray-100 rounded"><strong>Radiométrica</strong><br><small>Níveis de Cinza (Bits)</small></div>
+            </div>
+
+            <p class="mb-4"><strong>Sistemas de Referência (Fundatec adora):</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Satélite</th>
+                        <th>Sensores Principais</th>
+                        <th>Características de Destaque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>LANDSAT 8/9</strong></td>
+                        <td>OLI (Multiespectral) e TIRS (Térmico)</td>
+                        <td>30m de resolução espacial. Histórico de dados mais longo do mundo. Órbita <span class="highlight">Heliossíncrona</span>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CBERS 4A</strong></td>
+                        <td>WPM, MUX, WFI</td>
+                        <td>Parceria Brasil-China. <span class="highlight">WFI possui varredura larga</span> (860km), ideal para alertas rápidos (DETER).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SENTINEL-2</strong></td>
+                        <td>MSI</td>
+                        <td>Resolução de 10m e 20m. Gratuito (Agência Espacial Europeia).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SEÇÃO 4: APLICAÇÕES PRÁTICAS -->
+        <section>
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">4. Aplicações: Monitoramento Ambiental e Urbano</h2>
+            
+            <div class="space-y-4">
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <h4 class="font-bold text-red-600">🔥 Monitoramento de Queimadas</h4>
+                    <p class="text-sm">Utiliza-se o <span class="highlight">Infravermelho Termal</span> e o SWIR para detectar focos de calor e o índice <strong>NBR (Normalized Burn Ratio)</strong> para mapear a severidade da cicatriz do fogo.</p>
+                </div>
+                
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <h4 class="font-bold text-green-700">🌳 Desmatamento (PRODES vs DETER)</h4>
+                    <ul class="text-sm list-disc ml-4">
+                        <li><strong>PRODES:</strong> Mapeia o desmatamento <span class="highlight">anual</span> (agosto a julho). Maior precisão.</li>
+                        <li><strong>DETER:</strong> Sistema de <span class="highlight">alerta diário</span> para apoiar a fiscalização (IBAMA). Aceita maior presença de nuvens.</li>
+                    </ul>
+                </div>
+
+                <div class="p-4 border border-gray-200 rounded-lg">
+                    <h4 class="font-bold text-purple-700">🏙️ Expansão Urbana</h4>
+                    <p class="text-sm">Identificação de superfícies impermeáveis e monitoramento de <span class="highlight">Ilhas de Calor</span> através de sensores térmicos (como o TIRS do Landsat).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: TENDÊNCIAS FUNDATEC -->
+        <section>
+            <h2 class="text-2xl font-bold text-orange-600 mb-4">5. Análise de Tendências e "Peguinhas" Fundatec</h2>
+            <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                <ul class="space-y-3">
+                    <li>⚠️ <strong>Confusão Escala vs Resolução:</strong> A banca pode dizer que "maior escala exige menor resolução espacial". <span class="highlight">Incorreto</span>. Grandes escalas exigem alta resolução (pixels menores).</li>
+                    <li>⚠️ <strong>Sensores Ativos:</strong> Lembre que <span class="highlight">RADAR</span> não depende do sol e atravessa nuvens. Landsat e CBERS são <span class="highlight">Passivos</span>.</li>
+                    <li>⚠️ <strong>Comportamento da Água:</strong> Questões costumam dizer que a água reflete muito no infravermelho para confundir. <span class="highlight">A água absorve quase tudo no infravermelho</span>.</li>
+                    <li>⚠️ <strong>Classificação de Imagens:</strong> Diferencie a <span class="highlight">Supervisionada</span> (você ensina o software com amostras) da <span class="highlight">Não-Supervisionada</span> (o software agrupa pixels por similaridade estatística sozinho).</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-16 text-center border-t pt-10">
+        <p class="text-gray-500 mb-6">Material produzido para preparação intensiva EBTT - Geografia.</p>
+        <a href="geografia-sensoriamento-remoto-e-coleta-de-dadosquestoes.html" class="bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition-colors shadow-lg">
+            ACESSAR BANCO DE QUESTÕES →
+        </a>
+    </footer>
+
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</body>
+</html>
