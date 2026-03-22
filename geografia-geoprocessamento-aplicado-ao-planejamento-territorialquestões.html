@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Geoprocessamento e CTM</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --primary-color: #2563eb;
+            --correct-color: #16a34a;
+            --wrong-color: #dc2626;
+            --border-color: #e5e7eb;
+            --card-bg: #ffffff;
+            --max-width: 850px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        main {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 0 20px 100px 20px;
+            box-sizing: border-box;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .statement {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option-label input {
+            margin-right: 15px;
+            margin-top: 5px;
+            transform: scale(1.2);
+        }
+
+        /* Results styling */
+        .resolution-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .resolution-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feedback-correct {
+            border-color: var(--correct-color) !important;
+            background-color: #f0fdf4 !important;
+        }
+
+        .feedback-wrong {
+            border-color: var(--wrong-color) !important;
+            background-color: #fef2f2 !important;
+        }
+
+        .status-badge {
+            display: none;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        #result-summary {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-circle {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            .question-card {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Geoprocessamento e Planejamento</h1>
+    <p class="subtitle">Estilo Fundatec - Foco em CTM, QGIS e Geotecnologias</p>
+</header>
+
+<main id="quiz-container">
+    <div id="result-summary">
+        <h2>Resultado do Simulado</h2>
+        <div class="score-circle" id="score-display">0/10</div>
+        <p id="score-text">Confira abaixo o gabarito comentado de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" data-q="1">
+            <span class="status-badge" id="status-1"></span>
+            <span class="question-text">Questão 01</span>
+            <div class="statement">
+                No âmbito da gestão pública municipal, a implementação do Cadastro Territorial Multifinalitário (CTM) é regida por diretrizes que buscam a integração de dados para o planejamento urbano e rural. Com base na Portaria nº 511/2009 do Ministério das Cidades, analise as seguintes assertivas:<br><br>
+                I. O CTM deve ser entendido como um inventário territorial oficial e sistemático...<br>
+                II. O conteúdo mínimo do CTM exige a caracterização geométrica da parcela...<br>
+                III. A integração entre a base cartográfica do CTM e os cadastros temáticos ocorre preferencialmente por meio da inscrição imobiliária municipal...<br>
+                IV. O CTM dispensa a observância das diretrizes do Estatuto da Cidade, focando estritamente na arrecadação tributária.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A. Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B. Apenas III e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box" id="res-1">
+                <span class="resolution-title">Resolução Comentada:</span>
+                As assertivas I, II e III estão corretas conforme a Portaria 511/2009. A multifinalidade é o pilar central (I). O conteúdo mínimo inclui geometria, localização e identificador (II). A inscrição imobiliária é a chave de ligação entre sistemas (III). A IV está incorreta pois o CTM é instrumento fundamental de suporte ao Estatuto da Cidade para monitorar a função social da propriedade.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-q="2">
+            <span class="status-badge" id="status-2"></span>
+            <span class="question-text">Questão 02</span>
+            <p>Sobre as características técnicas e a interface do QGIS, assinale a alternativa correta:</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A. O QGIS é um software proprietário que exige licenças anuais.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B. A interface do usuário no QGIS é fixa e não permite a personalização.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C. O QGIS permite a visualização e o processamento de dados vetoriais e matriciais (raster) e suporte a bancos PostGIS.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D. O QGIS não possui suporte para sistemas de referência de coordenadas (CRS).</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E. O QGIS limita a exportação de mapas finais apenas para formatos BMP.</label>
+            </div>
+            <div class="resolution-box" id="res-2">
+                <span class="resolution-title">Resolução Comentada:</span>
+                O QGIS é um software livre (FOSS), altamente customizável e robusto. A alternativa C está correta pois ele lida nativamente com vetores, rasters e integra-se perfeitamente com bancos de dados espaciais como PostGIS, permitindo gestão multiusuário.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-q="3">
+            <span class="status-badge" id="status-3"></span>
+            <span class="question-text">Questão 03</span>
+            <div class="statement">
+                I. O dado vetorial é representado por entidades discretas (pontos, linhas, polígonos).<br>
+                II. O arquivo Shapefile é um conjunto de arquivos (.shp, .dbf, etc).<br>
+                III. Os dados matriciais (raster) são compostos por células (pixels), como o GeoTIFF.<br>
+                IV. No QGIS, os arquivos Shapefile são classificados como camadas matriciais.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A. Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B. Apenas III e IV.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box" id="res-3">
+                <span class="resolution-title">Resolução Comentada:</span>
+                A IV está errada: o Shapefile é estritamente vetorial. As demais estão corretas: vetores representam limites (I), o formato shapefile exige múltiplos arquivos para funcionar (II) e o raster é uma grade de células (III).
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-q="4">
+            <span class="status-badge" id="status-4"></span>
+            <span class="question-text">Questão 04</span>
+            <p>Relacione as operações: (1) Buffer, (2) Intersect, (3) Clip, (4) Dissolve.</p>
+            <div class="statement">
+                ( ) Extrai feições de entrada que se sobrepõem a uma camada de recorte.<br>
+                ( ) Cria uma área de influência ao redor de uma feição.<br>
+                ( ) Agrega feições vizinhas que compartilham o mesmo atributo.<br>
+                ( ) Gera uma nova camada que contém a área comum entre duas camadas.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A. 3 – 1 – 4 – 2.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B. 1 – 2 – 3 – 4.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C. 4 – 3 – 2 – 1.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D. 2 – 4 – 1 – 3.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E. 3 – 4 – 1 – 2.</label>
+            </div>
+            <div class="resolution-box" id="res-4">
+                <span class="resolution-title">Resolução Comentada:</span>
+                Clip (3) funciona como máscara. Buffer (1) cria áreas de influência. Dissolve (4) unifica feições com mesmo atributo. Intersect (2) cruza áreas comuns preservando atributos de ambos.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-q="5">
+            <span class="status-badge" id="status-5"></span>
+            <span class="question-text">Questão 05</span>
+            <p>Sobre o CAR e o georreferenciamento de imóveis rurais, assinale a correta:</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A. O CAR é facultativo para proprietários com reserva averbada.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B. Georreferenciamento determina limites com coordenadas ao Sistema Geodésico Brasileiro.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C. Inscrição no CAR é feita exclusivamente no Ministério da Agricultura.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D. O sistema de referência oficial atual é o SAD69.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E. Drones são proibidos para levantamentos do CAR.</label>
+            </div>
+            <div class="resolution-box" id="res-5">
+                <span class="resolution-title">Resolução Comentada:</span>
+                A alternativa B define corretamente o processo técnico de situar o imóvel no globo. O CAR é obrigatório (A), gerido de forma descentralizada pelos Estados (C), usa o sistema SIRGAS 2000 (D) e aceita tecnologias modernas como GNSS e drones (E).
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-q="6">
+            <span class="status-badge" id="status-6"></span>
+            <span class="question-text">Questão 06</span>
+            <p>Sobre a dimensão multifinalitária do cadastro urbano (CTM), é correto afirmar que:</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A. A multifinalidade restringe-se ao aumento da alíquota do IPTU.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B. A integração de dados permite identificar áreas de vulnerabilidade e otimizar equipamentos públicos.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C. O CTM deve ser operado em sistemas isolados por secretaria.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D. A base cartográfica pode ter baixa precisão se a tabela estiver atualizada.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E. O CTM é aplicado exclusivamente em metrópoles.</label>
+            </div>
+            <div class="resolution-box" id="res-6">
+                <span class="resolution-title">Resolução Comentada:</span>
+                A multifinalidade serve para inteligência territorial. Cruzando dados socioeconômicos e geográficos, o gestor pode planejar melhor creches e postos de saúde onde há demanda real (Alternativa B).
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-q="7">
+            <span class="status-badge" id="status-7"></span>
+            <span class="question-text">Questão 07</span>
+            <div class="statement">
+                I. O SIRGAS 2000 é o sistema de referência oficial do Brasil.<br>
+                II. O QGIS permite a projeção "on-the-fly" (tempo real).<br>
+                III. Cálculos de área devem usar CRS métrico (como UTM) para resultados em m².<br>
+                IV. EPSG:4326 é WGS 84 e EPSG:4674 é SIRGAS 2000 geográficas.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A. Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B. Apenas III e IV.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C. Apenas I, II e IV.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box" id="res-7">
+                <span class="resolution-title">Resolução Comentada:</span>
+                Todas estão corretas. O SIRGAS 2000 é obrigatório por lei. O QGIS alinha camadas de diferentes fontes em tempo real. Cálculos espaciais em SIG exigem projeção plana (metros) para acurácia física.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-q="8">
+            <span class="status-badge" id="status-8"></span>
+            <span class="question-text">Questão 08</span>
+            <p>Sobre a democratização do acesso às geotecnologias, assinale a alternativa que reflete uma visão crítica:</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A. O QGIS aumenta a dependência tecnológica de consultorias.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B. Formação técnica deve focar apenas na operação de botões.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C. Softwares e dados abertos permitem que municípios com poucos recursos implementem sistemas robustos.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D. Softwares livres são menos seguros que proprietários.</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E. Democratização é conceito acadêmico sem aplicação prática.</label>
+            </div>
+            <div class="resolution-box" id="res-8">
+                <span class="resolution-title">Resolução Comentada:</span>
+                A alternativa C é correta. O QGIS elimina a barreira do custo de licença, e a INDE disponibiliza dados públicos, permitindo soberania tecnológica e gestão de qualidade em qualquer escala municipal.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-q="9">
+            <span class="status-badge" id="status-9"></span>
+            <span class="question-text">Questão 09</span>
+            <div class="statement">
+                I. Ortofoto é retificada para remover distorções de relevo e câmera.<br>
+                II. Satélites de 30m são recomendados para delimitação de lotes urbanos.<br>
+                III. Aerofotogrametria permite criar MDT essenciais para drenagem.<br>
+                IV. Ortofotos são tratadas como camadas vetoriais no QGIS.
+            </div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A. Apenas I e III.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B. Apenas II e IV.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D. Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E. I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box" id="res-9">
+                <span class="resolution-title">Resolução Comentada:</span>
+                I e III estão corretas. II erra na escala (lotes urbanos exigem resolução de centímetros, não 30 metros). IV erra no tipo de dado: fotos aéreas são raster (matricial), não vetor.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-q="10">
+            <span class="status-badge" id="status-10"></span>
+            <span class="question-text">Questão 10</span>
+            <p>Qual instrumento do Estatuto da Cidade é melhor gerido com CTM e SIG atualizado?</p>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A. Cobrança de multas de trânsito.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B. O IPTU Progressivo no Tempo (monitoramento de imóveis subutilizados).</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C. Nomeação de cargos em comissão.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D. Controle de estoque de materiais.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E. Definição de feriados municipais.</label>
+            </div>
+            <div class="resolution-box" id="res-10">
+                <span class="resolution-title">Resolução Comentada:</span>
+                A alternativa B está correta. O IPTU Progressivo exige monitoramento temporal e espacial para identificar vazios urbanos e propriedades que não cumprem sua função social, algo só possível com um CTM preciso.
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-quiz">Finalizar Simulado e Ver Resoluções</button>
+        </div>
+    </form>
+</main>
+
+<script>
+    const answers = {
+        q1: 'C',
+        q2: 'C',
+        q3: 'C',
+        q4: 'A',
+        q5: 'B',
+        q6: 'B',
+        q7: 'E',
+        q8: 'C',
+        q9: 'A',
+        q10: 'B'
+    };
+
+    document.getElementById('submit-quiz').addEventListener('click', function() {
+        let score = 0;
+        const total = 10;
+        const form = document.getElementById('quiz-form');
+        
+        // Disable inputs after submission
+        const inputs = form.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+
+        // Check each question
+        for (let i = 1; i <= total; i++) {
+            const name = 'q' + i;
+            const selected = form.querySelector(`input[name="${name}"]:checked`);
+            const statusBadge = document.getElementById(`status-${i}`);
+            const resolutionBox = document.getElementById(`res-${i}`);
+            const card = document.querySelector(`.question-card[data-q="${i}"]`);
+            
+            resolutionBox.style.display = 'block';
+            statusBadge.style.display = 'inline-block';
+
+            if (selected && selected.value === answers[name]) {
+                score++;
+                statusBadge.textContent = '✓ Correta';
+                statusBadge.style.color = 'var(--correct-color)';
+                selected.parentElement.classList.add('feedback-correct');
+            } else {
+                statusBadge.textContent = '✗ Incorreta';
+                statusBadge.style.color = 'var(--wrong-color)';
+                
+                if (selected) {
+                    selected.parentElement.classList.add('feedback-wrong');
+                }
+
+                // Highlight correct one anyway
+                const correctOption = form.querySelector(`input[name="${name}"][value="${answers[name]}"]`);
+                correctOption.parentElement.classList.add('feedback-correct');
+            }
+        }
+
+        // Display summary
+        const summary = document.getElementById('result-summary');
+        const scoreDisplay = document.getElementById('score-display');
+        summary.style.display = 'block';
+        scoreDisplay.textContent = `${score}/${total}`;
+        
+        // Smooth scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Change button to "Refazer" or hide it
+        this.textContent = "Simulado Finalizado";
+        this.style.opacity = "0.7";
+        this.style.cursor = "default";
+        this.disabled = true;
+    });
+</script>
+
+</body>
+</html>

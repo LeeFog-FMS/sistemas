@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Geoprocessamento IFC - Completa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .important-note {
+            border-left: 5px solid #2563eb;
+            background-color: #f8fafc;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: #111827;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        h2 {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            color: #1e40af;
+            font-weight: 800;
+        }
+
+        .fundatec-trap {
+            background-color: #fff7ed;
+            border: 1px solid #fdba74;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Player de Áudio -->
+        <div class="mb-12 p-8 border-2 border-slate-100 rounded-2xl bg-white shadow-sm text-center">
+            <h3 class="text-xl font-bold text-slate-800 mb-4">🎧 Audiocast: Resumo para Revisão</h3>
+            <audio controls class="w-full max-w-lg mx-auto">
+                <source src="geografia-geoprocessamento-aplicado-ao-planejamento-territorial.mp3" type="audio/mpeg">
+                Seu navegador não suporta o áudio.
+            </audio>
+            <p class="text-sm text-slate-500 mt-3">Ouça este resumo técnico para fixar os conceitos antes da prova.</p>
+        </div>
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-4">
+                Geoprocessamento e Planejamento Territorial
+            </h1>
+            <p class="text-xl text-slate-600 font-medium">Concurso Professor de Geografia - IFC | Banca: Fundatec</p>
+        </header>
+
+        <!-- 1. DEFINIÇÃO E CARACTERÍSTICAS -->
+        <section>
+            <h2 class="text-2xl section-title mb-6">1. Definições Essenciais: O Core do Geoprocessamento</h2>
+            <p class="mb-4">
+                O Geoprocessamento não é uma ciência isolada, mas um <span class="highlight">conjunto de ferramentas e técnicas</span> que processam dados georreferenciados. No planejamento territorial, ele atua como suporte à decisão.
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 border rounded-lg">
+                    <p class="font-bold text-blue-700">SIG (Sistema de Informação Geográfica)</p>
+                    <p class="text-sm">Sistema composto por software, hardware, dados, pessoas e métodos. Sua força reside na <span class="highlight">análise espacial</span> e na capacidade de cruzar camadas (layers).</p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <p class="font-bold text-blue-700">Sensoriamento Remoto</p>
+                    <p class="text-sm">Obtenção de informações sem contato físico, via radiação eletromagnética. Fundamental para o <span class="highlight">monitoramento ambiental</span> e dinâmicas de uso do solo.</p>
+                </div>
+            </div>
+
+            <h3 class="font-bold mt-8 mb-4">Principais Geotecnologias Aplicadas:</h3>
+            <ul class="list-disc pl-6 space-y-2">
+                <li><span class="font-semibold">GNSS:</span> Posicionamento por satélite (GPS, GLONASS, Galileo) para coleta de pontos.</li>
+                <li><span class="font-semibold">Fotogrametria:</span> Uso de aeronaves/drones para gerar mosaicos de fotos e modelos de elevação.</li>
+                <li><span class="font-semibold">Banco de Dados Geográficos:</span> Armazena geometrias (PostGIS) integradas a atributos alfanuméricos.</li>
+            </ul>
+        </section>
+
+        <!-- 2. CADASTRO TÉCNICO MULTIFINALITÁRIO -->
+        <section>
+            <h2 class="text-2xl section-title mb-6">2. Cadastro Técnico Multifinalitário (CTM)</h2>
+            <p class="mb-4">
+                A abstração central para a prova é que o cadastro evoluiu do fiscal para o <span class="highlight">multifinalitário</span>. Não serve apenas para cobrar IPTU, mas para planejar saúde, educação e infraestrutura.
+            </p>
+
+            <div class="important-note">
+                <p class="font-bold mb-2">Portaria 511/2009 (Ministério das Cidades):</p>
+                <p>É o marco legal que você deve citar. Ela estabelece as diretrizes para a criação e atualização do CTM. A <span class="highlight">parcela territorial</span> é a unidade básica (um polígono contínuo sob uma mesma posse ou domínio).</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dimensão</th>
+                            <th>Foco do CTM</th>
+                            <th>Aplicação no Planejamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Econômica</td>
+                            <td>Avaliação de imóveis</td>
+                            <td><span class="highlight">Justiça Fiscal</span> e base para tributação real.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Jurídica</td>
+                            <td>Registro e posse</td>
+                            <td>Regularização fundiária e segurança jurídica.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Socioambiental</td>
+                            <td>Uso e cobertura</td>
+                            <td>Identificação de áreas de risco e <span class="highlight">vulnerabilidade social</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. GESTÃO URBANA E RURAL -->
+        <section>
+            <h2 class="text-2xl section-title mb-6">3. Geotecnologias na Gestão Territorial</h2>
+            
+            <h3 class="font-bold text-lg text-slate-700 mb-3">Gestão Urbana</h3>
+            <p class="mb-4">Aplicação direta no <span class="highlight">Plano Diretor</span>. O geoprocessamento permite a aplicação do IPTU Progressivo no Tempo, identificando lotes vagos que não cumprem a <span class="font-semibold">Função Social da Propriedade</span>.</p>
+
+            <h3 class="font-bold text-lg text-slate-700 mb-3">Gestão Rural</h3>
+            <ul class="list-disc pl-6 space-y-4 mb-6">
+                <li>
+                    <span class="font-bold">CAR (Cadastro Ambiental Rural):</span> Obrigatório para todos os imóveis rurais. Foco na recuperação de <span class="highlight">APP e Reserva Legal</span>. É autodeclaratório, mas validado via satélite.
+                </li>
+                <li>
+                    <span class="font-bold">SIGEF (INCRA):</span> Sistema de Gestão Fundiária. Crucial para a certificação de imóveis rurais, garantindo que <span class="highlight">não haja sobreposição</span> de limites entre propriedades.
+                </li>
+            </ul>
+        </section>
+
+        <!-- 4. DEMOCRATIZAÇÃO E QGIS -->
+        <section>
+            <h2 class="text-2xl section-title mb-6">4. Softwares Livres e Democratização</h2>
+            <p class="mb-4">
+                A escolha pelo <span class="font-bold">QGIS</span> em detrimento de softwares proprietários (como ArcGIS) não é apenas financeira, é <span class="highlight">política e pedagógica</span>.
+            </p>
+            <div class="p-6 border-l-4 border-green-500 bg-green-50 rounded-r-lg">
+                <ul class="space-y-3">
+                    <li><span class="font-bold">Acesso à Informação:</span> Permite que prefeituras pequenas e cidadãos processem dados sem custos de licença exorbitantes.</li>
+                    <li><span class="font-bold">Padrões Abertos:</span> O uso de protocolos como <span class="highlight">WMS (Web Map Service)</span> e <span class="highlight">WFS (Web Feature Service)</span> permite o consumo de dados oficiais do IBGE e INPE em tempo real.</li>
+                    <li><span class="font-bold">Educação Técnica:</span> No IFC, formar o técnico em QGIS significa dar a ele a autonomia de aplicar o conhecimento em qualquer mercado ou órgão público.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 5. TENDÊNCIAS FUNDATEC (ESTRATÉGIA) -->
+        <section>
+            <h2 class="text-2xl section-title mb-6">5. Radar Fundatec: Tendências e Peguinhas</h2>
+            
+            <div class="fundatec-trap">
+                <p class="font-bold text-orange-800">⚠️ O Peguinha do Datum:</p>
+                <p class="text-sm">A Fundatec ama perguntar sobre o sistema de referência. Lembre-se: <span class="highlight">SIRGAS 2000</span> é o oficial e é <span class="font-bold">Geocêntrico</span>. Se a questão falar em SAD69 ou Córrego Alegre como atuais, marque FALSO. Se disser que WGS84 é idêntico ao SIRGAS, cuidado: são muito próximos, mas o WGS84 é do sistema GPS.</p>
+            </div>
+
+            <div class="fundatec-trap mt-4">
+                <p class="font-bold text-orange-800">⚠️ Resolução Espacial vs. Escala:</p>
+                <p class="text-sm">Quanto <span class="font-bold">maior a escala</span> (ex: 1:2.000 vs 1:50.000), maior o detalhamento. No sensoriamento, quanto <span class="font-bold">menor o pixel</span> (ex: 0,5m vs 30m), maior a resolução espacial. Eles adoram inverter esses termos.</p>
+            </div>
+
+            <div class="table-container mt-6">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conceito</th>
+                            <th>A Fundatec vai dizer que...</th>
+                            <th>A verdade técnica é...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Modelagem</td>
+                            <td>Tudo em SIG deve ser Vetorial.</td>
+                            <td>O SIG integra <span class="highlight">Vetor e Raster</span> (híbrido).</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">CTM</td>
+                            <td>É apenas para cobrança de impostos.</td>
+                            <td>É <span class="highlight">multifinalitário</span> (gestão total).</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Metadados</td>
+                            <td>São dispensáveis no planejamento.</td>
+                            <td>São o <span class="highlight">RG do dado</span>; essenciais para a confiabilidade.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- BOTÃO FINAL -->
+        <div class="text-center py-16 border-t mt-12">
+            <h3 class="text-xl font-bold mb-6">Pronto para testar seus conhecimentos?</h3>
+            <a href="geografia-geoprocessamento-aplicado-ao-planejamento-territorialquestões.html" class="inline-block bg-blue-600 text-white font-extrabold py-5 px-12 rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition duration-300 uppercase text-sm tracking-widest">
+                Acessar Banco de Questões Fundatec
+            </a>
+            <p class="text-xs text-slate-400 mt-4">Treine com foco em cargos EBTT para garantir a nomeação.</p>
+        </div>
+
+    </div>
+
+    <!-- MathJax para fórmulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>

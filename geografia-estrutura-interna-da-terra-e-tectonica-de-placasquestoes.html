@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Estrutura da Terra e Tectônica</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --accent-color: #2563eb;
+            --border-color: #e5e7eb;
+            --correct-bg: #dcfce7;
+            --correct-text: #166534;
+            --wrong-bg: #fee2e2;
+            --wrong-text: #991b1b;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f8fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input {
+            margin-top: 5px;
+            margin-right: 12px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        #result-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .resolutions-title {
+            margin-top: 40px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            font-size: 1.4rem;
+        }
+
+        .resolution-item {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .feedback-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-text);
+            color: var(--correct-text);
+        }
+
+        .feedback-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong-text);
+            color: var(--wrong-text);
+        }
+
+        .math {
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Estrutura Interna da Terra e Tectônica de Placas</h1>
+        <p class="description">Estilo Banca Fundatec | 10 Questões de Geociências</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-text">Questão 01. A análise da geodinâmica terrestre exige a compreensão precisa das subdivisões do interior do planeta, as quais são classificadas segundo critérios químicos e físicos. O modelo químico foca na composição mineralógica, enquanto o modelo físico baseia-se no comportamento mecânico e reológico dos materiais sob condições extremas de temperatura e pressão. Assinale a alternativa que descreve corretamente as características dessas camadas.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A. A astenosfera é a camada mais externa e rígida do planeta, composta por silicatos de alumínio e magnésio.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B. O manto superior, no contexto do modelo físico, é subdividido em litosfera e astenosfera, sendo que a última apresenta um comportamento plástico.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C. A descontinuidade de Gutenberg delimita a interface entre a crosta terrestre e o manto superior.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D. O núcleo interno mantém-se em estado líquido devido à predominância de metais pesados.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E. A crosta oceânica é significativamente mais espessa e menos densa que a crosta continental.</label>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-text">Questão 02. Sobre as principais superfícies de descontinuidade e a física das ondas no interior do planeta, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A. A descontinuidade de Mohorovičić (Moho) situa-se a uma profundidade constante de 2900 km.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B. A descontinuidade de Lehmann é a interface que separa o núcleo externo líquido do núcleo interno sólido.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C. As ondas secundárias (S) conseguem atravessar o núcleo externo líquido com facilidade.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D. A zona de sombra sísmica é causada pela presença de bacias sedimentares espessas.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E. A descontinuidade de Gutenberg é a interface que separa a crosta continental da crosta oceânica.</label>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-text">Questão 03. Considerando as evidências geológicas, paleontológicas e paleoclimáticas que sustentam o movimento das massas continentais, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A. A presença de fósseis do réptil terrestre Mesosaurus na América do Sul e África atua como evidência da união pretérita.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B. O mapeamento demonstrou que as rochas mais antigas da Terra encontram-se nas dorsais meso-oceânicas.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C. O alinhamento morfológico entre Andes e Himalaia sugere que ambos se formaram na fragmentação da Rodínia.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D. Evidências de glaciações na Índia e Austrália refutam a teoria da deriva continental.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E. A expansão do fundo oceânico é impulsionada por correntes marinhas superficiais.</label>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-text">Questão 04. Sobre a dinâmica das dorsais meso-oceânicas e os rifts continentais, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A. Os limites divergentes são caracterizados pela destruição sistemática de crosta antiga.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B. As dorsais oceânicas são cadeias montanhosas submarinas onde o vulcanismo basáltico cria novo assoalho oceânico.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C. O Vale do Rift na África Oriental é uma feição de colisão continental de grande espessura.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D. Nos limites divergentes, a atividade sísmica é inexistente devido à ausência de resistência.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E. A idade das rochas do fundo oceânico diminui progressivamente em direção às zonas de subducção.</label>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-text">Questão 05. Sobre os fenômenos associados à convergência de placas, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A. A colisão entre duas placas de densidade idêntica resulta na cessação imediata de atividade sísmica.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B. Na convergência oceano-continente, a placa continental mergulha sob a oceânica por ser mais densa.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C. A Cordilheira do Himalaia é o resultado da convergência entre as placas Indiana e Euroasiática (colisão continente-continente).</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D. As fossas oceânicas são formadas exclusivamente em limites transformantes de deslizamento lateral.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E. O vulcanismo de subducção é tipicamente efusivo e basáltico, assemelhando-se ao do Havaí.</label>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-text">Questão 06. Sobre as falhas transformantes e seus riscos geológicos, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A. Nesses limites, ocorre a produção massiva de nova crosta terrestre por magma andesítico.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B. A Falha de San Andreas é um exemplo clássico de limite transformante (deslizamento lateral).</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C. Os limites transformantes são notáveis pela ausência total de sismicidade.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D. A principal feição topográfica resultante são os arcos de ilhas vulcânicas.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E. O movimento transformante impede a geração de terremotos rasos.</label>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-text">Questão 07. Sobre as correntes de convecção e o motor das placas, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A. O material aquecido do manto torna-se menos denso e ascende; ao resfriar-se, torna-se mais denso e submerge.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B. A movimentação é causada exclusivamente pela força centrífuga da Terra empurrando os continentes.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C. As placas flutuam sobre o núcleo externo líquido, movidas pelas marés metálicas.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D. A energia térmica provém inteiramente da absorção de radiação infravermelha pela crosta.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E. O movimento das placas ocorre apenas durante períodos de inversão do campo magnético.</label>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-text">Questão 08. Sobre a relação entre tectônica e fenômenos como vulcanismo e sismicidade, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A. O vulcanismo de Hotspot ocorre obrigatoriamente nas bordas das placas tectônicas.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B. Terremotos de grande magnitude estão frequentemente associados aos Planos de Benioff em zonas de subducção.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C. O Círculo de Fogo do Pacífico é uma região de estabilidade tectônica absoluta.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D. Os vulcões explosivos são característicos de limites divergentes.</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E. Os abalos sísmicos ocorrem exclusivamente em regiões de clima árido.</label>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-text">Questão 09. Sobre a situação geotectônica do Brasil, assinale a alternativa CORRETA.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A. O Brasil localiza-se sobre o limite convergente entre a Placa Sul-Americana e a Placa Africana.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B. A estabilidade brasileira é decorrente de sua posição intraplaca, situada no centro da Placa Sul-Americana.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C. O país é imune a terremotos de qualquer magnitude devido à crosta ser uma rocha sólida contínua.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D. O vulcanismo ativo é uma característica das regiões serranas do Brasil, como a Serra do Mar.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E. Os tremores no Brasil são causados unicamente pelo degelo das calotas polares.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-text">Questão 10. Assinale a alternativa que descreve corretamente a origem dos sismos no Brasil.</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A. São subprodutos do movimento de translação da Terra que gera ondas de choque permanentes.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B. A sismicidade intraplaca está associada à reativação de falhas antigas e tensões transmitidas das bordas da placa.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C. O Lineamento Transbrasiliano não possui qualquer conexão com sismos registrados no Ceará ou Goiás.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D. Ocorrem exclusivamente em áreas de exploração mineral profunda, sendo 100% induzidos.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E. Nenhuma abalo no Brasil ultrapassa magnitude 0.5 na Escala Richter.</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="result-section">
+        <div class="score-display" id="score-text"></div>
+        <div id="resolutions-container">
+            <h2 class="resolutions-title">Gabarito Comentado e Análise Técnica</h2>
+            <!-- Injetado via JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: "B", q2: "B", q3: "A", q4: "B", q5: "C",
+        q6: "B", q7: "A", q8: "B", q9: "B", q10: "B"
+    };
+
+    const resolutions = {
+        q1: "A alternativa B identifica a astenosfera como a camada do manto superior com comportamento plástico essencial para a geodinâmica. O modelo químico foca na composição (crosta, manto, núcleo), enquanto o físico foca no estado (litosfera, astenosfera, etc).",
+        q2: "A descontinuidade de Lehmann separa o núcleo externo líquido do núcleo interno sólido. A evidência é a aceleração e reflexão de ondas P. Mohorovičić (Moho) fica na base da crosta, muito mais rasa que 2900km.",
+        q3: "O Mesosaurus era um réptil de água doce cujos fósseis em continentes hoje separados provam que África e América do Sul estiveram unidas (Gondwana). As rochas mais jovens estão nas dorsais, não as mais antigas.",
+        q4: "Dorsais são locais onde ocorre a ascensão de magma basáltico, criando continuamente novo assoalho oceânico em limites divergentes. A idade aumenta conforme nos afastamos da dorsal.",
+        q5: "O Himalaia é o maior exemplo de colisão continente-continente (Placa Indiana vs Euroasiática), resultando em espessamento crustal extremo e soerguimento.",
+        q6: "A Falha de San Andreas (Califórnia) é o limite transformante mais famoso, onde ocorre deslizamento lateral acumulando tensões elásticas que geram sismos rasos e potentes.",
+        q7: "A convecção mantélica é o motor das placas: material quente (menos denso) sobe e material frio (mais denso) desce, arrastando a litosfera acima.",
+        q8: "Planos de Benioff são zonas inclinadas que marcam o mergulho da placa em subducção, onde ocorrem os sismos mais profundos do globo.",
+        q9: "O Brasil é tectonicamente estável por estar localizado no centro da Placa Sul-Americana (região intraplaca), longe das bordas onde o estresse é máximo.",
+        q10: "Os sismos no Brasil são causados pela reativação de falhas geológicas antigas devido às tensões que viajam das bordas da placa para o interior do continente."
+    };
+
+    function submitQuiz() {
+        const form = document.getElementById('quiz-form');
+        const resultsDiv = document.getElementById('result-section');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        const scoreText = document.getElementById('score-text');
+        
+        let score = 0;
+        let htmlResolutions = '<h2 class="resolutions-title">Análise das Questões e Resoluções</h2>';
+
+        for (let i = 1; i <= 10; i++) {
+            const questionId = 'q' + i;
+            const selected = form.elements[questionId].value;
+            const isCorrect = selected === correctAnswers[questionId];
+            
+            if (isCorrect) score++;
+
+            // Visual feedback nas opções
+            const card = document.getElementById(questionId);
+            if (isCorrect) {
+                card.classList.add('feedback-correct');
+            } else {
+                card.classList.add('feedback-wrong');
+            }
+
+            // Gerar HTML da resolução
+            htmlResolutions += `
+                <div class="resolution-item">
+                    <div class="resolution-header">
+                        <span>Questão ${i < 10 ? '0' + i : i}</span>
+                        <span>${isCorrect ? '✅ Acertou' : '❌ Errou (Resposta: ' + correctAnswers[questionId] + ')'}</span>
+                    </div>
+                    <p>${resolutions[questionId]}</p>
+                </div>
+            `;
+        }
+
+        scoreText.innerHTML = `Resultado: ${score} de 10 acertos (${(score/10)*100}%)`;
+        resolutionsContainer.innerHTML = htmlResolutions;
+        resultsDiv.style.display = 'block';
+
+        // Scroll suave para o resultado
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilitar botões após envio
+        document.querySelector('.btn-submit').disabled = true;
+        document.querySelector('.btn-submit').innerText = "Simulado Finalizado";
+    }
+</script>
+
+</body>
+</html>

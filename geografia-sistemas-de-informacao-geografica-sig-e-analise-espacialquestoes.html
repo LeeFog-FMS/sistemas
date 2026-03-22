@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado SIG e Análise Espacial - Padrão Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --accent-color: #00b894;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .assertion-box {
+            background: #f1f2f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f0f7ff;
+            border-color: var(--primary-color);
+        }
+
+        .option-label input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .option-label.selected {
+            background-color: #e1f0ff;
+            border-color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        #results {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .resolution-item {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .res-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .res-text {
+            font-size: 0.95rem;
+            color: #444;
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .correct-answer-indicator {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .wrong-indicator {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Técnico: SIG e Análise Espacial</h1>
+        <p>Estudo focado no padrão da banca Fundatec - Gestão Territorial e Planejamento Público</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questões serão inseridas aqui via JS -->
+    </div>
+
+    <button id="submit-quiz" class="submit-btn">Finalizar Simulado e Ver Resoluções</button>
+
+    <div id="results">
+        <div class="score-display" id="score-text"></div>
+        <div id="resolutions-container"></div>
+        <button onclick="window.location.reload()" class="submit-btn" style="background: var(--secondary-color); margin-top: 40px;">Reiniciar Simulado</button>
+    </div>
+
+    <footer>
+        &copy; 2024 - Material de Estudo para Concursos Técnicos de Geoprocessamento.
+    </footer>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No âmbito dos Sistemas de Informação Geográfica (SIG), a representação da realidade terrestre exige a escolha de modelos de dados adequados à natureza do fenômeno estudado. Sobre as estruturas de dados vetorial e matricial (raster), analise as assertivas abaixo:",
+            assertions: [
+                "I. O modelo de dados matricial organiza o espaço em uma grade regular de células ou pixels, sendo que a precisão da representação está intrinsecamente ligada à resolução espacial, ou seja, ao tamanho da unidade mínima de área no terreno.",
+                "II. Na estrutura vetorial, os objetos geográficos são representados por meio de primitivas geométricas como pontos, linhas e polígonos, definidos por pares de coordenadas $(x, y)$ em um sistema de referência específico.",
+                "III. Uma característica distintiva da estrutura matricial é a facilidade de vinculação direta de cada célula a múltiplas tabelas de atributos alfanuméricos complexos, sem a necessidade de identificadores únicos para cada pixel.",
+                "IV. O modelo vetorial é particularmente eficiente para representar fenômenos que possuem limites nítidos e discretos, como divisas de lotes urbanos, redes de drenagem e eixos de logradouros, permitindo uma análise topológica robusta."
+            ],
+            options: [
+                "Apenas I e II.",
+                "Apenas II e IV.",
+                "Apenas I, II e IV.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2, // C
+            resolution: "A base fundamental do geoprocessamento reside na forma como o computador interpreta o espaço geográfico. A assertiva III está incorreta porque a vinculação a tabelas de atributos complexas e relacionais é uma característica nativa e muito mais eficiente da estrutura vetorial. No modelo matricial, a relação entre dado e atributo é geralmente de um para um (valor por pixel)."
+        },
+        {
+            id: 2,
+            text: "A análise espacial em SIG compreende um conjunto de funções que permitem extrair novas informações a partir de dados georreferenciados existentes. Considere uma demanda de planejamento público onde se deseja identificar áreas para a implantação de um parque municipal, respeitando os seguintes critérios: as áreas devem estar a até 300 metros de vias coletoras e, simultaneamente, devem estar fora de zonas de preservação permanente (ZPP). As ferramentas de análise espacial que o gestor deve utilizar para delimitar a área de influência das vias e realizar a operação de exclusão das ZPP são, respectivamente:",
+            options: [
+                "Interpolação e Dissolver (Dissolve).",
+                "Buffer e Interseção (Intersection).",
+                "Densidade de Kernel e União (Union).",
+                "Buffer e Diferença (Difference/Erase).",
+                "Reclassificação e Agregação."
+            ],
+            correct: 3, // D
+            resolution: "Para o critério de proximidade (300m), utiliza-se o Buffer (Área de Influência). Para o critério de exclusão (áreas fora das ZPP), utiliza-se a ferramenta de Diferença (ou Erase), que remove as geometrias indesejadas da camada resultante."
+        },
+        {
+            id: 3,
+            text: "A abstração estratégica do SIG como ferramenta de gestão territorial permite que o administrador público utilize o cruzamento de camadas de informação para a tomada de decisão fundamentada. Sobre essa capacidade de integração e análise, assinale a alternativa correta:",
+            options: [
+                "O SIG diferencia-se de um sistema de mapas digitais comum por permitir a integração de dados geográficos com informações tabulares, possibilitando análises espaciais complexas e a criação de modelos preditivos.",
+                "Na gestão pública, o uso de SIG restringe-se exclusivamente ao monitoramento ambiental, não sendo aplicável em áreas como saúde, segurança pública ou gestão tributária.",
+                "A implementação de um SIG municipal dispensa investimentos em hardware de alta performance, uma vez que o processamento de grandes volumes de dados georreferenciados exige baixa capacidade computacional.",
+                "Softwares de desenho assistido por computador (CAD) e visualizadores globais como o Google Earth preenchem todos os requisitos técnicos para serem considerados sistemas de informação geográfica de análise espacial.",
+                "O cruzamento de camadas em um SIG é uma operação meramente visual, não resultando na criação de novos bancos de dados ou geometrias modificadas."
+            ],
+            correct: 0, // A
+            resolution: "O que torna um SIG único é a sua capacidade de integração. Ao unir a geometria (o 'onde') com a tabela de atributos (o 'quê'), o gestor pode fazer perguntas ao banco de dados e criar modelos preditivos complexos para a gestão da cidade."
+        },
+        {
+            id: 4,
+            text: "No contexto da estrutura de dados matricial utilizada em geoprocessamento, a relação entre o armazenamento e a qualidade da informação é um fator crítico. Sobre esse tema, é correto afirmar que:",
+            options: [
+                "Quanto maior o valor numérico da resolução espacial (ex: de 1m para 30m), maior será o nível de detalhamento e a nitidez dos objetos na imagem.",
+                "A estrutura matricial é ideal para representar redes de infraestrutura devido à sua alta capacidade de manter relações de conectividade e topologia entre os nós.",
+                "O armazenamento de dados matriciais exige, em regra, menos espaço em disco do que os dados vetorial, independentemente da resolução espacial adotada.",
+                "No formato matricial, a vinculação direta entre a resolução digital e a quantidade de pixels pode requerer processadores de grande capacidade para operações de análise em larga escala.",
+                "Um ponto geográfico em um modelo matricial é representado por um par de coordenadas exatas $(x, y)$ que não ocupa área na grade de células."
+            ],
+            correct: 3, // D
+            resolution: "Como o dado matricial é uma grade contínua, o número de células cresce exponencialmente com a redução do tamanho do pixel. Imagens de alta resolução exigem processadores potentes para análises de larga escala."
+        },
+        {
+            id: 5,
+            text: "A topologia é um conceito fundamental em SIG, especialmente no planejamento urbano, onde a integridade dos dados é vital para a gestão territorial. Sobre a topologia e as estruturas de dados, analise as afirmações abaixo:",
+            assertions: [
+                "I. A topologia refere-se às propriedades espaciais que permanecem invariantes sob transformações geométricas, como vizinhança, adjacência e conectividade.",
+                "II. Em um modelo vetorial topológico, o software é capaz de identificar se dois polígonos de lotes urbanos compartilham a mesma fronteira, evitando sobreposições indesejadas ou lacunas (gaps).",
+                "III. O formato Shapefile (.shp) armazena nativamente todas as relações topológicas complexas em um único arquivo binário indexado.",
+                "IV. A construção de regras topológicas permite a detecção automática de erros em redes de distribuição de água, como segmentos de tubulação desconectados ou direções de fluxo inconsistentes."
+            ],
+            options: [
+                "Apenas I e II.",
+                "Apenas I, II e IV.",
+                "Apenas II e III.",
+                "Apenas III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 1, // B
+            resolution: "A assertiva III é incorreta. O formato Shapefile é tecnicamente de 'geometria não-topológica' (spaghetti). Ele armazena as coordenadas, mas as relações espaciais não são armazenadas de forma inteligente no arquivo, precisando ser calculadas pelo software."
+        },
+        {
+            id: 6,
+            text: "Um gestor municipal decide utilizar a função de 'Interseção' (Intersection) para cruzar a camada de 'Uso do Solo' com a camada de 'Bairros'. O resultado esperado desta operação técnica é:",
+            options: [
+                "Uma nova camada contendo todas as áreas de ambas as camadas, inclusive aquelas que não se sobrepõem, mantendo os atributos originais.",
+                "A remoção de todas as feições da camada de 'Uso do Solo' que estejam localizadas dentro dos limites da camada de 'Bairros'.",
+                "Uma nova camada geométrica composta apenas pelas áreas onde as duas camadas se sobrepõem, contendo os atributos alfanuméricos combinados de ambas.",
+                "A criação de um raio de influência (distância) em torno de cada zona de uso do solo para verificar a vizinhança com os bairros.",
+                "A simplificação das linhas de divisa dos bairros para que coincidam com os polígonos de uso do solo, sem alterar as tabelas de atributos."
+            ],
+            correct: 2, // C
+            resolution: "A interseção identifica as áreas geográficas comuns. O software 'corta' as geometrias e combina as tabelas de atributos, permitindo saber, por exemplo, qual tipo de uso de solo existe em cada bairro específico."
+        },
+        {
+            id: 7,
+            text: "Para que a integração de dados de diferentes fontes em um SIG seja tecnicamente válida e permita uma tomada de decisão precisa no planejamento público, é indispensável que os dados estejam georreferenciados. Sobre esse processo, assinale a alternativa correta:",
+            options: [
+                "O georreferenciamento dispensa o uso de um Sistema de Referência Geodésica (Datum), bastando a identificação visual dos objetos no mapa.",
+                "No Brasil, o Datum oficial adotado para o Sistema Geodésico Brasileiro é o SIRGAS 2000, e sua utilização é obrigatória para dados geoespaciais públicos.",
+                "A projeção cartográfica UTM (Universal Transversa de Mercator) é um sistema de coordenadas geográficas que utiliza graus, minutos e segundos para medir distâncias.",
+                "O uso de diferentes sistemas de coordenadas em um mesmo projeto SIG não causa deslocamentos espaciais, pois o software ajusta automaticamente a precisão física dos sensores originais.",
+                "O georreferenciamento é aplicado exclusivamente a imagens de satélite, não sendo necessário para camadas vetoriais como lotes e logradouros."
+            ],
+            correct: 1, // B
+            resolution: "O SIRGAS 2000 é o sistema oficial e obrigatório no Brasil desde 2015. Utilizar outros datuns (como o SAD69) causa deslocamentos significativos que prejudicam o planejamento público."
+        },
+        {
+            id: 8,
+            text: "Softwares de SIG, como o QGIS, oferecem diversas ferramentas para o tratamento de geoinformações. Sobre as funcionalidades técnicas desses softwares, é correto afirmar:",
+            options: [
+                "O QGIS permite visualizar e integrar combinações de dados vetoriais e raster em diferentes formatos e projeções sem a necessidade de conversão permanente para um formato interno comum.",
+                "Arquivos no formato 'Shapefile' são camadas puramente matriciais que armazenam valores de pixels em tabelas de apoio.",
+                "Operações de álgebra de mapas (map algebra) são ferramentas exclusivas para o processamento de dados vetoriais de alta precisão.",
+                "O resultado de qualquer análise espacial em um SIG é limitado à visualização em tela, não sendo possível a exportação para formatos como PDF ou bancos de dados geográficos.",
+                "No QGIS, a função de 'dissolver' (dissolve) serve para aumentar a complexidade geométrica de uma camada, criando novos polígonos a partir de pontos isolados."
+            ],
+            correct: 0, // A
+            resolution: "A grande força do QGIS é sua interoperabilidade: ele integra dados de diferentes formatos (raster/vetor) e projeções de forma nativa e transparente para o usuário."
+        },
+        {
+            id: 9,
+            text: "A gestão territorial moderna utiliza o SIG como ferramenta de suporte à decisão (Decision Support System). Analise as seguintes situações de aplicação prática:",
+            assertions: [
+                "I. Identificação de áreas de risco geológico através da sobreposição de camadas de declividade, geologia e ocupação urbana.",
+                "II. Otimização de rotas de coleta de resíduos sólidos utilizando algoritmos de análise de redes sobre a malha viária vetorial.",
+                "III. Planejamento da expansão da rede escolar com base em buffers de acessibilidade em torno das unidades existentes.",
+                "IV. Atualização da planta genérica de valores (PGV) para fins de IPTU por meio da análise de imagens de satélite de alta resolução (raster) e vetores de lotes."
+            ],
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 4, // E
+            resolution: "Todas as aplicações descritas são exemplos reais e estratégicos do uso de SIG no setor público para aumentar a eficiência administrativa e a justiça fiscal."
+        },
+        {
+            id: 10,
+            text: "Considerando o SIG como uma ferramenta de gestão estratégica no planejamento público, a capacidade de realizar 'consultas espaciais' é fundamental. Uma consulta espacial que busca 'selecionar todos os lotes que estão contidos em uma área de inundação' baseia-se primordialmente em:",
+            options: [
+                "Atributos numéricos de área contidos na tabela SQL, sem considerar a localização geográfica.",
+                "Relações espaciais de inclusão ou contenção entre duas camadas distintas de informação.",
+                "Operações de interpolação estatística para prever a altura da lâmina d'água em pontos não amostrados.",
+                "Processos de digitalização manual de mapas antigos de papel sobrepostos a imagens de satélite atuais.",
+                "Cálculo da distância euclidiana simples entre o centroide de cada lote e o rio mais próximo."
+            ],
+            correct: 1, // B
+            resolution: "Consultas espaciais utilizam a geometria para interrogar o banco de dados. Nesse caso, o sistema verifica se as coordenadas de um lote estão dentro do limite geométrico da zona de inundação."
+        }
+    ];
+
+    const quizForm = document.getElementById('quiz-form');
+    const resultsContainer = document.getElementById('results');
+    const resolutionsDiv = document.getElementById('resolutions-container');
+    const scoreText = document.getElementById('score-text');
+    const submitBtn = document.getElementById('submit-quiz');
+
+    // Inicializar Questões
+    function initQuiz() {
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">Questão ${index + 1}</div>
+                <p style="margin-bottom: 15px;">${q.text}</p>
+                ${q.assertions ? `<div class="assertion-box">${q.assertions.join('<br><br>')}</div>` : ''}
+                <div class="options-container">
+                    ${q.options.map((opt, i) => `
+                        <label class="option-label" id="label-q${index}-o${i}">
+                            <input type="radio" name="q${index}" value="${i}" onclick="selectOption(${index}, ${i})">
+                            ${['A', 'B', 'C', 'D', 'E'][i]}) ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            quizForm.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, oIdx) {
+        // Limpar seleções anteriores do card
+        const labels = document.querySelectorAll(`[id^="label-q${qIdx}-"]`);
+        labels.forEach(l => l.classList.remove('selected'));
+        // Marcar nova
+        document.getElementById(`label-q${qIdx}-o${oIdx}`).classList.add('selected');
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        resolutionsDiv.innerHTML = '<h3>Gabarito e Resoluções Detalhadas</h3>';
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === q.correct;
+            
+            if (isCorrect) score++;
+
+            const resItem = document.createElement('div');
+            resItem.className = 'resolution-item';
+            
+            let statusHTML = '';
+            if (!selected) {
+                statusHTML = `<span class="wrong-indicator">Não respondida</span>`;
+            } else if (isCorrect) {
+                statusHTML = `<span class="correct-answer-indicator">Correta ✓</span>`;
+            } else {
+                statusHTML = `<span class="wrong-indicator">Incorreta (Você marcou ${['A', 'B', 'C', 'D', 'E'][selected.value]})</span>`;
+            }
+
+            resItem.innerHTML = `
+                <div class="res-title">Questão ${index + 1} - ${statusHTML}</div>
+                <div class="correct-answer-indicator" style="margin-bottom: 10px;">Gabarito Oficial: ${['A', 'B', 'C', 'D', 'E'][q.correct]}</div>
+                <div class="res-text">${q.resolution}</div>
+            `;
+            resolutionsDiv.appendChild(resItem);
+        });
+
+        scoreText.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${questions.length}</strong> questões.`;
+        
+        quizForm.style.display = 'none';
+        submitBtn.style.display = 'none';
+        resultsContainer.style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    submitBtn.addEventListener('click', checkAnswers);
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>
