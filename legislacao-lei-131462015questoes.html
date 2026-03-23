@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Lei Brasileira de Inclusão (LBI) - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --correct-color: #27ae60;
+            --incorrect-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        label:hover {
+            background-color: #f0f7ff;
+            border-color: var(--accent-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #34495e;
+        }
+
+        /* Results Section */
+        #results {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .results-summary {
+            background: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-big {
+            font-size: 3rem;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .resolution-card {
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 20px;
+        }
+
+        .correct-ans {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .wrong-ans {
+            color: var(--incorrect-color);
+            font-weight: bold;
+            text-decoration: line-through;
+        }
+
+        .resolution-text {
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .resolution-text h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 10px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado LBI - Lei Federal nº 13.146/2015</h1>
+        <p class="description">10 Questões no estilo da banca <strong>Fundatec</strong></p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions will be injected here -->
+        </div>
+        <button type="submit" class="btn-submit">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="results">
+        <div class="results-summary">
+            <h2>Resultado do Simulado</h2>
+            <span id="score-display" class="score-big">0 / 10</span>
+            <p id="performance-msg"></p>
+        </div>
+
+        <div id="resolutions-container">
+            <!-- Resolutions will be injected here -->
+        </div>
+    </div>
+
+    <footer>
+        Simulado baseado na Lei Brasileira de Inclusão da Pessoa com Deficiência.
+    </footer>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "Considerando as disposições gerais e os conceitos fundamentais estabelecidos no Art. 3º da Lei nº 13.146/2015, analise as assertivas abaixo:\n\nI. A acessibilidade é definida como a possibilidade e condição de alcance para utilização, com segurança e autonomia, de espaços, mobiliários, equipamentos urbanos, edificações, transportes, informação e comunicação, inclusive seus sistemas e tecnologias, bem como de outros serviços e instalações abertos ao público, de uso público ou privados de uso coletivo, tanto na zona urbana como na rural, por pessoa com deficiência ou com mobilidade reduzida.\nII. O desenho universal é a concepção de produtos, ambientes, programas e serviços a serem usados por todas as pessoas, sem necessidade de adaptação ou de projeto específico, incluindo os recursos de tecnologia assistiva.\nIII. As adaptações razoáveis são modificações e ajustes necessários e adequados que não acarretem ônus desproporcional e indevido, quando requeridos em cada caso particular, a fim de assegurar que a pessoa com deficiência possa gozar ou exercer, em igualdade de condições e oportunidades com as demais pessoas, todos os direitos e liberdades fundamentais.\nIV. As barreiras atitudinais são atitudes ou comportamentos que impeçam ou prejudiquem a participação social da pessoa com deficiência em igualdade de condições e de oportunidades com as demais pessoas.\n\nQuais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 4,
+            resolution: "A primeira questão aborda a espinha dorsal da LBI, o Artigo 3º. Todas as assertivas reproduzem fielmente os conceitos legais: Acessibilidade (Inciso I), Desenho Universal (Inciso II), Adaptações Razoáveis (Inciso VI) e Barreiras Atitudinais (Inciso IV, alínea 'e')."
+        },
+        {
+            id: 2,
+            question: "No que tange ao direito à saúde e ao processo de habilitação e reabilitação, conforme previsto no Art. 15 da Lei Brasileira de Inclusão, assinale a alternativa que NÃO apresenta uma das diretrizes obrigatórias:",
+            options: [
+                "Diagnóstico e intervenção precoces.",
+                "Adoção de medidas para compensar perda ou limitação funcional, buscando o desenvolvimento de aptidões.",
+                "Atuação permanente, integrada e articulada de políticas públicas que possibilitem a plena participação social da pessoa com deficiência.",
+                "Oferta de rede de serviços articulados, com atuação intersetorial, nos diferentes níveis de complexidade, para atender às necessidades específicas da pessoa com deficiência.",
+                "Prestação de serviços exclusivamente em centros de excelência localizados em capitais de estado, independentemente do domicílio da pessoa, para garantir o uso de tecnologias de ponta."
+            ],
+            correct: 4,
+            resolution: "A alternativa E está incorreta porque a LBI, em consonância com as diretrizes do SUS, privilegia a descentralização e a proximidade do domicílio (Art. 15, inciso V). A imposição de atendimento exclusivo em capitais criaria uma barreira de acesso."
+        },
+        {
+            id: 3,
+            question: "Sobre o direito à educação, o Art. 28 da Lei nº 13.146/2015 estabelece incumbências ao poder público. Analise as seguintes afirmações:\n\n(V) É dever do Estado assegurar sistema educacional inclusivo em todos os níveis e modalidades.\n(F) As instituições privadas de ensino são obrigadas a garantir a oferta de profissionais de apoio escolar, sendo-lhes facultada a cobrança de taxa adicional.\n(V) Deve ser garantida a oferta de educação bilíngue, em Libras como primeira língua.\n(V) A formação e a disponibilização de professores para o atendimento educacional especializado são responsabilidades do poder público.\n\nA ordem correta é:",
+            options: [
+                "V – F – V – V.",
+                "V – V – F – F.",
+                "F – V – V – F.",
+                "V – F – F – V.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: "A educação inclusiva é imperativa (Art. 28). O erro na segunda afirmação é a cobrança de taxa: o Art. 28, § 1º, proíbe expressamente que instituições privadas cobrem valores adicionais por recursos de acessibilidade."
+        },
+        {
+            id: 4,
+            question: "Nos cursos oferecidos pelas instituições de ensino superior e de educação profissional e tecnológica, públicas e privadas, devem ser adotadas as seguintes medidas, EXCETO:",
+            options: [
+                "Atendimento preferencial e dilação de tempo, conforme demanda e necessidade comprovada do candidato.",
+                "Disponibilização de provas em formatos acessíveis para atendimento às necessidades específicas dos candidatos.",
+                "Utilização de critérios de avaliação das provas escritas que considerem a singularidade linguística da pessoa com deficiência auditiva.",
+                "Tradução completa de todos os editais e bibliografias recomendadas para a Língua Brasileira de Sinais (Libras), independentemente de solicitação prévia.",
+                "Adoção de medidas de acessibilidade em todas as etapas do processo seletivo."
+            ],
+            correct: 3,
+            resolution: "A alternativa D está incorreta. Embora o edital deva ser acessível, a tradução automática e universal de TODA a bibliografia recomendada sem solicitação prévia não é uma obrigação literal do Art. 30."
+        },
+        {
+            id: 5,
+            question: "No que se refere ao direito ao transporte e à mobilidade urbana (Arts. 46 e 47), a Lei nº 13.146/2015 determina a reserva de vagas em estacionamentos. Sobre essa reserva, é correto afirmar que:",
+            options: [
+                "Deve corresponder a 5% do total de vagas, garantida no mínimo 1 (uma) vaga.",
+                "Deve corresponder a 2% do total de vagas, garantidas no mínimo 2 (duas) vagas.",
+                "Deve corresponder a 2% do total de vagas, garantida no mínimo 1 (uma) vaga.",
+                "Deve corresponder a 1% do total de vagas, garantidas no mínimo 5 (cinco) vagas.",
+                "Não há percentual fixo, devendo a reserva ser proporcional à população."
+            ],
+            correct: 2,
+            resolution: "O Art. 47 define que a reserva deve ser de 2% (dois por cento) do total de vagas, garantindo-se sempre pelo menos 1 (uma) vaga."
+        },
+        {
+            id: 6,
+            question: "Sobre o exercício da capacidade civil da pessoa com deficiência e os institutos da curatela e da tomada de decisão apoiada, analise as assertivas:\n\nI. A deficiência não afeta a plena capacidade civil da pessoa.\nII. A curatela é medida protetiva extraordinária e durará o menor tempo possível.\nIII. A curatela afeta tão somente os direitos de natureza patrimonial e negocial.\nIV. A tomada de decisão apoiada é o processo pelo qual a pessoa elege pelo menos 2 pessoas idôneas para prestar-lhe apoio.\n\nQuais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 4,
+            resolution: "Todas corretas. A LBI alterou o Código Civil: a pessoa com deficiência é plenamente capaz. A curatela tornou-se excepcional e restrita a atos patrimoniais. A TDA é o novo instituto de apoio à autonomia."
+        },
+        {
+            id: 7,
+            question: "Considere as disposições do Art. 8º da LBI sobre os deveres de proteção. Se juízes e tribunais tiverem conhecimento de fatos que caracterizem violação de direitos da pessoa com deficiência, devem remeter peças ao:",
+            options: [
+                "Conselho Nacional de Justiça.",
+                "Ministério Público.",
+                "Conselho Tutelar.",
+                "Ministério da Saúde.",
+                "Conselho Municipal dos Direitos da Pessoa com Deficiência."
+            ],
+            correct: 1,
+            resolution: "O Ministério Público é o guardião dos direitos indisponíveis e da ordem jurídica. Conforme o Art. 8º, cabe ao MP receber tais denúncias para as providências cabíveis."
+        },
+        {
+            id: 8,
+            question: "O Art. 88 da LBI trata dos crimes em espécie. Praticar, induzir ou incitar discriminação de pessoa em razão de sua deficiência sujeita o infrator à pena de:",
+            options: [
+                "Reclusão, de 1 (um) a 3 (três) anos, e multa.",
+                "Detenção, de 6 (seis) meses a 2 (dois) anos, e multa.",
+                "Reclusão, de 2 (dois) a 5 (cinco) anos, apenas.",
+                "Prestação de serviços à comunidade por 1 (um) ano.",
+                "Multa administrativa de 10 a 100 salários mínimos."
+            ],
+            correct: 0,
+            resolution: "Pena de reclusão de 1 a 3 anos e multa (Art. 88). Pode ser agravada se cometida por cuidador ou por meios de comunicação social."
+        },
+        {
+            id: 9,
+            question: "Quanto ao direito ao trabalho (Art. 34), analise as afirmações:\n\nI. Direito ao trabalho de livre escolha em ambiente acessível.\nII. Vedada qualquer discriminação no recrutamento e contratação.\nIII. Direito à participação em cursos de formação profissional.\nIV. Poder público deve implementar programas de reabilitação profissional.\n\nQuais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, III e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 4,
+            resolution: "Todas corretas. O Artigo 34 consolida o direito ao trabalho digno, livre de discriminação e com o suporte necessário do Estado para a reabilitação e inclusão."
+        },
+        {
+            id: 10,
+            question: "De acordo com o Art. 9º da Lei nº 13.146/2015, a pessoa com deficiência tem direito a receber atendimento prioritário, sobretudo com a finalidade de:\n\nI. Proteção e socorro em quaisquer circunstâncias.\nII. Atendimento em todas as instituições de atendimento ao público.\nIII. Disponibilização de recursos humanos e tecnológicos.\nIV. Tramitação processual e procedimentos judiciais e administrativos.\n\nQuais estão corretas?",
+            options: [
+                "Apenas I e III.",
+                "Apenas II e IV.",
+                "Apenas I, II e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 4,
+            resolution: "Todas as assertivas descrevem finalidades do atendimento prioritário listadas no Art. 9º da LBI, abrangendo desde o socorro emergencial até a celeridade processual."
+        }
+    ];
+
+    const questionsContainer = document.getElementById('questions-container');
+    const resolutionsContainer = document.getElementById('resolutions-container');
+    const quizForm = document.getElementById('quiz-form');
+    const resultsSection = document.getElementById('results');
+    const scoreDisplay = document.getElementById('score-display');
+    const performanceMsg = document.getElementById('performance-msg');
+
+    // Initialize Quiz
+    function initQuiz() {
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            
+            const optionsHtml = q.options.map((opt, i) => `
+                <li class="option-item">
+                    <label>
+                        <input type="radio" name="q${index}" value="${i}" required>
+                        ${opt}
+                    </label>
+                </li>
+            `).join('');
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${index + 1}</span>
+                <div class="question-text">${q.question.replace(/\n/g, '<br>')}</div>
+                <ul class="options-list">
+                    ${optionsHtml}
+                </ul>
+            `;
+            questionsContainer.appendChild(card);
+        });
+    }
+
+    quizForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(quizForm);
+        let score = 0;
+        resolutionsContainer.innerHTML = '';
+
+        quizData.forEach((q, index) => {
+            const userAnswer = parseInt(formData.get(`q${index}`));
+            const isCorrect = userAnswer === q.correct;
+            if (isCorrect) score++;
+
+            // Create Resolution Card
+            const resCard = document.createElement('div');
+            resCard.className = 'question-card resolution-card';
+            
+            let resultStatusHtml = isCorrect 
+                ? `<p class="correct-ans">✓ Você acertou!</p>` 
+                : `<p class="wrong-ans">✗ Você marcou: ${q.options[userAnswer]}</p>
+                   <p class="correct-ans">Gabarito correto: ${q.options[q.correct]}</p>`;
+
+            resCard.innerHTML = `
+                <span class="question-number">Resolução da Questão ${index + 1}</span>
+                <div class="question-text" style="font-size: 1rem; color: #666;">${q.question.split('\n')[0]}...</div>
+                ${resultStatusHtml}
+                <div class="resolution-text">
+                    <h4>Fundamentação Técnica:</h4>
+                    ${q.resolution}
+                </div>
+            `;
+            resolutionsContainer.appendChild(resCard);
+        });
+
+        // Show Results
+        scoreDisplay.innerText = `${score} / 10`;
+        if (score >= 9) performanceMsg.innerText = "Excelente! Você domina o conteúdo da LBI.";
+        else if (score >= 7) performanceMsg.innerText = "Muito bom! Você tem uma base sólida.";
+        else performanceMsg.innerText = "Continue estudando. A LBI exige atenção aos detalhes literais.";
+
+        quizForm.style.display = 'none';
+        resultsSection.style.display = 'block';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    initQuiz();
+</script>
+
+</body>
+</html>

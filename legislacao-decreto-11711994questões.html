@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Ética - Decreto 1.171/1994</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfb;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #dcdde1;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Georgia, serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .intro {
+            background: #f1f2f6;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--accent-color);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1c5980;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 3px double var(--border-color);
+        }
+
+        .score-box {
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            display: block;
+            font-weight: bold;
+        }
+
+        .resolution-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-left: 6px solid var(--success-color);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .resolution-card h4 {
+            margin-top: 0;
+            color: var(--success-color);
+        }
+
+        .feedback-correct {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .feedback-wrong {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        .correct-answer-highlight {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+        }
+
+        .wrong-answer-highlight {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1rem; }
+            .question-card { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Decreto Federal nº 1.171/1994</h1>
+    <p>Estilo Banca Fundatec - Ética no Serviço Público</p>
+</header>
+
+<div class="container">
+    <div class="intro">
+        Marque as alternativas que julgar corretas. Ao final, clique em <strong>"Finalizar e Ver Resultados"</strong> para conferir sua pontuação e as resoluções detalhadas de cada questão.
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questões serão inseridas via JS para manter o HTML limpo -->
+        <div id="questions-container"></div>
+        
+        <button type="button" class="btn-submit" onclick="finishQuiz()">Finalizar e Ver Resultados</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box">
+            <span>Seu Resultado:</span>
+            <span class="score-number" id="score-display">0/10</span>
+            <p id="score-comment"></p>
+        </div>
+        
+        <h2 style="text-align: center; margin-bottom: 2rem;">Gabarito Comentado</h2>
+        <div id="detailed-resolutions"></div>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            text: "Conforme as Regras Deontológicas estabelecidas no Anexo do Decreto nº 1.171/1994, analise as assertivas abaixo:<br><br>I. A dignidade, o decoro, o zelo, a eficácia e a consciência dos princípios morais são primados maiores que devem nortear o servidor público apenas quando este estiver no exercício do cargo ou função.<br>II. O servidor público não poderá jamais desprezar o elemento ético de sua conduta. Assim, não terá que decidir somente entre o legal e o ilegal, o justo e o injusto, o conveniente e o inconveniente, o oportuno e o inoportuno, mas principalmente entre o honesto e o desonesto.<br>III. A moralidade da Administração Pública não se limita à distinção entre o bem e o mal, devendo ser acrescida da ideia de que o fim é sempre o bem comum. O equilíbrio entre a legalidade e a finalidade, na conduta do servidor público, é que poderá consolidar a moralidade do ato administrativo.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 3,
+            explanation: "A assertiva I está incorreta porque o Decreto estabelece que tais primados devem nortear o servidor tanto no exercício do cargo quanto fora dele, já que sua conduta externa reflete no prestígio da administração. As assertivas II e III reproduzem fielmente os Incisos III e II das Regras Deontológicas."
+        },
+        {
+            id: 2,
+            text: "Considerando o Código de Ética Profissional do Servidor Público Civil do Poder Executivo Federal, analise as seguintes afirmações relativas ao princípio da publicidade e assinale a alternativa correta:",
+            options: [
+                "A publicidade de qualquer ato administrativo constitui requisito de eficácia e moralidade, não admitindo qualquer exceção, sob pena de nulidade do ato.",
+                "O sigilo é permitido em casos de investigações policiais ou interesse superior do Estado e da Administração, a serem preservados em processo previamente declarado sigiloso.",
+                "A omissão da verdade é permitida quando o servidor julgar que a publicidade do fato pode causar danos à imagem institucional de seus superiores hierárquicos.",
+                "A publicidade dos atos administrativos deve ser evitada sempre que envolver o patrimônio público, a fim de garantir a segurança dos bens do Estado.",
+                "Toda e qualquer informação sobre a vida privada do servidor deve ser tornada pública como requisito de transparência da gestão."
+            ],
+            correct: 1,
+            explanation: "Conforme o Inciso VII, a publicidade é regra, mas o sigilo é obrigatório em casos de segurança nacional, investigações policiais ou interesse superior do Estado e da Administração, declarados em processo sigiloso."
+        },
+        {
+            id: 3,
+            text: "No que se refere aos Deveres Fundamentais do Servidor Público (Seção II do Capítulo I do Decreto nº 1.171/1994), analise as assertivas abaixo, assinalando V, se verdadeiras, ou F, se falsas.<br><br>( ) O servidor deve ser assíduo e frequente ao serviço, na certeza de que sua ausência provoca a desordem nas relações humanas, o que quase sempre conduz à desmoralização do serviço público.<br>( ) Deixar qualquer pessoa à espera de solução que compete ao setor em que exerça suas funções, permitindo a formação de longas filas, ou qualquer outra espécie de atraso na prestação do serviço, não caracteriza falta ética, mas apenas problema de gestão estrutural.<br>( ) É dever do servidor tratar cuidadosamente os usuários dos serviços, aperfeiçoando o processo de comunicação e contato com o público.<br>( ) O servidor deve comunicar imediatamente a seus superiores todo e qualquer ato ou fato contrário ao interesse público, exigindo as providências cabíveis.",
+            options: [
+                "V – F – V – V.",
+                "V – V – F – F.",
+                "F – V – V – F.",
+                "V – F – F – V.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            explanation: "O segundo item é falso porque deixar pessoas em filas ou esperando é considerado pelo Decreto como um grave dano moral ao usuário (Inciso X). Os demais itens são deveres expressos nos incisos XII, XI e VI da Seção II."
+        },
+        {
+            id: 4,
+            text: "De acordo com as vedações impostas ao servidor público (Seção III do Decreto nº 1.171/1994), é INCORRETO afirmar que é vedado ao servidor público:",
+            options: [
+                "O uso do cargo ou função, facilidades, amizades, tempo, posição e influências, para obter qualquer favorecimento, para si ou para outrem.",
+                "Prejudicar deliberadamente a reputação de outros servidores ou de cidadãos que deles dependam.",
+                "Ser conivente com erro ou infração a este Código de Ética ou ao Código de Ética de sua profissão.",
+                "Exercer atividade profissional aética ou ligar o seu nome a empreendimentos de cunho duvidoso.",
+                "Participar de movimentos associativos ou sindicais que visem à melhoria das condições de trabalho e da remuneração da categoria."
+            ],
+            correct: 4,
+            explanation: "A alternativa E apresenta um direito constitucional (Art. 37, VI da CF) e não uma vedação. As demais opções são proibições literais listadas no Inciso XV do Decreto."
+        },
+        {
+            id: 5,
+            text: "Sobre as Comissões de Ética mencionadas no Decreto nº 1.171/1994, assinale a alternativa correta em conformidade com o texto legal:",
+            options: [
+                "A Comissão de Ética deve ser integrada por cinco membros titulares e seus respectivos suplentes, escolhidos entre servidores de livre nomeação.",
+                "A pena aplicável ao servidor público pela Comissão de Ética é a de censura, e sua fundamentação constará de parecer assinado por todos os seus integrantes, com ciência do faltoso.",
+                "As Comissões de Ética têm competência para aplicar penas de suspensão e demissão, além de multas pecuniárias.",
+                "A criação de Comissões de Ética é facultativa para órgãos da Administração Pública Federal indireta.",
+                "O parecer da Comissão de Ética sobre uma conduta deve ser mantido em sigilo absoluto, sem possibilidade de ciência ao servidor investigado."
+            ],
+            correct: 1,
+            explanation: "Conforme o Inciso XXII, a única penalidade aplicável pela Comissão de Ética é a censura. A comissão deve ter 3 membros e sua criação é obrigatória em todos os órgãos da administração direta e indireta."
+        },
+        {
+            id: 6,
+            text: "Com base no conceito de servidor público estabelecido para fins de apuração do comprometimento ético, analise as assertivas abaixo:<br><br>I. Considera-se servidor público todo aquele que, por força de lei, contrato ou de qualquer ato jurídico, preste serviços de natureza permanente, temporária ou excepcional, desde que remunerado.<br>II. As entidades paraestatais e as empresas que incorporam o patrimônio público estão sujeitas à fiscalização ética conforme o Decreto nº 1.171/1994.<br>III. O exercício de função pública, mesmo que sem retribuição financeira, enquadra o indivíduo no conceito de servidor público para fins do Código de Ética.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas III.",
+                "Apenas I e II.",
+                "Apenas II e III."
+            ],
+            correct: 4,
+            explanation: "A assertiva I está errada porque o conceito de servidor para fins éticos independe de remuneração (Inciso XXIV). Portanto, II e III estão corretas ao abrangerem paraestatais e funções não remuneradas."
+        },
+        {
+            id: 7,
+            text: "A respeito da conduta do servidor público em relação à sua vida privada, conforme o Decreto nº 1.171/1994, assinale a alternativa que descreve corretamente a norma ética:",
+            options: [
+                "Os atos verificados na vida privada do servidor não possuem qualquer relação com sua vida funcional, vigendo o princípio da separação absoluta de esferas.",
+                "Somente atos ilícitos graves cometidos na vida privada podem ser levados em conta na avaliação do conceito funcional do servidor.",
+                "Os fatos e atos verificados na conduta do dia a dia da vida privada do servidor poderão acrescer ou diminuir o seu bom conceito na vida funcional.",
+                "A Comissão de Ética é proibida de analisar condutas ocorridas fora do horário de expediente e fora da repartição pública.",
+                "O servidor deve prestar contas de sua vida privada semanalmente à chefia imediata para fins de auditoria ética."
+            ],
+            correct: 2,
+            explanation: "O Inciso VI das Regras Deontológicas estabelece que a vida privada do servidor reflete em seu conceito funcional, pois sua conduta externa impacta o prestígio da administração pública."
+        },
+        {
+            id: 8,
+            text: "Sobre os deveres de cortesia e urbanidade previstos no Código de Ética, analise as afirmações abaixo:<br><br>I. O servidor deve tratar o público com cortesia, disponibilidade e atenção, respeitando a condição de cidadão do usuário.<br>II. É dever do servidor facilitar a fiscalização de todos os atos ou serviços por quem de direito.<br>III. O descumprimento habitual dos horários de trabalho é apenas uma infração disciplinar leve, não possuindo repercussão no campo da ética.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            explanation: "A assertiva III é falsa. O descumprimento habitual de horários é expressamente tratado como uma falta ética que desmoraliza o serviço público (Inciso XII)."
+        },
+        {
+            id: 9,
+            text: "Assinale a alternativa que apresenta uma conduta terminantemente VEDADA ao servidor público, conforme a Seção III do Decreto nº 1.171/1994:",
+            options: [
+                "Cumprir ordens superiores, exceto quando manifestamente ilegais.",
+                "Pleitear, solicitar, provocar, sugerir ou receber qualquer tipo de ajuda financeira, gratificação, prêmio, comissão, doação ou vantagem de qualquer espécie, para si, familiares ou qualquer pessoa, para cumprir missão própria de seu cargo.",
+                "Zelar, no exercício do direito de greve, pelas exigências específicas da defesa da vida e da segurança coletiva.",
+                "Manter-se atualizado com as instruções e normas de serviço.",
+                "Comunicar imediatamente a seus superiores atos contrários ao interesse público."
+            ],
+            correct: 1,
+            explanation: "A alternativa B descreve a vedação da alínea 'g' do Inciso XV, que visa impedir a corrupção e garantir a imparcialidade do agente público."
+        },
+        {
+            id: 10,
+            text: "Sobre a estrutura e o funcionamento das Comissões de Ética (Capítulo II), é correto afirmar que:",
+            options: [
+                "Elas devem ser constituídas por três servidores ou empregados titulares de cargo efetivo ou emprego permanente.",
+                "Sua função é exclusivamente punitiva, não cabendo qualquer papel de orientação ou aconselhamento.",
+                "Os nomes dos membros da Comissão de Ética não precisam ser comunicados a qualquer outro órgão.",
+                "Cada Comissão de Ética é independente e não precisa seguir os normativos da Comissão de Ética Pública da Presidência da República.",
+                "A penalidade de censura aplicada pela Comissão de Ética pode ser convertida em suspensão pelo Ministro de Estado da respectiva pasta."
+            ],
+            correct: 0,
+            explanation: "O Art. 2º do Decreto 1.171/94 especifica que as Comissões de Ética serão constituídas por 3 servidores ou empregados de cargo efetivo ou emprego permanente."
+        }
+    ];
+
+    function loadQuestions() {
+        const container = document.getElementById('questions-container');
+        questionsData.forEach((q, qIndex) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${qIndex}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <label class="option-item" id="label-${qIndex}-${optIndex}">
+                        <input type="radio" name="question-${qIndex}" value="${optIndex}">
+                        ${opt}
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-number">Questão ${q.id}</span>
+                <p>${q.text}</p>
+                <div class="options">
+                    ${optionsHtml}
+                </div>
+                <div id="feedback-${qIndex}" style="margin-top:10px; display:none;"></div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Adicionar eventos de clique para destacar opção selecionada
+        document.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const name = this.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                    input.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+    }
+
+    function finishQuiz() {
+        let score = 0;
+        const total = questionsData.length;
+        const resolutionsDiv = document.getElementById('detailed-resolutions');
+        resolutionsDiv.innerHTML = '';
+
+        questionsData.forEach((q, qIndex) => {
+            const selected = document.querySelector(`input[name="question-${qIndex}"]:checked`);
+            const feedback = document.getElementById(`feedback-${qIndex}`);
+            const qCard = document.getElementById(`q-card-${qIndex}`);
+            
+            const selectedValue = selected ? parseInt(selected.value) : -1;
+            const isCorrect = selectedValue === q.correct;
+
+            if (isCorrect) score++;
+
+            // Mostrar correção visual nas opções
+            const correctLabel = document.getElementById(`label-${qIndex}-${q.correct}`);
+            correctLabel.classList.add('correct-answer-highlight');
+            
+            if (selected && !isCorrect) {
+                const wrongLabel = document.getElementById(`label-${qIndex}-${selectedValue}`);
+                wrongLabel.classList.add('wrong-answer-highlight');
+            }
+
+            // Mensagem rápida na questão
+            feedback.style.display = 'block';
+            feedback.innerHTML = isCorrect ? 
+                '<span class="feedback-correct">✓ Você acertou!</span>' : 
+                `<span class="feedback-wrong">✗ Você errou. A correta era a alternativa: ${String.fromCharCode(65 + q.correct)}</span>`;
+
+            // Adicionar resolução detalhada na seção final
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            resCard.innerHTML = `
+                <h4>Questão ${q.id} - Resolução</h4>
+                <p><strong>Sua resposta:</strong> ${selectedValue === -1 ? 'Não respondida' : q.options[selectedValue]}</p>
+                <p><strong>Gabarito:</strong> ${q.options[q.correct]}</p>
+                <p style="font-style: italic; color: #555;">${q.explanation}</p>
+            `;
+            resolutionsDiv.appendChild(resCard);
+        });
+
+        // Exibir resultados
+        document.getElementById('score-display').innerText = `${score}/${total}`;
+        document.getElementById('results-section').style.display = 'block';
+        
+        let comment = "";
+        if(score === total) comment = "Excelente! Você domina o Código de Ética.";
+        else if(score >= 7) comment = "Bom resultado! Continue revisando os pontos de atenção.";
+        else comment = "Atenção: Revise a literalidade do Decreto, especialmente vedações e deveres.";
+        
+        document.getElementById('score-comment').innerText = comment;
+
+        // Rolar para os resultados
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        
+        // Desabilitar inputs após finalizar
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+        document.querySelector('.btn-submit').style.display = 'none';
+    }
+
+    window.onload = loadQuestions;
+</script>
+
+</body>
+</html>

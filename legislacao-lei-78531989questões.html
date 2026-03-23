@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo: Lei Federal nº 7.853/1989</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f8f9fa;
+        }
+
+        .option-label input {
+            margin-right: 15px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .btn-finish {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .btn-finish:hover {
+            background-color: #2c3e50;
+        }
+
+        #results {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            background: #f1f4f8;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--accent-color);
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #fdfdfd;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .correct-answer {
+            background-color: rgba(39, 174, 96, 0.1) !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .wrong-answer {
+            background-color: rgba(192, 57, 43, 0.1) !important;
+            border-color: var(--wrong-color) !important;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .badge-correct { background: var(--correct-color); color: white; }
+        .badge-wrong { background: var(--wrong-color); color: white; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Interativo: Lei nº 7.853/1989</h1>
+        <p>Estilo Banca Fundatec - 10 Questões com Resoluções Completas</p>
+    </header>
+
+    <div id="quiz-container">
+        <!-- Questões serão inseridas via JS -->
+    </div>
+
+    <button class="btn-finish" id="submit-btn" onclick="calculateResults()">Finalizar Quiz e Ver Resoluções</button>
+
+    <div id="results">
+        <div class="score-display" id="score-text"></div>
+        <p id="feedback-text"></p>
+        <button class="btn-finish" onclick="window.location.reload()" style="background:#7f8c8d; width: auto; display: inline-block;">Reiniciar Simulado</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Considere as disposições da Lei Federal nº 7.853/1989, que estabelece normas gerais para assegurar o pleno exercício dos direitos individuais e sociais das pessoas com deficiência. De acordo com o Art. 1º e suas atualizações, analise as assertivas abaixo:<br><br>I. Na aplicação e interpretação da referida Lei, serão considerados valores básicos como a igualdade de tratamento e oportunidade, a justiça social e o respeito à dignidade da pessoa humana.<br>II. As normas desta Lei visam a garantir às pessoas com deficiência as ações governamentais necessárias ao seu cumprimento, sendo a matéria entendida como obrigação nacional a cargo exclusivo da União e dos Estados, excluída a responsabilidade da sociedade civil.<br>III. Em virtude da redação dada pela Lei nº 15.155/2025, o termo 'pessoas portadoras de deficiência' foi atualizado para 'pessoas com deficiência' no corpo do Artigo 1º, § 2º.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas III.",
+                "Apenas I e II.",
+                "Apenas I e III."
+            ],
+            correct: 4,
+            resolution: `<strong>Resolução:</strong> A assertiva I está correta (Art. 1º, § 1º). A assertiva II está incorreta pois o § 2º define que a garantia é obrigação do Poder Público E da sociedade civil. A assertiva III está correta, refletindo a atualização terminológica da Lei nº 15.155/2025.`
+        },
+        {
+            id: 2,
+            text: "No âmbito da Política Nacional para a Integração da Pessoa com Deficiência, o Poder Público e seus órgãos devem assegurar o pleno exercício de direitos básicos. Sobre as ações governamentais na área da educação, previstas no Art. 2º da Lei nº 7.853/1989, assinale a alternativa correta:",
+            options: [
+                "A oferta de educação especial deve ser prioritariamente realizada em estabelecimentos de ensino exclusivos, visando evitar o convívio com alunos sem deficiência.",
+                "É assegurada a matrícula compulsória em cursos regulares de estabelecimentos públicos e particulares de pessoas com deficiência capazes de se integrarem no sistema regular de ensino.",
+                "A legislação desonera os estabelecimentos particulares da obrigatoriedade de aceitar alunos com deficiência, caso estes não comprovem adaptação prévia.",
+                "A educação especial é entendida como um sistema paralelo e independente, não devendo haver convergência pedagógica com as Diretrizes Curriculares Nacionais.",
+                "Cabe ao Poder Público restringir o acesso à educação especial aos níveis fundamental e médio, sendo o ensino superior facultativo."
+            ],
+            correct: 1,
+            resolution: `<strong>Resolução:</strong> A alternativa B está correta conforme o Art. 2º, parágrafo único, inciso I, alínea "a". A lei impõe a matrícula compulsória tanto em escolas públicas quanto particulares para PCDs aptas ao sistema regular.`
+        },
+        {
+            id: 3,
+            text: "A Lei nº 7.853/1989 determina as diretrizes para as ações governamentais na área da saúde. Sobre esse tema, analise as seguintes assertivas:<br><br>I. O Poder Público deve garantir a promoção de ações preventivas, compreendendo o planejamento familiar, o atendimento pré-natal e a imunização.<br>II. É assegurado o acesso de pessoas com deficiência a estabelecimentos de saúde públicos e privados, devendo estes dispensar tratamento prioritário e adequado.<br>III. A lei veda expressamente o desenvolvimento de programas especializados de prevenção e atendimento médico, visando a unificação de todos os procedimentos de saúde na rede básica comum.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas III.",
+                "Apenas I e II.",
+                "I, II e III."
+            ],
+            correct: 3,
+            resolution: `<strong>Resolução:</strong> I e II estão corretas (Art. 2º, inciso II). A III está incorreta porque a alínea "d" prevê expressamente o desenvolvimento de programas especializados, e não sua vedação.`
+        },
+        {
+            id: 4,
+            text: "Com base na Lei nº 7.853/1989 e nas inovações trazidas pela Lei nº 15.155/2025, assinale a alternativa que apresenta uma medida de apoio às pessoas com deficiência no campo do trabalho e recursos humanos:",
+            options: [
+                "O incentivo ao empreendedorismo entre as medidas de apoio às pessoas com deficiência.",
+                "A exclusão de pessoas com deficiência severa dos programas de qualificação profissional.",
+                "A proibição da adoção de legislação específica que discipline a reserva de mercado de trabalho em entidades privadas.",
+                "O impedimento de acesso a cargos públicos para pessoas com deficiência que necessitem de tecnologias assistivas.",
+                "A priorização de contratos de trabalho temporários e informais para assegurar a rotatividade."
+            ],
+            correct: 0,
+            resolution: `<strong>Resolução:</strong> Alternativa A correta. A atualização de 2025 (Lei 15.155) incluiu o incentivo ao empreendedorismo como ferramenta de integração econômica e autonomia da PCD.`
+        },
+        {
+            id: 5,
+            text: "A tutela jurisdicional dos interesses coletivos ou difusos das pessoas com deficiência é um dos pilares da Lei nº 7.853/1989. Segundo o Art. 3º da referida norma, as medidas judiciais destinadas à proteção desses interesses podem ser propostas por:",
+            options: [
+                "Exclusivamente pelo Ministério Público Federal.",
+                "Qualquer cidadão, independentemente de representação legal ou constituição de advogado.",
+                "União, Estados, Municípios, Distrito Federal, associações constituídas há mais de um ano, empresas públicas e sociedades de economia mista.",
+                "Apenas associações que possuam mais de cinco anos de funcionamento.",
+                "Organizações internacionais de direitos humanos, sendo vedada a atuação de órgãos da administração direta."
+            ],
+            correct: 2,
+            resolution: `<strong>Resolução:</strong> Alternativa C correta conforme Art. 3º. A legitimidade é concorrente entre entes federados, administração indireta, MP e associações (com 1 ano de constituição).`
+        },
+        {
+            id: 6,
+            text: "Em relação à atuação do Ministério Público nas ações destinadas à proteção de interesses relacionados à deficiência, conforme a Lei nº 7.853/1989, analise as assertivas:<br><br>I. O Ministério Público poderá instaurar, sob sua presidência, inquérito civil, ou requisitar informações, fixando prazo não inferior a 10 dias úteis.<br>II. Se o órgão do Ministério Público se convencer da inexistência de elementos para a propositura da ação, promoverá o arquivamento fundamentado, sem necessidade de reexame por órgãos superiores.<br>III. O Ministério Público intervirá obrigatoriamente nas ações públicas, coletivas ou individuais, em que se discutam interesses relacionados à deficiência das pessoas.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas III.",
+                "Apenas I e III.",
+                "I, II e III."
+            ],
+            correct: 3,
+            resolution: `<strong>Resolução:</strong> I e III estão corretas. A II está errada porque o § 1º do Art. 6º exige que o arquivamento seja submetido ao reexame do Conselho Superior do MP.`
+        },
+        {
+            id: 7,
+            text: "A Lei nº 7.853/1989 tipifica condutas criminosas que violam os direitos das pessoas com deficiência. Constitui crime punível com reclusão de 2 a 5 anos e multa:",
+            options: [
+                "Recusar, cobrar valores adicionais, suspender, procrastinar, cancelar ou fazer cessar inscrição de aluno em estabelecimento de ensino em razão de sua deficiência.",
+                "Manifestar opinião contrária à inclusão escolar em redes sociais, desde que não haja ofensa direta.",
+                "Solicitar atendimento prioritário em bancos sem portar o cartão de identificação nacional.",
+                "Deixar de atualizar o cadastro de beneficiários de programas sociais no prazo estabelecido.",
+                "Propor ação civil pública contra o Estado sem a presença de novos elementos de prova."
+            ],
+            correct: 0,
+            resolution: `<strong>Resolução:</strong> Alternativa A correta. O Art. 8º tipifica a recusa de matrícula como crime, com pena agravada pela LBI para 2 a 5 anos de reclusão.`
+        },
+        {
+            id: 8,
+            text: "De acordo com o Art. 8º, inciso II, da Lei nº 7.853/1989, em relação ao acesso ao trabalho, constitui crime:",
+            options: [
+                "Obstar, sem justa causa, o acesso de alguém a qualquer cargo público, por motivos derivados de sua deficiência.",
+                "Exigir exames admissionais de rotina para candidatos com deficiência em concursos públicos.",
+                "Oferecer salários superiores a pessoas com deficiência para incentivar sua permanência na empresa.",
+                "Contratar pessoas com deficiência apenas para o cumprimento de cotas legais, sem oferecer plano de carreira.",
+                "Realizar adaptações arquitetônicas no ambiente de trabalho sem prévia consulta ao sindicato."
+            ],
+            correct: 0,
+            resolution: `<strong>Resolução:</strong> Alternativa A correta. Impedir o acesso a cargo público por motivo de deficiência sem justificativa técnica plausível é crime (Art. 8º, II).`
+        },
+        {
+            id: 9,
+            text: "Sobre as disposições processuais e recursais das ações civis previstas na Lei nº 7.853/1989, assinale a alternativa correta:",
+            options: [
+                "A sentença que concluir pela improcedência da ação produz efeitos imediatos, não cabendo qualquer tipo de reexame.",
+                "Das sentenças e decisões proferidas contra o autor da ação, poderá recorrer apenas o Ministério Público.",
+                "A sentença que concluir pela carência ou pela improcedência da ação fica sujeita ao duplo grau de jurisdição, não produzindo efeito senão depois de confirmada pelo tribunal.",
+                "O inquérito civil presidido pelo Ministério Público deve obrigatoriamente durar no máximo 30 dias.",
+                "A condenação em honorários advocatícios do autor da ação é obrigatória em caso de improcedência."
+            ],
+            correct: 2,
+            resolution: `<strong>Resolução:</strong> Alternativa C correta (Art. 4º, § 1º). Sentenças de improcedência ou carência da ação na tutela coletiva de PCDs exigem reexame necessário pelo Tribunal.`
+        },
+        {
+            id: 10,
+            text: "Considerando a integração entre a Lei nº 7.853/1989 e as definições técnicas trazidas pelo Decreto nº 3.298/1999, assinale a definição correta de 'deficiência física':",
+            options: [
+                "Qualquer alteração estética que cause desconforto social, independentemente do comprometimento da função física.",
+                "Perda bilateral, parcial ou total, de dez decibéis (dB) ou mais.",
+                "Funcionamento intelectual significativamente superior à média, com manifestação após os 21 anos.",
+                "Alteração completa ou parcial de um ou mais segmentos do corpo humano, acarretando o comprometimento da função física, como paraplegia, amputação e nanismo.",
+                "Redução da acuidade visual que não possa ser corrigida por lentes de contato, limitando-se exclusivamente à cegueira total."
+            ],
+            correct: 3,
+            resolution: `<strong>Resolução:</strong> Alternativa D correta. Segue a literalidade do Art. 4º, inciso I do Decreto 3.298/99. As demais trazem parâmetros técnicos incorretos (ex: auditiva exige perda de 41dB ou mais).`
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHTML += `
+                    <label class="option-label" id="label-${index}-${optIndex}">
+                        <input type="radio" name="question-${index}" value="${optIndex}">
+                        <span>${opt}</span>
+                    </label>
+                `;
+            });
+
+            card.innerHTML = `
+                <span class="question-text">Questão ${index + 1}</span>
+                <p>${q.text}</p>
+                <div class="options-container">
+                    ${optionsHTML}
+                </div>
+                <div class="resolution-box" id="res-${index}">
+                    ${q.resolution}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function calculateResults() {
+        let score = 0;
+        const total = questions.length;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            resolutionBox.style.display = 'block';
+
+            if (selected) {
+                const answer = parseInt(selected.value);
+                if (answer === q.correct) {
+                    score++;
+                    document.getElementById(`label-${index}-${answer}`).classList.add('correct-answer');
+                } else {
+                    document.getElementById(`label-${index}-${answer}`).classList.add('wrong-answer');
+                    document.getElementById(`label-${index}-${q.correct}`).classList.add('correct-answer');
+                }
+            } else {
+                // Marcar a correta caso não tenha respondido
+                document.getElementById(`label-${index}-${q.correct}`).classList.add('correct-answer');
+            }
+        });
+
+        // Mostrar resultados
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.style.display = 'block';
+        document.getElementById('score-text').innerText = `Você acertou ${score} de ${total}`;
+        
+        let feedback = "";
+        if(score === total) feedback = "Excelente! Você domina o conteúdo.";
+        else if(score >= 7) feedback = "Muito bom! Continue revisando os detalhes.";
+        else feedback = "Bom esforço. Revise as resoluções para fixar os conceitos.";
+        
+        document.getElementById('feedback-text').innerText = feedback;
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Scroll suave para o resultado
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Iniciar
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>
