@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado EPT - Interdisciplinaridade e Projetos Integradores</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --wrong-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            font-size: 0.95rem;
+            color: #636e72;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-label input {
+            margin-top: 6px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        /* Classes para o resultado */
+        .option-label.correct {
+            border-color: var(--correct-color);
+            background-color: #eafaf1;
+            font-weight: bold;
+        }
+
+        .option-label.wrong {
+            border-color: var(--wrong-color);
+            background-color: #fdf2f2;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+            border-radius: 0 4px 4px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ced4da;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e9ecef;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #f1f2f6;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Interdisciplinaridade e Projetos Integradores na EPT</h1>
+        <p class="intro-text">Baseado no estilo da banca Fundatec e legislação vigente (Resolução CNE/CP nº 1/2021).</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- As questões serão inseridas aqui via JS -->
+    </div>
+
+    <button id="submit-quiz" class="submit-btn">Finalizar e Ver Resoluções</button>
+
+    <div id="results-summary">
+        <h2>Resultado do Simulado</h2>
+        <div class="score" id="score-display">0/10</div>
+        <p id="score-text"></p>
+        <button onclick="window.location.reload()" style="padding: 10px 20px; cursor: pointer;">Refazer Simulado</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No que tange às Diretrizes Curriculares Nacionais Gerais para a Educação Profissional e Tecnológica (EPT), estabelecidas pela Resolução CNE/CP nº 1/2021, a organização curricular deve ser fundamentada em princípios que buscam a superação do dualismo educacional histórico no Brasil. Sobre os princípios norteadores da EPT, analise as assertivas abaixo:<br><br>I. A centralidade do trabalho é assumida como princípio educativo e base para a organização curricular, visando à construção de competências profissionais em sua integração com a ciência, a cultura e a tecnologia.<br>II. A interdisciplinaridade deve ser assegurada no planejamento curricular e na prática pedagógica, visando à superação da fragmentação de conhecimentos e da segmentação e descontextualização curricular.<br>III. O estímulo à adoção da pesquisa como princípio pedagógico deve estar presente em um processo formativo voltado para um mundo em transformação, integrando saberes cognitivos e socioemocionais.<br>IV. A articulação com o setor produtivo deve focar na construção de itinerários formativos que preparem para o exercício de profissões operacionais, técnicas e tecnológicas, na perspectiva da inserção laboral.<br>V. A tecnologia deve ser compreendida enquanto expressão das distintas formas de aplicação das bases científicas, atuando como fio condutor dos saberes essenciais no setor produtivo.",
+            options: [
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "Apenas I, III, IV e V.",
+                "Apenas II, III, IV e V.",
+                "I, II, III, IV e V."
+            ],
+            correct: 4,
+            resolution: `<strong>Gabarito: E</strong><br><br>A análise dos princípios da EPT exige uma compreensão profunda da Resolução CNE/CP nº 1/2021. Todas as assertivas estão corretas e refletem o Artigo 3º da resolução. 
+            <br><br><strong>Tabela 1 - Princípios Fundamentais:</strong>
+            <table>
+                <tr><th>Princípio</th><th>Função no Currículo Integrado</th></tr>
+                <tr><td>Trabalho como Princípio Educativo</td><td>Base para a organização de conteúdos e estratégias.</td></tr>
+                <tr><td>Pesquisa como Princípio Pedagógico</td><td>Estímulo à autonomia, investigação e inovação.</td></tr>
+                <tr><td>Interdisciplinaridade</td><td>Superação da fragmentação e descontextualização.</td></tr>
+                <tr><td>Indissociabilidade Teoria-Prática</td><td>Garantia de que o saber e o fazer caminham juntos.</td></tr>
+            </table>`
+        },
+        {
+            id: 2,
+            question: "A interdisciplinaridade na Educação Profissional e Tecnológica é frequentemente apontada como a solução para os limites das disciplinas isoladas em compreender a realidade complexa do mundo do trabalho. Sobre as estratégias de superação da fragmentação do conhecimento por meio de práticas interdisciplinares, assinale a alternativa correta.",
+            options: [
+                "A interdisciplinaridade caracteriza-se pela simples justaposição de conteúdos de diferentes matérias em um mesmo cronograma, sem a necessidade de integração conceitual ou metodológica.",
+                "A prática interdisciplinar pressupõe a eliminação das disciplinas escolares, fundindo todos os conhecimentos em uma única área de saber sem fronteiras metodológicas específicas.",
+                "O movimento interdisciplinar deve ancorar-se em diretrizes que o fortaleçam como uma estratégia de pensar a educação, promovendo o diálogo e a cooperação entre diferentes áreas do saber.",
+                "A interdisciplinaridade na EPT deve ser aplicada exclusivamente nas disciplinas da base nacional comum, preservando o isolamento das disciplinas técnicas para garantir o rigor operacional.",
+                "A organização curricular fragmentada é preferível na EPT, pois permite que o estudante se especialize rapidamente em tarefas manuais repetitivas, atendendo às demandas imediatas do mercado."
+            ],
+            correct: 2,
+            resolution: `<strong>Gabarito: C</strong><br><br>A interdisciplinaridade preserva a identidade das disciplinas, mas remove as barreiras que impedem o diálogo entre elas. A "simples justaposição" (A) define a multidisciplinaridade. A eliminação de disciplinas (B) é um erro conceitual comum.`
+        },
+        {
+            id: 3,
+            question: "O Projeto Integrador (PI) constitui-se como uma ferramenta metodológica central para a efetivação do currículo integrado na EPT. Considere as seguintes afirmações sobre o desenvolvimento de projetos integradores e a organização didático-pedagógica:<br><br>I. O Projeto Integrador é uma proposta de trabalho interdisciplinar que visa inter-relacionar conhecimentos das áreas específicas e gerais, promovendo a capacidade de pesquisa e a formação integral.<br>II. A implementação de projetos integradores dispensa o planejamento pedagógico coletivo, uma vez que cada docente deve orientar sua parte do projeto de forma autônoma e isolada.<br>III. O PI atua como prática de pesquisa que articula e inter-relaciona os saberes desenvolvidos pelas disciplinas, contextualizando-os às dimensões da cultura, do trabalho e da ciência.<br>IV. O desenvolvimento de projetos integradores deve ser balizado pelos princípios da integração e da interdisciplinaridade, permitindo o diálogo entre diferentes áreas do conhecimento para superar a divisão entre teoria e prática.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 3,
+            resolution: `<strong>Gabarito: D</strong><br><br>A assertiva II está incorreta porque o PI exige, obrigatoriamente, um planejamento pedagógico coletivo. Sem a interlocução dos docentes, o projeto perde seu caráter integrador.
+            <br><br><strong>Tabela 2 - Eixos de Formação do PI:</strong>
+            <table>
+                <tr><th>Eixo</th><th>Objetivo Pedagógico</th></tr>
+                <tr><td>Conceitos de EPT</td><td>Alinhamento teórico sobre trabalho e ciência.</td></tr>
+                <tr><td>Currículo e Interdisciplinaridade</td><td>Articulação entre saberes técnicos e gerais.</td></tr>
+                <tr><td>Prática Pedagógica</td><td>Aplicação metodológica do projeto.</td></tr>
+            </table>`
+        },
+        {
+            id: 4,
+            question: "De acordo com a Resolução CNE/CP nº 1/2021, a utilização de estratégias educacionais que permitam a contextualização e a flexibilização curricular é essencial para a compreensão de significados. Nesse contexto, a interdisciplinaridade deve garantir:",
+            options: [
+                "A subordinação definitiva das disciplinas da base comum aos interesses imediatos de produtividade das empresas locais.",
+                "A indissociabilidade entre a teoria e a prática profissional em todo o processo de ensino e aprendizagem.",
+                "A substituição das aulas teóricas por atividades práticas exclusivamente manuais e desvinculadas de bases científicas.",
+                "O isolamento dos currículos técnicos em relação aos avanços tecnológicos globais, focando apenas em saberes tradicionais.",
+                "A centralidade da memorização de fórmulas matemáticas em detrimento da aplicação em problemas reais do setor produtivo."
+            ],
+            correct: 1,
+            resolution: `<strong>Gabarito: B</strong><br><br>Este item exige o conhecimento do Art. 3º, inciso IX da Res. 1/2021. A indissociabilidade garante que o aluno entenda a ciência por trás do funcionamento das tecnologias, e não apenas o "fazer" mecânico.`
+        },
+        {
+            id: 5,
+            question: "A formação docente para a Educação Profissional e Tecnológica enfrenta desafios significativos para a implementação de currículos integrados. Segundo a literatura especializada e relatos de práticas integradoras, são obstáculos para a efetivação da interdisciplinaridade, EXCETO:",
+            options: [
+                "A precarização do trabalho docente e a falta de carga horária destinada ao planejamento coletivo.",
+                "A ausência de formação específica para os docentes que atuam no eixo tecnológico sobre mediação pedagógica.",
+                "A manutenção de barreiras culturais que priorizam o conteúdo estanque e a linearidade curricular.",
+                "O estabelecimento de horários síncronos de coordenação e a criação de comunidades de prática entre professores.",
+                "A falta de integração entre as disciplinas do 'eixo comum' e as disciplinas do 'eixo técnico'."
+            ],
+            correct: 3,
+            resolution: `<strong>Gabarito: D</strong><br><br>O estabelecimento de horários síncronos e comunidades de prática são soluções e estratégias recomendadas, não obstáculos.
+            <br><br><strong>Tabela 3 - Comparativo:</strong>
+            <table>
+                <tr><th>Dimensão</th><th>Cenário de Fragmentação</th><th>Cenário de Integração</th></tr>
+                <tr><td>Planejamento</td><td>Individual e isolado.</td><td>Coletivo e articulado.</td></tr>
+                <tr><td>Conhecimento</td><td>Estanque e linear.</td><td>Global e espiralado.</td></tr>
+            </table>`
+        },
+        {
+            id: 6,
+            question: "Historicamente, a Educação Profissional no Brasil foi marcada pela dualidade entre a formação propedêutica e a formação para o trabalho manual. O currículo integrado na perspectiva omnilateral busca superar essa divisão através de:",
+            options: [
+                "Uma formação que une trabalho, ciência, cultura e tecnologia, promovendo o desenvolvimento humano em suas múltiplas dimensões.",
+                "Um modelo compensatório que visa apenas a certificação rápida de jovens e adultos com defasagem escolar.",
+                "Um sistema de ensino que prioriza as competências técnicas e instrumentais, ignorando aspectos éticos e de cidadania.",
+                "Uma estrutura curricular baseada em módulos independentes e autônomos, sem interdependência entre as áreas de conhecimento.",
+                "Uma organização que mantém a separação entre a escola básica e a formação profissional técnica de forma estanque."
+            ],
+            correct: 0,
+            resolution: `<strong>Gabarito: A</strong><br><br>A formação omnilateral (integral) visa o desenvolvimento do ser humano em todas as suas dimensões: intelectual, física, técnica, estética, ética e política.`
+        },
+        {
+            id: 7,
+            question: "Considere a importância da pesquisa como princípio pedagógico na EPT. Sobre o papel da pesquisa no desenvolvimento de competências profissionais, assinale a alternativa correta.",
+            options: [
+                "A pesquisa deve ser vista como uma atividade extracurricular opcional, não devendo integrar o planejamento das disciplinas obrigatórias.",
+                "A adoção da pesquisa permite a integração de saberes cognitivos e socioemocionais para a produção de tecnologia e intervenção social com impacto positivo.",
+                "A pesquisa na EPT serve apenas para familiarizar o aluno com normas acadêmicas de escrita, sem relação com a prática profissional real.",
+                "O uso da pesquisa como princípio pedagógico é restrito aos cursos de nível superior, sendo inadequado para o ensino médio técnico.",
+                "A pesquisa substitui a necessidade de ensino teórico, focando apenas na descoberta empírica e assistemática por parte do estudante."
+            ],
+            correct: 1,
+            resolution: `<strong>Gabarito: B</strong><br><br>A pesquisa na EPT não é um fim acadêmico em si, mas um princípio pedagógico que estimula a autonomia e a capacidade de resolver problemas reais do mundo do trabalho.`
+        },
+        {
+            id: 8,
+            question: "Analise as assertivas abaixo sobre a organização da Educação Profissional e Tecnológica organizada por eixos tecnológicos:<br><br>I. A organização por eixos tecnológicos visa agrupar cursos conforme suas bases científicas e afinidades tecnológicas, facilitando a construção de itinerários formativos.<br>II. O eixo tecnológico serve como o 'eixo comum' de empreendedorismo e inovação que deve perpassar todas as disciplinas de uma graduação ou curso técnico.<br>III. O desenvolvimento de projetos interdisciplinares é facilitado quando as disciplinas de um mesmo eixo tecnológico dialogam com os temas geradores da realidade local.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e III.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 4,
+            resolution: `<strong>Gabarito: E</strong><br><br>Todas as assertivas descrevem corretamente a função dos eixos tecnológicos como matrizes de conhecimento que facilitam a verticalização e a integração curricular.`
+        },
+        {
+            id: 9,
+            question: "Sobre a avaliação de aprendizagem em contextos de projetos integradores na EPT, assinale a alternativa que melhor expressa a perspectiva da formação integral.",
+            options: [
+                "A avaliação deve ser pontual, realizada apenas ao final do curso para fins de certificação profissional técnica.",
+                "A avaliação deve focar exclusivamente na produtividade e na eficiência técnica do aluno, ignorando o processo de construção do conhecimento.",
+                "A avaliação deve ser processual e formativa, acompanhando o desenvolvimento das competências e a capacidade do aluno de articular diferentes saberes.",
+                "A avaliação deve ser individualista, penalizando o aluno por dificuldades do grupo durante a execução de projetos interdisciplinares.",
+                "A avaliação deve desconsiderar as experiências prévias de vida e trabalho dos estudantes, focando apenas nos conteúdos formais do currículo."
+            ],
+            correct: 2,
+            resolution: `<strong>Gabarito: C</strong><br><br>Diferente da avaliação tradicional classificatória, nos Projetos Integradores o foco é o percurso do aluno e sua capacidade de mobilizar conhecimentos multidisciplinares.`
+        },
+        {
+            id: 10,
+            question: "A Resolução CNE/CP nº 1/2021 destaca a importância da articulação entre a educação básica e a educação profissional. No Ensino Médio Integrado, essa articulação se dá de forma que:",
+            options: [
+                "O ensino fundamental seja concluído na mesma instituição, garantindo matrícula única e indissociabilidade entre formação geral e técnica.",
+                "As disciplinas técnicas sejam ofertadas em contraturno obrigatório, sem relação pedagógica com as disciplinas de base nacional comum.",
+                "O currículo seja planejado de modo que o trabalho atue como eixo estruturante, unindo saberes acadêmicos e fazeres profissionais.",
+                "A formação técnica seja facultativa e desvinculada do histórico escolar do aluno, visando apenas o preenchimento de vagas ociosas no mercado.",
+                "O ensino médio regular seja substituído integralmente por treinamentos práticos de curta duração em empresas parceiras."
+            ],
+            correct: 2,
+            resolution: `<strong>Gabarito: C</strong><br><br>No Ensino Médio Integrado, o trabalho atua como eixo estruturante, unindo ciência e técnica em um projeto pedagógico único.
+            <br><br><strong>Tabela 4 - Evolução Legislativa:</strong>
+            <table>
+                <tr><th>Norma</th><th>Impacto</th></tr>
+                <tr><td>Decreto 2.208/1997</td><td>Separação obrigatória.</td></tr>
+                <tr><td>Decreto 5.154/2004</td><td>Retomada do Ensino Integrado.</td></tr>
+                <tr><td>Resolução 1/2021</td><td>Consolidação da interdisciplinaridade.</td></tr>
+            </table>`
+        }
+    ];
+
+    const quizForm = document.getElementById('quiz-form');
+    const submitBtn = document.getElementById('submit-quiz');
+    const resultsSummary = document.getElementById('results-summary');
+    const scoreDisplay = document.getElementById('score-display');
+    const scoreText = document.getElementById('score-text');
+
+    // Função para embaralhar se necessário (não faremos aqui para manter a ordem da banca)
+    function renderQuiz() {
+        quizData.forEach((q, index) => {
+            const questionCard = document.createElement('div');
+            questionCard.className = 'question-card';
+            questionCard.id = `q-card-${index}`;
+
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerHTML = `Questão ${index + 1}: ${q.question}`;
+            questionCard.appendChild(qText);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options-container';
+
+            q.options.forEach((opt, optIndex) => {
+                const label = document.createElement('label');
+                label.className = 'option-label';
+                label.setAttribute('for', `q${index}-o${optIndex}`);
+                label.id = `label-q${index}-o${optIndex}`;
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question${index}`;
+                radio.id = `q${index}-o${optIndex}`;
+                radio.value = optIndex;
+
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(opt));
+                optionsDiv.appendChild(label);
+            });
+
+            questionCard.appendChild(optionsDiv);
+
+            const resolutionDiv = document.createElement('div');
+            resolutionDiv.className = 'resolution-box';
+            resolutionDiv.id = `res-${index}`;
+            resolutionDiv.innerHTML = q.resolution;
+            questionCard.appendChild(resolutionDiv);
+
+            quizForm.appendChild(questionCard);
+        });
+    }
+
+    function checkResults() {
+        let score = 0;
+        let answeredAll = true;
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            
+            // Mostrar todas as resoluções
+            resolutionBox.style.display = 'block';
+
+            if (selected) {
+                const answer = parseInt(selected.value);
+                const correctLabel = document.getElementById(`label-q${index}-o${q.correct}`);
+                const selectedLabel = document.getElementById(`label-q${index}-o${answer}`);
+
+                if (answer === q.correct) {
+                    score++;
+                    correctLabel.classList.add('correct');
+                } else {
+                    selectedLabel.classList.add('wrong');
+                    correctLabel.classList.add('correct');
+                }
+            } else {
+                // Se não respondeu, apenas mostra a correta
+                const correctLabel = document.getElementById(`label-q${index}-o${q.correct}`);
+                correctLabel.classList.add('correct');
+            }
+        });
+
+        // Mostrar resumo
+        scoreDisplay.innerText = `${score} / ${quizData.length}`;
+        resultsSummary.style.display = 'block';
+        
+        if(score >= 8) scoreText.innerText = "Excelente! Você domina os conceitos de EPT e Interdisciplinaridade.";
+        else if(score >= 5) scoreText.innerText = "Bom desempenho. Revise os pontos destacados nas resoluções.";
+        else scoreText.innerText = "Atenção: Revise a Resolução CNE/CP nº 1/2021 e os conceitos de Currículo Integrado.";
+
+        // Desativar inputs e botão
+        document.querySelectorAll('input[type="radio"]').forEach(el => el.disabled = true);
+        submitBtn.style.display = 'none';
+
+        // Scroll para o topo dos resultados
+        resultsSummary.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    submitBtn.addEventListener('click', checkResults);
+
+    // Iniciar
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Estruturado - Planejamento Pedagógico IFC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        .container-custom {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        mark {
+            background-color: #fef08a;
+            color: #000;
+            padding: 0 3px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        h1, h2, h3 {
+            color: #111827;
+            font-weight: 700;
+        }
+
+        h2 {
+            border-left: 4px solid #059669;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        /* Tabelas sem scroll horizontal */
+        .table-wrapper {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Força o ajuste ao container */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            word-wrap: break-word; /* Quebra palavras longas */
+        }
+
+        th {
+            background-color: #f9fafb;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #4b5563;
+        }
+
+        .important-box {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 6px solid #374151;
+        }
+
+        .audio-section {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .btn-questoes {
+            display: inline-block;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-top: 2rem;
+        }
+
+        .btn-questoes:hover {
+            background-color: #404040;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .container-custom { padding: 1rem; }
+            th, td { padding: 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-custom">
+
+    <!-- REPRODUTOR DE ÁUDIO -->
+    <div class="audio-section">
+        <p class="text-sm font-bold text-gray-500 mb-2">🎙️ AUDIOAULA DE REVISÃO</p>
+        <audio controls class="w-full">
+            <!-- Espaço para o nome do arquivo mp3 -->
+            <source src="pedagogia-planejamento-pedagogico.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <p class="text-xs text-gray-400 mt-2 italic">* O arquivo "aula_planejamento_ifc.mp3" deve estar na mesma pasta.</p>
+    </div>
+
+    <header class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl mb-2">Planejamento do Trabalho Pedagógico</h1>
+        <p class="text-lg text-gray-600">Foco: IFC (Banca Fundatec) - Professor de Geografia</p>
+    </header>
+
+    <main>
+        <!-- DEFINIÇÃO E CARACTERÍSTICAS -->
+        <section>
+            <h2>1. Definição e Dimensões do Planejamento</h2>
+            <p>O planejamento no contexto do IFC não é um ato burocrático isolado, mas um <mark>processo político-pedagógico</mark>. Ele visa a transformação da realidade escolar através da organização racional da ação docente.</p>
+            
+            <ul class="list-disc ml-5 mt-4 space-y-2">
+                <li><strong>Dimensão Política:</strong> Compromisso com a formação humana integral e transformação social.</li>
+                <li><strong>Dimensão Pedagógica:</strong> Seleção de métodos e conteúdos que garantam a aprendizagem.</li>
+                <li><strong>Dimensão Técnica:</strong> Domínio dos documentos e prazos institucionais (<mark>RAD, PPC, PDI</mark>).</li>
+            </ul>
+        </section>
+
+        <!-- HIERARQUIA DE DOCUMENTOS -->
+        <section>
+            <h2>2. Hierarquia e Alinhamento Documental</h2>
+            <p>A prova da Fundatec cobra frequentemente a relação entre os níveis de planejamento. O documento de nível inferior deve sempre estar <mark>alinhado e em conformidade</mark> com o superior.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Foco / Abrangência</th>
+                            <th>Duração/Revisão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PDI</strong></td>
+                            <td>Plano de Desenvolvimento Institucional (Diretrizes do IFC como um todo).</td>
+                            <td>Quinquenal (5 anos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PPC</strong></td>
+                            <td>Projeto Pedagógico de Curso. Define o <mark>Perfil do Egresso</mark> e Matriz Curricular.</td>
+                            <td>Vigência do curso</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plano de Ensino</strong></td>
+                            <td>Operacionalização da <mark>Ementa</mark> para uma disciplina específica.</td>
+                            <td>Semestral / Anual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plano de Aula</strong></td>
+                            <td>Detalhamento cronológico da aula; recursos e <mark>sequência didática</mark>.</td>
+                            <td>Diário</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- COMPETÊNCIAS -->
+        <section>
+            <h2>3. Organização por Competências (Res. CNE 01/2021)</h2>
+            <p>Diferente do ensino conteudista, a organização por competências foca no <mark>CHAV</mark>. No IFC, o ensino técnico deve integrar conhecimentos científicos com a prática laboral.</p>
+            
+            <div class="important-box">
+                <p><strong>CHAV para Memorizar:</strong></p>
+                <ul class="mt-2">
+                    <li><strong>C</strong>onhecimentos (Saber)</li>
+                    <li><strong>H</strong>abilidades (Saber Fazer)</li>
+                    <li><strong>A</strong>titudes (Saber Ser)</li>
+                    <li><strong>V</strong>alores (Saber Conviver)</li>
+                </ul>
+            </div>
+            
+            <p>A <mark>Socioemocionalidade</mark> é agora parte obrigatória: o docente deve planejar atividades que estimulem resiliência, empatia e cooperação.</p>
+        </section>
+
+        <!-- BUROCRACIA DOCENTE -->
+        <section>
+            <h2>4. Burocracia Pedagógica: RAD, PTD e RTD</h2>
+            <p>Essencial para a parte administrativa do cargo no IFC. O descumprimento de prazos gera sanções administrativas.</p>
+            
+            <ul class="space-y-4 mt-4">
+                <li>
+                    <strong>PTD (Plano de Trabalho Docente):</strong> 
+                    Documento onde o professor declara suas horas de ensino, pesquisa, extensão e administração. 
+                    <mark>Prazo: 20 dias após o início do semestre.</mark>
+                </li>
+                <li>
+                    <strong>RTD (Relatório de Trabalho Docente):</strong> 
+                    Relatório que prova a execução do PTD anterior. 
+                    <mark>Apresentado juntamente com o novo PTD.</mark>
+                </li>
+                <li>
+                    <strong>Manutenção de Ensino:</strong> 
+                    Tempo reservado para correção de provas e planejamento. No IFC, varia de <mark>1:1 ou 1:0,5</mark> dependendo da carga horária.
+                </li>
+            </ul>
+        </section>
+
+        <!-- INSTÂNCIAS -->
+        <section>
+            <h2>5. Instâncias de Aprovação e Validação</h2>
+            <p>Quem manda em quê? A Fundatec troca essas funções para confundir o candidato.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Instância</th>
+                            <th>Papel no Planejamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>NDE</strong> (Núc. Doc. Estruturante)</td>
+                            <td>Acompanha a <mark>atualização e consolidação</mark> do PPC.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Colegiado de Curso</strong></td>
+                            <td>Analisa e <mark>homologa os Planos de Ensino</mark> no início de cada semestre.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CGAE</strong> (Coord. Geral de Ensino)</td>
+                            <td>Gerencia a parte burocrática dos diários e registros de frequência.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ESTRATÉGIAS DE GEOGRAFIA -->
+        <section>
+            <h2>6. Geografia no Planejamento EBTT</h2>
+            <p>Para o concurso de Geografia, o planejamento deve evidenciar a <mark>Indissociabilidade</mark>. No Plano de Ensino, você deve prever como a Geografia se integra ao curso técnico (Ex: Geografia Agrária no curso de Agropecuária).</p>
+            
+            <p class="mt-2"><strong>Conceitos Estruturantes (Saviani/Libâneo):</strong></p>
+            <ul class="list-disc ml-5">
+                <li><mark>Omnilateralidade:</mark> Formação do homem em todas as suas dimensões (intelectual, física, técnica).</li>
+                <li><mark>Politecnia:</mark> Compreensão dos princípios científicos que fundamentam as tecnologias.</li>
+            </ul>
+        </section>
+
+        <!-- TENDÊNCIAS FUNDATEC -->
+        <section class="bg-blue-50 p-6 rounded-lg border border-blue-100 my-8">
+            <h3 class="text-xl font-bold mb-4 text-blue-900">🚨 Radar Fundatec: Fique Atento!</h3>
+            <ul class="space-y-3 text-blue-900">
+                <li>✔️ <strong>O "Peguinha" do Diário:</strong> A banca pode dizer que o Plano de Ensino pode ser alterado a qualquer momento sem aviso. <strong>Falso.</strong> Alterações devem passar pelo Colegiado.</li>
+                <li>✔️ <strong>Taxonomia de Bloom:</strong> Comum em questões de competências. Verbos de ação (Analisar, Avaliar, Criar) devem estar nos <mark>Objetivos de Aprendizagem</mark>.</li>
+                <li>✔️ <strong>Avaliação:</strong> A Fundatec foca em avaliação <mark>Processual e Formativa</mark>. Alternativas que citam "punição" ou "apenas nota" estão incorretas.</li>
+                <li>✔️ <strong>Legislação:</strong> Frequentemente cobram a literalidade da LDB (Art. 12 e 13 sobre incumbências docentes).</li>
+            </ul>
+        </section>
+
+        <div class="text-center pb-20">
+            <a href="pedagogia-planejamento-pedagogicoquestoes.html" class="btn-questoes">
+                IR PARA QUESTÕES.HTML
+            </a>
+            <p class="text-sm text-gray-400 mt-4 italic">Documento revisado em conformidade com o último edital IFC.</p>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

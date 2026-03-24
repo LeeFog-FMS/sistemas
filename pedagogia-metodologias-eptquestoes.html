@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado EPT - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --success-bg: #e1f5fe;
+            --error-bg: #ffebee;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .selected {
+            border-color: var(--primary-color);
+            background-color: #f0f7ff;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        #result-section {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+        }
+
+        .score-circle {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .resolution-area {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .res-card {
+            background: #fff;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+        }
+
+        .correct-answer {
+            background-color: #e8f5e9 !important;
+            border-color: #4caf50 !important;
+        }
+
+        .wrong-answer {
+            background-color: #ffebee !important;
+            border-color: #f44336 !important;
+        }
+
+        .label-correct { color: #2e7d32; font-weight: bold; margin-bottom: 10px; display: block; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Metodologias de Ensino na EPT</h1>
+        <p>Estilo Fundatec - Aprendizagem Baseada em Projetos, Ativas e Integração Teoria-Prática</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <button type="button" class="btn-submit" id="btn-finish" onclick="checkAnswers()">Finalizar Simulado</button>
+
+    <div id="result-section">
+        <h2>Resultado do Simulado</h2>
+        <div class="score-circle" id="score-display">0/10</div>
+        <p id="feedback-text"></p>
+        
+        <div class="resolution-area" id="resolutions-list">
+            <h3>Gabarito e Análise Pedagógica Detalhada</h3>
+            <!-- Resolutions will be injected here -->
+        </div>
+
+        <button class="btn-submit" onclick="location.reload()" style="margin-top: 40px; background-color: var(--secondary-color);">Reiniciar Simulado</button>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            q: "A implementação de metodologias ativas no âmbito da Educação Profissional e Tecnológica (EPT) visa reconfigurar o processo de ensino-aprendizagem, retirando o estudante de uma posição de passividade. Sobre a Aprendizagem Baseada em Projetos (ABP), analise as seguintes assertivas:\n\nI. A ABP caracteriza-se por estimular a autonomia, o senso crítico reflexivo e a capacidade técnica e ética para a resolução de problemas complexos originados no mundo do trabalho.\nII. O protagonismo no processo de resolução dos problemas propostos deve ser centralizado na figura do professor, que atua como o principal executor das etapas do projeto, garantindo a precisão técnica dos resultados.\nIII. A metodologia busca a reprodução de situações da vida real, permitindo que os estudantes abordem questões reais de uso e enfrentem desafios que simulam a dinâmica profissional contemporânea.\n\nQuais estão corretas?",
+            options: ["Apenas I.", "Apenas II.", "Apenas I e III.", "Apenas II e III.", "I, II e III."],
+            correct: 2, // Index C
+            res: "A Aprendizagem Baseada em Projetos (ABP) promove a autonomia e o senso crítico (I). A assertiva II está incorreta porque inverte o papel do professor: nas metodologias ativas, o professor é mediador/orientador, e não o executor central. A assertiva III é correta ao destacar que a ABP simula desafios reais do mundo do trabalho."
+        },
+        {
+            id: 2,
+            q: "No que concerne ao uso de metodologias ativas e sua integração com as tecnologias digitais na formação do profissional atual, considere as seguintes premissas apresentadas em avaliações recentes da banca Fundatec para Institutos Federais:\n\nI. O aprendizado nas metodologias ativas ocorre a partir de problemas e situações reais, antecipando vivências que os alunos encontrarão em sua trajetória profissional.\nII. As tecnologias digitais são instrumentos acessórios que, embora úteis, não possuem o potencial de transformar a relação de ensino-aprendizagem ou de criar ambientes participativos.\nIII. Em contextos escolares com escassez de recursos, é possível desenvolver projetos significativos utilizando tecnologias acessíveis, como dispositivos móveis e integração com espaços conectados da comunidade.\nIV. A adoção de metodologias ativas implica uma mudança profunda no papel dos atores educacionais, exigindo que o estudante assuma um papel efetivo em sua própria formação.",
+            options: ["Apenas I e II.", "Apenas III e IV.", "Apenas I, III e IV.", "Apenas II, III e IV.", "I, II, III e IV."],
+            correct: 2, // Index C
+            res: "A assertiva II é o erro, pois as tecnologias digitais têm, sim, potencial transformador. As demais (I, III e IV) refletem corretamente a visão da EPT sobre vivência profissional, acessibilidade tecnológica e mudança de papéis educativos."
+        },
+        {
+            id: 3,
+            q: "A proposta de integração entre teoria e prática na EPT fundamenta-se na superação da dualidade histórica entre o ensino propedêutico e o ensino técnico. Segundo autores como Ciavatta e Ramos, a integração curricular no Ensino Médio Integrado pressupõe:",
+            options: [
+                "A priorização das disciplinas técnicas sobre as de formação geral, visando a empregabilidade imediata do jovem em detrimento da base científica.",
+                "A articulação entre trabalho, ciência e cultura como dimensões estruturantes que permitem a formação humana omnilateral do sujeito.",
+                "A oferta isolada de cursos técnicos em turnos distintos, garantindo que a prática laboratorial não interfira no conteúdo teórico exigido para o ingresso no ensino superior.",
+                "A redução da carga horária de humanidades para fortalecer o treinamento operacional exigido pelos arranjos produtivos locais.",
+                "A manutenção da hierarquia acadêmica tradicional, em que os saberes teóricos precedem e comandam as atividades práticas."
+            ],
+            correct: 1, // Index B
+            res: "A integração curricular visa a formação 'omnilateral' (integral), articulando trabalho, ciência e cultura. Isso supera a visão de que o ensino técnico serve apenas para treinar mão de obra, tratando-o como parte do desenvolvimento humano integral."
+        },
+        {
+            id: 4,
+            q: "Considere o seguinte trecho sobre estratégias de ensino: \"O uso de metodologias ativas proporciona a combinação de duas ideias relacionadas, voltadas à personalização e à eficácia do aprendizado\". Segundo a banca Fundatec, essas duas ideias correspondem ao:",
+            options: [
+                "Ensino verticalizado e à fragmentação curricular.",
+                "Protagonismo docente e ao imediatismo discente.",
+                "Ensino personalizado e à aprendizagem baseada em competências.",
+                "Silenciamento do aluno e à memorização de conteúdos.",
+                "Planificação de conteúdos e à reprodução técnica das aprendizagens."
+            ],
+            correct: 2, // Index C
+            res: "Segundo Bacich e Moran, as metodologias ativas focam na personalização (respeitando o ritmo e interesse do aluno) e no desenvolvimento de competências (capacidade de agir com fundamento)."
+        },
+        {
+            id: 5,
+            q: "A Resolução CNE/CP nº 1/2021 estabelece as diretrizes para a Educação Profissional e Tecnológica. De acordo com este marco regulatório, constitui um princípio norteador da EPT:",
+            options: [
+                "A oferta obrigatória de formação técnica de forma desvinculada das demais modalidades de ensino, visando a especialização estrita.",
+                "O respeito constitucional ao pluralismo de ideias e de concepções pedagógicas no ambiente de aprendizagem.",
+                "A exclusão da promoção da inovação, focando apenas nos valores tradicionalmente reconhecidos na construção do ensino técnico.",
+                "A articulação exclusiva com o mercado financeiro internacional, ignorando os arranjos produtivos locais.",
+                "O foco restrito em competências motoras, desconsiderando identidades de gênero, étnico-raciais e as populações do campo."
+            ],
+            correct: 1, // Index B
+            res: "O pluralismo de ideias é um princípio fundamental da educação brasileira reafirmado na Resolução 1/2021. As outras alternativas contradizem o espírito de integração e inovação da norma."
+        },
+        {
+            id: 6,
+            q: "A centralidade do trabalho como princípio educativo é um conceito fundamental na pedagogia histórico-crítica aplicada à EPT. Sobre a categoria \"trabalho\" nesta perspectiva, assinale a alternativa correta:",
+            options: [
+                "O trabalho é definido meramente como uma atividade remunerada exercida no mercado de capitais para a subsistência do indivíduo.",
+                "Consiste na ação intencional do ser humano sobre a natureza, sendo o processo de produção da existência humana e a base para a transformação da realidade.",
+                "É uma dimensão oposta à cultura, devendo ser ensinada apenas como uma técnica operativa desprovida de fundamentação teórica.",
+                "Representa um adestramento de competências para atender às necessidades imediatas da indústria 4.0, sem necessidade de reflexão crítica.",
+                "Trata-se de uma penalidade histórica que o sistema educativo deve buscar mitigar através do foco exclusivo em atividades lúdicas."
+            ],
+            correct: 1, // Index B
+            res: "Na perspectiva histórico-crítica (Saviani, Frigotto), o trabalho é a atividade humana vital de transformação da natureza. É o eixo que organiza o conhecimento humano e, portanto, o currículo da EPT."
+        },
+        {
+            id: 7,
+            q: "A metodologia ativa denominada Aprendizagem Baseada em Projetos (ABP) estimula nos alunos diversas capacidades. Assinale a alternativa que apresenta um elemento que NÃO é estimulado pela ABP, segundo a lógica das metodologias ativas:",
+            options: ["Senso crítico.", "Reflexão.", "Autonomia.", "Resolução de problemas.", "Reprodução de conceitos."],
+            correct: 4, // Index E
+            res: "A ABP busca a produção e aplicação de conhecimento. A 'reprodução de conceitos' é característica do ensino tradicional passivo, sendo exatamente o que as metodologias ativas visam superar."
+        },
+        {
+            id: 8,
+            q: "De acordo com Moran e Bacich (2018), a variedade de estratégias metodológicas no planejamento das aulas é essencial para favorecer o engajamento dos alunos. Sobre a aprendizagem por projetos, estes podem ser classificados segundo o objetivo em:\n\nI. Projeto de ___________: quando o objetivo é explicar algo que já se conhece.\nII. Projeto de ___________: quando o foco é pesquisar uma nova solução.\nIII. Projeto de ___________: voltado para a construção de um novo produto ou processo.\n\nAssinale a alternativa que preenche, correta e respectivamente, as lacunas acima:",
+            options: [
+                "Ensino – Intervenção – Pesquisa.",
+                "Explicação – Pesquisa – Produto.",
+                "Ensino – Pesquisa – Intervenção.",
+                "Demonstração – Inovação – Construção.",
+                "Teoria – Prática – Aplicação."
+            ],
+            correct: 2, // Index C
+            res: "Classificação de Moran/Bacich: Projetos de Ensino (explicar o conhecido), Pesquisa (descobrir o novo) e Intervenção (criar ou transformar um processo/produto)."
+        },
+        {
+            id: 9,
+            q: "Em uma proposta de ensino que privilegia o protagonismo do estudante na Educação Profissional, analise as afirmações abaixo:\n\nI. O ambiente escolar torna-se mais motivador quando o estudante assume o papel de sujeito ativo de seu próprio aprendizado.\nII. O trabalho colaborativo é essencial, permitindo que professores e alunos troquem informações para se aprofundarem em temas complexos.\nIII. O protagonismo estudantil implica que o professor deve ser o detentor exclusivo do conhecimento, garantindo que o aluno não se desvie do conteúdo programático.\nIV. Metodologias práticas e interdisciplinares auxiliam os estudantes a compreender que podem solucionar problemas complexos coletivamente.\n\nQuais estão corretas?",
+            options: ["Apenas I, II e III.", "Apenas II, III e IV.", "Apenas I, II e IV.", "Apenas I e IV.", "I, II, III e IV."],
+            correct: 2, // Index C
+            res: "A assertiva III está incorreta: o protagonismo do aluno exige que o professor abra mão de ser o detentor exclusivo do saber para se tornar um orientador."
+        },
+        {
+            id: 10,
+            q: "Analise as premissas abaixo referentes ao âmbito da Educação Profissional e Tecnológica brasileira:\n\n• Centralidade do trabalho como princípio educativo.\n• Indissociabilidade entre teoria e prática.\n• Articulação de esforços das áreas da educação, do trabalho e emprego, e da ciência e tecnologia.\n\nEssas premissas são pilares fundamentais de qual modalidade ou nível de ensino, especialmente nas diretrizes do Ensino Médio Integrado?",
+            options: [
+                "Educação de Jovens e Adultos apenas.",
+                "Ensino Fundamental - Séries Iniciais.",
+                "Educação Profissional e Tecnológica (EPT).",
+                "Ensino Superior - Cursos de Bacharelado Clássico.",
+                "Educação Infantil - Pré-escola."
+            ],
+            correct: 2, // Index C
+            res: "As premissas de centralidade do trabalho e indissociabilidade teoria-prática são as marcas identitárias da Educação Profissional e Tecnológica (EPT), definindo sua função social e pedagógica."
+        }
+    ];
+
+    function loadQuiz() {
+        const quizContainer = document.getElementById('quiz-form');
+        let html = '';
+
+        questionsData.forEach((item, index) => {
+            html += `
+                <div class="question-card" id="q-card-${index}">
+                    <span class="question-header">QUESTÃO ${String(index + 1).padStart(2, '0')}</span>
+                    <p style="white-space: pre-wrap;">${item.q}</p>
+                    <ul class="options-list">
+                        ${item.options.map((opt, optIndex) => `
+                            <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                                <input type="radio" name="question-${index}" id="opt-${index}-${optIndex}" value="${optIndex}">
+                                <label for="opt-${index}-${optIndex}">${String.fromCharCode(65 + optIndex)}) ${opt}</label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        });
+        quizContainer.innerHTML = html;
+    }
+
+    window.selectOption = function(qIndex, optIndex) {
+        const radios = document.getElementsByName(`question-${qIndex}`);
+        radios[optIndex].checked = true;
+        
+        // Visual feedback
+        const items = document.querySelectorAll(`#q-card-${qIndex} .option-item`);
+        items.forEach(i => i.classList.remove('selected'));
+        items[optIndex].classList.add('selected');
+    }
+
+    window.checkAnswers = function() {
+        let score = 0;
+        let answeredAll = true;
+        const resultsHtml = [];
+
+        questionsData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            if (!selected) {
+                answeredAll = false;
+                return;
+            }
+
+            const isCorrect = parseInt(selected.value) === item.correct;
+            if (isCorrect) score++;
+
+            // Highlight in original cards
+            const options = document.querySelectorAll(`#q-card-${index} .option-item`);
+            options[item.correct].classList.add('correct-answer');
+            if (!isCorrect) {
+                options[selected.value].classList.add('wrong-answer');
+            }
+
+            // Build Resolution Card
+            resultsHtml.push(`
+                <div class="res-card">
+                    <strong>QUESTÃO ${index + 1}</strong><br>
+                    <span class="label-correct">Gabarito: ${String.fromCharCode(65 + item.correct)}</span>
+                    <p>${item.res}</p>
+                </div>
+            `);
+        });
+
+        if (!answeredAll) {
+            alert("Por favor, responda todas as questões antes de finalizar.");
+            return;
+        }
+
+        // Show Results
+        document.getElementById('quiz-form').style.display = 'none';
+        document.getElementById('btn-finish').style.display = 'none';
+        
+        const resultSection = document.getElementById('result-section');
+        resultSection.style.display = 'block';
+        
+        document.getElementById('score-display').innerText = `${score}/10`;
+        
+        let feedback = "";
+        if (score === 10) feedback = "Excelente! Você domina os conceitos de EPT e metodologias ativas.";
+        else if (score >= 7) feedback = "Muito bom! Você tem uma base sólida, mas revise alguns pontos específicos.";
+        else feedback = "Bom esforço! Recomendamos a leitura atenta das resoluções pedagógicas abaixo para fortalecer sua base.";
+        
+        document.getElementById('feedback-text').innerText = feedback;
+        
+        // Inject individual resolutions
+        const resList = document.getElementById('resolutions-list');
+        const header = resList.querySelector('h3');
+        resList.innerHTML = '';
+        resList.appendChild(header);
+        resultsHtml.forEach(html => {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            resList.appendChild(div.firstChild);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>
