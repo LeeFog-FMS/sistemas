@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Pontuação - Professor IFC (Fundatec)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.7;
+        }
+
+        .highlight-yellow {
+            background-color: #fef08a;
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .highlight-blue {
+            background-color: #e0f2fe;
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .section-box {
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: #111827;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .audio-player-box {
+            background-color: #ffffff;
+            border: 2px solid #f3f4f6;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-action {
+            display: inline-block;
+            background-color: #111827;
+            color: #ffffff;
+            padding: 14px 40px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: #374151;
+            transform: translateY(-1px);
+        }
+
+        .important-note {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #111827;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12 max-w-5xl mx-auto">
+
+    <!-- Cabeçalho -->
+    <header class="mb-12">
+        <h1 class="text-4xl font-extrabold text-slate-900 mb-2">Aula Master: Pontuação e Implicações de Sentido</h1>
+        <p class="text-lg text-slate-500">Foco Total: Concurso Professor EBTT - IFC (Banca Fundatec)</p>
+        
+        <!-- Player de Áudio -->
+        <div class="audio-player-box mt-8">
+            <div class="flex items-center mb-4">
+                <span class="text-red-500 mr-2">●</span>
+                <span class="text-sm font-bold uppercase tracking-widest text-slate-400">Audio Lesson - Resumo para Memorização</span>
+            </div>
+            <audio controls class="w-full">
+                <source src="lp-pontuacao.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="text-xs text-slate-400 mt-3 italic">Arquivo esperado: <strong>aula_pontuacao_ifc.mp3</strong></p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Definições Essenciais -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">1. Definição e Características Essenciais</h2>
+            <p class="mb-4">Para a Fundatec, a pontuação não é apenas uma "pausa para respirar". Ela é uma <span class="highlight-yellow">ferramenta de hierarquia sintática</span>. O domínio do tema exige entender a <strong>Ordem Direta</strong> da frase (Sujeito + Verbo + Complemento + Adjunto).</p>
+            <div class="important-note">
+                <strong>A Regra de Ouro:</strong> <span class="highlight-yellow">NUNCA</span> se separa Sujeito de Verbo, nem Verbo de seu Complemento (Objeto), mesmo que o sujeito seja extenso.
+            </div>
+        </section>
+
+        <!-- Vírgula: Termos Deslocados e Intercalados -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">2. A Vírgula: Termos Deslocados e Intercalados</h2>
+            <p class="mb-4">O uso da vírgula em adjuntos adverbiais deslocados é o tema que mais gera recursos na Fundatec. Memorize a métrica:</p>
+            
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="p-5 border border-slate-200 rounded-lg">
+                    <span class="badge">CURTA EXTENSÃO</span>
+                    <p class="text-sm">Até 2 palavras. A vírgula é <span class="highlight-blue">FACULTATIVA</span>.</p>
+                    <p class="text-xs italic text-slate-500 mt-2">Ex: "Hoje(,) iniciaremos o mapeamento."</p>
+                </div>
+                <div class="p-5 border border-slate-200 rounded-lg">
+                    <span class="badge">LONGA EXTENSÃO</span>
+                    <p class="text-sm">3 palavras ou mais. A vírgula é <span class="highlight-yellow">OBRIGATÓRIA</span>.</p>
+                    <p class="text-xs italic text-slate-500 mt-2">Ex: "No mapeamento geográfico atual, os dados são digitais."</p>
+                </div>
+            </div>
+
+            <h3 class="font-bold mb-3">Termos Intercalados (Aposto e Vocativo)</h3>
+            <ul class="space-y-4">
+                <li class="p-4 bg-slate-50 rounded-lg">
+                    <strong>Aposto Explicativo:</strong> Serve para explicar um termo anterior. <span class="highlight-yellow">Sempre entre vírgulas</span>. Pode ser substituído por parênteses ou travessões.
+                    <br><span class="text-sm italic">Ex: "O IFC, instituição de excelência, abriu edital."</span>
+                </li>
+                <li class="p-4 bg-slate-50 rounded-lg">
+                    <strong>Vocativo:</strong> É um chamamento. <span class="highlight-yellow">Sempre isolado por vírgula</span>, não importa a posição na frase.
+                    <br><span class="text-sm italic">Ex: "Candidatos, mantenham o foco na banca."</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Orações Explicativas vs Restritivas -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">3. Orações Adjetivas: O "Pulo do Gato" Semântico</h2>
+            <p class="mb-6">A Fundatec ama perguntar se a retirada das vírgulas altera o sentido. A resposta é quase sempre <strong>SIM</strong>.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Construção</th>
+                        <th>Sentido (Semântica)</th>
+                        <th>Exemplo Aplicado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Com Vírgula</strong> (Explicativa)</td>
+                        <td>Generalização. Refere-se a <span class="highlight-yellow">todos</span> os elementos.</td>
+                        <td>"Os alunos, que estudaram, passaram." (Todos estudaram e todos passaram).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sem Vírgula</strong> (Restritiva)</td>
+                        <td>Especificação. Refere-se a <span class="highlight-yellow">apenas alguns</span>.</td>
+                        <td>"Os alunos que estudaram passaram." (Apenas os que estudaram passaram; outros não).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Dois-pontos e Ponto e Vírgula -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">4. Dois-pontos e Ponto e Vírgula</h2>
+            
+            <div class="mb-8">
+                <h3 class="font-bold text-lg mb-2 underline">Dois-pontos ( : )</h3>
+                <p class="text-sm mb-2">Utilizados para introduzir:</p>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li><span class="highlight-blue">Enumerações:</span> "Temos três biomas: Cerrado, Caatinga e Mata Atlântica."</li>
+                    <li><span class="highlight-blue">Esclarecimentos/Citações:</span> "O autor afirma: a geografia é política."</li>
+                    <li><span class="highlight-blue">Síntese:</span> "Ele buscava apenas uma coisa: a aprovação."</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-2 underline">Ponto e Vírgula ( ; )</h3>
+                <p class="text-sm mb-2">A Fundatec foca em dois usos principais:</p>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li><span class="highlight-blue">Enumerações complexas:</span> Separar itens em listas onde já existem vírgulas internas.</li>
+                    <li><span class="highlight-blue">Separação de orações coordenadas:</span> Quando as orações são extensas ou já possuem vírgulas.</li>
+                    <li><strong>Dica de Ouro:</strong> O ponto e vírgula pode quase sempre ser substituído por um <span class="highlight-yellow">Ponto Final</span>, alterando apenas a fluidez, mas mantendo a correção.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tendências e Peguinhas da Fundatec -->
+        <section class="section-box">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">5. Tendências de Cobrança e "Peguinhas" (EBTT)</h2>
+            <ul class="space-y-4">
+                <li class="flex items-start">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold mr-3 mt-1">PEGUINHA 01</span>
+                    <p class="text-sm"><strong>Substituição de Pontuação:</strong> A banca pergunta se pode trocar <span class="highlight-yellow">vírgulas por travessões</span> ou <span class="highlight-yellow">vírgulas por parênteses</span> no caso de apostos. A resposta é <strong>SIM</strong>, mantém a correção.</p>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold mr-3 mt-1">PEGUINHA 02</span>
+                    <p class="text-sm"><strong>Vírgula antes do "E":</strong> Eles tentam dizer que é sempre erro. Falso! É obrigatório se os sujeitos das orações forem diferentes ou se o "e" tiver valor de "mas".</p>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-bold mr-3 mt-1">PEGUINHA 03</span>
+                    <p class="text-sm"><strong>Correção vs. Sentido:</strong> Muito comum pedirem se a retirada de uma vírgula "mantém a correção". Muitas vezes mantém a correção, mas <span class="highlight-yellow">muda o sentido</span> (principalmente em adjetivas e adjuntos deslocados).</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Tabela de Memorização Rápida -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 text-center">Resumo de Bolso para o Dia da Prova</h2>
+            <table>
+                <thead class="bg-slate-800 text-white">
+                    <tr>
+                        <th class="text-white">Sinal</th>
+                        <th class="text-white">Quando USAR</th>
+                        <th class="text-white">Quando NÃO usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Vírgula</strong></td>
+                        <td>Adjunto deslocado (longo), Aposto, Vocativo, Enumeração.</td>
+                        <td>Entre Sujeito e Verbo; Verbo e Objeto.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dois-pontos</strong></td>
+                        <td>Anunciar fala, explicação ou lista.</td>
+                        <td>Após verbos de ligação sem pausa enfática.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ponto e Vírgula</strong></td>
+                        <td>Separar itens de lista ou orações independentes.</td>
+                        <td>No lugar de dois-pontos para introduzir falas.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Botão Final -->
+        <div class="text-center py-12 border-t border-slate-100">
+            <a href="lp-pontuacaoquestoes.html" class="btn-action">
+                Ir para Banco de Questões
+            </a>
+            <p class="text-xs text-slate-400 mt-4 uppercase tracking-widest">Prepare-se com questões reais da Fundatec</p>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 text-sm">
+        © 2024 Tutor Especialista - Metodologia de Aprovação IFC
+    </footer>
+
+</body>
+</html>

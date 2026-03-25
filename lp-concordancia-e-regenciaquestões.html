@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Fundatec: Sintaxe e Normativa Gramatical</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            font-style: italic;
+            color: #636e72;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item label:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        /* Results Section */
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .score-summary {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .resolution-item {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 20px;
+            margin-bottom: 40px;
+            background: #fdfdfd;
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .resolution-body {
+            font-size: 1rem;
+            color: #4a4a4a;
+        }
+
+        .correct-answer {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .wrong-indicator {
+            color: var(--error-color);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            .container { width: 100%; padding: 20px 10px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Sintaxe de Concordância e Regência</h1>
+        <p class="intro-text">Padrões Fundatec sob a Ótica de Luft e Cegalla</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Question 01 -->
+        <div class="question-card">
+            <span class="question-number">Questão 01</span>
+            <div class="question-text">
+                Considerando a concordância verbal e nominal, analise as seguintes assertivas, verificando o preenchimento das lacunas pontilhadas no texto hipotético abaixo:<br><br>
+                “A maioria das pessoas....... que, se....... novos recursos, haveria chances....... de sucesso para o projeto.”
+            </div>
+            <div class="assertivas" style="margin-bottom: 15px; font-size: 0.95rem;">
+                I. A primeira lacuna pode ser preenchida por “acredita” ou “acreditam”, conforme a concordância com o núcleo do sujeito ou com o adjunto adnominal.<br>
+                II. A segunda lacuna deve ser preenchida por “houvesse”, por tratar-se de verbo impessoal com sentido de existir.<br>
+                III. A terceira lacuna é preenchida por “bastantes”, funcionando como adjetivo que concorda com “chances”.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q1" value="A"> A) Apenas I.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="B"> B) Apenas II.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="C"> C) Apenas I e II.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="D"> D) Apenas II e III.</label></li>
+                <li class="option-item"><label><input type="radio" name="q1" value="E"> E) I, II e III.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 02 -->
+        <div class="question-card">
+            <span class="question-number">Questão 02</span>
+            <div class="question-text">
+                De acordo com Domingos Paschoal Cegalla, analise a concordância do adjetivo predicativo com o sujeito nas sentenças abaixo:<br><br>
+                1. O palácio e a torre estavam....... no horizonte.<br>
+                2. Considero....... as propostas e os orçamentos.<br>
+                3. É....... paciência para lidar com tais questões.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q2" value="A"> A) visíveis – válidos – necessária.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="B"> B) visível – válidas – necessário.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="C"> C) visíveis – válidas – necessária.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="D"> D) visíveis – válidos – necessário.</label></li>
+                <li class="option-item"><label><input type="radio" name="q2" value="E"> E) visível – válidos – necessária.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 03 -->
+        <div class="question-card">
+            <span class="question-number">Questão 03</span>
+            <div class="question-text">
+                Com base no <i>Dicionário Prático de Regência Verbal</i> de Celso Pedro Luft, analise o período:<br><br>
+                “A decisão do diretor implicou....... suspensão das atividades, o que acabou por implicar o gestor....... processos administrativos”.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q3" value="A"> A) na – em.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="B"> B) a – em.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="C"> C) à – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="D"> D) na – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q3" value="E"> E) a – nos.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 04 -->
+        <div class="question-card">
+            <span class="question-number">Questão 04</span>
+            <div class="question-text">
+                Considere o emprego do acento indicativo de crase e a regência verbal no período:<br><br>
+                “O autor se refere....... obras clássicas e aspira....... glória literária, dedicando-se....... escrita com afinco”.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q4" value="A"> A) as – a – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="B"> B) às – à – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="C"> C) às – a – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="D"> D) as – à – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q4" value="E"> E) às – à – a.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 05 -->
+        <div class="question-card">
+            <span class="question-number">Questão 05</span>
+            <div class="question-text">
+                Assinale a alternativa que preenche, correta e respectivamente, as lacunas das frases abaixo, observando o uso da crase:<br><br>
+                I. O evento começará ....... 14h.<br>
+                II. Como o carro quebrou, fomos ....... pé.<br>
+                III. Gostamos de caminhar ....... noite.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q5" value="A"> A) às – à – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="B"> B) às – a – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="C"> C) as – a – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="D"> D) às – à – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q5" value="E"> E) as – à – a.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 06 -->
+        <div class="question-card">
+            <span class="question-number">Questão 06</span>
+            <div class="question-text">
+                Analise as seguintes sentenças quanto à concordância verbal:<br><br>
+                1. ....... muitos anos que não visito minha cidade natal.<br>
+                2. Mais de um aluno ....... durante a palestra (sem ideia de reciprocidade).<br>
+                3. Haja vista ....... problemas detectados no sistema.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q6" value="A"> A) Faz – se retirou – os.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="B"> B) Fazem – se retiraram – aos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="C"> C) Faz – se retiraram – os.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="D"> D) Fazem – se retirou – aos.</label></li>
+                <li class="option-item"><label><input type="radio" name="q6" value="E"> E) Faz – se retirou – aos.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 07 -->
+        <div class="question-card">
+            <span class="question-number">Questão 07</span>
+            <div class="question-text">
+                Assinale a alternativa que apresenta o preenchimento correto das lacunas quanto à regência e crase:<br><br>
+                “O projeto garante o acesso ....... saúde, o que é benéfico ....... população, tornando o serviço próximo ....... todos.”
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q7" value="A"> A) à – a – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="B"> B) à – à – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="C"> C) a – à – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="D"> D) à – à – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q7" value="E"> E) a – a – a.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 08 -->
+        <div class="question-card">
+            <span class="question-number">Questão 08</span>
+            <div class="question-text">
+                Quanto à concordância nominal, assinale a alternativa que preenche corretamente as lacunas:<br><br>
+                I. A secretária parecia ....... cansada hoje.<br>
+                II. Naquela tarde, os amigos ficaram ....... no parque.<br>
+                III. Os policiais civis estão sempre ....... .
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q8" value="A"> A) meia – sós – alerta.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="B"> B) meio – sós – alerta.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="C"> C) meio – só – alertas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="D"> D) meia – sós – alertas.</label></li>
+                <li class="option-item"><label><input type="radio" name="q8" value="E"> E) meio – sós – alertas.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 09 -->
+        <div class="question-card">
+            <span class="question-number">Questão 09</span>
+            <div class="question-text">
+                Analise a regência dos verbos e o uso da crase nas sentenças abaixo:<br><br>
+                1. O comitê entregou o prêmio ....... vencedora.<br>
+                2. O funcionário ....... os documentos antes da reunião.<br>
+                3. Prefiro este projeto ....... que foi apresentado ontem.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q9" value="A"> A) à – visou a – do.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="B"> B) a – visou – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="C"> C) à – visou a – a.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="D"> D) a – visou – à.</label></li>
+                <li class="option-item"><label><input type="radio" name="q9" value="E"> E) à – visou – àquele.</label></li>
+            </ul>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card">
+            <span class="question-number">Questão 10</span>
+            <div class="question-text">
+                Em relação à concordância verbal e ao uso de pronomes, analise a frase:<br><br>
+                “Fomos nós quem....... os documentos, ainda que....... dificuldades para tal”.
+            </div>
+            <ul class="options-list">
+                <li class="option-item"><label><input type="radio" name="q10" value="A"> A) trouxe – existissem.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="B"> B) trouxemos – existissem.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="C"> C) trouxe – existisse.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="D"> D) trouxeram – existissem.</label></li>
+                <li class="option-item"><label><input type="radio" name="q10" value="E"> E) trouxemos – existisse.</label></li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div id="score-display" class="score-summary"></div>
+        <div id="resolutions-content"></div>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'E', q2: 'D', q3: 'B', q4: 'B', q5: 'B',
+        q6: 'A', q7: 'B', q8: 'B', q9: 'E', q10: 'B'
+    };
+
+    const resolutions = {
+        q1: {
+            text: "A questão aborda três tópicos recorrentes na banca: o sujeito partitivo, a impessoalidade do verbo 'haver' e a flexão de 'bastante'.<br><br>Na assertiva I, a expressão 'A maioria das pessoas' permite concordância facultativa (núcleo 'maioria' ou adjunto 'pessoas'). Na assertiva II, o verbo 'haver' no sentido de 'existir' é impessoal. Na assertiva III, 'bastantes' concorda com o substantivo 'chances'.",
+            table: `<table><tr><th>Tipo de Sujeito</th><th>Regra (Cegalla)</th></tr><tr><td>Coletivo Partitivo</td><td>Concordância com núcleo ou adjunto.</td></tr><tr><td>Verbo Impessoal</td><td>Permanece na 3ª pessoa do singular.</td></tr></table>`
+        },
+        q2: {
+            text: "A concordância do adjetivo predicativo com o sujeito composto: 1. Sujeitos masculinos e femininos levam o predicativo ao masculino plural ('visíveis' se refere a ambos). 2. Prevalece o masculino plural ('válidos'). 3. Expressões como 'é necessário' ficam invariáveis sem artigo antecedendo o substantivo ('paciência')."
+        },
+        q3: {
+            text: "Regência do verbo 'implicar' segundo Luft: No sentido de acarretar/causar, é Transitivo Direto ('implicou a suspensão'). No sentido de envolver/comprometer, é Transitivo Direto e Indireto ('implicar o gestor em processos')."
+        },
+        q4: {
+            text: "Referir-se exige 'a' (às obras). Aspirar (desejar) exige 'a' (à glória). Dedicar-se exige 'a' (à escrita). Ocorre crase em todos os casos por haver artigo feminino definido acompanhando os substantivos."
+        },
+        q5: {
+            text: "1. Antes de horas determinadas, usa-se crase (às 14h). 2. 'A pé' é locução com substantivo masculino, proibindo a crase. 3. 'À noite' é locução adverbial feminina de tempo, exigindo crase obrigatória."
+        },
+        q6: {
+            text: "1. Verbo 'fazer' indicando tempo decorrido é impessoal (Faz muitos anos). 2. 'Mais de um' exige singular, exceto em reciprocidade (se retirou). 3. 'Haja vista' pode ser invariável ou concordar, mas o termo seguinte é objeto direto (os problemas)."
+        },
+        q7: {
+            text: "Acesso (rege 'a') + a saúde = à saúde. Benéfico (rege 'a') + a população = à população. Próximo (rege 'a') + todos (pronome masculino) = a todos (sem crase)."
+        },
+        q8: {
+            text: "1. 'Meio' como advérbio é invariável (um pouco cansada). 2. 'Sós' equivale a 'sozinhos' (adjetivo, varia). 3. 'Alerta' é advérbio, permanecendo invariável na tradição seguida pela Fundatec."
+        },
+        q9: {
+            text: "1. Entregar algo 'a' alguém (à vencedora). 2. Visar no sentido de pôr visto é Transitivo Direto (visou os documentos). 3. Preferir algo 'a' outro (preferir isto 'àquele' - fusão da preposição 'a' com a vogal do pronome)."
+        },
+        q10: {
+            text: "Com o pronome 'quem', o verbo pode concordar com o antecedente ('nós trouxemos') ou com o próprio pronome ('quem trouxe'). Já o verbo 'existir' é pessoal e concorda obrigatoriamente com o sujeito 'dificuldades' (existissem)."
+        }
+    };
+
+    function gradeQuiz() {
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+        let score = 0;
+        let total = 10;
+        let htmlContent = '';
+
+        for (let i = 1; i <= total; i++) {
+            const questionKey = 'q' + i;
+            const userAnswer = formData.get(questionKey);
+            const isCorrect = userAnswer === correctAnswers[questionKey];
+            
+            if (isCorrect) score++;
+
+            htmlContent += `
+                <div class="resolution-item">
+                    <div class="resolution-header">
+                        Questão ${i} - Gabarito: <span class="correct-answer">${correctAnswers[questionKey]}</span>
+                        ${!isCorrect ? `<span class="wrong-indicator">(Sua resposta: ${userAnswer || 'Não respondida'})</span>` : ''}
+                    </div>
+                    <div class="resolution-body">
+                        ${resolutions[questionKey].text}
+                        ${resolutions[questionKey].table || ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('score-display').innerHTML = `Você acertou ${score} de ${total} questões!`;
+        document.getElementById('resolutions-content').innerHTML = htmlContent;
+        document.getElementById('results-section').style.display = 'block';
+        
+        // Scroll to results
+        window.scrollTo({
+            top: document.getElementById('results-section').offsetTop - 20,
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+</body>
+</html>

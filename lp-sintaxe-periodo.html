@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sintaxe Completa - Professor IFC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 0 2px;
+            font-weight: 600;
+            border-bottom: 1px solid #fbc02d;
+        }
+
+        .container-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .audio-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #334155;
+            padding-left: 1rem;
+        }
+
+        .important-box {
+            background-color: #fdfdfd;
+            border: 1px solid #cbd5e1;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+
+        .btn-link {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 3rem auto;
+            background-color: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-link:hover {
+            background-color: #334155;
+            transform: translateY(-2px);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #64748b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-content">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-2">Sintaxe para o IFC</h1>
+            <p class="text-lg text-slate-500">Resumo de Memorização: Período Simples e Composto</p>
+            <div class="mt-4 text-sm font-semibold text-slate-400 uppercase tracking-widest">Tutor Especialista - Banca Fundatec</div>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="audio-box">
+            <p class="text-xs font-bold text-slate-500 mb-2 uppercase">Acompanhe com o áudio da aula:</p>
+            <audio controls class="w-full">
+                <source src="lp-sintaxe-periodo.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-[10px] text-slate-400 mt-2 italic">Nome do arquivo: sintaxe_aula_ifc.mp3</p>
+        </div>
+
+        <!-- Introdução -->
+        <p class="text-lg">Esta aula resume a <span class="highlight">análise funcional</span> da língua. No IFC, a Fundatec foca em como as partes se conectam para gerar sentido, cobrando substituições de conectivos e identificação de sujeitos e objetos.</p>
+
+        <!-- Seção 1 -->
+        <h2 class="section-title">1. Sintaxe do Período Simples</h2>
+        
+        <h3 class="font-bold mb-2">Termos Essenciais: O Sujeito</h3>
+        <ul>
+            <li><strong>Determinado Simples:</strong> Um núcleo (ex: "O <span class="highlight">edital</span> foi publicado").</li>
+            <li><strong>Oculto/Elíptico:</strong> Identificado pelo contexto ou desinência verbal.</li>
+            <li><strong>Indeterminado:</strong> Verbo na 3ª p. plural (sem referência anterior) ou VTI/VI/VL + SE (Índice de Indeterminação).</li>
+            <li><span class="highlight">Inexistente (Oração sem Sujeito):</span> Verbo Haver (existir/tempo), Fazer (tempo/clima), Ser (tempo/distância). Verbos climatológicos.</li>
+        </ul>
+
+        <h3 class="font-bold mt-6 mb-2">Termos Integrantes: Predicação e Objetos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Verbo</th>
+                    <th>Complemento</th>
+                    <th>Foco Fundatec</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>VTD</strong> (Direto)</td>
+                    <td>Objeto Direto (sem preposição)</td>
+                    <td>Pode ser apassivado com "SE".</td>
+                </tr>
+                <tr>
+                    <td><strong>VTI</strong> (Indireto)</td>
+                    <td>Objeto Indireto (com preposição)</td>
+                    <td>Exige preposição fixa (ex: Gostar <strong>de</strong>).</td>
+                </tr>
+                <tr>
+                    <td><strong>VTDI</strong> (Bitransitivo)</td>
+                    <td>OD + OI</td>
+                    <td>Ex: "Entregar o livro ao aluno".</td>
+                </tr>
+                <tr>
+                    <td><strong>VL</strong> (Ligação)</td>
+                    <td>Predicativo do Sujeito</td>
+                    <td>Estado ou qualidade (Ser, Estar, Parecer).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Seção 2 -->
+        <h2 class="section-title">2. Adjunto Adnominal (AA) vs. Complemento Nominal (CN)</h2>
+        <div class="important-box">
+            <p><strong>Dica de Ouro:</strong> Se o termo for preposicionado e ligado a um <span class="highlight">Adjetivo ou Advérbio</span>, é sempre <strong>CN</strong>. Se ligado a Substantivo, olhe a tabela abaixo:</p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Critério</th>
+                    <th>Adjunto Adnominal (AA)</th>
+                    <th>Complemento Nominal (CN)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Alvo</strong></td>
+                    <td>Subst. Concreto ou Abstrato</td>
+                    <td>Subst. Abstrato, Adj ou Adv</td>
+                </tr>
+                <tr>
+                    <td><strong>Sentido</strong></td>
+                    <td><span class="highlight">Agente</span> (quem faz) ou Posse</td>
+                    <td><span class="highlight">Paciente</span> (quem sofre)</td>
+                </tr>
+                <tr>
+                    <td><strong>Exemplo</strong></td>
+                    <td>O medo <em>do leão</em> (o leão assusta)</td>
+                    <td>O medo <em>do leão</em> (alguém tem medo dele)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Seção 3 -->
+        <h2 class="section-title">3. Período Composto: Coordenação e Subordinação</h2>
+        
+        <h3 class="font-bold mb-2">Orações Coordenadas (Independentes)</h3>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <li><strong>Aditivas:</strong> E, nem, mas também.</li>
+            <li><strong>Adversativas:</strong> <span class="highlight">Mas, porém, todavia, contudo, entretanto, no entanto</span>.</li>
+            <li><strong>Conclusivas:</strong> Portanto, logo, por isso, pois (após verbo).</li>
+            <li><strong>Explicativas:</strong> Porque, pois (antes do verbo), que.</li>
+        </ul>
+
+        <h3 class="font-bold mt-6 mb-2">Orações Subordinadas Adverbiais (O valor semântico das conjunções)</h3>
+        <p class="text-sm italic mb-3">A Fundatec ama perguntar: "A conjunção X pode ser substituída sem alteração de sentido por...?"</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Conjunções Principais</th>
+                    <th>Atenção!</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Causal</strong></td>
+                    <td>Porque, como, visto que, já que</td>
+                    <td>Motivo da ação principal.</td>
+                </tr>
+                <tr>
+                    <td><strong>Concessiva</strong></td>
+                    <td><span class="highlight">Embora, conquanto</span>, ainda que</td>
+                    <td>Oposição que não anula a principal.</td>
+                </tr>
+                <tr>
+                    <td><strong>Condicional</strong></td>
+                    <td>Se, caso, desde que</td>
+                    <td>Condição para o fato ocorrer.</td>
+                </tr>
+                <tr>
+                    <td><strong>Conformativa</strong></td>
+                    <td>Conforme, segundo, consoante</td>
+                    <td>Regra de concordância.</td>
+                </tr>
+                <tr>
+                    <td><strong>Consecutiva</strong></td>
+                    <td>Tão... que, tanto... que</td>
+                    <td>Consequência do ato.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Seção 4 -->
+        <h2 class="section-title">4. Pronomes Relativos e o "QUE"</h2>
+        <div class="important-box">
+            <p><strong>Pronome Relativo:</strong> Introduz Oração Adjetiva. Pode ser trocado por <span class="highlight">"o qual / a qual"</span>.</p>
+        </div>
+        <ul>
+            <li><strong>QUE:</strong> O mais comum. Retoma pessoas ou coisas.</li>
+            <li><strong>CUJO:</strong> Estabelece posse. Concorda com o termo posterior. <span class="highlight">Erro clássico: "cujo o"</span> (Nunca use artigo após cujo).</li>
+            <li><strong>ONDE:</strong> Apenas para <span class="highlight">Lugar Físico</span>. Para situações ou tempos, use "em que" ou "no qual".</li>
+            <li><strong>QUEM:</strong> Sempre preposicionado e refere-se a pessoas.</li>
+        </ul>
+
+        <!-- Seção 5 -->
+        <h2 class="section-title">5. Vozes Verbais e Partícula "SE"</h2>
+        <div class="space-y-4">
+            <div class="p-4 border border-slate-200 rounded">
+                <p><strong>Voz Passiva Analítica:</strong> Verbo Auxiliar + Particípio (ex: "A prova foi feita").</p>
+                <p><strong>Voz Passiva Sintética:</strong> VTD + SE (ex: "<span class="highlight">Analisam-se</span> dados"). O termo "dados" é o sujeito, por isso o verbo vai para o plural.</p>
+            </div>
+            <div class="p-4 border border-slate-200 rounded">
+                <p><strong>Diferença de "SE":</strong></p>
+                <ul class="mt-2">
+                    <li><span class="highlight">VTD + SE = Pronome Apassivador</span> (O termo seguinte é Sujeito).</li>
+                    <li><span class="highlight">VTI/VI + SE = Índice de Indeterminação do Sujeito</span> (Verbo sempre na 3ª singular).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Seção 6 -->
+        <h2 class="section-title">6. Checklist "Ponto de Acerto" na Prova Fundatec</h2>
+        <ul class="space-y-3 bg-slate-50 p-6 rounded-lg">
+            <li><input type="checkbox" class="mr-2"> <strong>Conquanto = Embora:</strong> Memorize essa dupla. A banca troca um pelo outro direto.</li>
+            <li><input type="checkbox" class="mr-2"> <strong>Substituição de Conjunção:</strong> Antes de marcar, verifique se o verbo precisa mudar de tempo (ex: "Embora saiba" -> "Mesmo sabendo").</li>
+            <li><input type="checkbox" class="mr-2"> <strong>Sujeito Oracional:</strong> A banca destaca uma frase e pergunta a função. Se puder trocar a oração toda por "ISSO", ela é substantiva (pode ser sujeito).</li>
+            <li><input type="checkbox" class="mr-2"> <strong>Vogal Temática/Morfologia:</strong> A Fundatec às vezes mistura sintaxe com estrutura das palavras. Fique atento.</li>
+        </ul>
+
+        <footer class="mt-16 text-center">
+            <p class="text-sm text-slate-400 mb-4">Pronto para testar seus conhecimentos?</p>
+            <a href="lp-sintaxe-periodoquestoes.html" class="btn-link">IR PARA QUESTÕES</a>
+            <div class="text-[10px] text-slate-300 mt-8">Material produzido para o concurso IFC - Geog.</div>
+        </footer>
+    </div>
+
+</body>
+</html>

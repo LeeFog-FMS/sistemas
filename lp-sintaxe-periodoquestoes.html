@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Sintaxe - Estilo Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a1a1a;
+            --accent-color: #2c3e50;
+            --border-color: #e0e0e0;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --explanation-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin: 0;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f0f4f8;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Results Styling */
+        #results-container {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: var(--explanation-bg);
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .correct-answer {
+            background-color: rgba(39, 174, 96, 0.15) !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .wrong-answer {
+            background-color: rgba(192, 57, 43, 0.15) !important;
+            border-color: var(--error-color) !important;
+        }
+
+        .label-correct {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .label-wrong {
+            color: var(--error-color);
+            font-weight: bold;
+            margin-top: 5px;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Sintaxe do Período Simples e Composto</h1>
+        <p>Estilo Banca Fundatec | 10 Questões</p>
+    </header>
+
+    <form id="quiz-form">
+        <div id="questions-wrapper">
+            <!-- Questions injected via JS -->
+        </div>
+
+        <button type="button" id="submit-btn" class="btn-submit">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="results-container">
+        <div class="score-display" id="score-text"></div>
+        <p>Confira as resoluções detalhadas abaixo de cada questão.</p>
+    </div>
+</div>
+
+<script>
+    const questionsData = [
+        {
+            id: 1,
+            question: "Considere o seguinte fragmento: “Já fotografias antigas são espelhos retroversos, demarcam com precisão as diferenças entre o antes e o agora”. Assinale a alternativa que indica a correta função sintática da expressão sublinhada: espelhos retroversos.",
+            options: [
+                "Sujeito simples, pois representa o ser sobre o qual se faz uma declaração direta na oração.",
+                "Objeto direto, uma vez que completa o sentido de um verbo transitivo sem o auxílio de preposição.",
+                "Predicativo do sujeito, visto que atribui uma característica ou estado ao sujeito por intermédio de um verbo de ligação.",
+                "Adjunto adnominal, pois funciona como um termo acessório que determina o substantivo núcleo da oração principal.",
+                "Complemento nominal, dado que completa o sentido de um nome que possui significado incompleto no contexto oracional."
+            ],
+            answer: 2,
+            explanation: "O verbo 'são' (ser) é um verbo de ligação. A estrutura sintática apresenta um sujeito ('fotografias antigas') e um termo que o caracteriza após o verbo de ligação, o que define o Predicativo do Sujeito. Verbos de ligação não possuem objetos diretos."
+        },
+        {
+            id: 2,
+            question: "Analise as assertivas a respeito do período: “Era tão inabarcável seu objeto de estudo que Edwin Frank optou por segmentar a análise em cronogramas distintos”. \nI. A oração introduzida por “que” é subordinada adverbial consecutiva.\nII. “Tão” exerce a função de adjunto adverbial de intensidade.\nIII. O fragmento constitui um período simples.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            answer: 2,
+            explanation: "I está Correta: A estrutura 'tão... que' indica consequência. II está Correta: 'Tão' intensifica o adjetivo 'inabarcável'. III está Incorreta: O período é composto, pois possui dois núcleos verbais ('Era' e 'optou por segmentar') ligados por conjunção."
+        },
+        {
+            id: 3,
+            question: "Sobre a partícula “que” em: “Talvez o poder de criação seja uma das características que mais nos diferencia de todos os outros seres da biosfera”, assinale a alternativa INCORRETA:",
+            options: [
+                "Trata-se de um pronome relativo, retomando o substantivo 'características'.",
+                "Funciona como conectivo subordinativo, introduzindo uma oração adjetiva restritiva.",
+                "O vocábulo poderia ser substituído por 'as quais', mantendo a correção.",
+                "Classifica-se como conjunção integrante, pois introduz uma oração subordinada substantiva objetiva direta.",
+                "Na oração em que se insere, o termo 'que' desempenha a função sintática de sujeito."
+            ],
+            answer: 3,
+            explanation: "A alternativa D está incorreta porque o 'que' pode ser substituído por 'as quais' (características as quais nos diferenciam), o que prova ser um Pronome Relativo, e não uma Conjunção Integrante (que seria substituível por 'ISSO')."
+        },
+        {
+            id: 4,
+            question: "Considere: “O uso excessivo de dispositivos eletrônicos deixa a área visual mais cansada após longas jornadas de trabalho”. Analise as assertivas:\nI. O sujeito é simples, núcleo 'uso'.\nII. 'Excessivo' é adjunto adnominal; 'de dispositivos eletrônicos' é complemento nominal.\nIII. O verbo 'deixa' é transitivo direto e predicativo.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas III.",
+                "Apenas I e III.",
+                "I, II e III."
+            ],
+            answer: 3,
+            explanation: "I está Correta: O núcleo do sujeito é 'uso'. III está Correta: 'Deixa' pede objeto direto ('a área visual') e atribui estado ('mais cansada' - predicativo do objeto). II costuma ser alvo de debate, mas no padrão Fundatec para esta questão, foca-se na validação da I e III."
+        },
+        {
+            id: 5,
+            question: "Analise o valor semântico: \n1. “Tentei de tudo para que ele compreendesse...” \n2. “Trabalhou tanto... que adoeceu...” \n3. “Ele comprou a passagem e partiu...”. \nAs relações são:",
+            options: [
+                "Finalidade – Consequência – Adição.",
+                "Causa – Conformidade – Explicação.",
+                "Condição – Proporcionalidade – Conclusão.",
+                "Finalidade – Causa – Oposição.",
+                "Consequência – Explicação – Adição."
+            ],
+            answer: 0,
+            explanation: "'Para que' indica o objetivo (Finalidade). 'Tanto... que' indica o resultado de um excesso (Consequência). 'E' soma ações (Adição)."
+        },
+        {
+            id: 6,
+            question: "“Apesar de ter estudado com afinco, o candidato não conseguiu o resultado esperado, mas não desistiu de seus objetivos”. Assinale a correta:",
+            options: [
+                "O período inicia-se com uma coordenada adversativa.",
+                "“Apesar de” introduz subordinada adverbial concessiva; “mas” introduz coordenada adversativa.",
+                "“Mas” estabelece relação de conclusão.",
+                "A primeira oração é reduzida de gerúndio e expressa condição.",
+                "A substituição de “Apesar de” por “Porquanto” manteria o sentido."
+            ],
+            answer: 1,
+            explanation: "'Apesar de' é um marcador de concessão (oposição que não impede o fato). 'Mas' é uma conjunção coordenativa adversativa clássica de contraste."
+        },
+        {
+            id: 7,
+            question: "No trecho: “As marcas passaram a não pagar tanto porque as pessoas trabalhavam por menos...”, analise:\nI. O período é composto por subordinação (causal).\nII. “Não pagar tanto” é objeto direto de “passaram”.\nIII. “Porque” poderia ser substituído por “visto que”.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas III.",
+                "Apenas I e III.",
+                "I, II e III."
+            ],
+            answer: 3,
+            explanation: "I está Correta: 'Porque' introduz a causa. III está Correta: 'Visto que' é locução causal equivalente. II está Errada pois 'passaram a pagar' é uma locução verbal de aspecto, não uma relação de objeto direto tradicional."
+        },
+        {
+            id: 8,
+            question: "Classifique o sujeito e o “se” em: “Fala-se muito sobre os riscos das apostas esportivas...”",
+            options: [
+                "Sujeito simples; “se” é partícula apassivadora.",
+                "Sujeito composto; “se” é pronome reflexivo.",
+                "Sujeito indeterminado; “se” é índice de indeterminação do sujeito.",
+                "Oração sem sujeito; “se” é partícula expletiva.",
+                "Sujeito oculto; “se” é conjunção integrante."
+            ],
+            answer: 2,
+            explanation: "O verbo 'falar' é transitivo indireto (falar SOBRE algo). Verbos Transitivos Indiretos com 'se' na 3ª pessoa do singular tornam o sujeito indeterminado. O 'se' é Índice de Indeterminação do Sujeito (IIS)."
+        },
+        {
+            id: 9,
+            question: "No trecho: “Minha infância foi inteiramente analógica”, qual termo exerce a função de adjunto adverbial?",
+            options: [
+                "Minha.",
+                "analógica.",
+                "inteiramente.",
+                "de quadrinhos.",
+                "ficção."
+            ],
+            answer: 2,
+            explanation: "'Inteiramente' é um advérbio de intensidade que modifica o adjetivo 'analógica'. Advérbios exercem função sintática de adjunto adverbial."
+        },
+        {
+            id: 10,
+            question: "Em: “Gunter explica que existe consenso... para confirmar que as pessoas que tomam café...”, os termos sublinhados são:",
+            options: [
+                "Conjunção integrante − conjunção integrante − pronome relativo.",
+                "Pronome relativo − pronome relativo − conjunção integrante.",
+                "Conjunção integrante − pronome relativo − conjunção integrante.",
+                "Pronome relativo − conjunção integrante − pronome relativo.",
+                "Conjunção integrante − pronome relativo − pronome relativo."
+            ],
+            answer: 0,
+            explanation: "1º Que: Explica ISSO (Integrante). 2º Que: Confirmar ISSO (Integrante). 3º Que: Pessoas AS QUAIS (Relativo)."
+        }
+    ];
+
+    const wrapper = document.getElementById('questions-wrapper');
+
+    // Render questions
+    questionsData.forEach((q, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question-block';
+        qDiv.id = `q-block-${index}`;
+
+        let optionsHtml = '';
+        q.options.forEach((opt, optIndex) => {
+            optionsHtml += `
+                <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                    <input type="radio" name="q${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                    <label for="q${index}o${optIndex}">${String.fromCharCode(65 + optIndex)}) ${opt}</label>
+                </li>
+            `;
+        });
+
+        qDiv.innerHTML = `
+            <div class="question-text">${q.id}. ${q.question.replace(/\n/g, '<br>')}</div>
+            <ul class="options-list">${optionsHtml}</ul>
+            <div class="explanation" id="exp-${index}">
+                <strong>Resolução:</strong> ${q.explanation}
+            </div>
+        `;
+        wrapper.appendChild(qDiv);
+    });
+
+    window.selectOption = (qIdx, optIdx) => {
+        document.getElementById(`q${qIdx}o${optIdx}`).checked = true;
+    };
+
+    document.getElementById('submit-btn').addEventListener('click', () => {
+        let score = 0;
+        const total = questionsData.length;
+
+        questionsData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const explanationDiv = document.getElementById(`exp-${index}`);
+            explanationDiv.style.display = 'block';
+
+            const options = document.querySelectorAll(`#q-block-${index} .option-item`);
+            
+            // Mark correct answer
+            options[q.answer].classList.add('correct-answer');
+            const correctLabel = document.createElement('span');
+            correctLabel.className = 'label-correct';
+            correctLabel.innerText = "✓ Resposta Correta";
+            options[q.answer].appendChild(correctLabel);
+
+            if (selected) {
+                const selectedVal = parseInt(selected.value);
+                if (selectedVal === q.answer) {
+                    score++;
+                } else {
+                    options[selectedVal].classList.add('wrong-answer');
+                    const wrongLabel = document.createElement('span');
+                    wrongLabel.className = 'label-wrong';
+                    wrongLabel.innerText = "✗ Sua Resposta";
+                    options[selectedVal].appendChild(wrongLabel);
+                }
+            } else {
+                // If not answered
+                const noAnsLabel = document.createElement('span');
+                noAnsLabel.className = 'label-wrong';
+                noAnsLabel.innerText = "(!) Questão não respondida";
+                document.getElementById(`q-block-${index}`).appendChild(noAnsLabel);
+            }
+        });
+
+        // Show score and scroll to top
+        const resultsContainer = document.getElementById('results-container');
+        resultsContainer.style.display = 'block';
+        document.getElementById('score-text').innerText = `Você acertou ${score} de ${total} questões! (${(score/total*100).toFixed(0)}%)`;
+        document.getElementById('submit-btn').style.display = 'none';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado Fundatec: Pontuação e Sentido</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1e272e;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .text-box {
+            background-color: #f1f2f6;
+            padding: 15px 20px;
+            border-left: 4px solid var(--primary-color);
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .alternatives {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .alternative-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .alternative-item:hover {
+            background-color: #f0f7ff;
+            border-color: #d1e9ff;
+        }
+
+        .alternative-item input {
+            margin-right: 15px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .score-box h2 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .resolution-header {
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .correct { color: var(--success-color); }
+        .wrong { color: var(--error-color); }
+
+        .explanation-text {
+            font-size: 0.95rem;
+            color: #444;
+            white-space: pre-line;
+        }
+
+        .complementary-analysis {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+            margin-top: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f1f1f1;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Interativo: Padrão Fundatec</h1>
+        <p>Pontuação e Implicações de Sentido</p>
+    </header>
+
+    <div id="quiz-container">
+        <!-- Questão 01 -->
+        <div class="question-card" data-q="1">
+            <span class="question-number">Questão 01</span>
+            <div class="text-box">
+                "No cenário educacional contemporâneo, a discussão sobre métodos pedagógicos ganha contornos de urgência. Durante a última conferência municipal, o palestrante enfatizou: 'Precisamos olhar para o futuro com coragem'. Nesse sentido, a formação dos docentes é o pilar que sustenta as reformas pretendidas pela administração pública."
+            </div>
+            <p><strong>Enunciado:</strong> Considerando o uso da pontuação e as possíveis alterações de sentido no texto acima, analise as assertivas a seguir:</p>
+            <p>I. Na frase "Vamos estudar, crianças!", a vírgula isola um vocativo, indicando um chamamento; se a vírgula fosse suprimida, "crianças" passaria a ser o objeto direto do verbo "estudar", alterando o sentido da sentença.<br>
+            II. O sinal de dois-pontos utilizado após o vocábulo "enfatizou" tem a função de introduzir uma citação direta, marcando a fala de um terceiro no discurso.<br>
+            III. No trecho "No cenário educacional contemporâneo", a vírgula é obrigatória por se tratar de um adjunto adverbial de longa extensão deslocado para o início da frase.</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="alternative-item"><input type="radio" name="q1" value="B"> B) Apenas II.</label>
+                <label class="alternative-item"><input type="radio" name="q1" value="C"> C) Apenas I e II.</label>
+                <label class="alternative-item"><input type="radio" name="q1" value="D"> D) Apenas II e III.</label>
+                <label class="alternative-item"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-q="2">
+            <span class="question-number">Questão 02</span>
+            <div class="text-box">
+                "O Sistema Único de Saúde (SUS) – o sistema público que transformou a saúde em um direito universal – nasceu com a Constituição de 1988. No Brasil, o SUS garante pré-natal, exames e partos gratuitos para milhões de cidadãos que, anteriormente, não possuíam qualquer assistência médica estatal."
+            </div>
+            <p><strong>Enunciado:</strong> Sobre a pontuação do texto e as implicações de sentido, assinale V, se verdadeiro, ou F, se falso:</p>
+            <p>( ) Os travessões que isolam o fragmento "o sistema público que transformou a saúde em um direito universal" exercem função de isolar um aposto explicativo e poderiam ser substituídos por parênteses ou vírgulas sem prejuízo à correção gramatical.<br>
+            ( ) A vírgula após "No Brasil" é facultativa, uma vez que se trata de um adjunto adverbial de curta extensão.<br>
+            ( ) A oração "que, anteriormente, não possuíam qualquer assistência médica estatal" é uma oração subordinada adjetiva restritiva; a inserção de uma vírgula antes do pronome relativo "que" transformaria a informação em uma generalização sobre todos os cidadãos mencionados.</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q2" value="A"> A) V – V – V.</label>
+                <label class="alternative-item"><input type="radio" name="q2" value="B"> B) V – V – F.</label>
+                <label class="alternative-item"><input type="radio" name="q2" value="C"> C) V – F – V.</label>
+                <label class="alternative-item"><input type="radio" name="q2" value="D"> D) F – V – V.</label>
+                <label class="alternative-item"><input type="radio" name="q2" value="E"> E) F – F – F.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-q="3">
+            <span class="question-number">Questão 03</span>
+            <div class="text-box">
+                "As estratégias de marketing adotadas pela corporação eram variadas: a apresentação sugestiva do produto; a combinação de ingredientes atraentes; a segmentação demográfica precisa; e, a minha favorita, patrocinar eventos culturais de grande porte."
+            </div>
+            <p><strong>Enunciado:</strong> Em relação ao emprego do ponto e vírgula e da vírgula no trecho acima, assinale a alternativa correta:</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q3" value="A"> A) O ponto e vírgula é utilizado para separar itens de uma enumeração complexa, especialmente porque o último item da lista apresenta vírgulas internas que isolam um aposto explicativo ("a minha favorita").</label>
+                <label class="alternative-item"><input type="radio" name="q3" value="B"> B) Todas as ocorrências de ponto e vírgula poderiam ser substituídas por vírgulas simples sem qualquer risco de ambiguidade ou prejuízo à clareza textual.</label>
+                <label class="alternative-item"><input type="radio" name="q3" value="C"> C) O uso dos dois-pontos após "variadas" é incorreto, pois separa o nome de seu complemento nominal.</label>
+                <label class="alternative-item"><input type="radio" name="q3" value="D"> D) A vírgula após a conjunção "e" no final da enumeração é proibida pela norma culta brasileira.</label>
+                <label class="alternative-item"><input type="radio" name="q3" value="E"> E) O ponto e vírgula foi empregado para separar orações coordenadas sindéticas adversativas cujo conectivo foi omitido.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-q="4">
+            <span class="question-number">Questão 04</span>
+            <div class="text-box">
+                "Os investidores que buscam lucros rápidos costumam assumir riscos elevados. Por outro lado, o Brasil, aliás, é o país que recebe mais raios em todo o mundo, o que exige infraestrutura de proteção constante."
+            </div>
+            <p><strong>Enunciado:</strong> Considere as propostas de alteração de pontuação e suas consequências semânticas:</p>
+            <p>I. A inserção de vírgulas para isolar "que buscam lucros rápidos" alteraria o sentido do texto, implicando que todos os investidores do contexto buscam lucros rápidos, e não apenas uma parcela deles.<br>
+            II. A palavra "aliás" está isolada por vírgulas por ser uma expressão explicativa ou retificativa intercalada.<br>
+            III. Se a vírgula após "Por outro lado" fosse suprimida, haveria erro gramatical intransponível, pois se trata de uma locução conjuntiva deslocada de natureza obrigatória.</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q4" value="A"> A) Apenas I.</label>
+                <label class="alternative-item"><input type="radio" name="q4" value="B"> B) Apenas II.</label>
+                <label class="alternative-item"><input type="radio" name="q4" value="C"> C) Apenas I e II.</label>
+                <label class="alternative-item"><input type="radio" name="q4" value="D"> D) Apenas II e III.</label>
+                <label class="alternative-item"><input type="radio" name="q4" value="E"> E) I, II e III.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-q="5">
+            <span class="question-number">Questão 05</span>
+            <div class="text-box">
+                "A principal meta de muitos estudantes é uma só: alcançar uma formação de qualidade. Perceba, meu prezado leitor, que o caminho é árduo, mas compensador."
+            </div>
+            <p><strong>Enunciado:</strong> Sobre as funções sintáticas isoladas pela pontuação, assinale a alternativa que classifica corretamente os termos destacados:</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q5" value="A"> A) "alcançar uma formação de qualidade" é uma oração apositiva; "meu prezado leitor" é um vocativo.</label>
+                <label class="alternative-item"><input type="radio" name="q5" value="B"> B) "alcançar uma formação de qualidade" é um objeto direto; "meu prezado leitor" é um aposto.</label>
+                <label class="alternative-item"><input type="radio" name="q5" value="C"> C) "alcançar uma formação de qualidade" é um predicativo do sujeito; "meu prezado leitor" é um sujeito deslocado.</label>
+                <label class="alternative-item"><input type="radio" name="q5" value="D"> D) "alcançar uma formação de qualidade" é um complemento nominal; "meu prezado leitor" é um adjunto adnominal.</label>
+                <label class="alternative-item"><input type="radio" name="q5" value="E"> E) "alcançar uma formação de qualidade" é um adjunto adverbial de finalidade; "meu prezado leitor" é um vocativo.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-q="6">
+            <span class="question-number">Questão 06</span>
+            <div class="text-box">
+                "O papagaio fala porque nós somos a família do bichinho, e ele quer aprender o código de comunicação da casa. Na natureza, isso significa copiar outras aves selvagens para criar laços."
+            </div>
+            <p><strong>Enunciado:</strong> Analise o uso da vírgula nas ocorrências abaixo:</p>
+            <p>1. "...da casa, e ele quer..."<br>
+            2. "Na natureza, isso significa..."</p>
+            <p>Assinale a alternativa que apresenta a justificativa gramatical correta para ambos os casos, respectivamente:</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q6" value="A"> A) Separar orações coordenadas com sujeitos diferentes; isolar adjunto adverbial deslocado.</label>
+                <label class="alternative-item"><input type="radio" name="q6" value="B"> B) Isolar oração adjetiva explicativa; separar termos de mesma função sintática.</label>
+                <label class="alternative-item"><input type="radio" name="q6" value="C"> C) Marcar a elipse de um verbo; isolar um aposto resumitivo.</label>
+                <label class="alternative-item"><input type="radio" name="q6" value="D) D) Separar orações coordenadas aditivas de mesmo sujeito; isolar um vocativo.</label>
+                <label class="alternative-item"><input type="radio" name="q6" value="E"> E) Isolar uma conjunção conclusiva; separar o sujeito do predicado.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-q="7">
+            <span class="question-number">Questão 07</span>
+            <div class="text-box">
+                "Hoje, o SUS está em cada detalhe da vida de quem vive no Brasil. No entanto, a educação permanece como prioridade absoluta para o desenvolvimento nacional."
+            </div>
+            <p><strong>Enunciado:</strong> Sobre as implicações da retirada ou manutenção das vírgulas, analise as assertivas:</p>
+            <p>I. A vírgula após "Hoje" é considerada facultativa pela banca Fundatec, devido à curta extensão do adjunto adverbial de tempo.<br>
+            II. A retirada da vírgula após "No entanto" manteria a correção gramatical, mas alteraria a classificação da conjunção para integrante.<br>
+            III. A vírgula após "Brasil" poderia ser substituída por um ponto-final, desde que a frase seguinte fosse iniciada com letra maiúscula, preservando a correção gramatical.</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q7" value="A"> A) Apenas I.</label>
+                <label class="alternative-item"><input type="radio" name="q7" value="B"> B) Apenas II.</label>
+                <label class="alternative-item"><input type="radio" name="q7" value="C"> C) Apenas I e III.</label>
+                <label class="alternative-item"><input type="radio" name="q7" value="D"> D) Apenas II e III.</label>
+                <label class="alternative-item"><input type="radio" name="q7" value="E"> E) I, II e III.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-q="8">
+            <span class="question-number">Questão 08</span>
+            <div class="text-box">
+                "Os candidatos, devem comprometer-se com o orçamento das suas famílias. Para não se endividar com apostas, os brasileiros podem planejar-se, acompanhar seus gastos e buscar ajuda profissional."
+            </div>
+            <p><strong>Enunciado:</strong> Assinale a alternativa que descreve corretamente a correção gramatical do trecho:</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q8" value="A"> A) A primeira vírgula do texto ("Os candidatos, devem...") está incorreta, pois separa indevidamente o sujeito de seu predicado.</label>
+                <label class="alternative-item"><input type="radio" name="q8" value="B"> B) A vírgula após "apostas" é facultativa, já que a oração subordinada está na ordem direta.</label>
+                <label class="alternative-item"><input type="radio" name="q8" value="C"> C) As vírgulas em "planejar-se, acompanhar seus gastos" são usadas para isolar um aposto enumerativo.</label>
+                <label class="alternative-item"><input type="radio" name="q8" value="D"> D) A supressão de todas as vírgulas do segundo período não causaria qualquer erro sintático.</label>
+                <label class="alternative-item"><input type="radio" name="q8" value="E"> E) O sinal de dois-pontos poderia substituir a vírgula após "apostas" sem necessidade de outras alterações.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-q="9">
+            <div class="text-box">
+                "Defina um orçamento: estabeleça um limite mensal para apostas e nunca ultrapasse esse valor. O resultado será a tranquilidade financeira."
+            </div>
+            <p><strong>Enunciado:</strong> Os sinais de pontuação destacados (dois-pontos e ponto-final) poderiam ser substituídos por quais outros sinais, respectivamente, mantendo-se a correção e o sentido original?</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q9" value="A"> A) Vírgula e ponto de interrogação.</label>
+                <label class="alternative-item"><input type="radio" name="q9" value="B"> B) Travessão e ponto de exclamação.</label>
+                <label class="alternative-item"><input type="radio" name="q9" value="C"> C) Ponto e vírgula e dois-pontos.</label>
+                <label class="alternative-item"><input type="radio" name="q9" value="D"> D) Parênteses e vírgula.</label>
+                <label class="alternative-item"><input type="radio" name="q9" value="E"> E) Aspas e ponto-final.</label>
+            </ul>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-q="10">
+            <span class="question-number">Questão 10</span>
+            <div class="text-box">
+                "Muitos jovens buscam empregos ativamente; outros, contudo, preferem investir em formação acadêmica continuada."
+            </div>
+            <p><strong>Enunciado:</strong> A respeito do uso da vírgula e do ponto e vírgula no trecho acima, assinale a alternativa correta:</p>
+            
+            <ul class="alternatives">
+                <label class="alternative-item"><input type="radio" name="q10" value="A"> A) O ponto e vírgula separa orações coordenadas de sentido oposto, enquanto a vírgula após "outros" indica a omissão (elipse) do verbo "buscam".</label>
+                <label class="alternative-item"><input type="radio" name="q10" value="B"> B) A vírgula após "outros" isola um vocativo deslocado.</label>
+                <label class="alternative-item"><input type="radio" name="q10" value="C"> C) O ponto e vírgula é obrigatório porque os sujeitos das orações são idênticos.</label>
+                <label class="alternative-item"><input type="radio" name="q10" value="D"> D) A conjunção "contudo" deveria estar obrigatoriamente fora das vírgulas por ser uma conjunção explicativa.</label>
+                <label class="alternative-item"><input type="radio" name="q10" value="E"> E) A supressão do ponto e vírgula e sua substituição por uma vírgula simples manteria a correção gramatical plena.</label>
+            </ul>
+        </div>
+    </div>
+
+    <button class="btn-submit" onclick="gradeQuiz()">Finalizar Quiz</button>
+
+    <div id="results-section">
+        <div class="score-box">
+            <h2>Resultado: <span id="score-text">0</span>/10</h2>
+            <p id="feedback-text"></p>
+        </div>
+
+        <h3 style="border-bottom: 2px solid #eee; padding-bottom: 10px;">Resoluções Analíticas</h3>
+        <div id="resolutions-container">
+            <!-- As resoluções serão inseridas aqui via JS -->
+        </div>
+
+        <div class="complementary-analysis">
+            <h3>Análise Teórica Complementar: A Lógica de Recurso da Fundatec</h3>
+            <p>Ao analisar os protocolos de manifestação da banca examinadora, percebe-se um rigor extremo com a coerência textual. A banca frequentemente defende suas questões argumentando que a pontuação não é um adorno, mas um elemento de "textualidade".</p>
+            
+            <h4>Tabela de Equivalência de Sinais (Padrão Fundatec)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sinal Original</th>
+                        <th>Substituto Comum</th>
+                        <th>Condição de Troca</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vírgula (Aposto)</td>
+                        <td>Travessões ou Parênteses</td>
+                        <td>Sempre possível em isolamento duplo</td>
+                    </tr>
+                    <tr>
+                        <td>Dois-pontos</td>
+                        <td>Travessão</td>
+                        <td>Quando introduz explicação ou detalhe</td>
+                    </tr>
+                    <tr>
+                        <td>Ponto e Vírgula</td>
+                        <td>Ponto-final</td>
+                        <td>Quando separa orações independentes</td>
+                    </tr>
+                    <tr>
+                        <td>Vírgula (Adverbial)</td>
+                        <td>Zero (Ø)</td>
+                        <td>Se o adjunto for de curta extensão</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C', q2: 'B', q3: 'A', q4: 'C', q5: 'A',
+        q6: 'A', q7: 'C', q8: 'A', q9: 'B', q10: 'A'
+    };
+
+    const resolutions = {
+        q1: "Gabarito: C. A Assertiva I é verdadeira: 'crianças' é vocativo; sem vírgula vira objeto. A II é verdadeira: dois-pontos introduzem citação direta. A III é discutível sobre 'obrigatoriedade' em 4 palavras, mas para a Fundatec a tendência é obrigatória em trechos longos. O foco maior aqui é I e II.",
+        q2: "Gabarito: B. (V) Travessões isolam aposto e admitem troca por vírgula/parênteses. (V) 'No Brasil' é curto (2 palavras), vírgula facultativa. (F) A oração é restritiva, a vírgula a tornaria explicativa (generalização), o que altera o sentido original.",
+        q3: "Gabarito: A. O ponto e vírgula organiza a enumeração quando os itens já possuem vírgulas internas (como no último item que tem um aposto explicativo 'a minha favorita').",
+        q4: "Gabarito: C. (I) Correto: a troca de restritiva por explicativa altera o sentido. (II) Correto: 'aliás' é palavra denotativa retificativa e deve ser isolada. (III) Incorreto: 'erro intransponível' é exagero para um conectivo inicial médio.",
+        q5: "Gabarito: A. 'alcançar uma formação...' explica a 'meta', logo é oração apositiva. 'meu prezado leitor' é um chamamento direto, logo é vocativo.",
+        q6: "Gabarito: A. A vírgula antes do 'e' é usada porque as orações têm sujeitos gramaticalmente distintos (Papagaio vs Ele). A segunda vírgula isola adjunto adverbial de lugar deslocado.",
+        q7: "Gabarito: C. (I) Correto: 'Hoje' é curtíssimo, vírgula facultativa. (II) Incorreto: Não se torna conjunção integrante. (III) Correto: Pontuar com ponto-final em vez de vírgula entre orações independentes é válido.",
+        q8: "Gabarito: A. Erro grave: separar sujeito de predicado. 'Os candidatos' (sujeito) e 'devem' (verbo) não podem ser separados por vírgula simples.",
+        q9: "Gabarito: B. Dois-pontos podem ser substituídos por travessão para ênfase explicativa. O ponto-final pode virar exclamação para dar tom de ordem ou recomendação enfática.",
+        q10: "Gabarito: A. Ponto e vírgula separa as orações coordenadas em contraste. A vírgula após 'outros' marca a elipse (omissão) do verbo 'buscam' citado anteriormente."
+    };
+
+    function gradeQuiz() {
+        let score = 0;
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        resolutionsContainer.innerHTML = '';
+
+        for (let i = 1; i <= 10; i++) {
+            const questionName = 'q' + i;
+            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
+            const isCorrect = selected && selected.value === correctAnswers[questionName];
+            
+            if (isCorrect) score++;
+
+            // Criar card de resolução
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            
+            let userChoiceText = selected ? `Sua resposta: ${selected.value}` : 'Não respondida';
+            let statusClass = isCorrect ? 'correct' : 'wrong';
+            let statusText = isCorrect ? '✓ Correto' : '✗ Incorreto';
+
+            resCard.innerHTML = `
+                <div class="resolution-header">
+                    <span>Questão ${i < 10 ? '0' + i : i}</span>
+                    <span class="${statusClass}">${statusText} (${userChoiceText})</span>
+                </div>
+                <div class="explanation-text">${resolutions[questionName]}</div>
+            `;
+            resolutionsContainer.appendChild(resCard);
+        }
+
+        // Mostrar resultados
+        document.getElementById('score-text').innerText = score;
+        const feedback = document.getElementById('feedback-text');
+        if (score >= 8) feedback.innerText = "Excelente desempenho! Você domina o estilo da banca.";
+        else if (score >= 5) feedback.innerText = "Bom trabalho, mas revise os pontos onde houve dúvida.";
+        else feedback.innerText = "Continue estudando. A Fundatec exige atenção aos detalhes de sintaxe.";
+
+        document.getElementById('results-section').style.display = 'block';
+        
+        // Scroll suave para o resultado
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
