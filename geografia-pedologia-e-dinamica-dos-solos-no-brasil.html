@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedologia e Dinâmica dos Solos - IFC Especialista</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #ffffff;
+            color: #262626;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 0 2px;
+            font-weight: 600;
+        }
+
+        .container-custom {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            margin: 1.5rem 0;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .audio-player {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-questions {
+            display: block;
+            width: fit-content;
+            margin: 3rem auto;
+            padding: 1rem 2.5rem;
+            background-color: #171717;
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-questions:hover {
+            background-color: #404040;
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: #111827;
+            border-left: 4px solid #10b981;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            font-size: 1.75rem;
+        }
+
+        .note-box {
+            background-color: #f3f4f6;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-custom">
+        <!-- Cabeçalho -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">Pedologia e Dinâmica dos Solos</h1>
+            <p class="text-lg text-gray-500">Tutor Especialista: Concurso Professor de Geografia IFC (Banca Fundatec)</p>
+        </header>
+
+        <!-- Player de Áudio -->
+        <div class="audio-player">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-bold text-gray-600 uppercase tracking-widest">🔈 Aula em Áudio (Podcast)</span>
+                <span class="text-xs text-gray-400">Status: Pronto para ouvir</span>
+            </div>
+            <audio controls class="w-full">
+                <source src="geografia-pedologia-e-dinamica-dos-solos-no-brasil.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2 italic text-center">* Certifique-se de que o arquivo "aula_pedologia_ifc.mp3" está na mesma pasta.</p>
+        </div>
+
+        <!-- 1. Introdução e Definição -->
+        <section>
+            <h2>1. Definição e Pedogênese</h2>
+            <p>O solo não é apenas "terra", é um corpo natural trifásico (sólido, líquido e gasoso) dinâmico. Para a <span class="highlight">Fundatec</span>, é vital entender que o solo é o resultado do intemperismo das rochas mediado por fatores ambientais.</p>
+            
+            <div class="note-box">
+                <strong>Equação de Dokuchaev (Fatores):</strong> $$Solo = f(cl, o, r, p, t)$$
+                <ul class="list-disc ml-5 mt-2 text-sm">
+                    <li><strong>Clima (cl):</strong> O principal fator. Calor e umidade aceleram o intemperismo químico.</li>
+                    <li><strong>Organismos (o):</strong> Matéria orgânica e bioturbação.</li>
+                    <li><strong>Relevo (r):</strong> Controla o fluxo de água. Relevos íngremes = solos rasos (erosão). Relevos planos = solos profundos.</li>
+                    <li><strong>Material de Origem (p):</strong> A rocha-mãe (ex: Basalto gera Terra Roxa; Granito gera solos arenosos).</li>
+                    <li><strong>Tempo (t):</strong> Solos jovens (rasos) vs. Solos maduros (profundos/evoluídos).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. Morfologia e Horizontes -->
+        <section>
+            <h2>2. Morfologia: Perfil do Solo</h2>
+            <p>Um perfil completo apresenta horizontes distintos. A distinção entre <span class="highlight">Solum</span> e <span class="highlight">Rególito</span> cai muito em provas EBTT.</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Horizonte</th>
+                            <th>Descrição Técnica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>O (Orgânico)</strong></td>
+                            <td>Camada superficial de restos vegetais e animais em decomposição.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>A (Mineral)</strong></td>
+                            <td>Horizonte mineral com acúmulo de matéria orgânica. <span class="highlight">Zona de maior atividade biológica.</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>E (Eluvial)</strong></td>
+                            <td>Horizonte de <span class="highlight">máxima remoção</span> (lavagem) de argila e óxidos. Cor clara.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B (Iluvial)</strong></td>
+                            <td>Horizonte de <span class="highlight">acumulação</span>. É o horizonte diagnóstico para classificação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C (Saprólito)</strong></td>
+                            <td>Material intemperizado, mas que ainda mantém a estrutura da rocha original.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R (Rocha)</strong></td>
+                            <td>Rocha consolidada (não alterada).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-sm font-semibold">⚠️ Atenção à Diferença:</p>
+            <ul class="list-none space-y-2 text-sm">
+                <li>👉 <strong>SOLUM:</strong> Horizontes <span class="highlight">A + B</span>. É onde a vida e a pedogênese são intensas.</li>
+                <li>👉 <strong>REGÓLITO:</strong> Toda a camada de material solto acima da rocha sã (<span class="highlight">A + B + C</span>).</li>
+            </ul>
+        </section>
+
+        <!-- 3. Tipos de Solos (SiBCS) -->
+        <section>
+            <h2>3. Tipos de Solos Brasileiros (SiBCS)</h2>
+            <p>O Sistema Brasileiro de Classificação de Solos foca em Latossolos e Argissolos para concursos técnicos.</p>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Latossolos</th>
+                            <th>Argissolos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Evolução</strong></td>
+                            <td>Muito evoluídos (velhos)</td>
+                            <td>Moderadamente evoluídos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Profundidade</strong></td>
+                            <td>Profundos e homogêneos</td>
+                            <td>Variável, mas com quebra textural</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Horizonte B</strong></td>
+                            <td>B Latossólico (muito intemperizado)</td>
+                            <td><span class="highlight">B Textural</span> (mais argiloso que o A)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Manejo Agro</strong></td>
+                            <td>Mecanizável, mas <span class="highlight">ácido</span> (pH baixo)</td>
+                            <td>Risco de erosão por impermeabilidade no B</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Distribuição</strong></td>
+                            <td>~31% do Brasil (Cerrado/Chapadas)</td>
+                            <td>~24% do Brasil (Encostas/Litoral)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. Dinâmica e Degradação -->
+        <section>
+            <h2>4. Problemas de Conservação e Dinâmica</h2>
+            <p>Essencial para quem atua em eixos de agropecuária. Estes processos definem a viabilidade produtiva do solo.</p>
+            
+            <ul class="space-y-4">
+                <li>
+                    <strong>Lixiviação:</strong> Processo de "lavagem" dos nutrientes (bases) pela água das chuvas. Torna o solo <span class="highlight">distrófico (pobre)</span> e ácido.
+                </li>
+                <li>
+                    <strong>Laterização:</strong> Acúmulo de óxidos de Ferro e Alumínio. Em casos extremos, forma a <span class="highlight">Canga</span> (crosta ferruginosa endurecida) que impede o crescimento de raízes.
+                </li>
+                <li>
+                    <strong>Voçorocamento:</strong> Estágio mais grave da erosão linear. Ocorre quando o buraco da erosão atinge o <span class="highlight">lençol freático</span>, tornando o processo quase irreversível sem intervenção pesada.
+                </li>
+                <li>
+                    <strong>Salinização:</strong> Comum em áreas áridas/semiáridas (Nordeste). Ocorre pela evaporação intensa da água que deixa sais na superfície, matando a vegetação por estresse osmótico.
+                </li>
+            </ul>
+        </section>
+
+        <!-- 5. Práticas para Concurso -->
+        <section>
+            <h2>5. Práticas Conservacionistas (Foco Agro)</h2>
+            <p>A Fundatec adora cobrar a aplicação prática da Geografia no campo.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border p-4 rounded-lg">
+                    <h4 class="font-bold border-b mb-2">Controle de Erosão</h4>
+                    <ul class="text-sm list-disc ml-4">
+                        <li><strong>Curvas de Nível:</strong> Plantio seguindo a altitude do terreno.</li>
+                        <li><strong>Terraceamento:</strong> Criação de "degraus" para quebrar a velocidade da água.</li>
+                        <li><strong>Plantio Direto:</strong> Manter a palhada (matéria orgânica) sobre o solo.</li>
+                    </ul>
+                </div>
+                <div class="border p-4 rounded-lg">
+                    <h4 class="font-bold border-b mb-2">Correção Química</h4>
+                    <ul class="text-sm list-disc ml-4">
+                        <li><span class="highlight">Calagem:</span> Adição de calcário para elevar o pH e fornecer Cálcio/Magnésio.</li>
+                        <li><strong>Gessagem:</strong> Melhora o ambiente radicular em profundidade.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Tendências Fundatec -->
+        <section class="bg-blue-50 p-6 rounded-xl mt-12">
+            <h3 class="text-xl font-bold text-blue-900 mb-4">🎯 Análise Especialista: O que a Fundatec quer?</h3>
+            <div class="space-y-3 text-sm leading-relaxed">
+                <p>1. <strong>Confusão de Termos:</strong> A banca trocará "Lixiviação" por "Laterização". Lembre-se: Lixiviação é a lavagem; Laterização é a formação da crosta.</p>
+                <p>2. <strong>Erosão Laminar:</strong> É a mais perigosa porque é <span class="highlight">imperceptível</span> inicialmente. Ela retira a camada fértil de forma uniforme em toda a superfície.</p>
+                <p>3. <strong>Acidez do Cerrado:</strong> Quase sempre cai. Solos do Cerrado são naturalmente ácidos e lixiviados, exigindo calagem para o sucesso do agronegócio.</p>
+                <p>4. <strong>Solos Azonais:</strong> São solos "sem idade", como os Neossolos (rasos) ou Aluviais (sedimentares), que não seguem o padrão climático local.</p>
+            </div>
+        </section>
+
+        <!-- Botão Final -->
+        <footer class="text-center">
+            <a href="geografia-pedologia-e-dinamica-dos-solos-no-brasilquestoes.html" class="btn-questions">
+                FAZER EXERCÍCIOS DE FIXAÇÃO
+            </a>
+            <p class="text-gray-400 text-xs uppercase tracking-tighter">Material exclusivo para preparação IFC</p>
+        </footer>
+    </div>
+
+</body>
+</html>

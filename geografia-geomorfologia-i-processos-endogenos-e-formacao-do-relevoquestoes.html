@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Geomorfologia e Geologia do Brasil</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --primary: #0984e3;
+            --secondary: #00b894;
+            --error: #d63031;
+            --border: #dfe6e9;
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        main {
+            width: 95%;
+            max-width: 850px;
+            background: var(--container-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+        }
+
+        .question-card {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question-card:last-of-type {
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f1f7ff;
+            border-color: var(--primary);
+        }
+
+        .option-item input {
+            margin-top: 6px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        /* Results Styles */
+        #results-container {
+            display: none;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid var(--primary);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 20px;
+            background: #e1f5fe;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .resolution-box {
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 5px solid var(--secondary);
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .correct-indicator {
+            color: var(--secondary);
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .incorrect-indicator {
+            color: var(--error);
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .highlight-correct {
+            background-color: #e6fffa !important;
+            border-color: var(--secondary) !important;
+        }
+
+        .highlight-incorrect {
+            background-color: #fff5f5 !important;
+            border-color: var(--error) !important;
+        }
+
+        footer {
+            margin-bottom: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            main { padding: 15px; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Geomorfologia I</h1>
+    <p class="subtitle">Processos Endógenos e Formação do Relevo Brasileiro (Estilo Fundatec)</p>
+</header>
+
+<main id="quiz-app">
+    <form id="quiz-form">
+        <div id="questions-wrapper">
+            <!-- Questions injected by JS -->
+        </div>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <section id="results-container">
+        <div class="score-box">
+            <div>Sua Pontuação</div>
+            <div id="score-display" class="score-value">0 / 10</div>
+            <p id="score-message"></p>
+        </div>
+        <div id="resolutions-list">
+            <!-- Resolutions injected by JS -->
+        </div>
+        <button type="button" class="btn-submit" style="background: var(--text-muted);" onclick="window.location.reload()">Refazer Simulado</button>
+    </section>
+</main>
+
+<footer>
+    Material de Estudo - Nível Superior
+</footer>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "QUESTÃO 01 – A compreensão da dinâmica terrestre e da configuração do relevo contemporâneo exige o domínio dos métodos de investigação da estrutura interna do planeta. Sobre as camadas da Terra e os princípios geofísicos que regem o conhecimento do interior planetário, analise as assertivas abaixo:\n\nI. O conhecimento científico acerca das camadas profundas da Terra, como o manto e o núcleo, é majoritariamente fundamentado em métodos indiretos, destacando-se a propagação de ondas sísmicas geradas por abalos naturais ou explosões controladas.\nII. As ondas sísmicas primárias (P) e secundárias (S) comportam-se de maneira distinta ao atravessarem diferentes meios físicos; as ondas S, por serem transversais, possuem a propriedade técnica de não se propagarem em meios líquidos, o que permitiu a inferência de que o núcleo externo terrestre encontra-se em estado de fusão.\nIII. A Descontinuidade de Mohorovicic representa a interface entre a crosta terrestre e o manto superior, sendo identificada por uma aceleração brusca das ondas sísmicas devido ao aumento da densidade e rigidez dos materiais máficos e ultramáficos.\nIV. O campo magnético terrestre é gerado no núcleo interno sólido, onde a alta pressão impede a movimentação de fluidos, criando um núcleo magnético estático que orienta os polos da Terra.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: "A investigação da estrutura interna da Terra fundamenta-se na geofísica. A assertiva I está correta (métodos indiretos/sismologia). A II está correta (ondas S não se propagam em líquidos, provando o núcleo externo fundido). A III está correta (Mohorovicic marca a transição crosta-manto). A IV está INCORRETA: o campo magnético é gerado no núcleo externo líquido (Teoria do Dínamo), não no interno sólido estático."
+        },
+        {
+            id: 2,
+            text: "QUESTÃO 02 – O tectonismo, ou diastrofismo, é o conjunto de processos endógenos responsáveis pelas deformações na crosta terrestre. Dentre as modalidades de movimentos tectônicos, a epirogênese assume papel fundamental na configuração das plataformas continentais. Sobre a epirogênese, assinale a alternativa correta:",
+            options: [
+                "Trata-se de um movimento horizontal de grande intensidade que ocorre em zonas de convergência de placas, resultando em dobramentos modernos.",
+                "Manifesta-se por meio de movimentos verticais de longa duração geológica, provocando o soerguimento ou a subsidência de vastas áreas continentais sem gerar dobras complexas.",
+                "É o processo responsável pela formação de fossas oceânicas e cordilheiras montanhosas de alta altitude, como o Himalaia.",
+                "Caracteriza-se por ser um evento de curta duração geológica, restrito às bordas das placas tectônicas ativas, acompanhado de intenso vulcanismo explosivo.",
+                "Ocorre exclusivamente em áreas de geologia recente, sendo a principal causa da formação dos escudos cristalinos arqueanos."
+            ],
+            correct: 1,
+            resolution: "A epirogênese caracteriza-se por movimentos de natureza vertical (soerguimento ou subsidência) de longa duração que afetam vastas áreas sem gerar dobramentos. As outras opções descrevem a orogênese (movimentos horizontais, dobramentos e fossas)."
+        },
+        {
+            id: 3,
+            text: "QUESTÃO 03 – A base geológica do território brasileiro é composta por estruturas antigas e estáveis, o que reflete diretamente no potencial de exploração de recursos naturais. Considerando a distribuição das províncias geológicas no Brasil, é correto afirmar que:\n\nI. Os escudos cristalinos, ou crátons, ocupam aproximadamente 36% do território nacional e são constituídos por rochas magmáticas e metamórficas do Pré-Cambriano.\nII. As bacias sedimentares recobrem cerca de 64% da superfície brasileira e abrigam importantes reservas de combustíveis fósseis e aquíferos.\nIII. O Brasil apresenta em sua porção central grandes cadeias de dobramentos modernos, formadas durante a Era Cenozoica, que explicam as altitudes superiores a 5.000 metros em Minas Gerais.\nIV. A estrutura geológica brasileira é caracterizada pela ausência de terrenos de formação vulcânica, uma vez que o país se localiza no centro da placa tectônica.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e IV.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 0,
+            resolution: "I e II estão corretas: Escudos (36%) e Bacias (64%). III está incorreta: não há dobramentos modernos no Brasil. IV está incorreta: há vastos terrenos vulcânicos antigos (Mesozoico), como na Bacia do Paraná."
+        },
+        {
+            id: 4,
+            text: "QUESTÃO 04 – Os processos vulcânicos desempenharam papel crucial na formação do relevo brasileiro, especialmente durante a Era Mesozoica. Sobre o magmatismo e suas implicações no Brasil, assinale a alternativa que descreve corretamente o evento ocorrido na Bacia do Paraná:",
+            options: [
+                "Vulcanismo explosivo de natureza granítica que deu origem às serras do mar no litoral sudeste.",
+                "Derrame basáltico fissural de grandes proporções associado à fragmentação do supercontinente Gondwana, resultando na formação de solos de terra roxa.",
+                "Formação de cones vulcânicos ativos no interior de São Paulo, responsáveis pela sismicidade recorrente na região.",
+                "Intrusão de rochas metamórficas do tipo quartzito que formaram as chapadas do Nordeste.",
+                "Processo de sedimentação marinha que soterrou antigas crateras vulcânicas do período Quaternário."
+            ],
+            correct: 1,
+            resolution: "Ocorreu um derrame basáltico fissural massivo no Mesozoico (Formação Serra Geral). O intemperismo desse basalto rico em ferro gerou os solos férteis conhecidos como 'terra roxa'."
+        },
+        {
+            id: 5,
+            text: "QUESTÃO 05 – A exploração de minerais metálicos no Brasil está intimamente ligada às unidades estruturais mais antigas do território. Sobre as principais províncias minerais brasileiras, analise as assertivas abaixo e assinale V, se verdadeiras, ou F, se falsas:\n\n( ) A Província Mineral de Carajás, situada no Pará, destaca-se mundialmente pelas reservas de minério de ferro de alto teor, cobre e manganês, inseridas em terrenos de escudos cristalinos.\n( ) O Quadrilátero Ferrífero, em Minas Gerais, é uma área de relevo montanhoso sustentada por rochas proterozoicas ricas em hematita e itabirito.\n( ) A exploração de bauxita no Brasil concentra-se exclusivamente em bacias sedimentares recentes do Rio Grande do Sul, devido ao clima temperado.\n( ) O nióbio, mineral estratégico do qual o Brasil é o maior produtor mundial, é extraído principalmente de complexos alcalino-carbonatíticos em áreas de embasamento antigo.",
+            options: [
+                "V – V – F – V.",
+                "V – F – V – F.",
+                "F – V – F – V.",
+                "V – V – V – F.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: "A sequência é V-V-F-V. Carajás e Quadrilátero são referências mundiais em ferro. A bauxita concentra-se no Pará (Oriximiná/Paragominas), não no RS. O Brasil é líder em nióbio, extraído de áreas cristalinas (como Araxá-MG)."
+        },
+        {
+            id: 6,
+            text: "QUESTÃO 06 – As bacias sedimentares brasileiras apresentam diferentes origens e temporalidades geológicas. No que se refere à exploração de hidrocarbonetos e carvão mineral, assinale a alternativa INCORRETA:",
+            options: [
+                "O carvão mineral brasileiro, encontrado principalmente na Bacia do Paraná (região Sul), originou-se do soterramento de florestas em ambiente de pântanos durante o período Permiano.",
+                "As bacias de margem continental, como a de Santos e Campos, são as principais produtoras de petróleo e gás natural no país.",
+                "O petróleo brasileiro é extraído exclusivamente de bacias sedimentares terrestres localizadas no Escudo das Guianas.",
+                "A exploração do pré-sal ocorre em bacias sedimentares marinhas sob uma espessa camada de sal, formada durante a abertura do Oceano Atlântico.",
+                "A Bacia do Recôncavo, na Bahia, foi pioneira na exploração comercial de petróleo em terra no Brasil."
+            ],
+            correct: 2,
+            resolution: "A alternativa C está INCORRETA. Petróleo não é extraído de escudos cristalinos (Escudo das Guianas), mas sim de bacias sedimentares. Além disso, a maior parte da produção brasileira é offshore (marítima)."
+        },
+        {
+            id: 7,
+            text: "QUESTÃO 07 – Segundo a classificação de Jurandyr Ross, o relevo brasileiro é resultado da interação entre a estrutura geológica e os processos paleoclimáticos. Sobre as macrounidades do relevo vinculadas à base geológica, é correto afirmar:",
+            options: [
+                "Os planaltos em bacias sedimentares são formas de relevo onde os processos de sedimentação superam os de erosão.",
+                "As depressões brasileiras, como a Depressão Periférica da Borda Leste da Bacia do Paraná, formaram-se pelo desgaste erosivo nas zonas de contato entre bacias sedimentares e escudos cristalinos.",
+                "As planícies ocupam a maior parte do território brasileiro, sendo sustentadas por rochas magmáticas intrusivas.",
+                "Os escudos cristalinos dão origem exclusivamente a planícies litorâneas devido à sua grande resistência ao intemperismo.",
+                "As bacias sedimentares do Brasil central são responsáveis pela formação de cadeias de montanhas jovens e pontiagudas."
+            ],
+            correct: 1,
+            resolution: "As depressões no Brasil (segundo Ross) são áreas rebaixadas por erosão diferencial, ocorrendo frequentemente no contato entre bacias sedimentares e o embasamento cristalino."
+        },
+        {
+            id: 8,
+            text: "QUESTÃO 08 – O conceito de orogênese é fundamental para explicar a ausência de certas feições morfológicas no Brasil. Sobre esse processo, considere as seguintes afirmações:\n\nI. A orogênese é um processo de curta duração geológica que envolve forças compressivas horizontais.\nII. O Brasil não possui dobramentos modernos porque se localiza em uma região de intraplaca, distante das margens convergentes atuais.\nIII. As 'serras' brasileiras, como a Mantiqueira e a do Mar, são dobramentos modernos típicos da Era Cenozoica.\nIV. Os processos orogênicos resultam na formação de metamorfismo regional e na estruturação de grandes cordilheiras.",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, II e IV.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: "I, II e IV estão corretas. A III está incorreta: as serras do Mar e Mantiqueira são blocos de falhamento de rochas antigas (Pré-Cambrianas) reativadas, não dobramentos modernos cenozoicos."
+        },
+        {
+            id: 9,
+            text: "QUESTÃO 09 – A Bacia Amazônica é uma das maiores bacias sedimentares do mundo e possui uma estratigrafia complexa. Sobre ela, é correto afirmar que:",
+            options: [
+                "É uma bacia de formação recente, exclusivamente quaternária, sem depósitos de idade paleozoica.",
+                "Situa-se entre os escudos das Guianas, ao norte, e o escudo Brasileiro, ao sul, apresentando sequências de rochas que podem atingir milhares de metros de espessura.",
+                "É a principal fonte de minério de ferro para a exportação brasileira através do Porto de Santos.",
+                "Sua formação está ligada a um regime de compressão tectônica gerado pelo soerguimento da Cordilheira dos Andes no leste.",
+                "Não possui potencial para exploração de gás natural, sendo uma bacia puramente aquiífera."
+            ],
+            correct: 1,
+            resolution: "A Bacia Amazônica é uma bacia intracratônica situada entre os escudos das Guianas e o Brasileiro, com sedimentação que vem desde o Paleozoico e grande potencial de hidrocarbonetos (ex: Urucu)."
+        },
+        {
+            id: 10,
+            text: "QUESTÃO 10 – A relação entre a base geológica e a geomorfologia do Brasil é marcada pela antiguidade das rochas. Sobre este tema, assinale a alternativa que apresenta a correlação correta entre tipo de rocha, estrutura e recurso mineral:",
+            options: [
+                "Arenito – Escudo Cristalino – Ouro.",
+                "Granito – Bacia Sedimentar – Petróleo.",
+                "Basalto – Bacia Sedimentar – Solo fértil (Terra Roxa).",
+                "Gnaisse – Bacia Sedimentar – Carvão Mineral.",
+                "Calcário – Escudo Cristalino – Gás Natural."
+            ],
+            correct: 2,
+            resolution: "Correto: Basalto (rocha magmática extrusiva) ocorre em bacias (como a do Paraná) e gera solos de terra roxa. Arenito, Gnaisse e Granito estão associados a outras estruturas ou recursos conforme explicado nas outras questões."
+        }
+    ];
+
+    function loadQuiz() {
+        const wrapper = document.getElementById('questions-wrapper');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            const optionsHTML = q.options.map((opt, optIndex) => `
+                <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                    <input type="radio" name="q${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                    <label for="q${index}o${optIndex}">${opt}</label>
+                </li>
+            `).join('');
+
+            card.innerHTML = `
+                <span class="question-text">${q.text.replace(/\n/g, '<br>')}</span>
+                <ul class="options-list">${optionsHTML}</ul>
+            `;
+            wrapper.appendChild(card);
+        });
+    }
+
+    function selectOption(qIdx, oIdx) {
+        document.getElementById(`q${qIdx}o${oIdx}`).checked = true;
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const resolutionsList = document.getElementById('resolutions-list');
+        resolutionsList.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const selectedValue = selected ? parseInt(selected.value) : null;
+            const isCorrect = selectedValue === q.correct;
+            
+            if (isCorrect) score++;
+
+            // Update UI for the question card
+            const card = document.getElementById(`q-card-${index}`);
+            const options = card.querySelectorAll('.option-item');
+            
+            options.forEach((opt, optIdx) => {
+                if (optIdx === q.correct) {
+                    opt.classList.add('highlight-correct');
+                } else if (selectedValue === optIdx && !isCorrect) {
+                    opt.classList.add('highlight-incorrect');
+                }
+            });
+
+            // Create Resolution Entry
+            const resDiv = document.createElement('div');
+            resDiv.className = 'question-card';
+            resDiv.innerHTML = `
+                <p><strong>Questão ${q.id}</strong></p>
+                ${isCorrect ? 
+                    '<span class="correct-indicator">✓ Você acertou!</span>' : 
+                    `<span class="incorrect-indicator">✗ Você errou. Resposta correta: ${String.fromCharCode(65 + q.correct)}</span>`
+                }
+                <div class="resolution-box">
+                    <strong>Resolução:</strong> ${q.resolution}
+                </div>
+            `;
+            resolutionsList.appendChild(resDiv);
+        });
+
+        // Show Results
+        document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        const msg = score >= 7 ? "Excelente desempenho!" : score >= 5 ? "Bom trabalho, continue revisando." : "Recomendamos revisar a base geológica brasileira.";
+        document.getElementById('score-message').innerText = msg;
+        
+        document.getElementById('results-container').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('results-container').offsetTop - 50, behavior: 'smooth' });
+        
+        // Disable all inputs
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+        document.querySelector('.btn-submit').style.display = 'none';
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>

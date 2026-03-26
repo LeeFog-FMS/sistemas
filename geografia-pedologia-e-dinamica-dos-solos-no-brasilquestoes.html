@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Pedologia e Dinâmica dos Solos no Brasil</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-secondary: #636e72;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --incorrect-color: #d63031;
+            --border-color: #dfe6e9;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--container-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f1f2f6;
+            border-color: var(--accent-color);
+        }
+
+        .option input {
+            margin-right: 15px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0773c5;
+        }
+
+        #result-section {
+            display: none;
+            background: var(--container-bg);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--accent-color);
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin: 20px 0;
+        }
+
+        .resolutions-title {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        .resolution-box {
+            display: none; /* Hidden until submission */
+            background: #f8f9fa;
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .resolution-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .status-correct { background: #e1f5fe; color: var(--correct-color); border: 1px solid var(--correct-color); }
+        .status-incorrect { background: #ffebee; color: var(--incorrect-color); border: 1px solid var(--incorrect-color); }
+
+        /* Estilo para marcar a resposta correta/errada após o envio */
+        .option.correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+        }
+
+        .option.wrong {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1>Pedologia e Dinâmica dos Solos no Brasil</h1>
+        <p class="description">Simulado Técnico Estilo Fundatec - Agropecuária e Conservação</p>
+    </header>
+
+    <div id="quiz-container">
+        <!-- Question 1 -->
+        <div class="question-card" data-correct="A">
+            <span class="question-text">Questão 01: Analise as assertivas sobre pedogênese (V ou F) e assinale a ordem correta.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q1" value="A"> A) V – V – V – F.</label>
+                <label class="option"><input type="radio" name="q1" value="B"> B) V – F – V – V.</label>
+                <label class="option"><input type="radio" name="q1" value="C"> C) F – V – F – V.</label>
+                <label class="option"><input type="radio" name="q1" value="D"> D) V – V – F – F.</label>
+                <label class="option"><input type="radio" name="q1" value="E"> E) F – F – V – V.</label>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <h4>Resolução:</h4>
+                A pedogênese é governada por cinco fatores (clima, organismos, relevo, material de origem e tempo). No Brasil, o clima tropical torna o intemperismo químico dominante. O horizonte O é essencial para a ciclagem em solos pobres. A eluviação é a remoção de materiais para horizontes inferiores. Neossolos são jovens e NÃO possuem horizonte B desenvolvido, invalidando a última assertiva.
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 02: Sobre as características morfológicas, físicas e químicas dos Latossolos, assinale a correta.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q2" value="A"> A) Apresentam horizonte B textural (Bt) com cerosidade.</label>
+                <label class="option"><input type="radio" name="q2" value="B"> B) Caracterizam-se pelo avançado estágio de intemperização, mineralogia dominada por óxidos e estrutura granular estável.</label>
+                <label class="option"><input type="radio" name="q2" value="C"> C) Dispensam a calagem por manterem saturação por bases acima de 70%.</label>
+                <label class="option"><input type="radio" name="q2" value="D"> D) A principal limitação física é a baixa profundidade efetiva.</label>
+                <label class="option"><input type="radio" name="q2" value="E"> E) Apresentam predominância de argilas expansivas do tipo 2:1.</label>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <h4>Resolução:</h4>
+                Latossolos são o estágio final da meteorização mineralógica. Possuem estrutura granular estável devido aos óxidos de ferro e alumínio (microagregados). São profundos e pobres quimicamente (requerem calagem), com argilas 1:1 (caulinita), não expansivas.
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-text">Questão 03: Referente ao comportamento físico-hídrico e à taxonomia dos Argissolos, assinale a alternativa INCORRETA.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q3" value="A"> A) O horizonte diagnóstico é o B textural (Bt), com mais argila que o A.</label>
+                <label class="option"><input type="radio" name="q3" value="B"> B) A mudança textural abrupta favorece o escoamento superficial e erosão.</label>
+                <label class="option"><input type="radio" name="q3" value="C"> C) Apresentam horizonte B latossólico logo abaixo do A, garantindo drenagem excessiva.</label>
+                <label class="option"><input type="radio" name="q3" value="D"> D) A suscetibilidade à erosão hídrica é uma das principais limitações.</label>
+                <label class="option"><input type="radio" name="q3" value="E"> E) Podem variar de vermelho a amarelo dependendo da hematita ou goethita.</label>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <h4>Resolução:</h4>
+                Incorreta: A alternativa C afirma que possuem B latossólico. Na verdade, o horizonte diagnóstico dos Argissolos é o B textural (Bt). Essa diferença de textura entre A e B dificulta a drenagem profunda, facilitando a erosão, ao contrário do B latossólico que drena muito bem.
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-text">Questão 04: Sobre o processo de lixiviação e dinâmica de nutrientes, quais afirmações estão corretas?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q4" value="A"> A) Apenas I e II.</label>
+                <label class="option"><input type="radio" name="q4" value="B"> B) Apenas II e III.</label>
+                <label class="option"><input type="radio" name="q4" value="C"> C) Apenas I, III e IV.</label>
+                <label class="option"><input type="radio" name="q4" value="D"> D) Apenas II, III e IV.</label>
+                <label class="option"><input type="radio" name="q4" value="E"> E) I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <h4>Resolução:</h4>
+                A afirmação II está incorreta porque solos arenosos são MAIS propensos à lixiviação (possuem macroporos e baixa retenção química). As demais são corretas: a lixiviação remove cátions básicos, o nitrato é facilmente lavado e a matéria orgânica/plantas de cobertura ajudam a mitigar o processo.
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 05: Sobre laterização e formação de plintites, assinale a alternativa correta.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q5" value="A"> A) Laterização é o acúmulo de sílica no horizonte superficial.</label>
+                <label class="option"><input type="radio" name="q5" value="B"> B) Plintização ocorre em restrição de drenagem com alternância de oxidação/redução, podendo gerar petroplintite.</label>
+                <label class="option"><input type="radio" name="q5" value="C"> C) Solos lateríticos possuem alta reserva de minerais primários.</label>
+                <label class="option"><input type="radio" name="q5" value="D"> D) O processo é típico de climas temperados e frios.</label>
+                <label class="option"><input type="radio" name="q5" value="E"> E) A formação de cangas é um fenômeno puramente biológico (cupins).</label>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <h4>Resolução:</h4>
+                A plintização decorre da oscilação do lençol freático que concentra óxidos de ferro. Se exposto ao sol ou secagem intensa, esse material endurece irreversivelmente (petroplintite ou laterite), formando impedimentos físicos ao cultivo.
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 06: Em relação à gênese e ao controle de voçorocas, assinale a alternativa correta.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q6" value="A"> A) Iniciam-se sempre por deposição de sedimentos pelo vento.</label>
+                <label class="option"><input type="radio" name="q6" value="B"> B) O processo de piping (erosão interna) pode criar canais subsuperficiais que colapsam.</label>
+                <label class="option"><input type="radio" name="q6" value="C"> C) O terraceamento aumenta a velocidade da água e causa voçorocas.</label>
+                <label class="option"><input type="radio" name="q6" value="D"> D) Uma voçoroca é um sulco pequeno eliminado por gradagem leve.</label>
+                <label class="option"><input type="radio" name="q6" value="E"> E) Vegetação nativa acelera o voçorocamento pelas raízes.</label>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <h4>Resolução:</h4>
+                O piping é a erosão interna que "escava" o solo por baixo. Quando o teto desses túneis cai, a voçoroca aparece. Diferente dos sulcos, a voçoroca atinge o lençol freático e não é resolvida com máquinas agrícolas simples.
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card" data-correct="A">
+            <span class="question-text">Questão 07: Relacione as técnicas (SPD, Terraceamento, Calagem, Gessagem) às suas finalidades.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q7" value="A"> A) 4 – 3 – 2 – 1.</label>
+                <label class="option"><input type="radio" name="q7" value="B"> B) 3 – 4 – 1 – 2.</label>
+                <label class="option"><input type="radio" name="q7" value="C"> C) 2 – 1 – 4 – 3.</label>
+                <label class="option"><input type="radio" name="q7" value="D"> D) 1 – 2 – 3 – 4.</label>
+                <label class="option"><input type="radio" name="q7" value="E"> E) 4 – 2 – 3 – 1.</label>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <h4>Resolução:</h4>
+                (4) Gessagem: Cálcio em subsuperfície e neutralização de Al. (3) Calagem: Elevação do pH e saturação por bases na camada arável. (2) Terraceamento: Divisão da rampa para controlar enxurrada. (1) Plantio Direto: Cobertura permanente e rotação.
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 08: Qual sequência está organizada da menor para a maior intensidade de intemperismo (menos evoluído para mais evoluído)?</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q8" value="A"> A) Latossolo – Argissolo – Cambissolo – Neossolo.</label>
+                <label class="option"><input type="radio" name="q8" value="B"> B) Neossolo – Cambissolo – Argissolo – Latossolo.</label>
+                <label class="option"><input type="radio" name="q8" value="C"> C) Neossolo – Latossolo – Cambissolo – Argissolo.</label>
+                <label class="option"><input type="radio" name="q8" value="D"> D) Cambissolo – Neossolo – Argissolo – Latossolo.</label>
+                <label class="option"><input type="radio" name="q8" value="E"> E) Argissolo – Latossolo – Neossolo – Cambissolo.</label>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <h4>Resolução:</h4>
+                O Neossolo é quase rocha pura (jovem). O Cambissolo tem um B incipiente. O Argissolo tem B textural claro. O Latossolo é o estágio máximo (mineralogia simples e muito profundo).
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card" data-correct="E">
+            <span class="question-text">Questão 09: Analise as assertivas sobre capacidade de uso das terras e iLPF.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q9" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q9" value="B"> B) Apenas II.</label>
+                <label class="option"><input type="radio" name="q9" value="C"> C) Apenas I e III.</label>
+                <label class="option"><input type="radio" name="q9" value="D"> D) Apenas II e III.</label>
+                <label class="option"><input type="radio" name="q9" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <h4>Resolução:</h4>
+                Todas corretas. Classe I são as melhores terras. Pastagens em Argissolos sem cobertura geram erosão acelerada. iLPF é estratégia chave para aporte de carbono e sustentabilidade.
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 10: Sobre a relação entre textura e retenção de nutrientes, assinale a correta.</span>
+            <div class="options-container">
+                <label class="option"><input type="radio" name="q10" value="A"> A) Solos arenosos possuem alta capacidade de retenção de nutrientes.</label>
+                <label class="option"><input type="radio" name="q10" value="B"> B) A fração argila é responsável pela CTC; argilas 1:1 têm menor CTC que as 2:1.</label>
+                <label class="option"><input type="radio" name="q10" value="C"> C) O selamento ocorre em solos com alta estabilidade de agregados.</label>
+                <label class="option"><input type="radio" name="q10" value="D"> D) A compactação aumenta a macroporosidade.</label>
+                <label class="option"><input type="radio" name="q10" value="E"> E) Solos argilosos são imunes à erosão hídrica.</label>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <h4>Resolução:</h4>
+                A CTC (química do solo) reside na argila e matéria orgânica. Argilas expansivas 2:1 (esmectitas) seguram muito mais íons que a caulinita 1:1 típica de solos muito velhos como os brasileiros.
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="submit-btn" onclick="submitQuiz()">Finalizar e Ver Resoluções</button>
+    </div>
+
+    <div id="result-section">
+        <h2>Resultado Final</h2>
+        <div class="score-display" id="score">0 / 10</div>
+        <p id="feedback-text">Clique para revisar suas respostas abaixo.</p>
+    </div>
+
+    <div id="resolutions-anchor"></div>
+</div>
+
+<script>
+    function submitQuiz() {
+        const questions = document.querySelectorAll('.question-card');
+        let score = 0;
+        let answeredAll = true;
+
+        questions.forEach((card, index) => {
+            const correctValue = card.getAttribute('data-correct');
+            const selected = card.querySelector(`input[name="q${index + 1}"]:checked`);
+            const resolution = card.querySelector('.resolution-box');
+            const options = card.querySelectorAll('.option');
+
+            // Show resolution
+            resolution.style.display = 'block';
+
+            if (selected) {
+                if (selected.value === correctValue) {
+                    score++;
+                    // Mark as correct in UI
+                    selected.parentElement.classList.add('correct');
+                    card.insertAdjacentHTML('afterbegin', '<span class="status-badge status-correct">Acertou</span>');
+                } else {
+                    // Mark wrong selection
+                    selected.parentElement.classList.add('wrong');
+                    // Highlight the right one
+                    options.forEach(opt => {
+                        if (opt.querySelector('input').value === correctValue) {
+                            opt.classList.add('correct');
+                        }
+                    });
+                    card.insertAdjacentHTML('afterbegin', '<span class="status-badge status-incorrect">Errou</span>');
+                }
+            } else {
+                answeredAll = false;
+                // Just show the right one
+                options.forEach(opt => {
+                    if (opt.querySelector('input').value === correctValue) {
+                        opt.classList.add('correct');
+                    }
+                });
+                card.insertAdjacentHTML('afterbegin', '<span class="status-badge status-incorrect">Não respondida</span>');
+            }
+
+            // Disable all inputs
+            card.querySelectorAll('input').forEach(input => input.disabled = true);
+        });
+
+        // Update score display
+        document.getElementById('score').innerText = `${score} / ${questions.length}`;
+        document.getElementById('result-section').style.display = 'block';
+        
+        // Disable submit button
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Scroll to results
+        document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

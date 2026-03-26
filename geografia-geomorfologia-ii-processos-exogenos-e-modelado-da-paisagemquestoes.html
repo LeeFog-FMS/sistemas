@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Geomorfologia II e Jurandyr Ross</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --card-bg: #ffffff;
+            --primary: #0984e3;
+            --primary-dark: #074b83;
+            --success: #27ae60;
+            --error: #d63031;
+            --border: #dfe6e9;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2d3436;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f1f2f6;
+            border-color: var(--primary);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .option-label.selected {
+            border-color: var(--primary);
+            background-color: #e3f2fd;
+        }
+
+        /* Classes para feedback pós-quiz */
+        .option-label.correct {
+            border-color: var(--success);
+            background-color: #e8f5e9;
+            font-weight: bold;
+        }
+
+        .option-label.incorrect {
+            border-color: var(--error);
+            background-color: #ffebee;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        #submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #submit-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        #results-section {
+            display: none;
+            background: #f1f2f6;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            font-size: 1rem;
+            color: #444;
+            text-align: left;
+        }
+
+        .resolution-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #b2bec3;
+            font-size: 0.9rem;
+            padding-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado de Geomorfologia II</h1>
+        <p class="intro-text">Processos Exógenos, Classificação de Jurandyr Ross e Fragilidade Ambiental</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- As questões serão injetadas via JavaScript -->
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="checkAnswers()">Finalizar e Ver Resultados</button>
+    </div>
+
+    <div id="results-section">
+        <h2>Resultado Final</h2>
+        <div class="score-display" id="score-text">0 / 10</div>
+        <p id="feedback-text"></p>
+        <button onclick="window.location.reload()" style="margin-top:20px; padding: 10px 20px; cursor: pointer; border-radius: 5px; border: 1px solid #ccc;">Reiniciar Quiz</button>
+    </div>
+</div>
+
+<footer>
+    Geomorfologia II: Processos Exógenos e Modelado da Paisagem • Padrão Fundatec
+</footer>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "No contexto da Geomorfologia II, o estudo das forças exógenas é fundamental para compreender o modelado da paisagem. Sobre os processos de intemperismo, analise as assertivas abaixo:\n\nI. O intemperismo químico é o processo dominante em regiões de clima tropical úmido, onde a pluviosidade e as temperaturas elevadas aceleram as reações de hidrólise e oxidação.\nII. O intemperismo físico consiste na desintegração mecânica da rocha sem alteração de sua composição mineralógica, sendo predominante em climas áridos e semiáridos devido à grande amplitude térmica.\nIII. A desagregação física das rochas aumenta a superfície de contato dos minerais, o que atua como um fator inibidor para o desenvolvimento do intemperismo químico subsequente.\nIV. O clima atua como o principal agente modelador do relevo em escalas temporais recentes, sendo a água o principal reagente químico e motor mecânico da erosão.",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, II e IV.",
+                "Apenas I, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2, // C
+            resolution: "<strong>Gabarito C:</strong> As assertivas I, II e IV estão corretas. O erro da III está em afirmar que o intemperismo físico é um 'inibidor' do químico; na verdade, ao quebrar a rocha em pedaços menores, ele aumenta a superfície de contato, acelerando a ação química."
+        },
+        {
+            id: 2,
+            question: "A classificação do relevo brasileiro proposta por Jurandyr Ross na década de 1980 introduziu critérios morfoestruturais e morfoesculturais baseados nos dados do Projeto RadamBrasil. Sobre as unidades morfoesculturais definidas por Ross, assinale a alternativa INCORRETA:",
+            options: [
+                "Os planaltos são áreas onde os processos de desgaste erosivo superam os de sedimentação.",
+                "As depressões brasileiras são, em sua maioria, depressões relativas, resultantes de longos processos de erosão nas bordas das bacias sedimentares.",
+                "As planícies são superfícies essencialmente planas onde os processos de deposição de sedimentos recentes superam os de erosão.",
+                "Ross identificou 28 unidades de relevo no Brasil, divididas entre 11 planaltos, 11 depressões e 6 planícies.",
+                "As depressões absolutas, situadas abaixo do nível do mar, são as formas predominantes no Centro-Oeste brasileiro, conforme a taxonomia de Ross."
+            ],
+            correct: 4, // E
+            resolution: "<strong>Gabarito E (Incorreta):</strong> No Brasil, as depressões definidas por Ross são <em>relativas</em> (estão acima do nível do mar, mas em nível mais baixo que o relevo circundante). Não existem depressões absolutas expressivas no território nacional, muito menos como forma predominante no Centro-Oeste."
+        },
+        {
+            id: 3,
+            question: "Considere os conceitos de morfoestrutura e morfoescultura empregados por Jurandyr Ross para a compartimentação do relevo. Relacione a Coluna 1 à Coluna 2:\n\nColuna 1\n1. Morfoestrutura.\n2. Morfoescultura.\n\nColuna 2\n( ) Refere-se às formas do relevo esculpidas por agentes exógenos como clima e vegetação.\n( ) Corresponde ao arcabouço geológico de longo prazo, como as bacias sedimentares e os escudos cristalinos.\n( ) Inclui as unidades de planaltos, planícies e depressões conforme sua gênese climática.\n( ) Representa o primeiro táxon da classificação de Ross, abrangendo as grandes macroestruturas da litosfera.",
+            options: [
+                "2 – 1 – 2 – 1.",
+                "1 – 2 – 1 – 2.",
+                "2 – 2 – 1 – 1.",
+                "1 – 1 – 2 – 2.",
+                "2 – 1 – 1 – 2."
+            ],
+            correct: 0, // A
+            resolution: "<strong>Gabarito A:</strong> A sequência correta é 2-1-2-1. A morfoescultura (2) é o resultado dos agentes externos (clima/modelado), enquanto a morfoestrutura (1) é a base geológica (primeiro táxon de Ross)."
+        },
+        {
+            id: 4,
+            question: "A metodologia de análise da Fragilidade Ambiental proposta por Jurandyr Ross (1994) é uma ferramenta essencial para o planejamento urbano. Sobre a escala de fragilidade de 1 a 5, assinale a alternativa correta:",
+            options: [
+                "O valor 1 representa o grau de fragilidade 'Muito Forte', típico de encostas íngremes e solos expostos.",
+                "O valor 3 indica uma fragilidade média, onde existe um equilíbrio precário entre os processos de morfogênese e pedogênese.",
+                "O valor 5 é atribuído exclusivamente a áreas de planície com vegetação nativa preservada, onde a sedimentação é nula.",
+                "A fragilidade potencial refere-se apenas aos impactos causados pela ocupação humana, desconsiderando a declividade do terreno.",
+                "Solos profundos, como os Latossolos, em terrenos planos, recebem o valor 5 na escala de fragilidade devido à sua alta porosidade."
+            ],
+            correct: 1, // B
+            resolution: "<strong>Gabarito B:</strong> Na escala de Ross, o valor 3 é o ponto de equilíbrio dinâmico. O valor 1 é fragilidade muito fraca e o valor 5 é muito forte (ex: alta declividade e solo exposto)."
+        },
+        {
+            id: 5,
+            question: "A ocupação urbana em compartimentos de relevo frágeis pode desencadear processos geomorfológicos acelerados. Analise as seguintes assertivas sobre a fragilidade dos compartimentos frente à urbanização:\n\nI. A impermeabilização do solo em áreas urbanas reduz o escoamento superficial e aumenta a infiltração de água no lençol freático, estabilizando as encostas.\nII. A remoção da cobertura vegetal em unidades de planalto aumenta a fragilidade emergente do sistema, expondo o solo à erosão pluvial.\nIII. As planícies de inundação são áreas de baixa fragilidade para a construção civil, pois a deposição de sedimentos garante a estabilidade das fundações.\nIV. O planejamento urbano deve considerar a declividade como parâmetro principal para evitar riscos de movimentos de massa em áreas de serras.",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I e IV.",
+                "Apenas II e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 3, // D
+            resolution: "<strong>Gabarito D:</strong> Estão corretas II e IV. A I está errada porque a impermeabilização <em>aumenta</em> o escoamento superficial. A III está errada porque planícies de inundação são instáveis e sujeitas a cheias, representando alta fragilidade para ocupação."
+        },
+        {
+            id: 6,
+            question: "No que se refere à taxonomia do relevo proposta por Jurandyr Ross, o 3º táxon é definido como:",
+            options: [
+                "As Unidades Morfoestruturais, como os crátons antigos.",
+                "Os padrões de formas de relevo semelhantes (morros, colinas, chapadas) com mesma gênese e dissecação.",
+                "Os tipos de vertentes e encostas em escala detalhada.",
+                "Os setores de vertente identificados por processos erosivos microscópicos.",
+                "As grandes unidades morfoesculturais (planaltos, planícies e depressões)."
+            ],
+            correct: 1, // B
+            resolution: "<strong>Gabarito B:</strong> O 3º Táxon refere-se aos padrões de formas, como os mamelonares (meias-laranjas), chapadas ou colinas, analisados pela densidade de drenagem e dissecação."
+        },
+        {
+            id: 7,
+            question: "O intemperismo químico das rochas no Brasil é responsável pela formação de grandes mantos de alteração. Sobre esse processo, é correto afirmar que:",
+            options: [
+                "A hidrólise dos silicatos em climas úmidos resulta na formação de minerais secundários, como as argilas (caulinita) e óxidos de ferro e alumínio.",
+                "A carbonatação é o principal processo de desgaste das rochas graníticas em ambientes desérticos.",
+                "O intemperismo biológico, realizado por raízes de plantas, impede qualquer tipo de alteração química dos minerais.",
+                "Em regiões de clima semiárido, a lixiviação é tão intensa que impede a formação de solos pedregosos.",
+                "A taxa de intemperismo químico é inversamente proporcional à temperatura e à umidade relativa do ar."
+            ],
+            correct: 0, // A
+            resolution: "<strong>Gabarito A:</strong> Em climas tropicais, a hidrólise é o processo químico chave que transforma minerais primários (silicatos) em argilas e óxidos metálicos, formando os solos profundos (latossolos)."
+        },
+        {
+            id: 8,
+            question: "A classificação de Jurandyr Ross subdivide os planaltos brasileiros em quatro categorias. Assinale a alternativa que apresenta corretamente uma dessas subdivisões:",
+            options: [
+                "Planaltos de Depressão Absoluta.",
+                "Planaltos em Bacias Sedimentares.",
+                "Planaltos de Sedimentação Quaternária Marinha.",
+                "Planaltos de Dunas Ativas.",
+                "Planaltos de Várzea Fluviomarinha."
+            ],
+            correct: 1, // B
+            resolution: "<strong>Gabarito B:</strong> Ross classifica os planaltos em: 1. Em Bacias Sedimentares; 2. Em Núcleos Cristalinos Arqueados; 3. Em Intrusionamentos e Coberturas Residuais de Plataforma; 4. Em Cinturões Orogenéticos."
+        },
+        {
+            id: 9,
+            question: "A relação entre clima e relevo na obra de Ross é expressa pela ação dos agentes exógenos. Sobre a formação das depressões no território brasileiro, assinale a alternativa correta:",
+            options: [
+                "Elas resultam de processos tectônicos recentes que rebaixaram o terreno abaixo do nível do mar.",
+                "São formadas exclusivamente por sedimentos trazidos pelos ventos durante o período Holoceno.",
+                "São superfícies de pediplanação e erosão esculpidas em rochas menos resistentes nas bordas das bacias sedimentares.",
+                "Representam os topos planos das chapadas, onde a erosão é inexistente.",
+                "São áreas de acumulação vulcânica que deram origem ao relevo de 'cuesta'."
+            ],
+            correct: 2, // C
+            resolution: "<strong>Gabarito C:</strong> As depressões de Ross são áreas de erosão diferencial em rochas menos resistentes, geralmente localizadas nas bordas das bacias sedimentares, situadas entre planaltos de maior altitude."
+        },
+        {
+            id: 10,
+            question: "Considerando a aplicação prática da geomorfologia no ordenamento territorial defendida por Ross, o mapeamento de riscos geomorfológicos em áreas urbanas deve priorizar:",
+            options: [
+                "A identificação de áreas de alta declividade sujeitas a processos de morfogênese acelerada.",
+                "A ocupação de zonas de planície costeira para evitar o contato com sedimentos marinhos.",
+                "A construção em topos de morros mamelonares para facilitar o escoamento de esgoto a céu aberto.",
+                "O desmatamento de matas ciliares para aumentar a velocidade de vazão dos rios urbanos.",
+                "A ignorância dos processos de intemperismo físico, visto que eles não afetam as estruturas de concreto."
+            ],
+            correct: 0, // A
+            resolution: "<strong>Gabarito A:</strong> O foco do ordenamento deve ser a segurança ambiental, identificando as áreas de risco (alta declividade, solos instáveis) para evitar desastres como deslizamentos e inundações."
+        }
+    ];
+
+    function loadQuiz() {
+        const quizForm = document.getElementById('quiz-form');
+        let html = '';
+
+        quizData.forEach((q, index) => {
+            html += `
+                <div class="question-card" id="q-card-${index}">
+                    <span class="question-number">Questão ${index + 1}</span>
+                    <div class="question-text">${q.question.replace(/\n/g, '<br>')}</div>
+                    <div class="options-list">
+                        ${q.options.map((opt, optIndex) => `
+                            <div class="option-item">
+                                <label class="option-label" for="q${index}_opt${optIndex}" id="label-q${index}-opt${optIndex}">
+                                    <input type="radio" name="question${index}" value="${optIndex}" id="q${index}_opt${optIndex}">
+                                    ${String.fromCharCode(65 + optIndex)}) ${opt}
+                                </label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="resolution-box" id="res-${index}">
+                        <h4>Resolução:</h4>
+                        <p>${q.resolution}</p>
+                    </div>
+                </div>
+            `;
+        });
+
+        quizForm.innerHTML = html;
+
+        // Adicionar eventos de clique para destacar seleção
+        document.querySelectorAll('.option-label').forEach(label => {
+            label.addEventListener('click', function() {
+                const name = this.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                    input.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        let unanswered = false;
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+            
+            if (!selected) {
+                unanswered = true;
+                return;
+            }
+
+            const selectedValue = parseInt(selected.value);
+            const label = document.getElementById(`label-q${index}-opt${selectedValue}`);
+            const correctLabel = document.getElementById(`label-q${index}-opt${q.correct}`);
+            const resBox = document.getElementById(`res-${index}`);
+
+            // Mostrar resolução
+            resBox.style.display = 'block';
+
+            if (selectedValue === q.correct) {
+                score++;
+                label.classList.add('correct');
+            } else {
+                label.classList.add('incorrect');
+                correctLabel.classList.add('correct');
+            }
+        });
+
+        if (unanswered) {
+            // Se preferir, pode avisar que há questões sem resposta
+        }
+
+        // Mostrar Resultados
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        const feedbackText = document.getElementById('feedback-text');
+        const submitBtn = document.getElementById('submit-btn');
+
+        resultsSection.style.display = 'block';
+        scoreText.innerText = `${score} / ${quizData.length}`;
+        submitBtn.style.display = 'none';
+
+        if (score >= 8) {
+            feedbackText.innerText = "Excelente desempenho! Você domina os conceitos de Ross e processos exógenos.";
+            feedbackText.style.color = 'var(--success)';
+        } else if (score >= 6) {
+            feedbackText.innerText = "Bom trabalho. Revise as resoluções abaixo para fixar os pontos de dúvida.";
+            feedbackText.style.color = '#f39c12';
+        } else {
+            feedbackText.innerText = "Recomendamos uma nova leitura do material de apoio e atenção às resoluções detalhadas.";
+            feedbackText.style.color = 'var(--error)';
+        }
+
+        // Scroll suave para o resultado
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Desativar inputs para não mudar depois de ver o gabarito
+        document.querySelectorAll('input[type="radio"]').forEach(input => input.disabled = true);
+    }
+
+    // Inicializar quiz ao carregar página
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>
