@@ -3,440 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: Pedologia e Dinâmica dos Solos no Brasil</title>
+    <title>Simulado Técnico: Pedologia e Dinâmica dos Solos</title>
     <style>
         :root {
-            --bg-color: #fcfcfc;
-            --container-bg: #ffffff;
+            --bg-color: #fdfdfd;
+            --card-bg: #ffffff;
             --text-main: #2d3436;
-            --text-secondary: #636e72;
-            --accent-color: #0984e3;
-            --correct-color: #27ae60;
-            --incorrect-color: #d63031;
-            --border-color: #dfe6e9;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --text-sub: #444;
+            --accent: #2c3e50;
+            --highlight: #3498db;
+            --success: #27ae60;
+            --error: #e74c3c;
+            --border: #dcdde1;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
         }
 
-        .wrapper {
-            max-width: 850px;
-            width: 100%;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--border-color);
+            padding: 40px 0;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 30px;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-        }
-
-        .description {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
+        h1 { margin-bottom: 10px; font-size: 1.8rem; }
 
         .question-card {
-            background: var(--container-bg);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: transform 0.2s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .question-text {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
+        .question-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 15px;
             display: block;
         }
 
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .assertion-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--highlight);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
         }
 
-        .option {
+        .options-group {
             display: flex;
-            align-items: center;
+            flex-direction: column; /* Força uma embaixo da outra */
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
             padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
-        .option:hover {
+        .option-label:hover {
             background-color: #f1f2f6;
-            border-color: var(--accent-color);
+            border-color: var(--highlight);
         }
 
-        .option input {
+        .option-label input {
+            margin-top: 5px;
             margin-right: 15px;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
+            transform: scale(1.2);
+            flex-shrink: 0;
         }
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            margin: 40px 0;
-        }
-
-        button {
-            background-color: var(--accent-color);
+        .btn-finish {
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent);
             color: white;
             border: none;
-            padding: 15px 40px;
+            border-radius: 8px;
             font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s;
         }
 
-        button:hover {
-            background-color: #0773c5;
-        }
+        .btn-finish:hover { background-color: #1a252f; }
 
-        #result-section {
+        .resolution {
             display: none;
-            background: var(--container-bg);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border: 2px solid var(--accent-color);
-            margin-bottom: 40px;
-        }
-
-        .score-display {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--accent-color);
-            margin: 20px 0;
-        }
-
-        .resolutions-title {
-            margin-top: 50px;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            border-left: 5px solid var(--accent-color);
-            padding-left: 15px;
-        }
-
-        .resolution-box {
-            display: none; /* Hidden until submission */
-            background: #f8f9fa;
-            border-top: 1px solid var(--border-color);
-            padding: 20px;
             margin-top: 20px;
-            border-radius: 0 0 8px 8px;
+            padding: 15px;
+            background-color: #fffaf0;
+            border: 1px dashed #e67e22;
+            border-radius: 6px;
             font-size: 0.95rem;
-            color: #444;
+            color: #d35400;
         }
 
-        .resolution-box h4 {
-            color: var(--accent-color);
-            margin-bottom: 10px;
+        .correct { background-color: #d4edda !important; border-color: var(--success) !important; }
+        .incorrect { background-color: #f8d7da !important; border-color: var(--error) !important; }
+
+        #score-panel {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: var(--accent);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .status-tag {
+            font-size: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
             margin-bottom: 10px;
-        }
-
-        .status-correct { background: #e1f5fe; color: var(--correct-color); border: 1px solid var(--correct-color); }
-        .status-incorrect { background: #ffebee; color: var(--incorrect-color); border: 1px solid var(--incorrect-color); }
-
-        /* Estilo para marcar a resposta correta/errada após o envio */
-        .option.correct {
-            background-color: #d4edda !important;
-            border-color: #c3e6cb !important;
-            color: #155724;
-        }
-
-        .option.wrong {
-            background-color: #f8d7da !important;
-            border-color: #f5c6cb !important;
-            color: #721c24;
+            display: inline-block;
         }
 
         @media (max-width: 600px) {
             body { padding: 10px; }
-            .question-card { padding: 20px; }
-            h1 { font-size: 1.4rem; }
+            .question-card { padding: 15px; }
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+<div class="container">
     <header>
-        <h1>Pedologia e Dinâmica dos Solos no Brasil</h1>
-        <p class="description">Simulado Técnico Estilo Fundatec - Agropecuária e Conservação</p>
+        <h1>Simulado Pedologia e Dinâmica dos Solos</h1>
+        <p>Foco: Estudo de Formação, Horizontes e Conservação (Estilo Fundatec)</p>
     </header>
 
-    <div id="quiz-container">
-        <!-- Question 1 -->
-        <div class="question-card" data-correct="A">
-            <span class="question-text">Questão 01: Analise as assertivas sobre pedogênese (V ou F) e assinale a ordem correta.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q1" value="A"> A) V – V – V – F.</label>
-                <label class="option"><input type="radio" name="q1" value="B"> B) V – F – V – V.</label>
-                <label class="option"><input type="radio" name="q1" value="C"> C) F – V – F – V.</label>
-                <label class="option"><input type="radio" name="q1" value="D"> D) V – V – F – F.</label>
-                <label class="option"><input type="radio" name="q1" value="E"> E) F – F – V – V.</label>
-            </div>
-            <div class="resolution-box" id="res-q1">
-                <h4>Resolução:</h4>
-                A pedogênese é governada por cinco fatores (clima, organismos, relevo, material de origem e tempo). No Brasil, o clima tropical torna o intemperismo químico dominante. O horizonte O é essencial para a ciclagem em solos pobres. A eluviação é a remoção de materiais para horizontes inferiores. Neossolos são jovens e NÃO possuem horizonte B desenvolvido, invalidando a última assertiva.
-            </div>
-        </div>
-
-        <!-- Question 2 -->
-        <div class="question-card" data-correct="B">
-            <span class="question-text">Questão 02: Sobre as características morfológicas, físicas e químicas dos Latossolos, assinale a correta.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q2" value="A"> A) Apresentam horizonte B textural (Bt) com cerosidade.</label>
-                <label class="option"><input type="radio" name="q2" value="B"> B) Caracterizam-se pelo avançado estágio de intemperização, mineralogia dominada por óxidos e estrutura granular estável.</label>
-                <label class="option"><input type="radio" name="q2" value="C"> C) Dispensam a calagem por manterem saturação por bases acima de 70%.</label>
-                <label class="option"><input type="radio" name="q2" value="D"> D) A principal limitação física é a baixa profundidade efetiva.</label>
-                <label class="option"><input type="radio" name="q2" value="E"> E) Apresentam predominância de argilas expansivas do tipo 2:1.</label>
-            </div>
-            <div class="resolution-box" id="res-q2">
-                <h4>Resolução:</h4>
-                Latossolos são o estágio final da meteorização mineralógica. Possuem estrutura granular estável devido aos óxidos de ferro e alumínio (microagregados). São profundos e pobres quimicamente (requerem calagem), com argilas 1:1 (caulinita), não expansivas.
-            </div>
-        </div>
-
-        <!-- Question 3 -->
-        <div class="question-card" data-correct="C">
-            <span class="question-text">Questão 03: Referente ao comportamento físico-hídrico e à taxonomia dos Argissolos, assinale a alternativa INCORRETA.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q3" value="A"> A) O horizonte diagnóstico é o B textural (Bt), com mais argila que o A.</label>
-                <label class="option"><input type="radio" name="q3" value="B"> B) A mudança textural abrupta favorece o escoamento superficial e erosão.</label>
-                <label class="option"><input type="radio" name="q3" value="C"> C) Apresentam horizonte B latossólico logo abaixo do A, garantindo drenagem excessiva.</label>
-                <label class="option"><input type="radio" name="q3" value="D"> D) A suscetibilidade à erosão hídrica é uma das principais limitações.</label>
-                <label class="option"><input type="radio" name="q3" value="E"> E) Podem variar de vermelho a amarelo dependendo da hematita ou goethita.</label>
-            </div>
-            <div class="resolution-box" id="res-q3">
-                <h4>Resolução:</h4>
-                Incorreta: A alternativa C afirma que possuem B latossólico. Na verdade, o horizonte diagnóstico dos Argissolos é o B textural (Bt). Essa diferença de textura entre A e B dificulta a drenagem profunda, facilitando a erosão, ao contrário do B latossólico que drena muito bem.
-            </div>
-        </div>
-
-        <!-- Question 4 -->
-        <div class="question-card" data-correct="C">
-            <span class="question-text">Questão 04: Sobre o processo de lixiviação e dinâmica de nutrientes, quais afirmações estão corretas?</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q4" value="A"> A) Apenas I e II.</label>
-                <label class="option"><input type="radio" name="q4" value="B"> B) Apenas II e III.</label>
-                <label class="option"><input type="radio" name="q4" value="C"> C) Apenas I, III e IV.</label>
-                <label class="option"><input type="radio" name="q4" value="D"> D) Apenas II, III e IV.</label>
-                <label class="option"><input type="radio" name="q4" value="E"> E) I, II, III e IV.</label>
-            </div>
-            <div class="resolution-box" id="res-q4">
-                <h4>Resolução:</h4>
-                A afirmação II está incorreta porque solos arenosos são MAIS propensos à lixiviação (possuem macroporos e baixa retenção química). As demais são corretas: a lixiviação remove cátions básicos, o nitrato é facilmente lavado e a matéria orgânica/plantas de cobertura ajudam a mitigar o processo.
-            </div>
-        </div>
-
-        <!-- Question 5 -->
-        <div class="question-card" data-correct="B">
-            <span class="question-text">Questão 05: Sobre laterização e formação de plintites, assinale a alternativa correta.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q5" value="A"> A) Laterização é o acúmulo de sílica no horizonte superficial.</label>
-                <label class="option"><input type="radio" name="q5" value="B"> B) Plintização ocorre em restrição de drenagem com alternância de oxidação/redução, podendo gerar petroplintite.</label>
-                <label class="option"><input type="radio" name="q5" value="C"> C) Solos lateríticos possuem alta reserva de minerais primários.</label>
-                <label class="option"><input type="radio" name="q5" value="D"> D) O processo é típico de climas temperados e frios.</label>
-                <label class="option"><input type="radio" name="q5" value="E"> E) A formação de cangas é um fenômeno puramente biológico (cupins).</label>
-            </div>
-            <div class="resolution-box" id="res-q5">
-                <h4>Resolução:</h4>
-                A plintização decorre da oscilação do lençol freático que concentra óxidos de ferro. Se exposto ao sol ou secagem intensa, esse material endurece irreversivelmente (petroplintite ou laterite), formando impedimentos físicos ao cultivo.
-            </div>
-        </div>
-
-        <!-- Question 6 -->
-        <div class="question-card" data-correct="B">
-            <span class="question-text">Questão 06: Em relação à gênese e ao controle de voçorocas, assinale a alternativa correta.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q6" value="A"> A) Iniciam-se sempre por deposição de sedimentos pelo vento.</label>
-                <label class="option"><input type="radio" name="q6" value="B"> B) O processo de piping (erosão interna) pode criar canais subsuperficiais que colapsam.</label>
-                <label class="option"><input type="radio" name="q6" value="C"> C) O terraceamento aumenta a velocidade da água e causa voçorocas.</label>
-                <label class="option"><input type="radio" name="q6" value="D"> D) Uma voçoroca é um sulco pequeno eliminado por gradagem leve.</label>
-                <label class="option"><input type="radio" name="q6" value="E"> E) Vegetação nativa acelera o voçorocamento pelas raízes.</label>
-            </div>
-            <div class="resolution-box" id="res-q6">
-                <h4>Resolução:</h4>
-                O piping é a erosão interna que "escava" o solo por baixo. Quando o teto desses túneis cai, a voçoroca aparece. Diferente dos sulcos, a voçoroca atinge o lençol freático e não é resolvida com máquinas agrícolas simples.
-            </div>
-        </div>
-
-        <!-- Question 7 -->
-        <div class="question-card" data-correct="A">
-            <span class="question-text">Questão 07: Relacione as técnicas (SPD, Terraceamento, Calagem, Gessagem) às suas finalidades.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q7" value="A"> A) 4 – 3 – 2 – 1.</label>
-                <label class="option"><input type="radio" name="q7" value="B"> B) 3 – 4 – 1 – 2.</label>
-                <label class="option"><input type="radio" name="q7" value="C"> C) 2 – 1 – 4 – 3.</label>
-                <label class="option"><input type="radio" name="q7" value="D"> D) 1 – 2 – 3 – 4.</label>
-                <label class="option"><input type="radio" name="q7" value="E"> E) 4 – 2 – 3 – 1.</label>
-            </div>
-            <div class="resolution-box" id="res-q7">
-                <h4>Resolução:</h4>
-                (4) Gessagem: Cálcio em subsuperfície e neutralização de Al. (3) Calagem: Elevação do pH e saturação por bases na camada arável. (2) Terraceamento: Divisão da rampa para controlar enxurrada. (1) Plantio Direto: Cobertura permanente e rotação.
-            </div>
-        </div>
-
-        <!-- Question 8 -->
-        <div class="question-card" data-correct="B">
-            <span class="question-text">Questão 08: Qual sequência está organizada da menor para a maior intensidade de intemperismo (menos evoluído para mais evoluído)?</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q8" value="A"> A) Latossolo – Argissolo – Cambissolo – Neossolo.</label>
-                <label class="option"><input type="radio" name="q8" value="B"> B) Neossolo – Cambissolo – Argissolo – Latossolo.</label>
-                <label class="option"><input type="radio" name="q8" value="C"> C) Neossolo – Latossolo – Cambissolo – Argissolo.</label>
-                <label class="option"><input type="radio" name="q8" value="D"> D) Cambissolo – Neossolo – Argissolo – Latossolo.</label>
-                <label class="option"><input type="radio" name="q8" value="E"> E) Argissolo – Latossolo – Neossolo – Cambissolo.</label>
-            </div>
-            <div class="resolution-box" id="res-q8">
-                <h4>Resolução:</h4>
-                O Neossolo é quase rocha pura (jovem). O Cambissolo tem um B incipiente. O Argissolo tem B textural claro. O Latossolo é o estágio máximo (mineralogia simples e muito profundo).
-            </div>
-        </div>
-
-        <!-- Question 9 -->
-        <div class="question-card" data-correct="E">
-            <span class="question-text">Questão 09: Analise as assertivas sobre capacidade de uso das terras e iLPF.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q9" value="A"> A) Apenas I.</label>
-                <label class="option"><input type="radio" name="q9" value="B"> B) Apenas II.</label>
-                <label class="option"><input type="radio" name="q9" value="C"> C) Apenas I e III.</label>
-                <label class="option"><input type="radio" name="q9" value="D"> D) Apenas II e III.</label>
-                <label class="option"><input type="radio" name="q9" value="E"> E) I, II e III.</label>
-            </div>
-            <div class="resolution-box" id="res-q9">
-                <h4>Resolução:</h4>
-                Todas corretas. Classe I são as melhores terras. Pastagens em Argissolos sem cobertura geram erosão acelerada. iLPF é estratégia chave para aporte de carbono e sustentabilidade.
-            </div>
-        </div>
-
-        <!-- Question 10 -->
-        <div class="question-card" data-correct="B">
-            <span class="question-text">Questão 10: Sobre a relação entre textura e retenção de nutrientes, assinale a correta.</span>
-            <div class="options-container">
-                <label class="option"><input type="radio" name="q10" value="A"> A) Solos arenosos possuem alta capacidade de retenção de nutrientes.</label>
-                <label class="option"><input type="radio" name="q10" value="B"> B) A fração argila é responsável pela CTC; argilas 1:1 têm menor CTC que as 2:1.</label>
-                <label class="option"><input type="radio" name="q10" value="C"> C) O selamento ocorre em solos com alta estabilidade de agregados.</label>
-                <label class="option"><input type="radio" name="q10" value="D"> D) A compactação aumenta a macroporosidade.</label>
-                <label class="option"><input type="radio" name="q10" value="E"> E) Solos argilosos são imunes à erosão hídrica.</label>
-            </div>
-            <div class="resolution-box" id="res-q10">
-                <h4>Resolução:</h4>
-                A CTC (química do solo) reside na argila e matéria orgânica. Argilas expansivas 2:1 (esmectitas) seguram muito mais íons que a caulinita 1:1 típica de solos muito velhos como os brasileiros.
-            </div>
-        </div>
-    </div>
-
-    <div class="controls">
-        <button id="submit-btn" onclick="submitQuiz()">Finalizar e Ver Resoluções</button>
-    </div>
-
-    <div id="result-section">
+    <div id="score-panel">
         <h2>Resultado Final</h2>
-        <div class="score-display" id="score">0 / 10</div>
-        <p id="feedback-text">Clique para revisar suas respostas abaixo.</p>
+        <p style="font-size: 2rem; font-weight: bold;" id="score-value">0 / 10</p>
+        <p>Veja as resoluções detalhadas abaixo de cada questão.</p>
     </div>
 
-    <div id="resolutions-anchor"></div>
+    <div id="quiz">
+        <!-- Q1 -->
+        <div class="question-card" data-correct="A">
+            <span class="question-title">Questão 01 - Fundatec</span>
+            <p>Analise as assertivas abaixo sobre os fatores de formação do solo e assinale V para verdadeiro ou F para falso:</p>
+            <div class="assertion-box">
+                ( ) O clima é o fator mais influente no intemperismo químico em regiões tropicais.<br>
+                ( ) O relevo influencia a drenagem e a taxa de erosão/deposição dos sedimentos.<br>
+                ( ) A eluviação caracteriza-se pela saída de minerais de um horizonte superior para um inferior.<br>
+                ( ) Neossolos Litólicos apresentam horizonte B latossólico extremamente profundo.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A) V – V – V – F.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B) V – F – V – V.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C) F – V – F – V.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D) V – V – F – F.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> Falsa a última. Neossolos Litólicos são solos rasos e jovens, sem horizonte B. O horizonte B latossólico é exclusivo dos Latossolos.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-title">Questão 02 - Fundatec</span>
+            <p>Os Latossolos representam uma grande parcela dos solos brasileiros. Sobre eles, é correto afirmar:</p>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A) São solos pouco intemperizados com alta reserva de minerais primários.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B) Apresentam estágio avançado de intemperismo, são profundos e ricos em óxidos de Fe e Al.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C) Possuem horizonte B textural que impede a mecanização agrícola.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D) São solos naturalmente férteis que dispensam o uso de corretivos como calcário.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> Latossolos são solos altamente evoluídos (intemperizados), profundos, bem drenados e oxídicos, geralmente requerendo calagem para produção.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-title">Questão 03 - Fundatec</span>
+            <p>Referente aos Argissolos e sua suscetibilidade à erosão, assinale a alternativa incorreta:</p>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A) Caracterizam-se por apresentarem horizonte B textural (Bt).</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B) O gradiente textural (A mais arenoso e B mais argiloso) facilita a erosão hídrica.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C) São solos imunes ao voçorocamento devido à alta taxa de infiltração no horizonte B.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D) A transição entre os horizontes A e B costuma ser clara ou abrupta.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> Incorreta a C. Argissolos são muito suscetíveis ao voçorocamento justamente porque o horizonte B textural dificulta a infiltração rápida, gerando saturação na interface e facilitando o deslizamento ou erosão em sulcos.</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-title">Questão 04 - Fundatec</span>
+            <p>Sobre o processo de lixiviação, analise as afirmações:</p>
+            <div class="assertion-box">
+                I. Consiste na lavagem dos nutrientes (bases) do solo pela água das chuvas.<br>
+                II. Ocorre com menor intensidade em solos de textura arenosa.<br>
+                III. Contribui para a acidificação dos solos tropicais.<br>
+                IV. O plantio direto e a cobertura morta ajudam a mitigar esse processo.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A) Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B) Apenas II e III.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C) Apenas I, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D) I, II, III e IV.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> A afirmação II é falsa pois solos arenosos têm poros maiores e menor CTC, sofrendo lixiviação MAIS intensamente que solos argilosos.</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-title">Questão 05 - Fundatec</span>
+            <p>A laterização (ou ferralitização) é um processo comum em climas tropicais que pode resultar em:</p>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A) Acúmulo de sais solúveis na superfície (salinização).</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B) Formação de horizontes endurecidos (couraças ferruginosas ou lateritas).</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C) Enriquecimento do solo em minerais primários de potássio.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D) Aumento imediato do pH do solo para níveis alcalinos.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> A laterização concentra óxidos de ferro e alumínio após a remoção da sílica. Se exposta à dessecação, pode formar camadas petrificadas conhecidas como couraças.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card" data-correct="D">
+            <span class="question-title">Questão 06 - Fundatec</span>
+            <p>O voçorocamento é uma forma grave de degradação do solo. Sobre este fenômeno, assinale a alternativa correta:</p>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A) É causado exclusivamente pela erosão eólica.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B) Ocorre apenas em solos de topografia plana e sem uso agrícola.</label>
+                <label class="option-item option-label"><input type="radio" name="q6" value="C"> C) Pode ser controlado apenas com a aplicação de calcário e gesso.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D) Envolve a remoção de grandes volumes de terra, atingindo muitas vezes o lençol freático.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> Voçorocas são incisões profundas que ocorrem quando a erosão hídrica não é controlada, expondo o horizonte C ou mesmo a rocha alterada e o lençol freático.</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card" data-correct="A">
+            <span class="question-title">Questão 07 - Fundatec</span>
+            <p>Relacione a Coluna 1 (Prática Conservacionista) com a Coluna 2 (Função principal):</p>
+            <div class="assertion-box">
+                <strong>Coluna 1</strong><br>
+                1. Terraceamento<br>
+                2. Calagem<br>
+                3. Gessagem<br>
+                4. Plantio Direto<br><br>
+                <strong>Coluna 2</strong><br>
+                ( ) Atua na neutralização do alumínio em subsuperfície.<br>
+                ( ) Eleva o pH e os teores de Ca e Mg na camada arável.<br>
+                ( ) Reduz o comprimento de rampa e controla o escoamento superficial.<br>
+                ( ) Protege o solo contra o impacto direto da chuva e preserva a umidade.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A) 3 – 2 – 1 – 4.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B) 2 – 3 – 4 – 1.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C) 1 – 4 – 3 – 2.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D) 3 – 1 – 2 – 4.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> O Gesso (3) corrige em profundidade; Calcário (2) na camada superficial; Terraço (1) corta a rampa; Plantio Direto (4) protege a superfície.</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-title">Questão 08 - Fundatec</span>
+            <p>Em uma topossequência típica, os solos mais jovens situados em encostas íngremes e os solos mais evoluídos em chapadas planas são, respectivamente:</p>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A) Latossolos e Argissolos.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B) Neossolos Litólicos e Latossolos.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C) Argissolos e Cambissolos.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D) Gleissolos e Neossolos Quartzarênicos.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> Em encostas íngremes, a erosão impede o desenvolvimento do perfil (Neossolos). Em áreas planas de chapadas, o solo permanece estável por milênios, tornando-se muito evoluído (Latossolos).</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card" data-correct="D">
+            <span class="question-title">Questão 09 - Fundatec</span>
+            <p>Sobre a matéria orgânica do solo (MOS) e a conservação, analise:</p>
+            <div class="assertion-box">
+                I. A MOS contribui para a estabilidade dos agregados, reduzindo a erodibilidade.<br>
+                II. Solos com baixos teores de MOS são mais suscetíveis ao selamento superficial.<br>
+                III. A rotação de culturas é uma prática que visa aumentar o aporte de MOS.
+            </div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A) Apenas I.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B) Apenas II.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C) Apenas I e III.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D) I, II e III.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> Todas as afirmações estão corretas. A MOS funciona como um "cimento" biológico que segura as partículas de solo, evitando que a chuva as desagregue facilmente.</div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card" data-correct="A">
+            <span class="question-title">Questão 10 - Fundatec</span>
+            <p>O horizonte diagnóstico "B latossólico" (Bw) diferencia-se do "B textural" (Bt) principalmente por:</p>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A) Ser mais homogêneo em profundidade, com estrutura granular e baixos teores de minerais alteráveis.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B) Apresentar altos teores de argila expansiva que racha no período seco.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C) Possuir grande quantidade de matéria orgânica acumulada por translocação.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D) Apresentar cores cinzentas devido à saturação permanente por água.</label>
+            </div>
+            <div class="resolution"><strong>Resolução:</strong> O Bw é o horizonte mais intemperizado possível, onde quase só restam óxidos e caulinita, resultando em uma estrutura muito estável e uniforme.</div>
+        </div>
+    </div>
+
+    <button class="btn-finish" onclick="checkAnswers()">Finalizar Quiz e Ver Correção</button>
 </div>
 
 <script>
-    function submitQuiz() {
+    function checkAnswers() {
         const questions = document.querySelectorAll('.question-card');
         let score = 0;
-        let answeredAll = true;
 
         questions.forEach((card, index) => {
-            const correctValue = card.getAttribute('data-correct');
-            const selected = card.querySelector(`input[name="q${index + 1}"]:checked`);
-            const resolution = card.querySelector('.resolution-box');
-            const options = card.querySelectorAll('.option');
+            const correctAnswer = card.getAttribute('data-correct');
+            const selectedOption = card.querySelector(`input[name="q${index + 1}"]:checked`);
+            const resolution = card.querySelector('.resolution');
+            const allLabels = card.querySelectorAll('.option-label');
 
-            // Show resolution
+            // Mostrar resolução
             resolution.style.display = 'block';
 
-            if (selected) {
-                if (selected.value === correctValue) {
+            // Desabilitar opções após finalizar
+            card.querySelectorAll('input').forEach(input => input.disabled = true);
+
+            if (selectedOption) {
+                if (selectedOption.value === correctAnswer) {
                     score++;
-                    // Mark as correct in UI
-                    selected.parentElement.classList.add('correct');
-                    card.insertAdjacentHTML('afterbegin', '<span class="status-badge status-correct">Acertou</span>');
+                    selectedOption.parentElement.classList.add('correct');
+                    card.insertAdjacentHTML('afterbegin', '<span class="status-tag" style="background:#27ae60; color:white;">✓ Acerto</span>');
                 } else {
-                    // Mark wrong selection
-                    selected.parentElement.classList.add('wrong');
-                    // Highlight the right one
-                    options.forEach(opt => {
-                        if (opt.querySelector('input').value === correctValue) {
-                            opt.classList.add('correct');
+                    selectedOption.parentElement.classList.add('incorrect');
+                    card.insertAdjacentHTML('afterbegin', '<span class="status-tag" style="background:#e74c3c; color:white;">✗ Erro</span>');
+                    // Mostrar a correta
+                    allLabels.forEach(label => {
+                        if (label.querySelector('input').value === correctAnswer) {
+                            label.classList.add('correct');
                         }
                     });
-                    card.insertAdjacentHTML('afterbegin', '<span class="status-badge status-incorrect">Errou</span>');
                 }
             } else {
-                answeredAll = false;
-                // Just show the right one
-                options.forEach(opt => {
-                    if (opt.querySelector('input').value === correctValue) {
-                        opt.classList.add('correct');
+                card.insertAdjacentHTML('afterbegin', '<span class="status-tag" style="background:#95a5a6; color:white;">○ Não Respondida</span>');
+                // Mostrar a correta mesmo sem resposta
+                allLabels.forEach(label => {
+                    if (label.querySelector('input').value === correctAnswer) {
+                        label.classList.add('correct');
                     }
                 });
-                card.insertAdjacentHTML('afterbegin', '<span class="status-badge status-incorrect">Não respondida</span>');
             }
-
-            // Disable all inputs
-            card.querySelectorAll('input').forEach(input => input.disabled = true);
         });
 
-        // Update score display
-        document.getElementById('score').innerText = `${score} / ${questions.length}`;
-        document.getElementById('result-section').style.display = 'block';
-        
-        // Disable submit button
-        document.getElementById('submit-btn').style.display = 'none';
+        // Exibir Placar
+        document.getElementById('score-value').innerText = `${score} / ${questions.length}`;
+        document.getElementById('score-panel').style.display = 'block';
+        document.querySelector('.btn-finish').style.display = 'none';
 
-        // Scroll to results
-        document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+        // Scroll suave para o topo do resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 

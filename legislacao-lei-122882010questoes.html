@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - Estatuto da Igualdade Racial (Lei 12.288/2010)</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #2980b9;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            margin-bottom: 5rem;
+        }
+
+        .intro-text {
+            background: #f8f9fa;
+            border-left: 5px solid var(--accent-color);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f0f7ff;
+            border-color: var(--accent-color);
+        }
+
+        .option-label input {
+            margin-top: 0.4rem;
+            margin-right: 1rem;
+        }
+
+        .selected {
+            background-color: #eef6ff !important;
+            border-color: var(--accent-color) !important;
+        }
+
+        #btn-finish {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background 0.3s;
+        }
+
+        #btn-finish:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Results Section */
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Resolutions Styles */
+        .resolution-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #fdfdfd;
+            border-top: 2px dashed #ddd;
+            font-size: 0.95rem;
+            animation: fadeIn 0.5s;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .correct-badge { background-color: #d4edda; color: #155724; }
+        .wrong-badge { background-color: #f8d7da; color: #721c24; }
+
+        .correct-option-highlight {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+
+        .wrong-option-highlight {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4rem; }
+            .question-card { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Lei Federal nº 12.288/2010</h1>
+    <p>Estatuto da Igualdade Racial - Estilo Fundatec</p>
+</header>
+
+<div class="container">
+    <div class="intro-text">
+        Selecione as alternativas que julgar corretas. Após finalizar, o sistema apresentará sua pontuação e a resolução analítica de cada questão.
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q-1">
+            <span class="question-text">Questão 01. Com base no Título I da Lei Federal nº 12.288/2010, analise as seguintes assertivas:<br><br>
+            I. Discriminação racial ou étnico-racial é toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica que tenha por objeto anular ou restringir o reconhecimento, gozo ou exercício...<br>
+            II. Ações afirmativas são os programas e medidas especiais adotados exclusivamente pelo Estado para a correção das desigualdades raciais e para a promoção da igualdade de oportunidades.<br>
+            III. Desigualdade racial é toda situação injustificada de diferenciação de acesso e fruição de bens, serviços e oportunidades...<br><br>
+            Quais estão corretas?</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B) Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C) Apenas I e III.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D) Apenas II e III.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-1"></div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q-2">
+            <span class="question-text">Questão 02. No que concerne ao direito à saúde da população negra, conforme previsto no Estatuto da Igualdade Racial, analise as assertivas abaixo:<br><br>
+            I. O direito à saúde da população negra será garantido pelo poder público mediante políticas universais, sociais e econômicas destinadas à redução do risco de doenças e de outros agravos.<br>
+            II. O acesso universal e igualitário ao SUS... será de responsabilidade exclusiva dos órgãos e instituições públicas federais.<br>
+            III. Um dos objetivos da Política Nacional de Saúde Integral da População Negra é o fomento à realização de estudos e pesquisas sobre racismo e saúde da população negra.</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A) Apenas I.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B) Apenas II.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C) Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D) Apenas I e III.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-2"></div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q-3">
+            <span class="question-text">Questão 03. O Estatuto da Igualdade Racial (Lei nº 12.288/2010) estabelece diretrizes para a educação, a cultura e o lazer. Sobre o tema, assinale a alternativa correta:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A) Nos estabelecimentos de Ensino Fundamental e de Ensino Médio públicos, é obrigatório o estudo da história geral da África e da história da população negra no Brasil, sendo tal estudo facultativo nas instituições privadas.</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B) Os conteúdos referentes à história e cultura da população negra no Brasil serão ministrados exclusivamente no âmbito das disciplinas de História e Educação Artística.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C) O Poder Público garantirá o reconhecimento das sociedades negras, clubes e outras formas de manifestação coletiva da população negra, com trajetória histórica comprovada, como patrimônio histórico e cultural.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D) É vedado ao Poder Público incentivar a celebração de datas comemorativas relacionadas à trajetória do samba, a fim de manter a neutralidade estatal em relação a manifestações culturais específicas.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E) O acesso da população negra ao lazer deve ser promovido apenas quando houver recursos orçamentários excedentes, não constituindo prioridade da administração pública.</label>
+            </div>
+            <div class="resolution-box" id="res-3"></div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q-4">
+            <span class="question-text">Questão 04. Considere as disposições da Lei Federal nº 12.288/2010 sobre o Sistema Nacional de Promoção da Igualdade Racial (SINAPIR). Analise as assertivas abaixo:<br><br>
+            ( ) O SINAPIR constitui forma de organização e de articulação voltada à implementação do conjunto de políticas...<br>
+            ( ) A participação dos Estados, do Distrito Federal e dos Municípios no SINAPIR é obrigatória por força de lei...<br>
+            ( ) O Poder Público Federal incentivará a sociedade e a iniciativa privada a participar do SINAPIR.</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A) V – F – V.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B) V – V – F.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C) F – V – V.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D) V – V – V.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E) F – F – F.</label>
+            </div>
+            <div class="resolution-box" id="res-4"></div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q-5">
+            <span class="question-text">Questão 05. No que tange ao direito à liberdade de consciência e de crença e ao livre exercício dos cultos religiosos, o Estatuto da Igualdade Racial prevê:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A) Apenas I.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B) Apenas II.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C) Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D) Apenas I e III.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-5"></div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q-6">
+            <span class="question-text">Questão 06. Sobre a capoeira, de acordo com o Estatuto da Igualdade Racial, é correto afirmar que:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A) A capoeira é reconhecida como desporto de criação nacional, nos termos da Constituição Federal.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B) O ensino da capoeira nas instituições públicas e privadas deve ser ministrado obrigatoriamente por professores com licenciatura em Educação Física.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C) A capoeira não pode ser objeto de políticas de fomento público por ser considerada uma atividade meramente recreativa.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D) O Estatuto veda a utilização da capoeira como instrumento de inclusão social em programas oficiais de esporte.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E) A prática da capoeira é permitida apenas em centros culturais registrados no Ministério da Cultura.</label>
+            </div>
+            <div class="resolution-box" id="res-6"></div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q-7">
+            <span class="question-text">Questão 07. A respeito da população negra e do mercado de trabalho, o Estatuto da Igualdade Racial (Lei nº 12.288/2010) estabelece que:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A) As empresas privadas estão isentas de promover a igualdade de oportunidades, visto que o Estatuto se aplica apenas à administração pública direta e indireta.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B) O Poder Público estimulará medidas visando à promoção da igualdade de oportunidades no mercado de trabalho, inclusive mediante a implementação de ações afirmativas.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C) É vedada a utilização de quesitos de cor ou raça em cadastros de emprego para evitar qualquer forma de diferenciação.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D) O acesso ao crédito para microempreendedores negros não constitui objetivo das políticas públicas de emprego e renda.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E) A implementação de programas de formação profissional para a população negra é de responsabilidade exclusiva das entidades do terceiro setor.</label>
+            </div>
+            <div class="resolution-box" id="res-7"></div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q-8">
+            <span class="question-text">Questão 08. Conforme o Artigo 1º, parágrafo único, do Estatuto da Igualdade Racial, o conceito de "assimetria existente no âmbito da sociedade que acentua a distância social entre mulheres negras e os demais segmentos sociais" refere-se a:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A) Discriminação racial.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B) Desigualdade racial.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C) Desigualdade de gênero e raça.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D) População negra.</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E) Ação afirmativa.</label>
+            </div>
+            <div class="resolution-box" id="res-8"></div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q-9">
+            <span class="question-text">Questão 09. Sobre a proteção dos direitos dos remanescentes das comunidades dos quilombos, o Estatuto da Igualdade Racial dispõe que:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A) O Estado reconhece a propriedade definitiva das terras ocupadas por remanescentes das comunidades dos quilombos, devendo emitir os respectivos títulos sem ônus para as comunidades.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B) A proteção aos quilombos limita-se à dimensão territorial, não abrangendo a proteção de usos, costumes ou manifestações religiosas.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C) A titulação de terras quilombolas é condicionada ao pagamento de impostos atrasados sobre a propriedade rural.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D) O Poder Público deve desincentivar a permanência das comunidades em terras rurais, promovendo sua migração para centros urbanos para facilitar o acesso a serviços básicos.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E) As comunidades quilombolas não possuem direito à assistência técnica agrícola específica.</label>
+            </div>
+            <div class="resolution-box" id="res-9"></div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q-10">
+            <span class="question-text">Questão 10. De acordo com as disposições do Estatuto da Igualdade Racial sobre o acesso à terra, é INCORRETO afirmar que:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A) O Poder Público adotará medidas para facilitar o acesso da população negra à terra.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B) A implementação de políticas agrícolas para a população negra deve observar os princípios da equidade e da justiça social.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C) Os programas de reforma agrária não devem considerar o quesito raça ou cor na seleção de beneficiários, sob pena de violação do princípio da isonomia.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D) O Poder Público garantirá aos remanescentes das comunidades dos quilombos a preservação de seus usos e costumes.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E) O Estado deve promover ações para garantir a permanência das populações negras no meio rural.</label>
+            </div>
+            <div class="resolution-box" id="res-10"></div>
+        </div>
+
+        <button type="button" id="btn-finish">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-display" id="score-text"></div>
+        <p>Role para cima para conferir a resolução detalhada de cada questão.</p>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'C', q2: 'D', q3: 'C', q4: 'A', q5: 'C',
+        q6: 'A', q7: 'B', q8: 'C', q9: 'A', q10: 'C'
+    };
+
+    const resolutions = {
+        q1: `<strong>Resolução:</strong> A assertiva I é a literalidade do Art. 1º, parágrafo único, I. A assertiva II está errada porque o inciso VI define ações afirmativas como medidas do Estado <strong>e da iniciativa privada</strong> (não exclusivamente do Estado). A III está correta conforme inciso II.`,
+        q2: `<strong>Resolução:</strong> I e III estão corretas conforme Art. 6º e 7º. A II está incorreta pois a responsabilidade é solidária entre União, Estados, DF e Municípios, não exclusiva da esfera federal.`,
+        q3: `<strong>Resolução:</strong> O gabarito é a C conforme Art. 15. A obrigatoriedade da história negra (A) vale para rede pública e privada. Os conteúdos (B) devem permear todo o currículo. O Poder Público deve sim incentivar celebrações como o samba (D).`,
+        q4: `<strong>Resolução:</strong> Ordem V-F-V. A segunda é falsa porque a adesão ao SINAPIR é <strong>voluntária</strong> (Art. 47, § 2º), não obrigatória.`,
+        q5: `<strong>Resolução:</strong> I e II corretas (Art. 23 e 24). A III está errada pois o Estado deve assegurar a comercialização de artigos religiosos de matriz africana, não proibir.`,
+        q6: `<strong>Resolução:</strong> Alternativa A conforme Art. 20. O ensino da capoeira (B) pode ser feito por mestres tradicionais, não apenas licenciados em Ed. Física.`,
+        q7: `<strong>Resolução:</strong> Alternativa B conforme Art. 39. O Estado deve estimular medidas de igualdade inclusive na iniciativa privada. O quesito cor (C) deve ser utilizado para diagnósticos e políticas.`,
+        q8: `<strong>Resolução:</strong> Definição literal de "Desigualdade de Gênero e Raça" presente no Art. 1º, parágrafo único, inciso III.`,
+        q9: `<strong>Resolução:</strong> Alternativa A conforme Art. 31, garantindo titulação definitiva e sem ônus para os remanescentes de quilombos.`,
+        q10: `<strong>Resolução:</strong> A alternativa C é a incorreta porque o Art. 33 estabelece que os programas de reforma agrária <strong>devem sim</strong> considerar o quesito raça ou cor para implementar políticas de equidade.`
+    };
+
+    document.getElementById('btn-finish').addEventListener('click', function() {
+        let score = 0;
+        const total = Object.keys(answers).length;
+        const form = document.getElementById('quiz-form');
+
+        // Check answers
+        for (let q in answers) {
+            const selected = form.querySelector(`input[name="${q}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${q.split('q')[1]}`);
+            const questionCard = document.getElementById(`q-${q.split('q')[1]}`);
+            
+            // Show resolution
+            resolutionBox.innerHTML = resolutions[q];
+            resolutionBox.style.display = 'block';
+
+            // Highlight status
+            let statusHtml = '';
+            if (selected) {
+                if (selected.value === answers[q]) {
+                    score++;
+                    statusHtml = '<span class="status-badge correct-badge">Correto</span>';
+                    selected.parentElement.classList.add('correct-option-highlight');
+                } else {
+                    statusHtml = '<span class="status-badge wrong-badge">Incorreto</span>';
+                    selected.parentElement.classList.add('wrong-option-highlight');
+                    // Highlight the correct one too
+                    const correctLabel = form.querySelector(`input[name="${q}"][value="${answers[q]}"]`).parentElement;
+                    correctLabel.classList.add('correct-option-highlight');
+                }
+            } else {
+                statusHtml = '<span class="status-badge wrong-badge">Não respondida</span>';
+                const correctLabel = form.querySelector(`input[name="${q}"][value="${answers[q]}"]`).parentElement;
+                correctLabel.classList.add('correct-option-highlight');
+            }
+            
+            resolutionBox.insertAdjacentHTML('afterbegin', statusHtml + '<br>');
+        }
+
+        // Show Results Section
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        resultsSection.style.display = 'block';
+        scoreText.innerText = `Você acertou ${score} de ${total} questões!`;
+        
+        // Disable form
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(i => i.disabled = true);
+        this.style.display = 'none';
+
+        // Scroll to results
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Add visual feedback on selection
+    const labels = document.querySelectorAll('.option-label');
+    labels.forEach(label => {
+        label.addEventListener('click', function() {
+            const name = this.querySelector('input').name;
+            document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                input.parentElement.classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>

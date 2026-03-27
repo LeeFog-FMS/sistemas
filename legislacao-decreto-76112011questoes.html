@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Decreto Federal nº 12.686/2025</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1b;
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --border-color: #e2e8f0;
+            --correct-bg: #f0fdf4;
+            --correct-border: #16a34a;
+            --incorrect-bg: #fef2f2;
+            --incorrect-border: #dc2626;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #334155;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8fafc;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: #eff6ff;
+        }
+
+        /* Classes de Correção */
+        .question-card.correct {
+            border-color: var(--correct-border);
+        }
+
+        .question-card.incorrect {
+            border-color: var(--incorrect-border);
+        }
+
+        .option-item.correct-answer {
+            background-color: var(--correct-bg);
+            border-color: var(--correct-border);
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .option-item.wrong-selection {
+            background-color: var(--incorrect-bg);
+            border-color: var(--incorrect-border);
+            color: #991b1b;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* Botão e Resultado */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        #result-section {
+            display: none;
+            background: #1e293b;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        #result-section h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        #result-score {
+            font-size: 3rem;
+            color: #38bdf8;
+            margin: 10px 0;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Estilo Fundatec</h1>
+        <p>Decreto Federal nº 12.686/2025 - Política Nacional de Educação Especial Inclusiva</p>
+    </header>
+
+    <div id="result-section">
+        <h2>Resultado Final</h2>
+        <span id="result-score">0/10</span>
+        <p>Veja as resoluções detalhadas abaixo em cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <div class="question-header">QUESTÃO 01</div>
+            <div class="question-text">Com base no Decreto Federal nº 12.686/2025, que institui a Política Nacional de Educação Especial Inclusiva (PNEEI), analise as assertivas abaixo:
+
+I. A PNEEI tem como uma de suas finalidades garantir o direito à educação em um sistema inclusivo para estudantes com deficiência, transtorno do espectro autista e altas habilidades ou superdotação.
+II. O atendimento educacional especializado (AEE) na educação básica pode substituir a matrícula em classe comum nos casos em que o estudante necessite de apoio intensivo e permanente.
+III. O combate ao capacitismo é estabelecido como um dos princípios da referida política, visando eliminar a discriminação em todas as suas formas no contexto educacional.
+
+Quais estão corretas?</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) Apenas I e III.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                A PNEEI garante o direito ao sistema inclusivo (Art. 1º) e traz o combate ao capacitismo como princípio (Art. 2º). A matrícula no AEE é complementar/suplementar e nunca substitutiva à classe comum (Art. 1º, §1º).
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <div class="question-header">QUESTÃO 02</div>
+            <div class="question-text">Considerando a organização do Atendimento Educacional Especializado (AEE) conforme o Decreto nº 12.686/2025, assinale V, se verdadeiro, ou F, se falso, nas afirmações abaixo.
+
+( ) O AEE deve estar articulado com a proposta pedagógica do ensino comum e tem a função de identificar, elaborar e organizar recursos pedagógicos e de acessibilidade.
+( ) A elaboração do Plano de Atendimento Educacional Especializado (PAEE) é facultativa para as redes municipais de ensino que já possuam outros instrumentos de planejamento.
+( ) O AEE poderá ser realizado, excepcionalmente, em centros de atendimento especializados da rede pública ou de instituições sem fins lucrativos conveniadas.
+( ) A oferta da educação especial inclusiva para a faixa de zero a três anos de idade foi excluída do decreto original por ser competência exclusiva do Ministério da Saúde.</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) V – F – V – F.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) V – V – F – F.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) F – V – V – V.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) F – F – V – V.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) V – V – V – F.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                O PAEE é obrigatório (Art. 12). A política inclui explicitamente a faixa de 0 a 3 anos (Educação Infantil). O AEE é articulado ao ensino comum e pode ocorrer em centros conveniados em caráter excepcional.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <div class="question-header">QUESTÃO 03</div>
+            <div class="question-text">De acordo com o Decreto nº 12.686/2025, alterado pelo Decreto nº 12.773/2025, o professor que atua no Atendimento Educacional Especializado (AEE) deve possuir formação inicial que o habilite ao exercício da docência e formação continuada para a educação especial inclusiva com carga horária de, no mínimo:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) 80 horas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) 120 horas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) 180 horas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) 240 horas.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) 360 horas.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                O Decreto nº 12.773/2025 ampliou a carga horária mínima de formação continuada para o professor do AEE de 80 para 360 horas (Art. 13).
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <div class="question-header">QUESTÃO 04</div>
+            <div class="question-text">A respeito do profissional de apoio escolar, conforme as disposições vigentes na Política Nacional de Educação Especial Inclusiva, é correto afirmar que:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) Sua oferta depende obrigatoriamente da apresentação de laudo médico com CID específico.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) Compete a este profissional atuar em consonância com o PAEE e com o PEI.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) O requisito de formação para este profissional é o ensino fundamental completo e curso de 40h.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) A União é a única responsável pelo provimento destes profissionais em todas as redes.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) Sua atuação restringe-se exclusivamente aos estudantes com deficiência física.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                O apoio escolar independe de laudo médico (Art. 14, §2º) e deve seguir o planejamento do PAEE e PEI. O requisito é nível médio e 180h de formação continuada.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <div class="question-header">QUESTÃO 05</div>
+            <div class="question-text">O Decreto nº 12.686/2025 institui a Rede Nacional de Educação Especial Inclusiva (RENEEI). Analise as assertivas abaixo sobre os objetivos desta rede:
+
+I. Expandir e consolidar a formação continuada em serviço dos profissionais de educação das redes públicas de ensino.
+II. Promover a centralização da gestão da educação especial na União, removendo a autonomia administrativa de Estados e Municípios nesta modalidade.
+III. Fortalecer os serviços educacionais de apoio técnico e a produção de materiais acessíveis para a educação especial inclusiva.
+
+Quais estão corretas?</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) Apenas III.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) Apenas I e III.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                Os objetivos da RENEEI (Art. 17) focam em formação e apoio técnico. Não há centralização, mas sim regime de colaboração respeitando a autonomia dos entes federados.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <div class="question-header">QUESTÃO 06</div>
+            <div class="question-text">Conforme o regramento do Decreto nº 12.686/2025, a instituição de ensino deverá prover __________________ que autorize a utilização de dispositivos digitais portáteis como instrumento de tecnologia assistiva no processo de aprendizagem aos estudantes público da educação especial.</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) alvará judicial.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) parecer pedagógico.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) laudo neuropediátrico.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) termo de responsabilidade financeira.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) autorização do conselho tutelar.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                O Art. 12, §4º, exige o **parecer pedagógico** para legitimar o uso de dispositivos digitais como tecnologia assistiva na escola.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <div class="question-header">QUESTÃO 07</div>
+            <div class="question-text">Sobre o financiamento e a distribuição de recursos para a implementação da Política Nacional de Educação Especial Inclusiva, o Artigo 19-A do decreto assegura:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) O repasse de 100% dos recursos do pré-sal para a educação especial.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) A criação de um imposto federal exclusivo para o custeio de profissionais de apoio.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) A distribuição de recursos do Fundeb de que trata a Lei nº 14.113/2020.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) Que as instituições privadas especializadas não poderão receber recursos públicos.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) A isenção total de impostos para empresas que contratarem estagiários.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                O financiamento é garantido via FUNDEB (Art. 19-A), permitindo o aporte de recursos considerando a dupla matrícula do aluno no regular e no AEE.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <div class="question-header">QUESTÃO 08</div>
+            <div class="question-text">Com base nas diretrizes da PNEEI (Artigo 3º do Decreto nº 12.686/2025), assinale a alternativa que NÃO apresenta uma diretriz oficial da política:</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) Garantia de um sistema educacional inclusivo em todos os níveis, sem discriminação.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Reconhecimento do direito à educação e à aprendizagem ao longo da vida.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) Colaboração entre os entes federativos.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Oferta de educação especial preferencialmente em classes e escolas comuns.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) Instituição de escolas especiais exclusivas como via prioritária para TEA suporte 3.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                A educação inclusiva tem como base a escola comum. Escolas especiais exclusivas não são a "via prioritária" em nenhum nível de suporte, contrariando o princípio da inclusão (Art. 3º).
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <div class="question-header">QUESTÃO 09</div>
+            <div class="question-text">O Decreto nº 12.686/2025 prevê que o apoio da União poderá ocorrer por meio de diversas ações. Analise as assertivas abaixo e assinale V, se verdadeiro, ou F, se falso.
+
+( ) Repasse de recursos por meio do Programa Dinheiro Direto na Escola (PDDE).
+( ) Aquisição e distribuição de materiais didáticos em formatos acessíveis no âmbito do PNLD.
+( ) Apoio à instituição do observatório da educação especial inclusiva.
+( ) Provimento de bolsas para organizar e implementar a Rede Nacional de Educação Especial Inclusiva.</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) V – V – V – V.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) V – F – V – F.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> F – V – F – V.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) V – V – F – F.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) F – F – V – V.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                Todas as ações listadas são formas previstas de apoio da União conforme o Art. 19 do decreto para garantir a infraestrutura e monitoramento da política.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-header">QUESTÃO 10</div>
+            <div class="question-text">Analise a relação entre o PAEE e o PEI conforme o Decreto nº 12.686/2025 e o Decreto nº 12.773/2025:
+
+I. O PAEE é um documento derivado do estudo de caso, focado na orientação do trabalho docente e recursos de acessibilidade.
+II. O PEI deve observar o disposto no decreto para o PAEE e integrar o projeto político-pedagógico da escola.
+III. O PEI dispensa a realização de estudo de caso, pois baseia-se exclusivamente no currículo oficial da BNCC.
+
+Quais estão corretas?</div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução:</h4>
+                O PEI e o PAEE são indissociáveis do estudo de caso (Art. 12). Não existe planejamento individualizado eficaz sem o diagnóstico pedagógico prévio das barreiras.
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">FINALIZAR SIMULADO E VER RESOLUÇÕES</button>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'C',
+        q2: 'A',
+        q3: 'E',
+        q4: 'B',
+        q5: 'D',
+        q6: 'B',
+        q7: 'C',
+        q8: 'E',
+        q9: 'A',
+        q10: 'C'
+    };
+
+    function gradeQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Reset visual styles if re-taking
+        document.querySelectorAll('.question-card').forEach(card => {
+            card.classList.remove('correct', 'incorrect');
+        });
+        document.querySelectorAll('.option-item').forEach(opt => {
+            opt.classList.remove('correct-answer', 'wrong-selection');
+        });
+
+        for (let i = 1; i <= 10; i++) {
+            const questionKey = 'q' + i;
+            const selected = formData.get(questionKey);
+            const card = document.getElementById(questionKey);
+            const options = card.querySelectorAll('.option-item');
+            const correctAnswer = correctAnswers[questionKey];
+
+            // Mark the correct answer option visually
+            options.forEach(opt => {
+                const input = opt.querySelector('input');
+                if (input.value === correctAnswer) {
+                    opt.classList.add('correct-answer');
+                }
+                if (selected && input.value === selected && selected !== correctAnswer) {
+                    opt.classList.add('wrong-selection');
+                }
+            });
+
+            if (selected === correctAnswer) {
+                score++;
+                card.classList.add('correct');
+            } else {
+                card.classList.add('incorrect');
+            }
+
+            // Show resolution
+            card.querySelector('.resolution-box').style.display = 'block';
+        }
+
+        // Display Result Header
+        const resultSection = document.getElementById('result-section');
+        const scoreDisplay = document.getElementById('result-score');
+        resultSection.style.display = 'block';
+        scoreDisplay.textContent = score + ' / 10';
+
+        // Scroll to top to see score
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Disable inputs after submission
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.disabled = true;
+        });
+        document.querySelector('.btn-submit').style.display = 'none';
+    }
+
+    // Aesthetic improvement: Highlight selected row
+    document.querySelectorAll('.option-item input').forEach(input => {
+        input.addEventListener('change', function() {
+            const parent = this.closest('.options-list');
+            parent.querySelectorAll('.option-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            if (this.checked) {
+                this.parentElement.classList.add('selected');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

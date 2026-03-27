@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Portaria MGI nº 6.719/2024</title>
+    <style>
+        :root {
+            --bg-color: #fcfaf7; /* Fundo levemente "off-white" para leitura */
+            --text-color: #1a1a1a;
+            --accent-color: #2c5282;
+            --border-color: #e2e8f0;
+            --correct-color: #2f855a;
+            --wrong-color: #c53030;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-style: italic;
+            color: #4a5568;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: background 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f7fafc;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Classes para o Resultado */
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #edf2f7;
+            border-radius: 8px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .correct-answer {
+            background-color: #c6f6d5 !important;
+            border-color: #48bb78 !important;
+        }
+
+        .wrong-answer {
+            background-color: #fed7d7 !important;
+            border-color: #f56565 !important;
+        }
+
+        .tag-correct { color: var(--correct-color); font-weight: bold; }
+        .tag-wrong { color: var(--wrong-color); font-weight: bold; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Portaria MGI nº 6.719/2024</h1>
+        <p class="description">Plano Federal de Prevenção e Enfrentamento do Assédio e da Discriminação</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q-block-1">
+            <span class="question-header">Questão 01</span>
+            <p>No que tange aos objetivos específicos estabelecidos pela Portaria MGI nº 6.719/2024 para o Plano Federal de Prevenção e Enfrentamento do Assédio e da Discriminação (PFPEAD), analise as assertivas abaixo, assinalando V, se verdadeiras, ou F, se falsas.</p>
+            <p>( ) O Plano busca desenvolver um conjunto de ações coordenadas para prevenir o assédio e a discriminação, por meio de estratégias educativas que abordem tanto a formação quanto a sensibilização de pessoas que exercem atividade pública.<br>
+            ( ) É objetivo do Plano fomentar a gestão humanizada nos espaços institucionais, sejam eles físicos ou virtuais, com foco contínuo na avaliação da cultura organizacional para assegurar que as ações de prevenção promovam a mudança cultural desejada.<br>
+            ( ) O Plano visa assegurar que os procedimentos administrativos correcionais promovam a revitimização controlada, de modo a garantir que o relato da vítima seja confrontado repetidamente para assegurar a veracidade absoluta dos fatos.<br>
+            ( ) Entre os objetivos específicos, consta a definição e estruturação de instâncias direcionadas a promover acolhimento, escuta ativa, orientação e acompanhamento das pessoas afetadas por assédio e discriminação para mitigar os riscos psicossociais da violência no trabalho.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) V – V – F – V.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) V – F – V – F.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) F – V – V – V.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) V – V – V – F.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) F – F – V – V.</label>
+            </div>
+            <div class="resolution-box" id="res-1">
+                <strong>Gabarito: A</strong><br>
+                A primeira assertiva é verdadeira (Art. 2º, inciso I). A segunda assertiva é verdadeira (Art. 2º, inciso II). A terceira assertiva é falsa, pois o objetivo é assegurar que NÃO promovam a revitimização (Art. 2º, inciso V). A quarta assertiva é verdadeira (Art. 2º, inciso III).
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q-block-2">
+            <span class="question-header">Questão 02</span>
+            <p>A Portaria MGI nº 6.719/2024 define diretrizes fundamentais para a identificação de condutas abusivas no ambiente de trabalho. Com base nas definições contidas no Anexo da referida norma, assinale a alternativa que descreve corretamente o conceito de Assédio Moral Organizacional.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) Conduta de conotação sexual, proposta ou imposta contra a vontade da pessoa.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) Processo de condutas abusivas, de qualquer natureza, exercido de forma sistemática durante certo tempo, amparado por estratégias de gestão e métodos de organização do trabalho.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) Toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) Prática de isolamento social de um servidor por seus pares, sem a participação da chefia imediata.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) Manifestação de poder diretivo legítimo pela chefia, que exige o cumprimento de metas institucionais.</label>
+            </div>
+            <div class="resolution-box" id="res-2">
+                <strong>Gabarito: B</strong><br>
+                O assédio moral organizacional é sistêmico e utiliza a estrutura da organização (estratégias de gestão) para pressionar ou excluir trabalhadores.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q-block-3">
+            <span class="question-header">Questão 03</span>
+            <p>Considere as diretrizes gerais e princípios que regem a execução do Plano Federal. Analise as seguintes afirmações:</p>
+            <p>I. A universalidade do plano garante que alcancem servidores efetivos, empregados públicos, temporários, estagiários e terceirizados.<br>
+            II. A confidencialidade assegura o sigilo dos dados da pessoa denunciante e a proteção contra retaliação.<br>
+            III. A resolutividade implica que o tratamento correcional deve ser célere e prioritário.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-3">
+                <strong>Gabarito: E</strong><br>
+                Todos os itens estão corretos. O plano é universal (abrange todos os trabalhadores), preza pela confidencialidade e pela resolutividade (celeridade na apuração).
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q-block-4">
+            <span class="question-header">Questão 04</span>
+            <p>Sobre a governança e implementação, assinale a alternativa correta:</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) Os órgãos e entidades possuem o prazo de 120 dias, contados da publicação da portaria, para aprovar e publicar seus planos específicos.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) A coordenação do Comitê Gestor cabe privativamente à Controladoria-Geral da União.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C) C) O monitoramento do Plano é realizado exclusivamente por meio de auditorias externas anuais.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) A revisão dos planos setoriais deve ocorrer a cada dez anos.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) A responsabilidade é exclusiva das unidades de gestão de pessoas.</label>
+            </div>
+            <div class="resolution-box" id="res-4">
+                <strong>Gabarito: A</strong><br>
+                Conforme o Art. 4º da Portaria, os órgãos federais têm 120 dias (da publicação em 01/10/2024) para estabelecer seus planos setoriais.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q-block-5">
+            <span class="question-header">Questão 05</span>
+            <p>Sobre as estratégias de prevenção, assinale a alternativa INCORRETA:</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) A temática deve observar obrigatoriamente os conteúdos de concursos públicos.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) No momento da posse, o servidor deve ser formalmente cientificado sobre o Plano.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) O conteúdo deve incorporar os instrumentos estratégicos como o plano de integridade.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) As ações de formação devem contemplar o letramento étnico-racial apenas para servidores que já responderam a processos disciplinares.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) As Escolas de Governo deverão promover a sensibilização e formação continuada.</label>
+            </div>
+            <div class="resolution-box" id="res-5">
+                <strong>Gabarito: D</strong><br>
+                A alternativa D está errada porque o letramento é obrigatório para todos, com ênfase nas lideranças, e não uma punição para infratores.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q-block-6">
+            <span class="question-header">Questão 06</span>
+            <p>Sobre a Rede Federal de Prevenção e Enfrentamento, é correto afirmar que:</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) É composta exclusivamente pelo Comitê Gestor centralizado em Brasília.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) Visa a cooperação, o compartilhamento de experiências e a disseminação de boas práticas entre os órgãos.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) Possui natureza meramente informativa, sem interferir na gestão de autarquias.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) Deve priorizar o isolamento das vítimas de assédio.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) É coordenada pela Advocacia-Geral da União.</label>
+            </div>
+            <div class="resolution-box" id="res-6">
+                <strong>Gabarito: B</strong><br>
+                A rede é um mecanismo de cooperação técnica e articulação institucional entre os diversos órgãos federais.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q-block-7">
+            <span class="question-header">Questão 07</span>
+            <p>Quanto ao acolhimento e suporte às pessoas afetadas, a Rede de Acolhimento deve observar que:</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) O atendimento deve ocorrer, preferencialmente, por pessoa do mesmo gênero ou raça da pessoa afetada, caso solicitado.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) A oitiva deve ser realizada sempre na presença da pessoa agressora.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) As denúncias devem ser encaminhadas para juízos arbitrais privados.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) O acolhimento é restrito ao apoio jurídico.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) A pessoa afetada deve aguardar autorização da chefia para denunciar.</label>
+            </div>
+            <div class="resolution-box" id="res-7">
+                <strong>Gabarito: A</strong><br>
+                A portaria recomenda o atendimento por pares (gênero/raça) para facilitar o relato e minimizar traumas.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q-block-8">
+            <span class="question-header">Questão 08</span>
+            <p>Analise as assertivas sobre depoimentos e instrução processual:</p>
+            <p>I. A memória da pessoa afetada pode estar comprometida como autodefesa, exigindo abordagem tranquila.<br>
+            II. As declarações da pessoa afetada devem ser consideradas provas de alta relevância.<br>
+            III. A comunicação não violenta é definida como linguagem positiva, inclusiva e não estigmatizante.</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) Apenas I e III.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-8">
+                <strong>Gabarito: E</strong><br>
+                Todas as afirmações são verdadeiras e refletem os protocolos de escuta humanizada e valorização do depoimento contidos no Plano.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q-block-9">
+            <span class="question-header">Questão 09</span>
+            <p>Assinale uma atribuição do Comitê Gestor do Plano Federal:</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) Realizar o julgamento penal de agentes públicos.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) Promover, apoiar e acompanhar a implementação das ações do Plano Federal em âmbito nacional.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) Substituir as comissões de ética de cada órgão.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) Fixar multas pecuniárias contra trabalhadores terceirizados.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) Elaborar os editais de concursos públicos de forma independente.</label>
+            </div>
+            <div class="resolution-box" id="res-9">
+                <strong>Gabarito: B</strong><br>
+                O Comitê Gestor é o órgão central de governança, articulação e acompanhamento da política nacional.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q-block-10">
+            <span class="question-header">Questão 10</span>
+            <p>Sobre a punibilidade e consequências administrativas, assinale a correta:</p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) Assédio moral organizacional é conduta de baixa gravidade.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) As penalidades aplicáveis podem resultar em demissão, observada a Lei nº 8.112/1990.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) A Administração deve aguardar o trânsito em julgado penal para punir.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) O Plano veda a responsabilização de chefias por omissão.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) Empresas terceirizadas estão isentas de fiscalização.</label>
+            </div>
+            <div class="resolution-box" id="res-10">
+                <strong>Gabarito: B</strong><br>
+                Casos graves de assédio e discriminação podem levar à demissão por violação de deveres éticos e disciplinares previstos no estatuto do servidor.
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-box" id="score-text"></div>
+        <p>As resoluções detalhadas foram desbloqueadas abaixo de cada questão acima.</p>
+    </div>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'A', q2: 'B', q3: 'E', q4: 'A', q5: 'D',
+        q6: 'B', q7: 'A', q8: 'E', q9: 'B', q10: 'B'
+    };
+
+    function submitQuiz() {
+        const form = document.getElementById('quiz-form');
+        const resultsSection = document.getElementById('results-section');
+        const scoreText = document.getElementById('score-text');
+        
+        let score = 0;
+        const total = Object.keys(correctAnswers).length;
+
+        for (let i = 1; i <= total; i++) {
+            const questionName = 'q' + i;
+            const selected = form.querySelector(`input[name="${questionName}"]:checked`);
+            const resolutionBox = document.getElementById('res-' + i);
+            const questionBlock = document.getElementById('q-block-' + i);
+            
+            // Mostrar resolução
+            resolutionBox.style.display = 'block';
+
+            if (selected) {
+                if (selected.value === correctAnswers[questionName]) {
+                    score++;
+                    selected.parentElement.classList.add('correct-answer');
+                    resolutionBox.innerHTML = '<span class="tag-correct">Você acertou!</span><br>' + resolutionBox.innerHTML;
+                } else {
+                    selected.parentElement.classList.add('wrong-answer');
+                    // Mostrar a correta
+                    const correctOption = form.querySelector(`input[name="${questionName}"][value="${correctAnswers[questionName]}"]`);
+                    correctOption.parentElement.classList.add('correct-answer');
+                    resolutionBox.innerHTML = '<span class="tag-wrong">Você errou.</span><br>' + resolutionBox.innerHTML;
+                }
+            } else {
+                // Se não respondeu, destaca a correta
+                const correctOption = form.querySelector(`input[name="${questionName}"][value="${correctAnswers[questionName]}"]`);
+                correctOption.parentElement.classList.add('correct-answer');
+                resolutionBox.innerHTML = '<span style="color:orange; font-weight:bold;">Não respondida.</span><br>' + resolutionBox.innerHTML;
+            }
+        }
+
+        // Mostrar Placar
+        resultsSection.style.display = 'block';
+        scoreText.innerHTML = `Resultado: <strong>${score} de ${total} acertos</strong> (${(score/total*100).toFixed(0)}%)`;
+        
+        // Scroll para o topo dos resultados
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Desabilitar inputs
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+        form.querySelector('button').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
