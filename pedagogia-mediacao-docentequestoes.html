@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Mediação Docente e Tecnologias na EPT</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfd;
+            --text-color: #1a1a1a;
+            --primary-color: #2563eb;
+            --secondary-color: #4b5563;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --border-color: #e5e7eb;
+            --card-bg: #ffffff;
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            color: var(--secondary-color);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .question-text {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .option-item input {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+
+        .option-label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Classes para o resultado */
+        .correct {
+            background-color: #dcfce7 !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .incorrect {
+            background-color: #fee2e2 !important;
+            border-color: var(--error-color) !important;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #eff6ff;
+            border-radius: 12px;
+            border: 2px solid #bfdbfe;
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .resolutions-container {
+            margin-top: 2rem;
+        }
+
+        .resolution-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .resolution-text {
+            font-size: 0.95rem;
+            color: #374151;
+            text-align: justify;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .question-card { padding: 1.2rem; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Estilo Fundatec</h1>
+        <p class="description">Mediação docente, gestão de sala de aula e uso de tecnologias na EPT</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <span class="question-header">QUESTÃO 01</span>
+            <p class="question-text">
+                No contexto da Educação Profissional e Tecnológica (EPT), a transição para modelos de ensino que privilegiam a autonomia discente exige uma reconfiguração do planejamento pedagógico. Com base nas contribuições de Bacich e Moran (2018) sobre metodologias ativas, a estratégia da "sala de aula invertida" (flipped classroom) altera a dinâmica tradicional da relação professor-aluno. Sobre essa metodologia, assinale a alternativa que preenche correta e respectivamente as lacunas abaixo:<br><br>
+                A sala de aula invertida, enquanto estratégia de ensino, propõe que o contato com os conteúdos teóricos básicos ocorra __________, permitindo que o tempo em sala de aula seja dedicado a __________. Nesse modelo, o professor deixa de ser o único detentor do saber para atuar como __________.
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> <span class="option-label">A) exclusivamente em laboratórios físicos – avaliações somativas – instrutor técnico.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> <span class="option-label">B) de forma assíncrona no ambiente virtual – atividades práticas e resolução de problemas – mediador e mentor.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> <span class="option-label">C) sob supervisão direta do docente – palestras expositivas – conferencista central.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> <span class="option-label">D) após as atividades práticas – memorização de fórmulas – examinador de resultados.</span></label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> <span class="option-label">E) por meio de livros didáticos físicos – competições individuais – observador passivo.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <span class="question-header">QUESTÃO 02</span>
+            <p class="question-text">
+                A gestão de sala de aula em processos seletivos organizados pela banca Fundatec para o cargo de Professor de Ensino Básico, Técnico e Tecnológico (EBTT) avalia a performance didática do candidato através de critérios objetivos. Segundo os padrões de avaliação da banca em editais recentes, constitui uma prática valorizada na mediação docente:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> <span class="option-label">A) A manutenção de uma postura estática e sentada para evitar distrações visuais nos alunos.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> <span class="option-label">B) O uso predominante de métodos expositivos focados na leitura de textos extensos sem interação.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> <span class="option-label">C) A articulação entre recursos pedagógicos e estratégias que promovam o engajamento e a construção crítica do conhecimento.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> <span class="option-label">D) A aplicação de conteúdos de nível superior para turmas de nível médio como forma de elevar o rigor acadêmico.</span></label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> <span class="option-label">E) A dependência contínua de material de apoio escrito (colas) para garantir a precisão total das falas.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <span class="question-header">QUESTÃO 03</span>
+            <p class="question-text">
+                As Tecnologias Digitais de Informação e Comunicação (TDIC) impõem novos desafios à docência na contemporaneidade. Sobre a integração dessas ferramentas no ensino técnico, analise as assertivas abaixo e assinale a alternativa correta:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> <span class="option-label">A) A tecnologia deve ser vista como uma ferramenta capaz de substituir o papel do professor em processos de ensino altamente automatizados.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> <span class="option-label">B) O sucesso da implementação de artefatos técnicos na escola depende fundamentalmente da mediação docente e do uso compartilhado da informação.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> <span class="option-label">C) A familiaridade dos alunos com as tecnologias digitais torna a atuação pedagógica do professor irrelevante no processo de ensino-aprendizagem.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> <span class="option-label">D) A responsabilidade pela apropriação das TDIC deve ser atribuída exclusivamente ao Estado, isentando o professor de buscar inovação didática.</span></label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> <span class="option-label">E) As práticas pedagógicas devem ser imutáveis, independentemente das transformações trazidas pela sociedade digital.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <span class="question-header">QUESTÃO 04</span>
+            <p class="question-text">
+                O Moodle é um Ambiente Virtual de Aprendizagem (AVA) amplamente utilizado para potencializar a proposta educacional da EPT. Sobre as ferramentas e atividades nativas desta plataforma (versão 4.1 ou superior), é INCORRETO afirmar:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> <span class="option-label">A) O Fórum é uma ferramenta de comunicação assíncrona que facilita o diálogo entre docentes e discentes.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> <span class="option-label">B) A Wiki permite a criação coletiva e colaborativa de páginas da web, ideal para projetos de grupo.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> <span class="option-label">C) A Tarefa possibilita que os alunos submetam arquivos ou textos on-line para avaliação individualizada do professor.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> <span class="option-label">D) O Glossário é uma ferramenta de uso exclusivo do professor para postar avisos administrativos e notas de prova.</span></label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> <span class="option-label">E) O Questionário dispõe de diversos tipos de questões, como múltipla escolha e verdadeiro/falso, com correção automática.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <span class="question-header">QUESTÃO 05</span>
+            <p class="question-text">
+                A promoção da autonomia discente é um dos pilares da mediação docente na EPT. Segundo os princípios das metodologias ativas, para que o aluno se torne o protagonista do seu processo de aprendizagem, o professor deve:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> <span class="option-label">A) Fornecer todas as respostas prontas para evitar que o aluno cometa erros durante as atividades laboratoriais.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> <span class="option-label">B) Organizar as aulas de forma a conduzir o aluno à descoberta, incentivando a formulação de hipóteses e a investigação.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> <span class="option-label">C) Priorizar a repetição mecânica de tarefas para que o aluno adquira habilidades técnicas por meio do condicionamento.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> <span class="option-label">D) Manter um controle rígido e unilateral sobre todos os passos do aprendizado, minimizando discussões em grupo.</span></label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> <span class="option-label">E) Utilizar a tecnologia apenas como um substituto digital do quadro negro, mantendo a aula puramente expositiva.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <span class="question-header">QUESTÃO 06</span>
+            <p class="question-text">
+                Considere o conceito de Zona de Desenvolvimento Proximal (ZDP) de Vygotsky aplicado à mediação docente mediada por tecnologias. Assinale a alternativa que descreve corretamente o papel do professor mediador:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> <span class="option-label">A) Atuar apenas no que o aluno já consegue realizar sozinho, reforçando o conhecimento já consolidado.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> <span class="option-label">B) Propor desafios que estejam muito além da capacidade de compreensão do aluno para forçar o desenvolvimento acelerado.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> <span class="option-label">C) Intervir no espaço entre o que o aluno realiza de forma independente e o que consegue realizar com o auxílio de ferramentas ou pares mais experientes.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> <span class="option-label">D) Isolar o aluno de interferências externas para que ele desenvolva sua autonomia de forma puramente autodidata.</span></label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> <span class="option-label">E) Avaliar o potencial de aprendizagem do aluno baseando-se exclusivamente em sua herança genética e histórico familiar.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <span class="question-header">QUESTÃO 07</span>
+            <p class="question-text">
+                No uso pedagógico do Moodle para o ensino técnico, a atividade "Lição" (Lesson) oferece diferenciais importantes para a personalização do ensino. Sobre essa atividade, é correto afirmar que:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> <span class="option-label">A) Trata-se de uma ferramenta de chat em tempo real para dúvidas rápidas.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> <span class="option-label">B) Permite criar percursos de aprendizagem ramificados, onde o avanço do aluno depende do acerto em questões intermediárias.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> <span class="option-label">C) Funciona apenas como um repositório estático de arquivos PDF e apresentações de slides.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> <span class="option-label">D) É uma ferramenta de código fechado que não permite a edição de conteúdos pelos professores.</span></label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> <span class="option-label">E) Serve exclusivamente para o controle de frequência biométrica dos estudantes.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <span class="question-header">QUESTÃO 08</span>
+            <p class="question-text">
+                A inclusão e o uso de tecnologias assistivas são temas recorrentes na gestão de sala de aula inclusiva na EPT. De acordo com as diretrizes educacionais vigentes e o perfil de cobrança da banca Fundatec, o Projeto Político-Pedagógico (PPP) deve prever:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> <span class="option-label">A) A exclusão de alunos com deficiência de atividades laboratoriais complexas por questões de segurança.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> <span class="option-label">B) O planejamento para aquisição de tecnologias assistivas, como softwares de leitura para cegos, garantindo a acessibilidade digital.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> <span class="option-label">C) Que a responsabilidade pelo atendimento especializado seja exclusivamente da família do estudante.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> <span class="option-label">D) A utilização de métodos tradicionais de ensino, sem a necessidade de adaptações para as ferramentas de AVA.</span></label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> <span class="option-label">E) A substituição do ensino regular por atendimentos puramente terapêuticos fora da escola.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <span class="question-header">QUESTÃO 09</span>
+            <p class="question-text">
+                A reestruturação do Ensino Médio pela Lei nº 14.945/2024 impacta a oferta da Educação Profissional e Tecnológica. Sobre a implementação desse novo modelo, assinale a alternativa correta:
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> <span class="option-label">A) A lei determina que a formação continuada dos docentes seja realizada sem o apoio financeiro do Ministério da Educação.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> <span class="option-label">B) As secretarias de educação devem elaborar planos de ação para a implementação escalonada das mudanças, com apoio técnico e financeiro do MEC.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> <span class="option-label">C) A oferta curricular deve ignorar as particularidades locais para garantir uma uniformidade nacional absoluta.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> <span class="option-label">D) Estudantes que já iniciaram o curso técnico estão proibidos de transitar para a nova configuração curricular.</span></label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> <span class="option-label">E) O ensino noturno deve ser extinto, uma vez que a EPT exige dedicação exclusiva em tempo integral.</span></label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <span class="question-header">QUESTÃO 10</span>
+            <p class="question-text">
+                Na gestão da sala de aula virtual no Moodle, o professor pode utilizar diferentes tipos de atividades para promover a construção colaborativa do conhecimento. Qual das ferramentas abaixo é classificada como coletiva e colaborativa, permitindo que todos os participantes editem o conteúdo?
+            </p>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> <span class="option-label">A) Tarefa.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> <span class="option-label">B) Questionário.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> <span class="option-label">C) Wiki.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> <span class="option-label">D) H5P.</span></label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> <span class="option-label">E) Pesquisa (Survey).</span></label>
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-display" id="score-text"></div>
+        <hr>
+        <div class="resolutions-container" id="resolutions-list">
+            <!-- Gerado via JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'B', q2: 'C', q3: 'B', q4: 'D', q5: 'B',
+        q6: 'C', q7: 'B', q8: 'B', q9: 'B', q10: 'C'
+    };
+
+    const resolutions = {
+        q1: "A alternativa B está correta porque sintetiza a essência da sala de aula invertida dentro do paradigma das metodologias ativas. No contexto da EPT, o conteúdo teórico é disponibilizado previamente no AVA de forma assíncrona, e o tempo presencial é investido em atividades práticas e resolução de problemas, com o professor atuando como mediador.",
+        q2: "A alternativa C é a correta. A banca Fundatec valoriza a articulação entre recursos pedagógicos e estratégias que promovam o engajamento e a construção crítica. Posturas estáticas, dependência de colas e falta de interação são pontos de perda de nota em provas de desempenho didático.",
+        q3: "A alternativa B está correta. O sucesso da tecnologia na educação não é automático; ele depende fundamentalmente da mediação docente. A tecnologia não substitui o professor, mas exige dele uma nova postura como mediador da informação compartilhada.",
+        q4: "A alternativa D é a INCORRETA. O Glossário no Moodle não é meramente administrativo. É uma ferramenta pedagógica onde alunos e professores podem construir colaborativamente um dicionário de termos técnicos da área.",
+        q5: "A alternativa B é a correta. Para promover a autonomia, o professor deve atuar como mediador que organiza a aula para que o aluno chegue à descoberta através da investigação, abandonando o modelo de apenas fornecer respostas prontas ou repetições mecânicas.",
+        q6: "A alternativa C está correta. A ZDP de Vygotsky é o espaço entre o que o aluno faz sozinho e o que faz com ajuda. O professor mediador intervém exatamente nesse espaço, utilizando ferramentas (como as digitais) para alavancar o aprendizado potencial.",
+        q7: "A alternativa B é a correta. A atividade 'Lição' (Lesson) permite criar caminhos ramificados. Dependendo da resposta do aluno em uma questão, ele pode ser enviado para uma página de reforço ou avançar no conteúdo, personalizando o ritmo.",
+        q8: "A alternativa B está correta. O PPP deve ser inclusivo e prever a aquisição de tecnologias assistivas. A acessibilidade digital é um direito e uma necessidade na gestão de sala de aula moderna da EPT.",
+        q9: "A alternativa B é a correta. A Lei nº 14.945/2024 prevê que a implementação do novo ensino médio conte com planos de ação das secretarias e apoio técnico/financeiro do MEC para garantir a transição adequada.",
+        q10: "A alternativa C é a correta. A Wiki é a ferramenta colaborativa por excelência no Moodle, permitindo que múltiplos usuários editem o mesmo conteúdo, ideal para construção coletiva de conhecimento."
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        const total = Object.keys(answers).length;
+        const form = document.getElementById('quiz-form');
+        const resolutionsList = document.getElementById('resolutions-list');
+        resolutionsList.innerHTML = ''; // Limpa antes de gerar
+
+        for (let i = 1; i <= total; i++) {
+            const qKey = 'q' + i;
+            const selected = form.elements[qKey].value;
+            const correctValue = answers[qKey];
+            const qCard = document.getElementById(qKey);
+
+            // Reseta estilos prévios
+            const options = qCard.querySelectorAll('.option-item');
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+
+            if (selected === correctValue) {
+                score++;
+                // Marca a correta
+                options.forEach(opt => {
+                    if (opt.querySelector('input').value === correctValue) opt.classList.add('correct');
+                });
+            } else {
+                // Marca a correta e a errada selecionada
+                options.forEach(opt => {
+                    const val = opt.querySelector('input').value;
+                    if (val === correctValue) opt.classList.add('correct');
+                    if (val === selected) opt.classList.add('incorrect');
+                });
+            }
+
+            // Adiciona a resolução na lista de resoluções
+            const resItem = document.createElement('div');
+            resItem.className = 'resolution-item';
+            resItem.innerHTML = `
+                <span class="resolution-title">Resolução Questão ${i < 10 ? '0'+i : i} (Gabarito: ${correctValue})</span>
+                <p class="resolution-text">${resolutions[qKey]}</p>
+            `;
+            resolutionsList.appendChild(resItem);
+        }
+
+        // Exibe resultados
+        document.getElementById('score-text').innerText = `Você acertou ${score} de ${total} questões!`;
+        document.getElementById('results-section').style.display = 'block';
+
+        // Scroll suave para o resultado
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+
+        // Desabilita inputs para não mudar após ver gabarito
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => input.disabled = true);
+        document.querySelector('.btn-submit').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado EPT - Padrão Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --correct-color: #27ae60;
+            --wrong-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            padding: 0 1rem;
+        }
+
+        main {
+            max-width: 850px;
+            width: 90%;
+            margin-bottom: 5rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f7ff;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        /* Classes para feedback */
+        .option-item.correct {
+            background-color: #e8f5e9;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-item.incorrect {
+            background-color: #ffebee;
+            border-color: var(--wrong-color);
+            color: var(--wrong-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 2rem;
+        }
+
+        #submit-btn:hover {
+            background-color: #0773c5;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            background: #fff;
+            padding: 2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 1rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Avaliação na EPT (Perspectiva Formativa e Competências)</h1>
+    <p>Estilo Banca Fundatec | 10 Questões</p>
+</header>
+
+<main id="quiz-container">
+    <div id="results-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-text" id="score-display">0/10</div>
+        <p id="feedback-message"></p>
+        <p>As resoluções detalhadas agora estão disponíveis abaixo de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <div class="question-text">
+                QUESTÃO 01<br>
+                A Educação Profissional e Tecnológica (EPT), enquanto modalidade que perpassa diversos níveis da educação nacional, possui marcos regulatórios estritos no que tange à certificação e avaliação. Considerando o disposto na Lei de Diretrizes e Bases da Educação Nacional (LDB) e as diretrizes curriculares vigentes, analise as assertivas abaixo:<br><br>
+                I. O conhecimento adquirido na educação profissional e tecnológica, inclusive no trabalho, poderá ser objeto de avaliação, reconhecimento e certificação para prosseguimento ou conclusão de estudos.<br>
+                II. A Educação Profissional Técnica de Nível Médio será desenvolvida prioritariamente na forma subsequente, garantindo que o aluno primeiro conclua a base comum para depois acessar o saber técnico.<br>
+                III. As instituições de ensino devem considerar, na estruturação de cursos de qualificação profissional, a identificação do perfil profissional de conclusão e os critérios e procedimentos de avaliação da aprendizagem.<br>
+                IV. A avaliação na EPT, para ser eficaz, deve ser dissociada das dimensões da ciência e da tecnologia, focando estritamente na habilidade manual e no adestramento para o mercado de trabalho.<br><br>
+                Quais estão corretas?
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B) Apenas I e III.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C) Apenas II e IV.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D) Apenas I, II e III.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E) I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa B</strong>. <br>
+                A Assertiva I remete ao Artigo 41 da LDB, que permite que o trabalhador tenha conhecimentos validados academicamente. 
+                A Assertiva II está incorreta pois não há prioridade absoluta para a forma subsequente; nos Institutos Federais, prioriza-se a forma integrada. 
+                A Assertiva III é verdadeira: o perfil profissional deve nortear a avaliação. 
+                A Assertiva IV é incorreta pois a EPT fundamenta-se na tríade Ciência-Cultura-Trabalho, e não apenas no adestramento manual.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <div class="question-text">
+                QUESTÃO 02<br>
+                No contexto da avaliação da aprendizagem na EPT, a transição do paradigma somativo para o formativo exige uma reconfiguração da práxis docente. Sobre a avaliação formativa, assinale a alternativa CORRETA.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A) Constitui-se como um momento pontual e finalístico do processo de ensino, voltado para a atribuição de notas e classificação dos estudantes para o mercado.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B) É uma ferramenta de controle que visa identificar os alunos inaptos, segregando-os precocemente das atividades práticas laboratoriais.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C) Caracteriza-se por ser processual, contínua e orientadora, fornecendo feedback constante para que o estudante regule sua própria aprendizagem e o professor replaneje sua mediação.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D) Deve ignorar os conhecimentos prévios do trabalhador-estudante, focando exclusivamente na aquisição de novas competências técnicas previstas no catálogo nacional.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E) Dispensa o uso de instrumentos formais de registro, baseando-se meramente na intuição subjetiva do professor sobre o desempenho do aluno.</label>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa C</strong>. <br>
+                A avaliação formativa foca no processo. Diferente da somativa (que é finalística), ela utiliza o erro como diagnóstico imediato para a correção do gesto técnico e o replanejamento docente.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <div class="question-text">
+                QUESTÃO 03<br>
+                A avaliação por competências na EPT pressupõe a mobilização de diferentes recursos pelo estudante. De acordo com a literatura pedagógica e as diretrizes para a educação profissional, a competência é composta pela tríade:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A) Memorização, Repetição e Obediência.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B) Conhecimentos (saber), Habilidades (saber fazer) e Atitudes (saber ser).</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C) Teoria, Prática e Certificação.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D) Frequência, Disciplina e Produtividade.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E) Planejamento, Execução e Avaliação Somativa.</label>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa B</strong>. <br>
+                Trata-se do conceito CHA: Conhecimentos (Saber), Habilidades (Saber Fazer) e Atitudes (Saber Ser/Conviver). Avaliar competência exige verificar se o aluno domina a teoria, executa a técnica e possui postura ética.
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <div class="question-text">
+                QUESTÃO 04<br>
+                A recuperação paralela é um componente essencial para garantir o direito do aluno ao aprendizado e ao sucesso escolar na EPT. Analise as seguintes afirmações sobre a recuperação paralela e assinale a alternativa que as avalia corretamente:<br><br>
+                I. A recuperação paralela deve ser ofertada preferencialmente de forma concomitante ao período letivo, assim que as dificuldades de aprendizagem forem detectadas.<br>
+                II. Trata-se de uma obrigatoriedade legal prevista na LDB, devendo as instituições de ensino prover meios para que o aluno supere defasagens sem esperar pelo final do semestre.<br>
+                III. A metodologia da recuperação paralela deve ser idêntica à utilizada no ensino regular, garantindo a padronização e a equidade de tratamento entre todos os alunos.<br>
+                IV. O uso de Recursos Educacionais Digitais (RED) pode potencializar a recuperação paralela, permitindo percursos de estudo personalizados e assíncronos.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A) Apenas I e II estão corretas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B) Apenas II e III estão corretas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C) Apenas I, II e IV estão corretas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D) Apenas III e IV estão corretas.</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E) Todas as assertivas estão corretas.</label>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa C</strong>. <br>
+                A Assertiva III está errada porque a recuperação exige diversidade metodológica ("novas abordagens") para alunos que não aprenderam com o método inicial. As demais (I, II e IV) estão corretas e amparadas pela LDB.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <div class="question-text">
+                QUESTÃO 05<br>
+                O feedback pedagógico é o mecanismo pelo qual a avaliação formativa se materializa em ganhos de aprendizagem. Um feedback eficaz na Educação Profissional e Tecnológica deve ser:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A) Genérico e tardio, para garantir que o aluno reflita sozinho sobre seus erros ao final do curso.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B) Centrado exclusivamente na nota numérica, pois o estudante da EPT prioriza resultados quantificáveis para o currículo.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C) Descritivo, tempestivo e propositivo, indicando claramente os avanços, as lacunas técnicas e as estratégias para superação das dificuldades.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D) Unidirecional e impositivo, reforçando a autoridade do mestre sobre o aprendiz no ambiente de oficina.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E) Evitado em situações de erro técnico grave, para não constranger o aluno diante dos colegas de turma.</label>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa C</strong>. <br>
+                Um feedback qualificado deve ser Descritivo (detalha o erro), Tempestivo (próximo à ação) e Propositivo (aponta caminhos para melhoria).
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <div class="question-text">
+                QUESTÃO 06<br>
+                Para avaliar o "saber fazer" em laboratórios e ambientes de prática profissional, o docente da EPT deve selecionar instrumentos que capturem a complexidade da ação técnica. Qual dos instrumentos abaixo é mais adequado para esta finalidade?
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A) Prova objetiva com questões de múltipla escolha sobre definições teóricas.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B) Observação sistemática com o uso de rubricas de desempenho ou listas de verificação (checklists) de critérios técnicos.</label>
+                <label class="option-item"><input type="radio" name="q6" value="C"> C) Redação acadêmica sobre a importância da ética no trabalho sem acompanhamento de prática.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D) Chamada oral para verificação de memorização de fórmulas físicas.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E) Autoavaliação sem critérios definidos, baseada apenas no sentimento de satisfação do aluno.</label>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa B</strong>. <br>
+                Avaliar o "saber fazer" exige observar a prática. Provas teóricas avaliam apenas o "saber sobre o fazer". Rubricas de desempenho dão objetividade e clareza aos critérios técnicos.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <div class="question-text">
+                QUESTÃO 07<br>
+                A perspectiva da Educação Inclusiva na EPT exige que a avaliação seja um processo de remoção de barreiras. No que diz respeito aos estudantes com deficiência ou necessidades específicas, a prática avaliativa deve:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A) Isentar o aluno de avaliações técnicas, conferindo um certificado diferenciado que ateste apenas a frequência.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B) Promover a flexibilização curricular e a adaptação de instrumentos e tempos avaliativos, mantendo a exigência de aquisição das competências essenciais do perfil profissional.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C) Aplicar os mesmos critérios de avaliação dos demais alunos, independentemente da deficiência, para assegurar a competitividade do mercado.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D) Realizar a avaliação em salas separadas, sob supervisão estritamente médica ou psicológica.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E) Substituir todas as práticas laboratoriais por trabalhos escritos teóricos para evitar riscos de acidentes.</label>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa B</strong>. <br>
+                A inclusão requer "ajustes razoáveis" (tempo, tecnologia assistiva, instrumentos adaptados) sem abrir mão da qualidade técnica necessária para a segurança do exercício profissional.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <div class="question-text">
+                QUESTÃO 08<br>
+                Considerando as contribuições de autores como Gaudêncio Frigotto e Marise Ramos sobre a EPT, analise as assertivas sobre a relação entre trabalho, educação e avaliação:<br><br>
+                I. A avaliação deve ser um instrumento de emancipação, combatendo a visão reducionista que limita o trabalhador ao domínio de tarefas fragmentadas.<br>
+                II. Na perspectiva do trabalho como princípio educativo, a avaliação deve integrar os saberes científicos, tecnológicos e históricos aos saberes práticos.<br>
+                III. O sucesso na avaliação na EPT deve ser medido unicamente pela rapidez com que o aluno é absorvido pelo mercado de trabalho imediato.
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A) Apenas I.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B) Apenas II.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C) Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D) Apenas II e III.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa C</strong>. <br>
+                A Assertiva III é incorreta porque a EPT visa a formação integral para a vida e cidadania, e não apenas o emprego imediato e precário. As assertivas I e II refletem a base crítica e emancipatória da Rede Federal.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <div class="question-text">
+                QUESTÃO 09<br>
+                Assinale a alternativa que identifica os três conceitos que, segundo a literatura pedagógica contemporânea e referências como Moretto (2014), devem orientar a práxis avaliativa do professor para garantir a aprendizagem:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A) Exclusão, Punição e Classificação.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B) Diagnóstico, Mediação e Feedback.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C) Competência, Eficiência e Lucratividade.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D) Memorização, Silenciamento e Testagem.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E) Burocracia, Lançamento e Estatística.</label>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa B</strong>. <br>
+                Vasco Moretto defende a avaliação a serviço da aprendizagem através do Diagnóstico (início), da Mediação (durante) e do Feedback (ajuste contínuo).
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-text">
+                QUESTÃO 10<br>
+                A organização dos cursos técnicos de nível médio na forma "integrada" impõe desafios específicos à avaliação. Sobre a avaliação em cursos integrados, é correto afirmar:
+            </div>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A) Deve haver uma separação rígida entre as notas das disciplinas da base comum e as das disciplinas técnicas, sem diálogo entre os docentes.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B) A avaliação deve ser interdisciplinar, buscando verificar como o aluno integra os conhecimentos das ciências básicas com os fundamentos tecnológicos da profissão.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C) O processo avaliativo deve priorizar apenas as disciplinas técnicas, visto que a base comum é secundária na formação profissional.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D) Alunos de cursos integrados devem ser avaliados apenas ao final de três ou quatro anos, através de um único exame nacional de certificação.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E) A forma integrada dispensa a necessidade de recuperação paralela, pois o tempo de curso é maior e permite a maturação natural do aluno.</label>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <h4>Resolução Comentada</h4>
+                O gabarito correto é a <strong>Alternativa B</strong>. <br>
+                No Ensino Médio Integrado, a premissa é a indissociabilidade entre formação geral e técnica, exigindo avaliações interdisciplinares e diálogo docente.
+            </div>
+        </div>
+
+        <button type="button" id="submit-btn">Finalizar Simulado e Ver Resoluções</button>
+    </form>
+</main>
+
+<div class="footer">
+    Simulado Baseado nos Marcos Legais da EPT (LDB, DCN) e Referências Pedagógicas Contemporâneas.<br>
+    © 2024 - Sistema de Prática para Concursos.
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'B',
+        q2: 'C',
+        q3: 'B',
+        q4: 'C',
+        q5: 'C',
+        q6: 'B',
+        q7: 'B',
+        q8: 'C',
+        q9: 'B',
+        q10: 'B'
+    };
+
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        let score = 0;
+        const total = 10;
+        const form = document.getElementById('quiz-form');
+        
+        // Desativar rádio buttons após finalizar
+        const inputs = form.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+
+        for (let i = 1; i <= total; i++) {
+            const questionKey = 'q' + i;
+            const selected = form.querySelector(`input[name="${questionKey}"]:checked`);
+            const correctAnswer = correctAnswers[questionKey];
+            const allOptions = form.querySelectorAll(`input[name="${questionKey}"]`);
+
+            // Marcar as opções
+            allOptions.forEach(opt => {
+                const label = opt.parentElement;
+                if (opt.value === correctAnswer) {
+                    label.classList.add('correct');
+                } else if (selected && opt.value === selected.value && selected.value !== correctAnswer) {
+                    label.classList.add('incorrect');
+                }
+            });
+
+            if (selected && selected.value === correctAnswer) {
+                score++;
+            }
+
+            // Mostrar resolução
+            document.getElementById('res-' + questionKey).style.display = 'block';
+        }
+
+        // Mostrar resumo
+        const summary = document.getElementById('results-summary');
+        const scoreDisplay = document.getElementById('score-display');
+        const feedbackMessage = document.getElementById('feedback-message');
+        
+        summary.style.display = 'block';
+        scoreDisplay.innerText = `${score} / ${total}`;
+        
+        if (score >= 8) {
+            feedbackMessage.innerText = "Excelente! Você demonstra ótimo domínio sobre avaliação na EPT.";
+            feedbackMessage.style.color = "var(--correct-color)";
+        } else if (score >= 6) {
+            feedbackMessage.innerText = "Bom desempenho. Revise as resoluções para sanar pequenas dúvidas.";
+            feedbackMessage.style.color = "orange";
+        } else {
+            feedbackMessage.innerText = "Atenção! Recomenda-se a leitura atenta da LDB e das diretrizes curriculares.";
+            feedbackMessage.style.color = "var(--wrong-color)";
+        }
+
+        // Rolar para o topo do resultado
+        summary.scrollIntoView({ behavior: 'smooth' });
+        
+        // Esconder botão de enviar
+        this.style.display = 'none';
+    });
+
+    // Melhora a UX: clicar no card/label seleciona o radio
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const radio = this.querySelector('input');
+            if (!radio.disabled) {
+                radio.checked = true;
+                // Remover classe selected de outros na mesma questão
+                const name = radio.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.parentElement.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

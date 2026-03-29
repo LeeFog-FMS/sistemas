@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Inclusão e Diversidade na Rede Federal</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --correct-color: #27ae60;
+            --wrong-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-item label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item label:hover {
+            background-color: #f1f2f6;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        /* Classes para feedback visual pós-resultado */
+        .option-item.correct label {
+            background-color: #e8f8f0;
+            border-color: var(--correct-color);
+            color: #1e5631;
+        }
+
+        .option-item.wrong label {
+            background-color: #fdf2f2;
+            border-color: var(--wrong-color);
+            color: #721c24;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding: 40px;
+            background: #f1f2f6;
+            border-radius: 12px;
+            border-left: 8px solid var(--primary-color);
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .resolutions-title {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            color: #2d3436;
+        }
+
+        .resolution-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .resolution-block h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .resolution-text {
+            font-size: 1rem;
+            color: #444;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            text-align: center;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 10px; }
+            h1 { font-size: 1.5rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Simulado: Educação Inclusiva e Diversidade</h1>
+            <p class="description">Estilo Banca Fundatec - Foco na Rede Federal (NAPNE/NEABI)</p>
+        </header>
+
+        <form id="quiz-form">
+            <!-- Questão 01 -->
+            <div class="question-card" id="q1">
+                <span class="question-text">Questão 01. No contexto da Rede Federal, a Lei nº 13.146/2015 estabelece diretrizes para o direito à educação. Analise as assertivas:</span>
+                <p>I. Incumbe ao poder público assegurar sistema educacional inclusivo em todos os níveis.<br>
+                II. O acesso à educação profissional é assegurado, sendo facultada à instituição a cobrança de valores adicionais por adaptações razoáveis.<br>
+                III. É dever garantir tradutores e intérpretes de Libras para eliminação de barreiras.</p>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q1" value="A"> A) Apenas I.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q1" value="B"> B) Apenas II.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q1" value="C"> C) Apenas I e III.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q1" value="D"> D) Apenas II e III.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q1" value="E"> E) I, II e III.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 02 -->
+            <div class="question-card" id="q2">
+                <span class="question-text">Questão 02. Sobre a estrutura e competências do NAPNE, assinale a correta:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q2" value="A"> A) O NAPNE é um órgão temporário, ativado apenas sob demanda.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q2" value="B"> B) A finalidade é promover o acesso, permanência e sucesso de estudantes com necessidades específicas.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q2" value="C"> C) O coordenador deve ser obrigatoriamente médico especializado.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q2" value="D"> D) Atua exclusivamente na infraestrutura física do campus.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q2" value="E"> E) A composição é restrita a professores de educação especial.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 03 -->
+            <div class="question-card" id="q3">
+                <span class="question-text">Questão 03. Sobre a obrigatoriedade do ensino de História e Cultura Afro-Brasileira e Indígena (Leis 10.639 e 11.645):</span>
+                <p>1. Deve ser ministrado em todo o currículo, em especial artes, literatura e história.<br>
+                2. Deve ser trabalhada de forma transversal, evitando restrição a datas comemorativas.<br>
+                3. O NEABI tem como missão sistematizar conhecimentos para promoção da equidade racial.</p>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q3" value="A"> A) Somatória 1.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q3" value="B"> B) Somatória 2.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q3" value="C"> C) Somatória 3.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q3" value="D"> D) Somatória 5.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q3" value="E"> E) Somatória 6.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 04 -->
+            <div class="question-card" id="q4">
+                <span class="question-text">Questão 04. Sobre diversidade de gênero e sexualidade, assinale a INCORRETA:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q4" value="A"> A) O respeito ao nome social é um direito garantido nas instituições federais.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q4" value="B"> B) Políticas visam combater assédio e discriminação que contribuem para evasão.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q4" value="C"> C) A educação para diversidade deve ser excluída dos projetos pedagógicos por ser tema de foro íntimo.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q4" value="D"> D) Envolve sensibilização da comunidade e construção de espaços de diálogo.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q4" value="E"> E) Reconhecer desigualdades de gênero fundamenta ações afirmativas de equidade.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 05 -->
+            <div class="question-card" id="q5">
+                <span class="question-text">Questão 05. Sobre permanência e êxito, preencha (V) ou (F):</span>
+                <p>( ) Foca exclusivamente na concessão de auxílios financeiros.<br>
+                ( ) A atuação integrada entre NAPNE, NEABI e Assistência Estudantil é estratégica.<br>
+                ( ) O êxito é apenas a conclusão no tempo mínimo, independente da qualidade.<br>
+                ( ) O registro pedagógico e relação escola-família reduzem retenção e evasão.</p>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q5" value="A"> A) V – V – F – F.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q5" value="B"> B) F – V – F – V.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q5" value="C"> C) V – F – V – F.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q5" value="D"> D) F – F – V – V.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q5" value="E"> E) V – V – V – V.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 06 -->
+            <div class="question-card" id="q6">
+                <span class="question-text">Questão 06. De acordo com a Resolução CNE/CP nº 01/2004, o ensino de História e Cultura Afro-Brasileira deve:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q6" value="A"> A) Ser facultativo para cursos técnicos, aplicando-se apenas às licenciaturas.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q6" value="B"> B) Destacar a atuação de negros em diferentes áreas do conhecimento e criação tecnológica.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q6" value="C"> C) Priorizar a visão do negro como escravizado para evitar conflitos.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q6" value="D"> D) Ser ministrado como disciplina isolada com carga horária máxima de 20h.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q6" value="E"> E) Focar exclusivamente no continente africano atual, sem relação com o Brasil.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 07 -->
+            <div class="question-card" id="q7">
+                <span class="question-text">Questão 07. Sobre adaptações curriculares e Atendimento Educacional Especializado (AEE), assinale a correta:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q7" value="A"> A) O AEE deve substituir o ensino comum para estudantes com deficiência intelectual.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q7" value="B"> B) Adaptações razoáveis são modificações necessárias que não imponham ônus desproporcional.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q7" value="C"> C) A avaliação diagnóstica deve ser feita exclusivamente por médicos externos.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q7" value="D"> D) O AEE é opcional para a instituição, dependendo da sobra orçamentária.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q7" value="E"> E) Alunos com altas habilidades não são público-alvo do AEE.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 08 -->
+            <div class="question-card" id="q8">
+                <span class="question-text">Questão 08. Assinale a alternativa que descreve corretamente a atuação do NAPNE:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q8" value="A"> A) Realizar gestão financeira de contratos de limpeza e segurança.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q8" value="B"> B) Fomentar pesquisa voltada para indústria bélica sem critérios de inclusão.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q8" value="C"> C) Assessorar a gestão e docentes na identificação e eliminação de barreiras.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q8" value="D"> D) Atuar como único responsável legal pela aprovação ou reprovação de cotistas.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q8" value="E"> E) Organizar exclusivamente eventos festivos sem vinculação com planos de ensino.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 09 -->
+            <div class="question-card" id="q9">
+                <span class="question-text">Questão 09. Segundo a LBI, assinale a descrição correta de barreira atitudinal:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q9" value="A"> A) Qualquer entrave físico em prédios públicos.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q9" value="B"> B) Falta de rampas ou elevadores em instituições de ensino.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q9" value="C"> C) Atitudes ou comportamentos que impeçam ou prejudiquem a participação social da PcD.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q9" value="D"> D) Obstáculos que dificultem a emissão ou recepção de mensagens de rádio.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q9" value="E"> E) Obstáculos existentes nas vias e espaços públicos.</label></div>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="question-card" id="q10">
+                <span class="question-text">Questão 10. A articulação entre ensino, pesquisa e extensão deve:</span>
+                <div class="options-list">
+                    <div class="option-item"><label><input type="radio" name="q10" value="A"> A) Ser dissociada das questões de diversidade para manter o rigor científico.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q10" value="B"> B) Priorizar extensão apenas para grandes empresas visando lucro.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q10" value="C"> C) Oportunizar o conhecimento da história africana e indígena e combater a discriminação.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q10" value="D"> D) Restringir-se ao espaço da sala de aula, evitando movimentos sociais.</label></div>
+                    <div class="option-item"><label><input type="radio" name="q10" value="E"> E) Excluir PcD de projetos de pesquisa para garantir cronogramas.</label></div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Quiz</button>
+        </form>
+
+        <section id="results-section">
+            <div class="score-display" id="score-text"></div>
+            
+            <h2 class="resolutions-title">Análise Técnica e Resoluções Exaustivas</h2>
+            
+            <div id="resolutions-container">
+                <!-- Inserido via JS -->
+            </div>
+        </section>
+
+        <footer>
+            Simulado Acadêmico - Rede Federal de Educação Profissional, Científica e Tecnológica
+        </footer>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: "C", q2: "B", q3: "E", q4: "C", q5: "B",
+            q6: "B", q7: "B", q8: "C", q9: "C", q10: "C"
+        };
+
+        const resolutions = [
+            {
+                id: "q1",
+                title: "Resolução Questão 01 - Marco Legal LBI",
+                text: "A Assertiva I está correta (Art. 28 da LBI). A Assertiva II está incorreta pois o § 1º do Art. 28 proíbe explicitamente a cobrança de valores adicionais por adaptações. A Assertiva III está correta, sendo direito subjetivo a garantia de intérpretes e apoio."
+            },
+            {
+                id: "q2",
+                title: "Resolução Questão 02 - Papel do NAPNE",
+                text: "A alternativa B define o público-alvo exato da Educação Especial (PcD, TGD/TEA e Altas Habilidades). O NAPNE é instância permanente, multidisciplinar e pedagógica, não dependendo de diagnóstico médico exclusivo."
+            },
+            {
+                id: "q3",
+                title: "Resolução Questão 03 - Leis 10.639 e 11.645 (NEABI)",
+                text: "Todas as afirmações estão corretas. (1) Obrigatoriedade em todo o currículo; (2) Transversalidade fora de datas específicas; (3) Missão do NEABI em produzir conhecimento para equidade. Somatória: 1+2+3 = 6."
+            },
+            {
+                id: "q4",
+                title: "Resolução Questão 04 - Gênero e Sexualidade",
+                text: "A incorreta é a C. O respeito à diversidade é parte da formação humana integral e deve constar nos Projetos Pedagógicos (PPC), não sendo apenas tema de 'foro íntimo'."
+            },
+            {
+                id: "q5",
+                title: "Resolução Questão 05 - Permanência e Êxito",
+                text: "Sequência Correta: F-V-F-V. Permanência não é só dinheiro; Êxito não é só diploma rápido; Integração de núcleos e relação escola-família são os verdadeiros pilares da permanência."
+            },
+            {
+                id: "q6",
+                title: "Resolução Questão 06 - Diretrizes ERER",
+                text: "A alternativa B é correta. Deve-se destacar o negro como sujeito produtor de ciência, tecnologia e arte, desconstruindo o viés apenas da escravização."
+            },
+            {
+                id: "q7",
+                title: "Resolução Questão 07 - AEE e Adaptações",
+                text: "O conceito de 'adaptação razoável' (B) é central na LBI. O AEE é complementar/suplementar e nunca substitutivo ao ensino regular."
+            },
+            {
+                id: "q8",
+                title: "Resolução Questão 08 - Competências Práticas",
+                text: "O NAPNE atua na assessoria (C) para eliminação de barreiras (arquitetônicas, pedagógicas e atitudinais), integrando a inclusão ao cotidiano do campus."
+            },
+            {
+                id: "q9",
+                title: "Resolução Questão 09 - Barreiras Atitudinais",
+                text: "A barreira atitudinal (C) refere-se a preconceitos e estigmas. É considerada uma das barreiras mais difíceis de transpor, pois impede a inclusão de forma subjetiva."
+            },
+            {
+                id: "q10",
+                title: "Resolução Questão 10 - Ensino, Pesquisa e Extensão",
+                text: "A alternativa C reflete o compromisso social da Rede Federal: usar o tripé acadêmico para valorizar minorias e combater o racismo institucional."
+            }
+        ];
+
+        function gradeQuiz() {
+            let score = 0;
+            const total = 10;
+            const form = document.getElementById('quiz-form');
+            const resContainer = document.getElementById('resolutions-container');
+            resContainer.innerHTML = "";
+
+            // Verificar respostas
+            for (let i = 1; i <= total; i++) {
+                const qId = 'q' + i;
+                const selected = form.elements[qId].value;
+                const questionDiv = document.getElementById(qId);
+                const options = questionDiv.querySelectorAll('.option-item');
+
+                options.forEach(opt => {
+                    const input = opt.querySelector('input');
+                    if (input.value === correctAnswers[qId]) {
+                        opt.classList.add('correct');
+                    } else if (input.checked && input.value !== correctAnswers[qId]) {
+                        opt.classList.add('wrong');
+                    }
+                });
+
+                if (selected === correctAnswers[qId]) {
+                    score++;
+                }
+
+                // Adicionar resolução correspondente
+                const res = resolutions.find(r => r.id === qId);
+                const resBlock = document.createElement('div');
+                resBlock.className = 'resolution-block';
+                resBlock.innerHTML = `<h3>${res.title}</h3><p class="resolution-text">${res.text}</p>`;
+                resContainer.appendChild(resBlock);
+            }
+
+            // Exibir resultados
+            const scoreText = document.getElementById('score-text');
+            scoreText.innerHTML = `Você acertou ${score} de ${total} questões! (${(score/total)*100}%)`;
+            scoreText.style.color = score >= 7 ? '#27ae60' : '#d63031';
+
+            document.getElementById('results-section').style.display = 'block';
+            
+            // Rolar suavemente para os resultados
+            window.scrollTo({
+                top: document.getElementById('results-section').offsetTop - 20,
+                behavior: 'smooth'
+            });
+
+            // Desativar inputs após finalizar
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => input.disabled = true);
+            document.querySelector('.btn-submit').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
