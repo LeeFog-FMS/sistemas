@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Domínios Morfoclimáticos de Ab'Sáber</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2c3e50;
+            --primary-color: #27ae60;
+            --secondary-color: #ecf0f1;
+            --accent-color: #2980b9;
+            --wrong-color: #e74c3c;
+            --border-color: #dcdde1;
+            --max-width: 800px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #1a252f;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .question-card {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .option input {
+            margin-right: 1rem;
+            transform: scale(1.2);
+        }
+
+        .submit-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #219150;
+        }
+
+        #results {
+            display: none;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 2rem;
+            background: var(--secondary-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .score-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .resolution-card {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-left: 5px solid var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .res-correct {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .res-wrong {
+            color: var(--wrong-color);
+            font-weight: bold;
+        }
+
+        .explanation {
+            margin-top: 1rem;
+            font-style: italic;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-correct { background: #d4edda; color: #155724; }
+        .tag-wrong { background: #f8d7da; color: #721c24; }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem 0.5rem; }
+            .question-card { padding: 1rem; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Quiz: Domínios Morfoclimáticos</h1>
+        <p class="description">Biogeografia e a análise técnica de Aziz Ab'Sáber</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" data-id="1">
+            <span class="question-text">Questão 01: O geógrafo Aziz Nacib Ab'Sáber sistematizou a classificação do território em domínios morfoclimáticos. Sobre as bases teóricas desse sistema, analise:</span>
+            <p style="margin-bottom: 1rem;">I. O domínio morfoclimático é definido como um conjunto espacial onde haja um esquema coerente de feições de relevo, solos, vegetação e condições climático-hidrológicas.<br>
+            II. As faixas de transição são consideradas áreas de instabilidade onde as características nucleares de dois ou mais domínios se interpenetram.<br>
+            III. O conceito de "área core" refere-se à porção periférica do domínio, onde a vegetação é mais densa devido ao contato com outros ecossistemas.</p>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q1" value="A"> A. Apenas I.</label>
+                <label class="option"><input type="radio" name="q1" value="B"> B. Apenas II.</label>
+                <label class="option"><input type="radio" name="q1" value="C"> C. Apenas III.</label>
+                <label class="option"><input type="radio" name="q1" value="D"> D. Apenas I e II.</label>
+                <label class="option"><input type="radio" name="q1" value="E"> E. I, II e III.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-id="2">
+            <span class="question-text">Questão 02: Em relação à constituição física e biótica do domínio morfoclimático Amazônico, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q2" value="A"> A. Os solos são de elevada fertilidade natural devido ao intemperismo físico de rochas basálticas.</label>
+                <label class="option"><input type="radio" name="q2" value="B"> B. A vegetação é perenifólia e latifoliada, dependendo fundamentalmente da camada de serapilheira e ciclagem de nutrientes.</label>
+                <label class="option"><input type="radio" name="q2" value="C"> C. O relevo é marcado por grandes cadeias montanhosas que barram massas de ar do Pacífico.</label>
+                <label class="option"><input type="radio" name="q2" value="D"> D. O clima equatorial tem estação seca prolongada de oito meses, exigindo adaptações xerófilas.</label>
+                <label class="option"><input type="radio" name="q2" value="E"> E. A rede hidrográfica é pobre e intermitente, com rios que secam no inverno.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-id="3">
+            <span class="question-text">Questão 03: Relacione as características pedológicas e botânicas aos domínios (Cerrado, Caatinga, Mares de Morros, Araucárias):</span>
+            <p style="margin-bottom: 1rem;">( ) Vegetação xerófila e solos rasos; clima semiárido.<br>
+            ( ) Chapadões sedimentares; solos profundos e ácidos; troncos retorcidos.<br>
+            ( ) Relevo mamelonar; solos profundos por intemperismo químico; Mata Atlântica.<br>
+            ( ) Planaltos subtropicais; solos de terra roxa; vegetação aciculifoliada.</p>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q3" value="A"> A. 2 – 1 – 3 – 4.</label>
+                <label class="option"><input type="radio" name="q3" value="B"> B. 1 – 2 – 4 – 3.</label>
+                <label class="option"><input type="radio" name="q3" value="C"> C. 4 – 3 – 2 – 1.</label>
+                <label class="option"><input type="radio" name="q3" value="D"> D. 3 – 4 – 1 – 2.</label>
+                <label class="option"><input type="radio" name="q3" value="E"> E. 2 – 3 – 1 – 4.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-id="4">
+            <span class="question-text">Questão 04: Sobre o domínio morfoclimático das Pradarias (Pampa), analise as afirmações:</span>
+            <p style="margin-bottom: 1rem;">I. Apresenta relevo de colinas suaves (coxilhas).<br>
+            II. Vegetação predominantemente herbácea usada para pecuária extensiva.<br>
+            III. Enfrenta o processo de arenização pela fragilidade dos solos arenosos.</p>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q4" value="A"> A. Todas as assertivas estão corretas.</label>
+                <label class="option"><input type="radio" name="q4" value="B"> B. Todas as assertivas estão incorretas.</label>
+                <label class="option"><input type="radio" name="q4" value="C"> C. Apenas a assertiva I está correta.</label>
+                <label class="option"><input type="radio" name="q4" value="D"> D. Apenas I e II estão corretas.</label>
+                <label class="option"><input type="radio" name="q4" value="E"> E. Apenas II e III estão corretas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-id="5">
+            <span class="question-text">Questão 05: Sobre o ecótono da Mata dos Cocais, é correto afirmar que:</span>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q5" value="A"> A. Localiza-se exclusivamente no Rio Grande do Sul.</label>
+                <label class="option"><input type="radio" name="q5" value="B"> B. Constitui uma transição entre Amazônico, Cerrado e Caatinga, com presença de babaçu e carnaúba.</label>
+                <label class="option"><input type="radio" name="q5" value="C"> C. É caracterizada por floresta densa de clima frio e coníferas.</label>
+                <label class="option"><input type="radio" name="q5" value="D"> D. Representa a transição entre o Pantanal e o bioma marinho costeiro.</label>
+                <label class="option"><input type="radio" name="q5" value="E"> E. Apresenta solos de extrema acidez que impedem o extrativismo vegetal.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-id="6">
+            <span class="question-text">Questão 06: Assinale a alternativa que descreve corretamente uma adaptação botânica do Cerrado:</span>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q6" value="A"> A. Higrofitismo: folhas largas para eliminar excesso de água.</label>
+                <label class="option"><input type="radio" name="q6" value="B"> B. Xilopódios: órgãos subterrâneos que armazenam água e nutrientes para sobrevivência após secas ou fogo.</label>
+                <label class="option"><input type="radio" name="q6" value="C"> C. Aciculifolismo: folhas em formato de agulha para impedir congelamento.</label>
+                <label class="option"><input type="radio" name="q6" value="D"> D. Pneumatóforos: raízes respiratórias em solos permanentemente alagados.</label>
+                <label class="option"><input type="radio" name="q6" value="E"> E. Deciduidade total: perda de 100% da biomassa foliar mensalmente.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-id="7">
+            <span class="question-text">Questão 07: Sobre o domínio dos Mares de Morros, assinale a alternativa INCORRETA:</span>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q7" value="A"> A. Relevo de morros arredondados resultante de intemperismo químico em rochas cristalinas.</label>
+                <label class="option"><input type="radio" name="q7" value="B"> B. A cobertura original (Mata Atlântica) é rica em biodiversidade, mas fragmentada.</label>
+                <label class="option"><input type="radio" name="q7" value="C"> C. O clima predominante é o tropical úmido influenciado pela mTa.</label>
+                <label class="option"><input type="radio" name="q7" value="D"> D. Os solos são tipicamente rasos e pedregosos, impedindo deslizamentos em encostas.</label>
+                <label class="option"><input type="radio" name="q7" value="E"> E. Abriga as maiores densidades demográficas do Brasil.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-id="8">
+            <span class="question-text">Questão 08: Sobre a relação solo-clima-vegetação na Caatinga, é correto afirmar:</span>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q8" value="A"> A. Predominância de intemperismo químico gera solos latossólicos espessos.</label>
+                <label class="option"><input type="radio" name="q8" value="B"> B. A caducifolia reduz a perda de água por evapotranspiração durante a estiagem.</label>
+                <label class="option"><input type="radio" name="q8" value="C"> C. O clima semiárido é causado por massas polares que congelam a umidade.</label>
+                <label class="option"><input type="radio" name="q8" value="D"> D. Vegetação formada por árvores latifoliadas gigantescas.</label>
+                <label class="option"><input type="radio" name="q8" value="E"> E. Os rios são perenes e volumosos sem variação sazonal.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-id="9">
+            <span class="question-text">Questão 09: Qual a divergência correta entre o domínio das Araucárias e o das Pradarias?</span>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q9" value="A"> A. Araucárias são equatoriais e Pradarias são semiáridas.</label>
+                <label class="option"><input type="radio" name="q9" value="B"> B. Araucárias têm solos de terra roxa (basalto), enquanto Pradarias têm solos arenosos.</label>
+                <label class="option"><input type="radio" name="q9" value="C"> C. Araucárias são campos de gramíneas e Pradarias são florestas densas.</label>
+                <label class="option"><input type="radio" name="q9" value="D"> D. Pradarias ficam no topo da Serra do Mar e Araucárias no litoral.</label>
+                <label class="option"><input type="radio" name="q9" value="E"> E. Estão separados pelo Oceano Atlântico.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-id="10">
+            <span class="question-text">Questão 10: Sobre o Pantanal Mato-Grossense, analise as assertivas:</span>
+            <p style="margin-bottom: 1rem;">I. Recebe influências da Amazônia, Cerrado, Caatinga e Chaco.<br>
+            II. O relevo de planície impede escoamento rápido, resultando em inundações sazonais.<br>
+            III. É um ecossistema estritamente homogêneo sem variações topográficas.</p>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q10" value="A"> A. Apenas I.</label>
+                <label class="option"><input type="radio" name="q10" value="B"> B. Apenas II.</label>
+                <label class="option"><input type="radio" name="q10" value="C"> C. Apenas III.</label>
+                <label class="option"><input type="radio" name="q10" value="D"> D. Apenas I e II.</label>
+                <label class="option"><input type="radio" name="q10" value="E"> E. I, II e III.</label>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="button" onclick="calculateResults()">Finalizar Quiz</button>
+        </div>
+    </form>
+
+    <div id="results">
+        <div class="score-box">
+            <p class="score-title">Resultado: <span id="score-display">0/10</span></p>
+            <p id="performance-msg"></p>
+        </div>
+        
+        <h2>Resoluções Detalhadas</h2>
+        <div id="resolution-list"></div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: "D", q2: "B", q3: "A", q4: "A", q5: "B",
+        q6: "B", q7: "D", q8: "B", q9: "B", q10: "D"
+    };
+
+    const resolutions = {
+        q1: "A assertiva I define corretamente o domínio morfoclimático como integração de relevo, solo, vegetação e clima. A II define as faixas de transição. A III é falsa pois 'área core' é o centro de máxima tipicidade, não a periferia.",
+        q2: "O sistema amazônico sobrevive através de um ciclo fechado de nutrientes. A serapilheira (folhas e galhos) é decomposta e reabsorvida pelas raízes, mantendo a floresta em solos naturalmente pobres.",
+        q3: "A sequência 2-1-3-4 relaciona corretamente: Caatinga (xerófila/semiárido), Cerrado (chapadões/ácidos), Mares de Morros (mamelonar/Mata Atlântica) e Araucárias (subtropical/terra roxa).",
+        q4: "As Pradarias apresentam relevo de coxilhas (colinas), vegetação herbácea ideal para pecuária e sofrem com a arenização devido à fragilidade dos solos frente ao uso intensivo.",
+        q5: "A Mata dos Cocais (Maranhão e Piauí) é o ecótono entre a Amazônia e o Sertão, destacando-se pelas palmeiras babaçu e carnaúba.",
+        q6: "Xilopódios são órgãos subterrâneos que armazenam água e nutrientes, permitindo o rebrote rápido após incêndios ou longas estiagens no Cerrado.",
+        q7: "A alternativa D está incorreta porque os solos dos Mares de Morros são frequentemente suscetíveis a deslizamentos de terra (movimentos de massa) em encostas íngremes devido ao intenso intemperismo químico.",
+        q8: "A caducifolia (perda das folhas) na Caatinga é um mecanismo fisiológico para reduzir a transpiração e economizar água durante o longo período de seca severa.",
+        q9: "Divergência Geopedológica: As Araucárias possuem solos de terra roxa (origem vulcânica/basalto), enquanto as Pradarias possuem solos predominantemente arenosos sobre rochas sedimentares.",
+        q10: "O Pantanal é um mosaico que recebe influência de vários biomas (I) e seu ciclo é regido pelas cheias devido à baixa declividade (II). A III é falsa: o relevo e inundação criam grande heterogeneidade vegetal."
+    };
+
+    function calculateResults() {
+        const form = document.getElementById('quiz-form');
+        const resultsDiv = document.getElementById('results');
+        const resList = document.getElementById('resolution-list');
+        const scoreDisplay = document.getElementById('score-display');
+        let score = 0;
+
+        resList.innerHTML = '';
+
+        for(let i=1; i<=10; i++) {
+            const qKey = 'q' + i;
+            const selected = form.elements[qKey].value;
+            const isCorrect = selected === answers[qKey];
+            
+            if(isCorrect) score++;
+
+            const card = document.createElement('div');
+            card.className = 'resolution-card';
+            
+            const statusTag = `<span class="tag ${isCorrect ? 'tag-correct' : 'tag-wrong'}">${isCorrect ? 'Correto' : 'Incorreto'}</span>`;
+            
+            card.innerHTML = `
+                ${statusTag}
+                <p><strong>Questão ${i}:</strong> Sua resposta: <strong>${selected || 'Nenhuma'}</strong> | Gabarito: <strong>${answers[qKey]}</strong></p>
+                <p class="explanation">${resolutions[qKey]}</p>
+            `;
+            resList.appendChild(card);
+        }
+
+        scoreDisplay.innerText = `${score} / 10`;
+        resultsDiv.style.display = 'block';
+        
+        let msg = "";
+        if(score === 10) msg = "Excelente! Você domina os conceitos de Ab'Sáber.";
+        else if(score >= 7) msg = "Muito bom! Ótimo aproveitamento dos domínios brasileiros.";
+        else if(score >= 5) msg = "Bom resultado, mas revise as faixas de transição.";
+        else msg = "Recomendamos uma leitura atenta das características pedológicas e climáticas.";
+        
+        document.getElementById('performance-msg').innerText = msg;
+
+        // Rolar até os resultados
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

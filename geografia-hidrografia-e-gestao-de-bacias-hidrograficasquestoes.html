@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Hidrografia e Gestão de Bacias</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --success-color: #00b894;
+            --error-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --resolution-bg: #f1f2f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #636e72;
+            font-style: italic;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--primary-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .option-item.selected {
+            border-color: var(--primary-color);
+            background-color: #e3f2fd;
+        }
+
+        .option-item.correct {
+            background-color: #d1f2eb !important;
+            border-color: var(--success-color) !important;
+            color: #0b5345;
+        }
+
+        .option-item.wrong {
+            background-color: #fadbd8 !important;
+            border-color: var(--error-color) !important;
+            color: #7b241c;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #0873c4;
+            transform: translateY(-2px);
+        }
+
+        #result-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .score-box {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--resolution-bg);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #2d3436;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .container { width: 95%; padding: 20px 10px; }
+            h1 { font-size: 1.6rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Hidrografia e Gestão de Bacias</h1>
+        <p class="description">Simulado Técnico Estilo Fundatec</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questions will be injected here -->
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="checkAnswers()">Finalizar Quiz</button>
+    </div>
+
+    <div id="result-section">
+        <div class="score-box" id="score-display"></div>
+        <p id="feedback-text"></p>
+        <button onclick="window.location.reload()" style="background-color: #636e72; padding: 10px 20px; font-size: 0.9rem;">Reiniciar Simulado</button>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "Questão 01: No que concerne ao ciclo hidrológico e à dinâmica dos processos que regem o movimento da água na biosfera, analise as assertivas a seguir e assinale V, se verdadeiras, ou F, se falsas.<br><br>( ) O ciclo hidrológico opera como um sistema fechado em termos de massa, mas aberto em termos de energia, sendo a radiação solar o motor térmico que impulsiona a evapotranspiração e a gravidade o vetor do escoamento e da infiltração.<br>( ) A infiltração é o processo pelo qual a água atravessa a superfície do solo, sendo um fator determinante para a recarga de aquíferos e a manutenção do escoamento de base dos rios durante períodos de estiagem.<br>( ) A condensação ocorre quando o vapor d'água atinge níveis de saturação na atmosfera, sendo que a precipitação pode, ocasionalmente, evaporar antes mesmo de atingir a superfície terrestre, fenômeno conhecido tecnicamente como virga.<br>( ) O balanço hídrico global é considerado um sistema não conservativo, visto que a quantidade total de água no planeta sofre variações significativas anuais em decorrência das mudanças climáticas antropogênicas.",
+            options: [
+                { text: "A) V – V – V – F.", value: "A" },
+                { text: "B) V – F – V – V.", value: "B" },
+                { text: "C) F – V – F – V.", value: "C" },
+                { text: "D) V – V – F – F.", value: "D" },
+                { text: "E) F – F – V – V.", value: "E" }
+            ],
+            correct: "A",
+            resolution: "A análise do ciclo hidrológico constitui o pilar fundamental. A quarta assertiva é falsa porque o sistema é considerado conservativo em termos de massa global. Mudanças climáticas redistribuem a água, mas a massa total do sistema fechado planetário permanece constante em escalas geológicas recentes."
+        },
+        {
+            id: 2,
+            question: "Questão 02: A respeito do regime dos rios brasileiros e das características climáticas que influenciam o comportamento volumétrico das bacias hidrográficas nacionais, assinale a alternativa INCORRETA.",
+            options: [
+                { text: "A) A vasta maioria dos rios brasileiros apresenta regime pluvial.", value: "A" },
+                { text: "B) O Rio Amazonas e o Rio Solimões apresentam um regime misto (complexo).", value: "B" },
+                { text: "C) Os rios da região Nordeste são em sua maioria intermitentes ou temporários.", value: "C" },
+                { text: "D) No Sul e Sudeste do Brasil, observa-se uma predominância de rios perenes.", value: "D" },
+                { text: "E) O regime nival é a modalidade predominante na bacia do Rio São Francisco.", value: "E" }
+            ],
+            correct: "E",
+            resolution: "O Rio São Francisco possui um regime tipicamente pluvial tropical. O regime nival (alimentado por neve) não ocorre nesta bacia, que está situada em áreas de clima tropical e semiárido."
+        },
+        {
+            id: 3,
+            question: "Questão 03: A Bacia Hidrográfica do Amazonas é a maior do globo terrestre. Sobre esta unidade, é correto afirmar que:",
+            options: [
+                { text: "A) Trata-se de uma bacia inteiramente nacional.", value: "A" },
+                { text: "B) Possui o maior potencial hidrelétrico instalado do Brasil atualmente.", value: "B" },
+                { text: "C) Geologicamente, a bacia está encaixada entre os escudos cristalinos das Guianas e do Brasil Central.", value: "C" },
+                { text: "D) A foz do Rio Amazonas é classificada exclusivamente como do tipo estuário.", value: "D" },
+                { text: "E) O regime de águas é influenciado unicamente pelas massas de ar polares.", value: "E" }
+            ],
+            correct: "C",
+            resolution: "A bacia sedimentar amazônica situa-se em uma depressão entre os escudos das Guianas e o Brasileiro. Ela é internacional (não nacional apenas) e o maior potencial instalado pertence à Bacia do Paraná."
+        },
+        {
+            id: 4,
+            question: "Questão 04: Considere as características da Bacia Hidrográfica do Rio São Francisco. Analise as afirmações abaixo:<br><br>I. O rio principal nasce na Serra da Canastra (MG) e percorre diversos estados.<br>II. Trata-se da maior bacia hidrográfica localizada inteiramente em território brasileiro.<br>III. Devido ao processo de transposição, as águas foram conectadas a bacias de rios temporários no Ceará, Paraíba, Pernambuco e RN.",
+            options: [
+                { text: "A) Apenas I.", value: "A" },
+                { text: "B) Apenas II.", value: "B" },
+                { text: "C) Apenas I e II.", value: "C" },
+                { text: "D) Apenas II e III.", value: "D" },
+                { text: "E) I, II e III.", value: "E" }
+            ],
+            correct: "E",
+            resolution: "Todas as afirmações são corretas. O 'Velho Chico' é vital para a integração nacional, possui gestão 100% brasileira e o projeto de transposição (PISF) visa socorrer bacias receptoras no semiárido."
+        },
+        {
+            id: 5,
+            question: "Questão 05: Sobre a Bacia Hidrográfica do Rio Paraná e sua importância no contexto do Sistema Platino e da economia brasileira, assinale a alternativa correta.",
+            options: [
+                { text: "A) É uma bacia de planície em sua totalidade.", value: "A" },
+                { text: "B) Abrange diversos estados e possui o maior potencial hidrelétrico instalado do país.", value: "B" },
+                { text: "C) Sua foz ocorre de forma isolada no litoral catarinense.", value: "C" },
+                { text: "D) O Rio Paraná nasce da confluência dos rios São Francisco e Araguaia.", value: "D" },
+                { text: "E) Trata-se de uma bacia com regime exclusivamente intermitente.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "A Bacia do Paraná é de planalto (favorecendo hidrelétricas) e abriga Itaipu. Ela deságua no Rio da Prata, não em SC, e nasce da junção dos rios Grande e Paranaíba."
+        },
+        {
+            id: 6,
+            question: "Questão 06: Segundo os fundamentos da Lei Federal nº 9.433/1997 (Lei das Águas), é INCORRETO afirmar que:",
+            options: [
+                { text: "A) A água é um bem de domínio público.", value: "A" },
+                { text: "B) Em situações de escassez, o uso prioritário é consumo humano e animais.", value: "B" },
+                { text: "C) A gestão deve proporcionar o uso múltiplo das águas.", value: "C" },
+                { text: "D) A bacia hidrográfica é a unidade territorial para implementação da política.", value: "D" },
+                { text: "E) A gestão deve ser centralizada exclusivamente no Governo Federal.", value: "E" }
+            ],
+            correct: "E",
+            resolution: "A gestão, por lei, deve ser DESCENTRALIZADA e PARTICIPATIVA, envolvendo o Poder Público, usuários e comunidades através dos Comitês de Bacia."
+        },
+        {
+            id: 7,
+            question: "Questão 07: De acordo com a legislação vigente, compete aos Comitês de Bacia Hidrográfica (CBH):",
+            options: [
+                { text: "A) Atuar como instâncias de decisão técnica única do Ministério do Meio Ambiente.", value: "A" },
+                { text: "B) Aprovar o Plano de Recursos Hídricos da bacia e propor mecanismos de cobrança.", value: "B" },
+                { text: "C) Conceder a outorga de direito de uso de água de forma unilateral.", value: "C" },
+                { text: "D) Fiscalizar exclusivamente o desmatamento em áreas de encostas.", value: "D" },
+                { text: "E) Gerir os recursos financeiros para segurança pública de fronteira.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "Os comitês são o 'parlamento das águas'. Eles aprovam o plano diretor da bacia e as diretrizes de cobrança, mas a emissão da outorga cabe ao órgão executivo (ANA ou órgãos estaduais)."
+        },
+        {
+            id: 8,
+            question: "Questão 08: Em relação à dominialidade das águas no território brasileiro, assinale a alternativa correta.",
+            options: [
+                { text: "A) Todas as águas pertencem exclusivamente à União.", value: "A" },
+                { text: "B) Os rios que banham mais de um Estado ou servem de limite entre eles são da União.", value: "B" },
+                { text: "C) As águas subterrâneas (aquíferos) são bens dos municípios.", value: "C" },
+                { text: "D) Rios que nascem e desembocam no mesmo Estado são bens da União.", value: "D" },
+                { text: "E) Águas acumuladas em lagos artificiais são bens dos proprietários das terras.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "Conforme a CF/88, rios interestaduais ou fronteiriços são da União. Rios que correm em apenas um estado são estaduais. Águas subterrâneas também pertencem aos Estados."
+        },
+        {
+            id: 9,
+            question: "Questão 09: Sobre os processos de degradação de bacias e a importância das áreas de preservação, assinale a correta sobre o assoreamento:",
+            options: [
+                { text: "A) As matas ciliares intensificam o assoreamento ao lançarem folhas nos rios.", value: "A" },
+                { text: "B) O assoreamento aumenta a profundidade dos rios, facilitando a navegação.", value: "B" },
+                { text: "C) Resulta do depósito de sedimentos no leito, reduzindo a calha e facilitando inundações.", value: "C" },
+                { text: "D) Trata-se de um processo puramente geológico, sem influência da urbanização.", value: "D" },
+                { text: "E) A única forma de impedir o assoreamento é a dragagem constante no estuário.", value: "E" }
+            ],
+            correct: "C",
+            resolution: "O assoreamento é o acúmulo de sedimentos que reduz a profundidade do rio. É agravado pelo desmatamento de matas ciliares e pela impermeabilização do solo urbano."
+        },
+        {
+            id: 10,
+            question: "Questão 10: Assinale a alternativa que lista corretamente os instrumentos da Política Nacional de Recursos Hídricos segundo a Lei nº 9.433/1997.",
+            options: [
+                { text: "A) Plano de Bacia, Zoneamento Ecológico e IPTU Urbano.", value: "A" },
+                { text: "B) Planos de RH, Enquadramento, Outorga, Cobrança e Sistema de Informações.", value: "B" },
+                { text: "C) Licenciamento Ambiental, EIA, RIMA e Alvarás.", value: "C" },
+                { text: "D) CAR, Código Florestal, Lei de Crimes Ambientais e SNUC.", value: "D" },
+                { text: "E) Outorga Coletiva, Tarifação de Esgoto e IPTU Verde.", value: "E" }
+            ],
+            correct: "B",
+            resolution: "Os 5 instrumentos são: 1. Planos de Recursos Hídricos; 2. Enquadramento; 3. Outorga; 4. Cobrança; 5. Sistema de Informações (SNIRH)."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-form');
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            const qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerHTML = q.question;
+            card.appendChild(qText);
+
+            const optionsUl = document.createElement('ul');
+            optionsUl.className = 'options-list';
+
+            q.options.forEach(opt => {
+                const li = document.createElement('li');
+                li.className = 'option-item';
+                li.innerHTML = `
+                    <input type="radio" name="question-${index}" value="${opt.value}" id="q${index}${opt.value}">
+                    <label for="q${index}${opt.value}">${opt.text}</label>
+                `;
+                li.onclick = () => {
+                    if (document.getElementById('result-section').style.display !== 'block') {
+                        const radios = document.getElementsByName(`question-${index}`);
+                        radios.forEach(r => r.checked = false);
+                        li.querySelector('input').checked = true;
+                        
+                        // Visual selection effect
+                        const siblingOptions = li.parentNode.querySelectorAll('.option-item');
+                        siblingOptions.forEach(s => s.classList.remove('selected'));
+                        li.classList.add('selected');
+                    }
+                };
+                optionsUl.appendChild(li);
+            });
+            card.appendChild(optionsUl);
+
+            // Hidden resolution box
+            const resBox = document.createElement('div');
+            resBox.className = 'resolution-box';
+            resBox.id = `res-${index}`;
+            resBox.innerHTML = `<h4>Resolução Técnica</h4>${q.resolution}`;
+            card.appendChild(resBox);
+
+            container.appendChild(card);
+        });
+    }
+
+    function checkAnswers() {
+        let score = 0;
+        const total = quizData.length;
+        let unanswered = false;
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            
+            if (!selected) {
+                unanswered = true;
+            }
+
+            const options = document.querySelectorAll(`#q-card-${index} .option-item`);
+            options.forEach(opt => {
+                const radio = opt.querySelector('input');
+                
+                // Reset styles
+                opt.classList.remove('selected', 'correct', 'wrong');
+
+                if (radio.value === q.correct) {
+                    opt.classList.add('correct'); // Highlight correct answer
+                }
+
+                if (selected && radio.checked && radio.value !== q.correct) {
+                    opt.classList.add('wrong'); // Highlight user's wrong answer
+                }
+            });
+
+            if (selected && selected.value === q.correct) {
+                score++;
+            }
+
+            // Show resolution
+            document.getElementById(`res-${index}`).style.display = 'block';
+        });
+
+        // UI Updates
+        document.getElementById('submit-btn').style.display = 'none';
+        const resultSection = document.getElementById('result-section');
+        resultSection.style.display = 'block';
+        
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.innerText = `Você acertou ${score} de ${total} questões!`;
+        
+        const feedback = document.getElementById('feedback-text');
+        const percentage = (score / total) * 100;
+        if (percentage >= 80) feedback.innerText = "Excelente desempenho! Você domina o conteúdo.";
+        else if (percentage >= 50) feedback.innerText = "Bom trabalho. Revise as resoluções para fixar os pontos de dúvida.";
+        else feedback.innerText = "Continue estudando. A leitura das resoluções técnicas abaixo ajudará muito.";
+
+        // Scroll to results
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

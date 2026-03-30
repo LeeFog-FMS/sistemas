@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass Hidrografia - Professor IFC (Fundatec)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            font-weight: 600;
+            padding: 0 2px;
+        }
+
+        .section-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .h2-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #3b82f6;
+            display: inline-block;
+        }
+
+        .audio-container {
+            position: sticky;
+            top: 10px;
+            z-index: 50;
+            background: #ffffff;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f3f4f6;
+            font-weight: 700;
+            text-align: left;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            vertical-align: top;
+        }
+
+        @media (max-width: 768px) {
+            .table-wrapper {
+                overflow-x: auto;
+            }
+            /* Garantindo que não haja scroll se possível, mas permitindo se a tela for mínima */
+            td, th {
+                min-width: 120px;
+            }
+        }
+
+        .box-peguinha {
+            border-left: 4px solid #ef4444;
+            background-color: #fff1f2;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- Header & Audio -->
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4 tracking-tight">Hidrografia e Gestão de Bacias Hidrográficas</h1>
+        <p class="text-lg text-gray-600 italic">Preparação de Alto Nível para o Concurso de Professor do IFC - Banca Fundatec</p>
+        
+        <div class="audio-container mt-8 p-4 rounded-xl flex flex-col items-center">
+            <span class="text-sm font-bold text-blue-600 mb-2 uppercase">🎧 PLAYER DE ÁUDIO DA AULA</span>
+            <audio controls class="w-full max-w-md">
+                <source src="geografia-hidrografia-e-gestao-de-bacias-hidrograficas.mp3" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-1">Arquivo: aula_hidrografia_ifc.mp3</p>
+        </div>
+    </header>
+
+    <!-- Seção 1: O Ciclo e a Abstração Central -->
+    <section class="section-card">
+        <h2 class="h2-title">1. Ciclo Hidrológico e Unidade de Planejamento</h2>
+        <p class="mb-4">
+            A hidrografia no contexto EBTT (Ensino Básico, Técnico e Tecnológico) não é apenas o estudo de rios, mas a análise da <span class="highlight">Bacia Hidrográfica como unidade sistêmica</span>. 
+        </p>
+        <ul class="list-disc pl-6 space-y-2">
+            <li><strong>Ciclo Hidrológico:</strong> Processo fechado, porém dinâmico. Pontos-chave: Evapotranspiração, Infiltração (recarga de aquíferos) e Escoamento Superficial.</li>
+            <li><strong>Bacia como Unidade:</strong> É o recorte territorial para aplicação de políticas ambientais, onde as ações em <span class="highlight">montante</span> (nascente) impactam diretamente a <span class="highlight">jusante</span> (foz).</li>
+            <li><strong>Interdependência:</strong> A gestão deve integrar solo, vegetação (matas ciliares) e uso urbano.</li>
+        </ul>
+    </section>
+
+    <!-- Seção 2: Glossário Técnico para a Prova -->
+    <section class="section-card">
+        <h2 class="h2-title">2. Glossário de Sobrevivência (Termos Recorrentes)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 border rounded">
+                <p><strong>Talvegue:</strong> A linha de maior profundidade do leito de um rio; o canal principal.</p>
+            </div>
+            <div class="p-4 border rounded">
+                <p><strong>Interflúvio:</strong> Áreas mais elevadas (divisores de águas) que separam bacias vizinhas.</p>
+            </div>
+            <div class="p-4 border rounded">
+                <p><strong>Exorreica:</strong> Drenagem que termina no mar (padrão brasileiro).</p>
+            </div>
+            <div class="p-4 border rounded">
+                <p><strong>Endorreica:</strong> Drenagem para o interior (ex: Mar Cáspio, bacias isoladas).</p>
+            </div>
+            <div class="p-4 border rounded">
+                <p><strong>Regime Nival:</strong> Alimentado pelo degelo (nascente do Rio Amazonas nos Andes).</p>
+            </div>
+            <div class="p-4 border rounded">
+                <p><strong>Regime Pluvial:</strong> Alimentado por chuvas (predominante no território brasileiro).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3: Estudo das Bacias Principais -->
+    <section class="section-card">
+        <h2 class="h2-title">3. Principais Bacias Hidrográficas Brasileiras</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bacia</th>
+                        <th>Características Físicas</th>
+                        <th>Gestão e Potencial</th>
+                        <th>Foco Fundatec</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">Amazonas</td>
+                        <td>Maior do mundo; rios de planície (meandrantes); <span class="highlight">Regime Misto</span> (Nival + Pluvial).</td>
+                        <td>Imenso potencial hidrelétrico em afluentes; Navegação é o principal modal de transporte regional.</td>
+                        <td>Usinas a <span class="highlight">fio d'água</span> (menor reservatório) para mitigar impactos ambientais.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">Paraná</td>
+                        <td>Bacia de planalto; rios encachoeirados. <span class="highlight">Maior aproveitamento hidrelétrico</span> instalado.</td>
+                        <td>Itaipu Binacional; Hidrovia Tietê-Paraná; Altamente urbanizada e industrializada.</td>
+                        <td>Conflito entre geração de energia vs. navegação vs. consumo industrial/agrícola.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">São Francisco</td>
+                        <td>Rio perene em região semiárida; atravessa o Polígono das Secas.</td>
+                        <td>Múltiplos usos: irrigação (fruticultura), energia e transporte. <span class="highlight">Transposição (PISF)</span>.</td>
+                        <td>Apelidado de "Rio da Integração Nacional"; debate sobre <span class="highlight">vazão ecológica</span> vs. transposição.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Seção 4: Gestão Integrada (Lei 9.433/97) -->
+    <section class="section-card">
+        <h2 class="h2-title">4. Gestão Integrada de Recursos Hídricos</h2>
+        <p class="mb-4">A Fundatec cobra a fundamentação da <span class="highlight">"Lei das Águas"</span>. Memorize os fundamentos:</p>
+        <div class="space-y-3 bg-gray-50 p-6 rounded-lg">
+            <p>1. A água é um <strong>bem de domínio público</strong> (não existe água privada).</p>
+            <p>2. É um recurso natural limitado, dotado de <strong>valor econômico</strong>.</p>
+            <p>3. Prioridade absoluta em escassez: <strong>Consumo humano e dessedentação de animais</strong>.</p>
+            <p>4. A bacia hidrográfica é a <strong>unidade territorial</strong> para implementação da Política Nacional.</p>
+            <p>5. Gestão deve ser <strong>descentralizada</strong> e contar com a participação do Poder Público, dos usuários e das comunidades.</p>
+        </div>
+        
+        <h3 class="font-bold mt-6 mb-2">Instrumentos de Gestão:</h3>
+        <ul class="list-disc pl-6">
+            <li><strong>Outorga:</strong> Autorização de uso (não é propriedade, é direito de uso por tempo determinado).</li>
+            <li><strong>Cobrança:</strong> Visa racionalizar o uso e arrecadar para recuperar a bacia.</li>
+            <li><strong>Enquadramento:</strong> Estabelece o nível de qualidade (classe) que a água deve ter.</li>
+        </ul>
+    </section>
+
+    <!-- Seção 5: Hidrografia de Santa Catarina (Foco IFC) -->
+    <section class="section-card border-blue-200 bg-blue-50/20">
+        <h2 class="h2-title">5. Recorte Regional: Santa Catarina</h2>
+        <p class="mb-4 text-sm text-gray-600">Essencial para provas de IFC, que costumam trazer questões de geografia local.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-4 rounded shadow-sm">
+                <h4 class="font-bold text-blue-800">Vertente do Interior (Uruguai)</h4>
+                <p class="text-sm">Abrange a maior parte do estado. Rio Uruguai, Rio Pelotas e Rio Canoas. Potencial hidrelétrico significativo e forte uso agroindustrial.</p>
+            </div>
+            <div class="bg-white p-4 rounded shadow-sm">
+                <h4 class="font-bold text-blue-800">Vertente do Atlântico</h4>
+                <p class="text-sm">Rios menores e mais acidentados. Destaque para o <strong>Rio Itajaí-Açu</strong> (histórico de cheias e importância econômica) e Rios Tubarão e Araranguá.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 6: Peguinhas Fundatec -->
+    <section class="section-card border-red-100">
+        <h2 class="h2-title">6. "Peguinhas" e Tendências Fundatec</h2>
+        
+        <div class="box-peguinha">
+            <p><strong>Pegadinha 01:</strong> Afirmar que a transposição do São Francisco resolve a seca no Nordeste. 
+            <br><span class="font-bold text-red-600">Realidade:</span> Ela garante segurança hídrica (abastecimento), mas a seca climática é um fenômeno atmosférico que persiste.</p>
+        </div>
+
+        <div class="box-peguinha">
+            <p><strong>Pegadinha 02:</strong> Confundir "Uso Consuntivo" com "Uso não-consuntivo".
+            <br><span class="font-bold text-red-600">Realidade:</span> Consuntivo é quando a água é retirada (irrigação). Não-consuntivo é quando ela é usada e permanece (geração de energia, navegação).</p>
+        </div>
+
+        <div class="box-peguinha">
+            <p><strong>Pegadinha 03:</strong> Dizer que os Comitês de Bacia são órgãos apenas do Governo.
+            <br><span class="font-bold text-red-600">Realidade:</span> São "Parlamentos das Águas", com representação tripartite (Governo, Usuários e Sociedade Civil).</p>
+        </div>
+    </section>
+
+    <!-- Botão de Questões -->
+    <div class="mt-12 text-center pb-20">
+        <a href="geografia-hidrografia-e-gestao-de-bacias-hidrograficasquestoes.html" class="inline-block bg-gray-900 text-white px-10 py-4 rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg">
+            ACESSAR BANCO DE QUESTÕES (SIMULADO) →
+        </a>
+    </div>
+
+    <footer class="text-center text-gray-400 text-sm border-t pt-4">
+        Conteúdo didático estruturado para o concurso de Professor EBTT - IFC.
+    </footer>
+
+</body>
+</html>

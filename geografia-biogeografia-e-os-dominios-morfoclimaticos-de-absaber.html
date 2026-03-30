@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domínios Morfoclimáticos - Especialista IFC/Fundatec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            color: #111827;
+            padding: 0 3px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: hidden; /* Garantindo que não haja scroll horizontal */
+            margin: 2rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Força a tabela a caber no container */
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word; /* Quebra palavras longas se necessário */
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f3f4f6;
+            color: #374151;
+            font-weight: 700;
+        }
+
+        .audio-player-box {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #ffffff;
+            border-bottom: 3px solid #1e40af;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            border-left: 6px solid #1e40af;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .exam-alert {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .btn-footer {
+            display: inline-block;
+            background-color: #1e40af;
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-footer:hover {
+            background-color: #1e3a8a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Áudio Player -->
+    <div class="audio-player-box">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <h2 class="text-xs font-black text-blue-700 uppercase tracking-widest">AULA EM ÁUDIO - SISTEMA DE MEMORIZAÇÃO</h2>
+                <p class="text-[10px] text-gray-500 font-mono">ARQUIVO: [insira_nome_do_arquivo_aqui].mp3</p>
+            </div>
+            <audio controls class="w-full md:w-2/3 h-10">
+                <source src="geografia-biogeografia-e-os-dominios-morfoclimaticos-de-absaber.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+        </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto p-6 md:p-12">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">Biogeografia e os Domínios Morfoclimáticos de Ab'Sáber</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Análise profunda da vegetação, solo e clima para o Concurso de Professor de Geografia (IFC / Fundatec).</p>
+        </header>
+
+        <!-- Definição Essencial -->
+        <section>
+            <div class="section-header">
+                <h2 class="text-2xl font-bold text-gray-800">1. O Conceito e a Epistemologia de Aziz Ab'Sáber</h2>
+            </div>
+            <p class="mb-6 text-lg text-gray-700">
+                O geógrafo <span class="highlight">Aziz Nacib Ab'Sáber</span> (1924-2012) revolucionou a geografia física brasileira ao propor uma classificação baseada na <span class="highlight">integração sistêmica</span>. Para ele, o domínio não é apenas um "lugar", mas o resultado de processos históricos de <span class="highlight">morfogênese</span> (relevo) e <span class="highlight">pedogênese</span> (solo) sob influência climática.
+            </p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Termo Chave</th>
+                            <th>Definição para a Prova</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Domínio Morfoclimático</strong></td>
+                            <td>Conjunto espacial de grande escala com coerência entre relevo, tipos de solos, formas de vegetação e rede hidrográfica.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Áreas Core (Núcleos)</strong></td>
+                            <td>Onde as características do domínio são mais homogêneas e estáveis.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Faixas de Transição</strong></td>
+                            <td>Zonas de instabilidade e contato entre dois ou mais domínios, apresentando características híbridas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Detalhamento dos 6 Domínios -->
+        <section>
+            <div class="section-header">
+                <h2 class="text-2xl font-bold text-gray-800">2. Análise Técnica dos Domínios</h2>
+            </div>
+
+            <!-- Amazônico -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-blue-900 mb-2">A) Domínio Amazônico (Terras Baixas e Florestadas)</h3>
+                <p>Ocupa 40% do território. <span class="highlight">Morfoclimatologia:</span> Clima Equatorial (quente e úmido) e relevo de terras baixas (planícies e depressões). A vegetação é <span class="highlight">latifoliada, perenifólia e higrófila</span>.</p>
+                <p class="mt-2 text-sm italic border-l-2 border-gray-300 pl-4">Nota EBTT: A floresta se sustenta pela <strong>ciclagem de nutrientes</strong> da biomassa. O solo (latossolo) é pobre e lixiviado (lavado pelas chuvas).</p>
+            </div>
+
+            <!-- Cerrado -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-yellow-600 mb-2">B) Domínio do Cerrado (Chapadões com Savanas)</h3>
+                <p>O <span class="highlight">"berço das águas"</span>. Relevo de Chapadões residuais. <span class="highlight">Morfoclimatologia:</span> Clima Tropical Típico (sazonalidade marcante). Vegetação <span class="highlight">tropófila</span> (adaptada à variação de umidade).</p>
+                <p class="mt-2 text-sm italic border-l-2 border-gray-300 pl-4">Nota EBTT: O <strong>xeromorfismo é edáfico</strong> (causado pela acidez e presença de Alumínio no solo), não pela falta de água profunda. A técnica da <strong>calagem</strong> corrigiu o pH para o avanço da soja.</p>
+            </div>
+
+            <!-- Caatinga -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-orange-600 mb-2">C) Domínio da Caatinga (Depressões Intermontanas)</h3>
+                <p>Único bioma exclusivamente brasileiro. <span class="highlight">Morfoclimatologia:</span> Clima Semiárido com chuvas irregulares. Relevo de depressões com <span class="highlight">Inselbergs</span> (pães-de-açúcar residuais).</p>
+                <p class="mt-2 text-sm italic border-l-2 border-gray-300 pl-4">Nota EBTT: Predomina o <strong>intemperismo físico</strong>. Os solos são rasos (litólicos) mas mineralmente ricos. A vegetação é <span class="highlight">caducifólia e xerófila</span>.</p>
+            </div>
+
+            <!-- Mares de Morros -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-green-700 mb-2">D) Domínio Mares de Morros (Áreas de Mamelonização)</h3>
+                <p>Fachada atlântica. Relevo cristalino erodido em formas convexas: <span class="highlight">meias-laranjas</span>. Clima Tropical Atlântico/Úmido.</p>
+                <p class="mt-2 text-sm italic border-l-2 border-gray-300 pl-4">Nota EBTT: Domínio da <strong>Mata Atlântica</strong>. O maior desafio são os <strong>movimentos de massa</strong> (deslizamentos) devido ao intemperismo químico profundo e alta pluviosidade.</p>
+            </div>
+
+            <!-- Araucária -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-indigo-700 mb-2">E) Domínio das Araucárias (Planaltos de Altitude)</h3>
+                <p>Planaltos meridionais. <span class="highlight">Morfoclimatologia:</span> Clima Subtropical. Vegetação <span class="highlight">aciculifoliada</span> (folhas em agulha). Solo de <strong>Terra Roxa</strong> (muito fértil, origem basáltica).</p>
+            </div>
+
+            <!-- Pradarias -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-emerald-600 mb-2">F) Domínio das Pradarias (Coxilhas Gaúchas)</h3>
+                <p>Também chamado de Pampa. Relevo de <span class="highlight">Coxilhas</span> (colinas suaves). Vegetação herbácea (gramíneas).</p>
+                <p class="mt-2 text-sm italic border-l-2 border-gray-300 pl-4 text-red-600 font-bold">ALERTA FUNDATEC: Sofre com o processo de <strong>Arenização</strong> (natural potencializado pelo gado), que difere da desertificação por ocorrer em clima úmido.</p>
+            </div>
+        </section>
+
+        <!-- Vocabulário Técnico -->
+        <section>
+            <div class="section-header">
+                <h2 class="text-2xl font-bold text-gray-800">3. Dicionário Botânico para Questões Técnicas</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Termo</th>
+                            <th>O que significa?</th>
+                            <th>Domínio Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Higrófila</strong></td>
+                            <td>Adaptada a ambientes com muita água.</td>
+                            <td>Amazônico</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Xerófila</strong></td>
+                            <td>Adaptada à aridez e escassez de água.</td>
+                            <td>Caatinga</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tropófila</strong></td>
+                            <td>Adaptada à sazonalidade (um período seco/um úmido).</td>
+                            <td>Cerrado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Caducifólia</strong></td>
+                            <td>Planta que perde as folhas na estação seca.</td>
+                            <td>Caatinga / Agreste</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Perenifólia</strong></td>
+                            <td>Folhagem que permanece verde o ano todo.</td>
+                            <td>Amazônico</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aciculifoliada</strong></td>
+                            <td>Folhas finas, em formato de agulha.</td>
+                            <td>Araucárias</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Faixas de Transição -->
+        <section>
+            <div class="section-header">
+                <h2 class="text-2xl font-bold text-gray-800">4. As Faixas de Transição (Ecótonos)</h2>
+            </div>
+            <p class="mb-6">Ab'Sáber identificou que as transições não são linhas, mas <span class="highlight">complexos de diversidade</span>:</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-4 border rounded shadow-sm">
+                    <h4 class="font-bold text-blue-800 mb-2">Mata dos Cocais</h4>
+                    <p class="text-sm">Transição entre Amazônia e Caatinga. Destaque para o extrativismo de <span class="highlight">Babaçu e Carnaúba</span>.</p>
+                </div>
+                <div class="p-4 border rounded shadow-sm">
+                    <h4 class="font-bold text-blue-800 mb-2">Agreste</h4>
+                    <p class="text-sm">Transição entre a Zona da Mata e o Sertão. Barreira para a umidade que vai para o interior.</p>
+                </div>
+                <div class="p-4 border rounded shadow-sm">
+                    <h4 class="font-bold text-blue-800 mb-2">Pantanal</h4>
+                    <p class="text-sm">Complexo de transição que recebe influências da Amazônia, Cerrado e Chaco.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Análise Fundatec / Peguinhas -->
+        <section class="exam-alert">
+            <h2 class="text-2xl font-bold text-red-700 mb-4">🎯 Análise Estratégica Fundatec (Nível EBTT)</h2>
+            <ul class="space-y-4">
+                <li>
+                    <span class="font-bold">1. Solo vs Fertilidade:</span> A banca costuma dizer que o solo da Amazônia é rico devido à floresta. <span class="highlight">FALSO</span>. O solo é pobre; a riqueza está na biomassa.
+                </li>
+                <li>
+                    <span class="font-bold">2. Diferenciação Aziz vs Ross:</span> Lembre-se: Aziz fala de <strong>Domínios</strong> (natureza integrada). Jurandyr Ross fala de <strong>Unidades de Relevo</strong> (morfometria/gênese - 28 unidades).
+                </li>
+                <li>
+                    <span class="font-bold">3. Localização de Domínios no Sul:</span> Para o IFC, domine as <strong>Araucárias e Pradarias</strong>. A Fundatec foca muito em <strong>Basalto</strong> (Araucária) e <strong>Arenização/Pecuária</strong> (Pradarias).
+                </li>
+                <li>
+                    <span class="font-bold">4. Hotspot:</span> O <strong>Cerrado e a Mata Atlântica</strong> (Mares de Morros) são os únicos hotspots brasileiros de biodiversidade devido à devastação.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Rodapé e Botão -->
+        <footer class="text-center mt-20 mb-12">
+            <p class="text-gray-500 text-sm mb-8">Fim do conteúdo técnico de revisão. Pronto para testar seus conhecimentos?</p>
+            <a href="geografia-biogeografia-e-os-dominios-morfoclimaticos-de-absaberquestoes.html" class="btn-footer">
+                ACESSAR BANCO DE QUESTÕES FUNDATEC
+            </a>
+            <div class="mt-8 text-xs text-gray-400">
+                Curso Preparatório de Geografia - Foco em Carreira EBTT / IFC
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

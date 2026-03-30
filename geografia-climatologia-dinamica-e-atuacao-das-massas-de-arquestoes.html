@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado de Climatologia Dinâmica - Padrão Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --wrong-color: #d63031;
+            --border-color: #dfe6e9;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0873c4;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 30px;
+            background: #e1f5fe;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .resolution-card {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fdfdfd;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .correct-ans {
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .wrong-ans {
+            color: var(--wrong-color);
+            font-weight: bold;
+        }
+
+        .math {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f1f2f6;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Climatologia e Massas de Ar</h1>
+        <p class="subtitle">Banca: Estilo Fundatec | 10 Questões Completas</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-text">Questão 01 - No âmbito da climatologia dinâmica, a circulação geral da atmosfera é sustentada por células de movimento que buscam redistribuir o balanço energético planetário. Sobre a dinâmica da Célula de Hadley e a formação da Zona de Convergência Intertropical (ZCIT), assinale a alternativa correta:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q1" value="A"> A. A Célula de Hadley caracteriza-se pela ascensão de massas de ar frio nas regiões subtropicais e sua posterior subsidência nas zonas equatoriais.</label>
+                <label class="option-item"><input type="radio" name="q1" value="B"> B. Os ventos alísios representam o ramo inferior da Célula de Hadley, sofrendo desvio para leste em decorrência do efeito Coriolis.</label>
+                <label class="option-item"><input type="radio" name="q1" value="C"> C. A Zona de Convergência Intertropical (ZCIT) é um sistema meteorológico de baixa pressão resultante da convergência dos ventos alísios de nordeste e sudeste.</label>
+                <label class="option-item"><input type="radio" name="q1" value="D"> D. Os ventos contra-alísios atuam em baixas altitudes, transportando a umidade remanescente da ZCIT em direção aos polos.</label>
+                <label class="option-item"><input type="radio" name="q1" value="E"> E. O fenômeno da calmaria equatorial ocorre exclusivamente nos solstícios, quando o gradiente de pressão é anulado.</label>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-text">Questão 02 - Considere as afirmações abaixo sobre latitude, altitude e maritimidade:<br><br>
+            I. A latitude influencia a temperatura de forma inversamente proporcional: quanto maior a latitude, menor a radiação.<br>
+            II. O gradiente térmico vertical médio na troposfera é de uma queda de 6,5 °C a cada 1.000 metros.<br>
+            III. A maritimidade atua como um regulador térmico devido ao alto calor específico da água.<br>
+            IV. A continentalidade favorece a retenção de calor, explicando temperaturas mínimas mais elevadas no interior.<br><br>
+            Quais estão corretas?</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q2" value="A"> A. Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q2" value="B"> B. Apenas III e IV.</label>
+                <label class="option-item"><input type="radio" name="q2" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-item"><input type="radio" name="q2" value="D"> D. Apenas I, III e IV.</label>
+                <label class="option-item"><input type="radio" name="q2" value="E"> E. I, II, III e IV.</label>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" data-correct="D">
+            <span class="question-text">Questão 03 - Sobre a atuação da Massa Polar Atlântica (mPa), assinale a alternativa INCORRETA:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q3" value="A"> A. A mPa é uma massa de ar fria e úmida que se origina nas águas do Atlântico Sul.</label>
+                <label class="option-item"><input type="radio" name="q3" value="B"> B. No litoral, o encontro da mPa com a Massa Tropical Atlântica (mTa) resulta em frentes frias.</label>
+                <label class="option-item"><input type="radio" name="q3" value="C"> C. A penetração da mPa pelo interior é o mecanismo gerador da friagem na Amazônia Ocidental.</label>
+                <label class="option-item"><input type="radio" name="q3" value="D"> D. Durante o verão, a mPa mantém sua intensidade máxima e domínio sobre todo o território nacional.</label>
+                <label class="option-item"><input type="radio" name="q3" value="E"> E. No Sul, a mPa é responsável por geadas e, em condições específicas, neve.</label>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 04 - Identifique a massa de ar caracterizada por ser a única quente e seca em sua região de origem e atuação principal:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q4" value="A"> A. Massa Equatorial Continental (mEc).</label>
+                <label class="option-item"><input type="radio" name="q4" value="B"> B. Massa Tropical Continental (mTc).</label>
+                <label class="option-item"><input type="radio" name="q4" value="C"> C. Massa Equatorial Atlântica (mEa).</label>
+                <label class="option-item"><input type="radio" name="q4" value="D"> D. Massa Tropical Atlântica (mTa).</label>
+                <label class="option-item"><input type="radio" name="q4" value="E"> E. Massa Polar Atlântica (mPa).</label>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" data-correct="A">
+            <span class="question-text">Questão 05 - Sobre a dinâmica da chuva orográfica, ou chuva de relevo, é correto afirmar que:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q5" value="A"> A. Ocorre quando uma massa de ar é forçada a ascender ao encontrar uma barreira, sofrendo resfriamento adiabático no barlavento.</label>
+                <label class="option-item"><input type="radio" name="q5" value="B"> B. A precipitação ocorre predominantemente no sotavento, onde o ar descendente ganha umidade.</label>
+                <label class="option-item"><input type="radio" name="q5" value="C"> C. O Planalto da Borborema impede a formação de chuvas orográficas no litoral paraibano.</label>
+                <label class="option-item"><input type="radio" name="q5" value="D"> D. As chuvas de relevo ocorrem exclusivamente em regiões de clima desértico.</label>
+                <label class="option-item"><input type="radio" name="q5" value="E"> E. Na Serra do Mar, as chuvas orográficas são raras devido à baixa altitude das escarpas.</label>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 06 - Assinale a alternativa que descreve corretamente a gênese do fenômeno da "friagem":</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q6" value="A"> A. Resfriamento súbito provocado pela evapotranspiração excessiva da Floresta Amazônica.</label>
+                <label class="option-item"><input type="radio" name="q6" value="B"> B. Queda brusca de temperatura na Amazônia causada pela incursão de ramos da mPa pelas planícies centrais.</label>
+                <label class="option-item"><input type="radio" name="q6" value="A"> C. Congelamento do orvalho causado pela inversão térmica nas depressões amazônicas.</label>
+                <label class="option-item"><input type="radio" name="q6" value="D"> D. Fenômeno provocado pela mTc ao transportar ar frio das cordilheiras andinas.</label>
+                <label class="option-item"><input type="radio" name="q6" value="E"> E. Fenômeno exclusivo de anos de El Niño.</label>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-text">Questão 07 - Sobre a Massa Equatorial Continental (mEc), analise as assertivas:<br><br>
+            I. É uma massa quente e instável, cuja umidade deriva da evapotranspiração da floresta.<br>
+            II. No verão, expande sua atuação para o Centro-Oeste e Sudeste.<br>
+            III. No inverno, sofre retração devido ao avanço de sistemas frontais do sul.<br>
+            IV. Sua origem está associada aos centros de alta pressão do Chaco paraguaio.<br><br>
+            Quais estão corretas?</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q7" value="A"> A. Apenas I e II.</label>
+                <label class="option-item"><input type="radio" name="q7" value="B"> B. Apenas III e IV.</label>
+                <label class="option-item"><input type="radio" name="q7" value="C"> C. Apenas I, II e III.</label>
+                <label class="option-item"><input type="radio" name="q7" value="D"> D. Apenas I, II e IV.</label>
+                <label class="option-item"><input type="radio" name="q7" value="E"> E. I, II, III e IV.</label>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" data-correct="C">
+            <span class="question-text">Questão 08 - Sobre os ventos alísios, assinale a alternativa correta:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q8" value="A"> A. Sopram do Equador em direção aos Polos, resfriando águas oceânicas.</label>
+                <label class="option-item"><input type="radio" name="q8" value="B"> B. São ventos de altitude que impedem a formação de nuvens no Equador.</label>
+                <label class="option-item"><input type="radio" name="q8" value="C"> C. São ventos de superfície que convergem para a ZCIT, transportando umidade dos oceanos.</label>
+                <label class="option-item"><input type="radio" name="q8" value="D"> D. No Hemisfério Sul, sopram de Noroeste para Sudeste devido a Coriolis.</label>
+                <label class="option-item"><input type="radio" name="q8" value="E"> E. Atuam apenas no período da noite.</label>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 09 - O conceito de "sombra de chuva" (rain shadow) está associado a:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q9" value="A"> A. Áreas de barlavento que recebem excesso de radiação solar.</label>
+                <label class="option-item"><input type="radio" name="q9" value="B"> B. Regiões situadas no sotavento de barreiras orográficas, onde o ar desce seco e aquecido.</label>
+                <label class="option-item"><input type="radio" name="q9" value="C"> C. Zonas litorâneas onde falésias impedem nuvens cúmulo-nimbo.</label>
+                <label class="option-item"><input type="radio" name="q9" value="D"> D. Efeito das nuvens altas que impedem luz solar na Caatinga.</label>
+                <label class="option-item"><input type="radio" name="q9" value="E"> E. Áreas de depressão onde a umidade fica retida no subsolo.</label>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" data-correct="B">
+            <span class="question-text">Questão 10 - Em relação à influência da latitude e altitude no Sul e Sudeste, assinale a correta:</span>
+            <div class="options-list">
+                <label class="option-item"><input type="radio" name="q10" value="A"> A. A latitude do Sul garante temperaturas superiores à região Norte o ano todo.</label>
+                <label class="option-item"><input type="radio" name="q10" value="B"> B. No Sudeste, o clima Tropical de Altitude tem temperaturas amenas devido ao gradiente térmico vertical.</label>
+                <label class="option-item"><input type="radio" name="q10" value="C"> C. Curitiba é mais fria que Santos apenas devido à continentalidade.</label>
+                <label class="option-item"><input type="radio" name="q10" value="D"> D. A altitude não exerce influência sobre a ocorrência de geadas.</label>
+                <label class="option-item"><input type="radio" name="q10" value="E"> E. O aumento da altitude favorece o aumento da pressão atmosférica.</label>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="calculateResults()">Finalizar Simulado e Ver Resoluções</button>
+    </div>
+
+    <div id="results-section">
+        <div class="score-box">
+            <h2 id="score-text">Você acertou 0 de 10 questões</h2>
+            <p id="performance-feedback"></p>
+        </div>
+
+        <h2>Gabarito e Resoluções Detalhadas</h2>
+        <div id="resolutions-container"></div>
+    </div>
+</div>
+
+<script>
+    const resolutionsData = [
+        {
+            q: 1,
+            ans: "C",
+            text: "A circulação geral é movida pelo desequilíbrio térmico. A Célula de Hadley inicia-se com o aquecimento equatorial (baixa pressão). A ZCIT é o ponto de encontro dos ventos alísios (NE e SE), sendo o principal motor de chuvas no norte do Brasil. A alternativa C define precisamente este encontro."
+        },
+        {
+            q: 2,
+            ans: "C",
+            text: "I, II e III estão corretas. A latitude determina a inclinação solar. O gradiente térmico vertical (II) é de ~6,5°C/km. A maritimidade (III) regula a temperatura pelo calor específico da água. A IV está incorreta pois a continentalidade causa resfriamento rápido (mínimas menores no inverno)."
+        },
+        {
+            q: 3,
+            ans: "D",
+            text: "Incorreta: D. No verão, a mPa sofre retração significativa para latitudes altas. O domínio do verão brasileiro pertence às massas quentes (mEc, mTa). A mPa atua com vigor no inverno, causando frentes frias, neve e a friagem."
+        },
+        {
+            q: 4,
+            ans: "B",
+            text: "A Massa Tropical Continental (mTc) origina-se na depressão do Chaco. Por formar-se sobre o continente sem a umidade de florestas densas, é a única massa quente e seca que atua no Brasil."
+        },
+        {
+            q: 5,
+            ans: "A",
+            text: "A chuva orográfica ocorre no barlavento (lado que recebe o vento). O ar sobe a montanha, sofre resfriamento adiabático, condensa e chove. No sotavento (lado oposto), o ar desce seco e aquecido."
+        },
+        {
+            q: 6,
+            ans: "B",
+            text: "A friagem é o transporte de ar polar (mPa) pelas planícies centrais da América do Sul até o norte do Brasil. A canalização pelo relevo (Andes/Planalto Central) permite que o ar frio chegue à Amazônia Ocidental."
+        },
+        {
+            q: 7,
+            ans: "C",
+            text: "I, II e III corretas. A mEc é úmida por causa da floresta (exceção continental). No verão, ela expande para o Sudeste alimentando a ZCAS. IV incorreta: o Chaco é origem da mTc, não da mEc."
+        },
+        {
+            q: 8,
+            ans: "C",
+            text: "Alísios são ventos de superfície que sopram dos trópicos para o Equador. Eles 'alimentam' a ZCIT com a umidade oceânica, sendo fundamentais para o regime hídrico tropical."
+        },
+        {
+            q: 9,
+            ans: "B",
+            text: "Sombra de chuva é o fenômeno no sotavento. O ar desce após a montanha, comprime-se e aquece, perdendo a capacidade de formar chuva, o que gera áreas secas como o Sertão após a Borborema."
+        },
+        {
+            q: 10,
+            ans: "B",
+            text: "O clima Tropical de Altitude do Sudeste é mais ameno que o litoral vizinho. Isso ocorre pelo gradiente térmico vertical: a cada 1000m de elevação, a temperatura cai cerca de 6,5°C."
+        }
+    ];
+
+    function calculateResults() {
+        let score = 0;
+        const questions = document.querySelectorAll('.question-card');
+        const resContainer = document.getElementById('resolutions-container');
+        resContainer.innerHTML = '';
+
+        questions.forEach((qCard, index) => {
+            const qNum = index + 1;
+            const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
+            const correctValue = qCard.getAttribute('data-correct');
+            const res = resolutionsData[index];
+
+            let statusClass = "wrong-ans";
+            let userAnsLabel = "Não respondida";
+
+            if (selected) {
+                userAnsLabel = selected.value;
+                if (selected.value === correctValue) {
+                    score++;
+                    statusClass = "correct-ans";
+                }
+            }
+
+            // Construir resolução na página
+            const resHtml = `
+                <div class="resolution-card">
+                    <strong>Questão ${qNum}:</strong> Sua resposta: <span class="${statusClass}">${userAnsLabel}</span> | 
+                    Gabarito: <span class="correct-ans">${correctValue}</span>
+                    <p style="margin-top:10px; color: #444; font-size: 0.95rem;">
+                        <em>Explicação:</em> ${res.text}
+                    </p>
+                </div>
+            `;
+            resContainer.innerHTML += resHtml;
+        });
+
+        // Exibir resultados
+        document.getElementById('quiz-form').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('score-text').innerText = `Você acertou ${score} de 10 questões (${(score/10)*100}%)`;
+        
+        let feedback = "";
+        if(score >= 8) feedback = "Excelente desempenho! Você domina a climatologia dinâmica.";
+        else if(score >= 5) feedback = "Bom desempenho, mas revise os conceitos de massas de ar e dinâmica orográfica.";
+        else feedback = "Atenção: revise os fatores climáticos e a circulação geral da atmosfera.";
+        
+        document.getElementById('performance-feedback').innerText = feedback;
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>

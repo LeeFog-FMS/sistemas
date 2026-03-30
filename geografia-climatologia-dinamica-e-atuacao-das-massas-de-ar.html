@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Elite: Climatologia Dinâmica - IFC/Fundatec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            background-color: #ffffff;
+        }
+        .highlight {
+            background-color: #fef3c7; /* Amarelo suave */
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+            font-weight: 600;
+            color: #92400e;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            min-width: 600px; /* Garante legibilidade */
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: #334155;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        tr:last-child td { border-bottom: none; }
+        .audio-player {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .concept-card {
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            background: #eff6ff;
+            margin: 1rem 0;
+        }
+        .alert-card {
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            background: #fef2f2;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        
+        <!-- PLAYER DE ÁUDIO -->
+        <div class="audio-player shadow-sm">
+            <h3 class="text-sm font-bold text-gray-500 mb-3 flex items-center uppercase tracking-widest">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.983 5.983 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.983 3.983 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd" />
+                </svg>
+                Podcast de Revisão Geográfica
+            </h3>
+            <!-- ESPAÇO PARA O ARQUIVO MP3: substitua "aula_clima.mp3" pelo nome do seu arquivo -->
+            <audio controls class="w-full h-10">
+                <source src="geografia-climatologia-dinamica-e-atuacao-das-massas-de-ar.mp3" type="audio/mpeg">
+                Seu navegador não suporta o player de áudio.
+            </audio>
+            <p class="text-xs text-gray-400 mt-2 italic">Aperte o play para ouvir os pontos-chave enquanto lê.</p>
+        </div>
+
+        <header class="text-center mb-16">
+            <span class="text-blue-600 font-bold tracking-widest uppercase text-sm">Concurso Professor IFC - Banca Fundatec</span>
+            <h1 class="text-4xl font-extrabold text-gray-900 mt-2 mb-4">Climatologia Dinâmica e Massas de Ar</h1>
+            <p class="text-lg text-gray-600">Um guia técnico focado em transformar teoria em pontos na prova objetiva.</p>
+        </header>
+
+        <!-- SEÇÃO 1 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-gray-100 pb-2 mb-6">1. Definições Essenciais: Climatologia Dinâmica</h2>
+            <p class="mb-4">Diferente da Climatologia Separada (estatística), a <span class="highlight">Climatologia Dinâmica</span> foca no estudo do "ritmo" do clima, analisando a sucessão dos tipos de tempo provocada pela circulação atmosférica.</p>
+            
+            <div class="concept-card">
+                <p><strong>Diferença de Ouro:</strong> <br>
+                <strong>Tempo:</strong> Estado momentâneo da atmosfera (agora).<br>
+                <strong>Clima:</strong> Sucessão habitual dos tipos de tempo (mínimo 30 anos - OMM).</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-gray-100 pb-2 mb-6">2. Elementos vs. Fatores do Clima (O "Peguinha" Fundatec)</h2>
+            <p class="mb-4">A Fundatec frequentemente tenta confundir o candidato trocando as categorias. Memorize:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>O que é?</th>
+                            <th>Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-blue-600">Elementos</td>
+                            <td>Grandezas físicas que variam no tempo e espaço.</td>
+                            <td><span class="highlight">Temperatura, Umidade, Pressão Atmosférica, Radiação.</span></td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-green-600">Fatores</td>
+                            <td>Condições que modificam os elementos.</td>
+                            <td><span class="highlight">Latitude, Altitude, Maritimidade, Continentalidade, Relevo, Correntes Marítimas.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-6 space-y-4">
+                <p>🌍 <strong>Latitude:</strong> Quanto maior a latitude (longe do Equador), menor a temperatura (menor radiação solar).</p>
+                <p>🏔️ <strong>Altitude:</strong> A cada 1.000m de subida, a temperatura cai cerca de <span class="highlight">6,5°C</span> (Gradiente Térmico).</p>
+                <p>🌊 <strong>Maritimidade:</strong> Menor amplitude térmica (água demora a aquecer e a esfriar).</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-gray-100 pb-2 mb-6">3. Circulação Geral da Atmosfera</h2>
+            <p class="mb-4">A atmosfera busca o equilíbrio térmico. O calor do Equador precisa ir para os Polos.</p>
+            <ul class="list-disc pl-6 space-y-3">
+                <li><strong>Célula de Hadley:</strong> Ar quente sobe no Equador e desce seco nos Trópicos (30° de latitude), gerando as zonas de alta pressão e desertos.</li>
+                <li><strong>ZCIT (Zona de Convergência Intertropical):</strong> Área de baixa pressão no Equador onde os <span class="highlight">Ventos Alísios</span> se encontram. É a maior "fábrica" de chuvas do mundo.</li>
+                <li><strong>Força de Coriolis:</strong> Desvia os ventos para a <span class="highlight">esquerda no Hemisfério Sul</span> e para a direita no Hemisfério Norte.</li>
+            </ul>
+        </section>
+
+        <!-- SEÇÃO 4 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-gray-100 pb-2 mb-6">4. Massas de Ar no Brasil (Análise Técnica)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Massa</th>
+                            <th>Sigla</th>
+                            <th>Origem</th>
+                            <th>Características / Atuação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Equatorial Continental</td>
+                            <td>mEc</td>
+                            <td>Amazônia</td>
+                            <td><span class="highlight">Quente e Úmida</span> (pela evapotranspiração da floresta). Provoca chuvas em quase todo o Brasil no verão.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Equatorial Atlântica</td>
+                            <td>mEa</td>
+                            <td>Oceano (Norte)</td>
+                            <td>Quente e Úmida. Atua no litoral do N e NE.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Tropical Continental</td>
+                            <td>mTc</td>
+                            <td>Depressão do Chaco</td>
+                            <td><span class="highlight">Quente e Seca</span>. Responsável por veranicos e períodos de seca no Centro-Oeste/Sudeste.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Tropical Atlântica</td>
+                            <td>mTa</td>
+                            <td>Oceano (Sul)</td>
+                            <td>Quente e Úmida. Domina o litoral brasileiro e causa chuvas de relevo (orográficas).</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Polar Atlântica</td>
+                            <td>mPa</td>
+                            <td>Antártida / Sul</td>
+                            <td><span class="highlight">Fria e Úmida</span>. Entra por frentes frias. Causa geada no Sul e a <span class="highlight">Friagem</span> no Norte.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-gray-100 pb-2 mb-6">5. Fenômenos Específicos para a Prova</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-800 mb-2">❄️ Friagem (Mecanismo)</h3>
+                    <p>Ocorre quando um ramo da <span class="highlight">mPa (Massa Polar Atlântica)</span> avança pela planície central da América do Sul (Pantanal/Chaco), canalizada pelo relevo, e chega até a Amazônia Ocidental, derrubando a temperatura bruscamente em estados como Acre e Rondônia.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-800 mb-2">🌧️ Chuvas Orográficas (Ou de Relevo)</h3>
+                    <p>Massa de ar úmida encontra uma barreira montanhosa. O ar é forçado a subir, resfria, condensa e chove no lado do <span class="highlight">Barlavento</span> (face que recebe o vento). O ar passa seco para o outro lado, chamado <span class="highlight">Sotavento</span> (área de "sombra de chuva"). Ex: Serra do Mar e Planalto da Borborema.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-800 mb-2">☁️ ZCAS (Zona de Convergência do Atlântico Sul)</h3>
+                    <p>Faixa de nebulosidade que se estende da Amazônia ao Atlântico Sul. É responsável por períodos de chuva persistente (dias seguidos) no Sudeste e Centro-Oeste durante o verão.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold border-b-2 border-gray-100 pb-2 mb-6">6. Tendências Fundatec e EBTT</h2>
+            <div class="alert-card">
+                <h4 class="font-bold text-red-800 mb-2 italic">Atenção Especial para Santa Catarina:</h4>
+                <p>O estado possui climas do tipo <span class="highlight">Cfa (Subtropical de verão quente)</span> no litoral e vales, e <span class="highlight">Cfb (Subtropical de verão temperado)</span> nos planaltos. A Fundatec costuma cobrar a influência da altitude na diferenciação climática de SC.</p>
+            </div>
+            
+            <div class="mt-4 p-4 border rounded-lg">
+                <h4 class="font-bold mb-2">Peguinhas Recorrentes:</h4>
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>Dizer que a mEc é seca por ser continental (FALSO: é úmida pela floresta).</li>
+                    <li>Confundir Alísios (vão para o Equador) com Contra-alísios (saem do Equador).</li>
+                    <li>Afirmar que a mPa é seca (FALSO: por ser oceânica, ela traz umidade que gera neve/geada).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FOOTER E BOTÃO -->
+        <footer class="mt-20 text-center border-t border-gray-100 pt-10">
+            <p class="text-gray-500 mb-6 font-medium">Fim do resumo teórico. Agora, valide seu conhecimento.</p>
+            <a href="geografia-climatologia-dinamica-e-atuacao-das-massas-de-arquestoes.html" class="inline-flex items-center px-10 py-5 bg-gray-900 text-white font-bold rounded-full hover:bg-blue-600 transition-all shadow-xl group">
+                PRATICAR COM QUESTÕES
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+            <div class="mt-12 text-xs text-gray-400 uppercase tracking-widest">
+                Material Exclusivo • Estudo para Professor de Geografia
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
