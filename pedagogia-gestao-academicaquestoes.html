@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado EBTT - Gestão e Atribuições Docentes</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --secondary-color: #636e72;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .quiz-item {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option input {
+            margin-top: 6px;
+            margin-right: 15px;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        /* Results Styling */
+        #results-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .score-banner {
+            text-align: center;
+            padding: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-banner h2 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .resolution-card {
+            background: #f8f9fa;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .correct-answer {
+            background-color: #e8f5e9 !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .wrong-answer {
+            background-color: #ffebee !important;
+            border-color: var(--error-color) !important;
+        }
+
+        .label-correct {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .label-wrong {
+            color: var(--error-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .quiz-item { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Simulado: Atuação do Professor EBTT</h1>
+            <p class="description">Gestão Acadêmica, Colegiados e Orientação (Estilo Fundatec)</p>
+        </header>
+
+        <form id="quiz-form">
+            <!-- Questão 01 -->
+            <div class="quiz-item" id="q1">
+                <span class="question-text">QUESTÃO 01: Com base na Lei nº 12.772/2012, que dispõe sobre o Plano de Carreiras e Cargos de Magistério Federal, analise as assertivas abaixo, assinalando V, se verdadeiras, ou F, se falsas.<br><br>
+                ( ) A Comissão Permanente de Pessoal Docente (CPPD) é eleita pelos seus pares em cada Instituição Federal de Ensino, cabendo a ela prestar assessoramento ao colegiado competente para a formulação e acompanhamento da execução da política de pessoal docente.<br>
+                ( ) No caso das Instituições Federais de Ensino subordinadas ao Ministério da Defesa, a instituição da CPPD é facultativa e fica a critério do dirigente máximo da instituição.<br>
+                ( ) O Reconhecimento de Saberes e Competências (RSC) pode ser utilizado para fins de promoção entre as classes da carreira docente, substituindo a necessidade de interstício.<br>
+                ( ) O docente em regime de Dedicação Exclusiva (DE) está impedido de receber qualquer retribuição pecuniária por participação em comissões julgadoras relacionadas ao ensino, pesquisa ou extensão.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q1" value="A"> A) V – V – F – F.</label>
+                    <label class="option"><input type="radio" name="q1" value="B"> B) V – F – V – F.</label>
+                    <label class="option"><input type="radio" name="q1" value="C"> C) F – V – F – V.</label>
+                    <label class="option"><input type="radio" name="q1" value="D"> D) V – V – V – F.</label>
+                    <label class="option"><input type="radio" name="q1" value="E"> E) F – F – V – V.</label>
+                </div>
+            </div>
+
+            <!-- Questão 02 -->
+            <div class="quiz-item" id="q2">
+                <span class="question-text">QUESTÃO 02: A gestão acadêmica de um curso nos Institutos Federais depende da atuação do Núcleo Docente Estruturante (NDE) e do Colegiado de Curso. Sobre as competências do NDE, assinale a alternativa correta.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q2" value="A"> A) O NDE possui natureza deliberativa e executiva, sendo a instância final para decisões sobre a vida acadêmica discente.</label>
+                    <label class="option"><input type="radio" name="q2" value="B"> B) Cabe ao NDE coordenar a execução do Projeto Pedagógico do Curso (PPC) e deliberar sobre processos de aproveitamento de estudos.</label>
+                    <label class="option"><input type="radio" name="q2" value="C"> C) O NDE é o órgão consultivo responsável pela formulação, atualização e consolidação do Projeto Pedagógico do Curso (PPC).</label>
+                    <label class="option"><input type="radio" name="q2" value="D"> D) O NDE deve ser composto por, no mínimo, 60% de professores externos à instituição para garantir a imparcialidade da avaliação.</label>
+                    <label class="option"><input type="radio" name="q2" value="E"> E) A participação no NDE não gera carga horária para fins de preenchimento do Plano de Trabalho Docente (PTD).</label>
+                </div>
+            </div>
+
+            <!-- Questão 03 -->
+            <div class="quiz-item" id="q3">
+                <span class="question-text">QUESTÃO 03: Segundo a Lei nº 11.788/2008 e as atribuições do professor EBTT, o estágio supervisionado deve ser acompanhado por um professor orientador. Sobre essa atividade, é INCORRETO afirmar:</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q3" value="A"> A) O plano de atividades do estagiário deve ser elaborado em comum acordo entre o aluno, a parte concedente e a instituição de ensino.</label>
+                    <label class="option"><input type="radio" name="q3" value="B"> B) O professor orientador deve avaliar as instalações da parte concedente e sua adequação à formação cultural e profissional do educando.</label>
+                    <label class="option"><input type="radio" name="q3" value="C"> C) A orientação de estágio é uma atividade facultativa ao docente EBTT, podendo ser delegada integralmente ao supervisor da empresa.</label>
+                    <label class="option"><input type="radio" name="q3" value="D"> D) Cabe ao professor orientador exigir do educando a apresentação periódica de relatório de atividades.</label>
+                    <label class="option"><input type="radio" name="q3" value="E"> E) O estágio deve ser desenvolvido como ato educativo escolar supervisionado, visando à preparação para o trabalho produtivo.</label>
+                </div>
+            </div>
+
+            <!-- Questão 04 -->
+            <div class="quiz-item" id="q4">
+                <span class="question-text">QUESTÃO 04: A progressão funcional na Carreira de Magistério do Ensino Básico, Técnico e Tecnológico (EBTT) é um direito do servidor que cumpre requisitos legais. De acordo com a Lei nº 12.772/2012, a progressão ocorrerá com base:</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q4" value="A"> A) Exclusivamente no tempo de serviço, independentemente da avaliação de desempenho.</label>
+                    <label class="option"><input type="radio" name="q4" value="B"> B) No cumprimento do interstício de 24 meses de efetivo exercício em cada nível e aprovação em avaliação de desempenho individual.</label>
+                    <label class="option"><input type="radio" name="q4" value="C"> C) Na obtenção de novo título acadêmico, o que gera progressão automática para o nível superior.</label>
+                    <label class="option"><input type="radio" name="q4" value="D"> D) No cumprimento do interstício de 12 meses de efetivo exercício, desde que o docente não possua faltas injustificadas.</label>
+                    <label class="option"><input type="radio" name="q4" value="E"> E) Na aprovação em concurso interno de provas e títulos para mudança de nível dentro da mesma classe.</label>
+                </div>
+            </div>
+
+            <!-- Questão 05 -->
+            <div class="quiz-item" id="q5">
+                <span class="question-text">QUESTÃO 05: Considere a atuação do professor EBTT em órgãos colegiados. O Colegiado de Curso é o fórum onde as decisões operacionais do curso são tomadas. Assinale a alternativa que apresenta uma atribuição típica do Colegiado de Curso, diferenciando-a do NDE.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q5" value="A"> A) Elaborar a concepção pedagógica e os fundamentos do curso.</label>
+                    <label class="option"><input type="radio" name="q5" value="B"> B) Zelar pelo cumprimento das Diretrizes Curriculares Nacionais para o PPC.</label>
+                    <label class="option"><input type="radio" name="q5" value="C"> C) Deliberar sobre processos de aproveitamento de estudos, transferências e pedidos de trancamento.</label>
+                    <label class="option"><input type="radio" name="q5" value="D"> D) Definir o perfil profissional do egresso no projeto do curso.</label>
+                    <label class="option"><input type="radio" name="q5" value="E"> E) Conduzir os trabalhos de reestruturação curricular de longo prazo.</label>
+                </div>
+            </div>
+
+            <!-- Questão 06 -->
+            <div class="quiz-item" id="q6">
+                <span class="question-text">QUESTÃO 06: No regime de Dedicação Exclusiva (DE), o professor EBTT compromete-se a prestar 40 horas semanais de trabalho em tempo integral e fica impedido de exercer outra atividade remunerada, ressalvadas as exceções legais. Assinale a alternativa que apresenta uma atividade PERMITIDA ao docente em DE.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q6" value="A"> A) Gerência de empresa comercial familiar com fins lucrativos.</label>
+                    <label class="option"><input type="radio" name="q6" value="B"> B) Exercício de cargo em comissão em empresa pública fora da área de educação.</label>
+                    <label class="option"><input type="radio" name="q6" value="C"> C) Participação esporádica em palestras, conferências e congressos de natureza científica.</label>
+                    <label class="option"><input type="radio" name="q6" value="D"> D) Prestação de consultoria privada permanente a empresas do setor industrial.</label>
+                    <label class="option"><input type="radio" name="q6" value="E"> E) Atuação como administrador de fundação de direito privado com remuneração mensal fixa.</label>
+                </div>
+            </div>
+
+            <!-- Questão 07 -->
+            <div class="quiz-item" id="q7">
+                <span class="question-text">QUESTÃO 07: A avaliação de desempenho docente para fins de promoção à Classe de Professor Titular (Classe E) é um processo rigoroso que exige a apresentação de Memorial. Sobre esse processo na carreira EBTT, assinale a alternativa correta.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q7" value="A"> A) A promoção à Classe Titular ocorre por antiguidade, após 30 anos de serviço na instituição.</label>
+                    <label class="option"><input type="radio" name="q7" value="B"> B) O memorial deve considerar apenas as atividades de regência de classe, ignorando a pesquisa e a extensão.</label>
+                    <label class="option"><input type="radio" name="q7" value="C"> C) Exige-se que o docente possua o título de Doutor para pleitear a promoção à Classe de Professor Titular.</label>
+                    <label class="option"><input type="radio" name="q7" value="D"> D) A comissão avaliadora do memorial deve ser composta exclusivamente por membros internos do campus de lotação do docente.</label>
+                    <label class="option"><input type="radio" name="q7" value="E"> E) A aprovação no memorial dispensa o cumprimento do interstício de 24 meses no último nível da classe anterior.</label>
+                </div>
+            </div>
+
+            <!-- Questão 08 -->
+            <div class="quiz-item" id="q8">
+                <span class="question-text">QUESTÃO 08: As incumbências dos docentes nas Instituições Federais de Ensino estão previstas na Lei de Diretrizes e Bases da Educação Nacional (LDB). De acordo com o Art. 13 da LDB, o professor EBTT deve:</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q8" value="A"> A) Limitar sua atuação à sala de aula, evitando o envolvimento com a proposta pedagógica da escola.</label>
+                    <label class="option"><input type="radio" name="q8" value="B"> B) Colaborar com as atividades de articulação da escola com as famílias e a comunidade.</label>
+                    <label class="option"><input type="radio" name="q8" value="C"> C) Elaborar o currículo do curso de forma autônoma, sem necessidade de aprovação por colegiados.</label>
+                    <label class="option"><input type="radio" name="q8" value="D"> D) Definir os dias letivos e as férias escolares conforme sua conveniência pessoal.</label>
+                    <label class="option"><input type="radio" name="q8" value="E"> E) Delegar a recuperação dos alunos de menor rendimento a assistentes técnicos ou estagiários.</label>
+                </div>
+            </div>
+
+            <!-- Questão 09 -->
+            <div class="quiz-item" id="q9">
+                <span class="question-text">QUESTÃO 09: Sobre a orientação de Trabalho de Conclusão de Curso (TCC) nos Institutos Federais, analise as afirmações abaixo:<br><br>
+                I. O TCC é um componente curricular que visa à síntese dos conhecimentos adquiridos no curso.<br>
+                II. A orientação de TCC deve ser obrigatoriamente contabilizada na carga horária docente do PTD.<br>
+                III. O professor orientador tem autonomia para dispensar a defesa pública do TCC, independentemente do que prevê o PPC.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q9" value="A"> A) Apenas I.</label>
+                    <label class="option"><input type="radio" name="q9" value="B"> B) Apenas II.</label>
+                    <label class="option"><input type="radio" name="q9" value="C"> C) Apenas III.</label>
+                    <label class="option"><input type="radio" name="q9" value="D"> D) Apenas I e II.</label>
+                    <label class="option"><input type="radio" name="q9" value="E"> E) I, II e III.</label>
+                </div>
+            </div>
+
+            <!-- Questão 10 -->
+            <div class="quiz-item" id="q10">
+                <span class="question-text">QUESTÃO 10: A Comissão Permanente de Pessoal Docente (CPPD) exerce um papel de assessoramento estratégico. Sobre sua composição e competência, assinale a alternativa correta.</span>
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="q10" value="A"> A) Seus membros são indicados pela Reitoria, sem necessidade de eleição.</label>
+                    <label class="option"><input type="radio" name="q10" value="B"> B) Compete à CPPD autorizar licenças prêmio e férias dos servidores docentes.</label>
+                    <label class="option"><input type="radio" name="q10" value="C"> C) Cabe à CPPD prestar assessoramento para a formulação da política de pessoal docente e dimensionamento de vagas.</label>
+                    <label class="option"><input type="radio" name="q10" value="D"> D) A CPPD atua apenas em processos de remoção de docentes entre campi.</label>
+                    <label class="option"><input type="radio" name="q10" value="E"> E) A comissão é composta paritariamente por docentes, técnicos-administrativos e discentes.</label>
+                </div>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Simulado</button>
+        </form>
+
+        <section id="results-section">
+            <div class="score-banner">
+                <h2 id="score-display">0 / 10</h2>
+                <p>Confira abaixo o gabarito e as resoluções detalhadas.</p>
+            </div>
+
+            <div id="resolutions-container">
+                <!-- Resolutions will be injected here by JS -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const answers = {
+            q1: 'A',
+            q2: 'C',
+            q3: 'C',
+            q4: 'B',
+            q5: 'C',
+            q6: 'C',
+            q7: 'C',
+            q8: 'B',
+            q9: 'D',
+            q10: 'C'
+        };
+
+        const resolutions = {
+            q1: "A assertiva I é verdadeira, baseada no Art. 26 da Lei nº 12.772/2012, que define a CPPD como órgão eleito pelos pares para assessoramento. A assertiva II também é verdadeira, conforme o Art. 26, §4º, que torna a CPPD opcional em instituições do Ministério da Defesa. A assertiva III é falsa porque o RSC serve para fins de percepção de Retribuição por Titulação (RT) e não para promoção entre classes, que exige outros requisitos. A assertiva IV é falsa, pois a lei permite que docentes em DE recebam retribuição por participação em comissões julgadoras relacionadas ao ensino, pesquisa ou extensão.",
+            q2: "O NDE tem natureza consultiva e é o responsável direto pela formulação e atualização do PPC. As funções deliberativas sobre a vida discente e a coordenação executiva do curso são competências do Colegiado de Curso. A participação no NDE é obrigatoriamente registrada no PTD como atividade de gestão.",
+            q3: "A orientação de estágio não é facultativa; ela é uma atribuição funcional prevista na legislação e nos regulamentos das IFEs. O professor orientador tem responsabilidades legais de acompanhamento pedagógico e avaliação da parte concedente que não podem ser delegadas.",
+            q4: "Conforme o Art. 12 da Lei nº 12.772/2012, o desenvolvimento na carreira ocorre por progressão e promoção, observando o interstício de 24 meses e a aprovação em avaliação de desempenho. Títulos acadêmicos não geram progressão automática, mas sim Retribuição por Titulação (RT) ou acesso a novas classes por promoção.",
+            q5: "Esta questão exige a diferenciação entre o plano estratégico/pedagógico (NDE) e o plano operacional/executivo (Colegiado). Deliberar sobre a vida do aluno (aproveitamentos, transferências) é uma atividade típica do Colegiado de Curso. As alternativas A, B, D e E descrevem atribuições do NDE.",
+            q6: "O regime de DE veda atividades permanentes em empresas ou consultorias privadas. No entanto, o Art. 21 da Lei nº 12.772/2012 permite a participação esporádica em eventos científicos, culturais, palestras e comissões, visando o intercâmbio de conhecimentos. Gerência de empresas e consultorias privadas contínuas são estritamente proibidas.",
+            q7: "Para a promoção à classe de Professor Titular (EBTT), o docente deve obrigatoriamente possuir o título de Doutor, ser aprovado em avaliação de desempenho e lograr aprovação de memorial. A promoção não é automática por antiguidade.",
+            q8: "O Art. 13 da LDB define as incumbências docentes, entre as quais se destaca a participação na elaboração da proposta pedagógica e a colaboração com a comunidade e as famílias. As alternativas C, D e E ferem os princípios da gestão democrática e da responsabilidade pedagógica.",
+            q9: "As afirmações I e II estão corretas: o TCC é síntese curricular e sua orientação deve constar no PTD/RAD do professor. A afirmação III está incorreta porque o professor não tem autonomia para dispensar requisitos de defesa que estejam previstos no PPC aprovado pelas instâncias superiores.",
+            q10: "A CPPD é um órgão de assessoramento (não executivo) eleito pelos pares. Sua função principal é assessorar a gestão em políticas de pessoal e dimensionamento de vagas. Ela é composta exclusivamente por docentes, ao contrário do Conselho Superior, que é tripartite."
+        };
+
+        function gradeQuiz() {
+            let score = 0;
+            const form = document.getElementById('quiz-form');
+            const resContainer = document.getElementById('resolutions-container');
+            resContainer.innerHTML = ''; // Limpa resoluções anteriores
+
+            for (let i = 1; i <= 10; i++) {
+                const qId = 'q' + i;
+                const selected = form.elements[qId].value;
+                const correct = answers[qId];
+                const qElement = document.getElementById(qId);
+                const options = qElement.querySelectorAll('.option');
+
+                // Reseta estilos
+                options.forEach(opt => {
+                    opt.classList.remove('correct-answer', 'wrong-answer');
+                });
+
+                // Cria elemento de resolução
+                const resDiv = document.createElement('div');
+                resDiv.className = 'quiz-item';
+                
+                let feedbackHeader = "";
+
+                if (selected === correct) {
+                    score++;
+                    feedbackHeader = `<span class="label-correct">Questão ${i}: VOCÊ ACERTOU! (Alternativa ${correct})</span>`;
+                    // Destaca a opção correta no form
+                    options.forEach(opt => {
+                        if (opt.innerText.trim().startsWith(correct)) opt.classList.add('correct-answer');
+                    });
+                } else {
+                    feedbackHeader = `<span class="label-wrong">Questão ${i}: VOCÊ ERROU. (Correta: ${correct})</span>`;
+                    // Destaca a opção errada e a correta no form
+                    options.forEach(opt => {
+                        if (opt.innerText.trim().startsWith(correct)) opt.classList.add('correct-answer');
+                        if (selected && opt.innerText.trim().startsWith(selected)) opt.classList.add('wrong-answer');
+                    });
+                }
+
+                resDiv.innerHTML = `
+                    ${feedbackHeader}
+                    <div class="resolution-card">
+                        <strong>Resolução Comentada:</strong><br>
+                        ${resolutions[qId]}
+                    </div>
+                `;
+                resContainer.appendChild(resDiv);
+            }
+
+            // Exibe resultados
+            document.getElementById('score-display').innerText = `${score} / 10`;
+            document.getElementById('results-section').style.display = 'block';
+            
+            // Scroll suave para os resultados
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Ortografia e Acentuação - Padrão Fundatec</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --primary-color: #2563eb;
+            --secondary-color: #475569;
+            --correct-bg: #dcfce7;
+            --correct-border: #22c55e;
+            --wrong-bg: #fee2e2;
+            --wrong-border: #ef4444;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        .question {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .question h2 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .q-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        .options {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f8fafc;
+        }
+
+        .option input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        #results-section {
+            display: none;
+            margin-top: 40px;
+            border-top: 4px solid var(--primary-color);
+            padding-top: 30px;
+        }
+
+        .score-summary {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .resolution-card {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 5px solid var(--primary-color);
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .resolution-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .status-correct { background: var(--correct-bg); color: #166534; }
+        .status-wrong { background: var(--wrong-bg); color: #991b1b; }
+
+        .correct-answer-info {
+            font-weight: bold;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-top: 1px dashed #ccc;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th { background-color: #f8fafc; }
+
+        .explanation-text {
+            font-size: 0.95rem;
+            color: #334155;
+            text-align: justify;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Ortografia e Acentuação Gráfica</h1>
+        <p class="description">Simulado Padrão Fundatec - Normas Vigentes (Acordo 2012 e VOLP)</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questions will be injected here by JS -->
+        <div id="questions-container"></div>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <section id="results-section">
+        <div class="score-summary" id="score-display"></div>
+        <div id="resolutions-container"></div>
+        <button type="button" class="btn-submit" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Voltar ao Topo</button>
+    </section>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Considere as seguintes assertivas sobre a acentuação gráfica de vocábulos retirados de textos oficiais, conforme as normas vigentes do Acordo Ortográfico (Decreto Federal nº 6.583/2012):<br><br>I. As palavras “câncer” e “vulnerável” recebem acento gráfico com base na mesma regra gramatical.<br>II. O vocábulo “órfã” é acentuado por ser uma paroxítona terminada em ditongo nasal.<br>III. Os termos “saúde” e “baú” são acentuados por apresentarem hiatos tônicos, cujas vogais “u” aparecem sozinhas na sílaba.",
+            options: ["Apenas I.", "Apenas II.", "Apenas III.", "Apenas I e III.", "I, II e III."],
+            correct: 4, // E
+            explanation: "A assertiva I está correta (paroxítonas terminadas em R e L). A II está correta (paroxítona terminada em ditongo nasal/til). A III está correta (regra do hiato tônico)."
+        },
+        {
+            id: 2,
+            text: "De acordo com o Vocabulário Ortográfico da Língua Portuguesa (VOLP) e as normas de prefixação, assinale a alternativa que apresenta a grafia correta para todos os vocábulos:",
+            options: [
+                "Sub-humano, super-resistente, anti-inflamatório.",
+                "Subhumano, superresistente, antiinflamatório.",
+                "Sub-humano, superresistente, anti-inflamatório.",
+                "Subhumano, super-resistente, antiinflamatório.",
+                "Sub-humano, super-resistente, antiinflamatório."
+            ],
+            correct: 0, // A
+            explanation: "Sub-humano (hífen com h), super-resistente (consoantes iguais), anti-inflamatório (vogais iguais)."
+        },
+        {
+            id: 3,
+            text: "Em relação à classificação das palavras quanto à sílaba tônica e à obrigatoriedade do acento gráfico, analise as afirmações abaixo:<br><br>I. Todas as palavras proparoxítonas devem ser acentuadas graficamente, sem exceção.<br>II. As palavras “agência”, “município” e “história” podem ser classificadas como proparoxítonas eventuais ou relativas.<br>III. O vocábulo “pajé” é uma oxítona que recebe acento por terminar em “e” tônico, assim como “café” e “você”.",
+            options: ["Apenas I.", "Apenas II.", "Apenas I e III.", "Apenas II e III.", "I, II e III."],
+            correct: 4, // E
+            explanation: "Todas corretas. Proparoxítonas são sempre acentuadas; terminadas em ditongo crescente são proparoxítonas eventuais; e as oxítonas em -e são acentuadas."
+        },
+        {
+            id: 4,
+            text: "Assinale a alternativa que preenche, correta e respectivamente, as lacunas tracejadas do trecho a seguir, observando a ortografia oficial e o uso do hífen:<br><br>“A nova __________ da empresa foca na __________ de resíduos, visando ao __________ dos colaboradores e à redução do impacto __________.”",
+            options: [
+                "infra-estrutura – re-utilização – bem estar – ambiental.",
+                "infraestrutura – reutilização – bem-estar – ambiental.",
+                "infraestrutura – re-utilização – bem estar – ambiental.",
+                "infra-estrutura – reutilização – bem-estar – ambiental.",
+                "infra-estrutura – re-utilização – bem-estar – ambiental."
+            ],
+            correct: 1, // B
+            explanation: "Infraestrutura (vogais diferentes aglutinam), reutilização (prefixo re- aglutina), bem-estar (prefixo 'bem' exige hífen antes de vogal)."
+        },
+        {
+            id: 5,
+            text: "Sobre as mudanças introduzidas pelo Acordo Ortográfico de 1990 (implementado pelo Decreto nº 6.583/2012), analise as assertivas sobre os acentos que foram abolidos:<br><br>I. O acento circunflexo não é mais utilizado em palavras paroxítonas terminadas em “êem” e nos hiatos “oo”, como em “leem” e “voo”.<br>II. O acento agudo nos ditongos abertos “ei” e “oi” das palavras paroxítonas foi eliminado, como em “ideia” e “heroico”.<br>III. O acento diferencial foi mantido apenas para distinguir o verbo “pôr” da preposição “por” e a forma “pôde” (pretérito perfeito) de “pode” (presente).",
+            options: ["Apenas I.", "Apenas II.", "Apenas I e II.", "Apenas II e III.", "I, II e III."],
+            correct: 4, // E
+            explanation: "Todas as assertivas descrevem corretamente as abolições e manutenções do Acordo Ortográfico."
+        },
+        {
+            id: 6,
+            text: "Assinale a alternativa na qual todas as palavras estão acentuadas graficamente devido à mesma regra:",
+            options: [
+                "Líquido, técnica, possível.",
+                "Alguém, parabéns, também.",
+                "Árvore, número, quilômetro.",
+                "Juiz, raíz, país.",
+                "Herói, pastéis, ideia."
+            ],
+            correct: 2, // C
+            explanation: "Árvore, número e quilômetro são todas proparoxítonas."
+        },
+        {
+            id: 7,
+            text: "Considerando a ortografia das palavras em Língua Portuguesa e o preenchimento de lacunas, assinale a alternativa que completa correta e respectivamente as palavras abaixo:<br><br>“O técnico precisou do __________ para realizar a __________ do prédio, evitando que o __________ de água causasse mais danos à __________ da estrutura.”",
+            options: [
+                "alvará – inspeção – vazamento – rigidez.",
+                "alvará – inspecção – vasamento – rigidês.",
+                "alvara – inspeção – vazamento – rigidês.",
+                "alvará – inspecção – vasamento – rigidez.",
+                "alvara – inspeção – vasamento – rigidez."
+            ],
+            correct: 0, // A
+            explanation: "Alvará (oxítona), inspeção (sem c mudo), vazamento (com z), rigidez (sufixo -ez de substantivo abstrato)."
+        },
+        {
+            id: 8,
+            text: "No que tange ao uso do hífen em compostos por justaposição, assinale a alternativa correta segundo o VOLP:",
+            options: [
+                "A palavra “para-quedas” mantém o hífen por representar uma unidade semântica de objeto.",
+                "O termo “manda-chuva” deve ser grafado com hífen, pois indica uma autoridade ou chefe.",
+                "O vocábulo “guarda-chuva” é grafado com hífen por ser um composto em que o primeiro elemento é um verbo e o segundo um substantivo.",
+                "Locuções como “fim-de-semana” e “dia-a-dia” mantêm o hífen para garantir a coesão do sintagma.",
+                "O substantivo “pé-de-moleque” perdeu o hífen na última atualização do VOLP, devendo ser grafado como “pé de moleque”."
+            ],
+            correct: 2, // C
+            explanation: "Guarda-chuva mantém o hífen (verbo + subst.). Paraquedas e mandachuva perderam o hífen. Pé de moleque também perdeu, mas a justificativa da alternativa C é a regra fundamental."
+        },
+        {
+            id: 9,
+            text: "Analise as assertivas abaixo sobre o acento diferencial e as formas verbais:<br><br>I. As formas verbais “têm” e “vêm” (plural) recebem acento circunflexo para se diferenciarem de “tem” e “vem” (singular).<br>II. Verbos derivados como “manter”, “deter” e “intervir” recebem acento agudo na 3ª pessoa do singular (mantém) e circunflexo na 3ª pessoa do plural (mantêm).<br>III. A palavra “para” (verbo) ainda deve ser acentuada com acento agudo para não ser confundida com a preposição “para”.",
+            options: ["Apenas I.", "Apenas I e II.", "Apenas II e III.", "Apenas I e III.", "I, II e III."],
+            correct: 1, // B
+            explanation: "I e II estão corretas. A III está incorreta: 'para' (verbo) não tem mais acento diferencial."
+        },
+        {
+            id: 10,
+            text: "Assinale a alternativa em que a justificativa para a acentuação gráfica do vocábulo está INCORRETA:",
+            options: [
+                "“Dóceis” é acentuada por ser uma paroxítona terminada em ditongo.",
+                "“Herói” é acentuada por ser uma oxítona terminada em ditongo aberto “ói”.",
+                "“Saída” é acentuada pela regra do hiato.",
+                "“Táxi” é acentuada por ser uma paroxítona terminada em “i”.",
+                "“Mês” é acentuada por ser uma oxítona terminada em “s”."
+            ],
+            correct: 4, // E
+            explanation: "A alternativa E está incorreta porque 'Mês' é um monossílabo tônico, não uma oxítona."
+        }
+    ];
+
+    const techResolutions = [
+        "A questão 01 explora a capacidade do candidato em identificar não apenas a presença do sinal gráfico, mas a motivação normativa que o sustenta. 'Câncer' e 'vulnerável' são paroxítonas (terminadas em R e L). 'Órfã' é paroxítona terminada em ditongo nasal. 'Saúde' e 'baú' seguem a regra do hiato tônico.",
+        "A questão 02 foca no uso do hífen. 'Sub-humano' exige hífen por causa do 'h'. 'Super-resistente' exige hífen porque o prefixo termina com a mesma letra que o radical começa. 'Anti-inflamatório' segue a regra de vogais idênticas se repelirem.",
+        "A questão 03 aborda proparoxítonas (sempre acentuadas) e as 'proparoxítonas eventuais' (terminadas em ditongo crescente). Também valida a regra das oxítonas terminadas em 'e' (pajé).",
+        "A questão 04 testa prefixação em contexto. 'Infraestrutura' e 'reutilização' não têm mais hífen (vogais diferentes). 'Bem-estar' mantém o hífen pois 'bem' exige hífen antes de vogal ou h.",
+        "A questão 05 revisita abolições: fim do acento em hiatos 'oo/ee', fim do acento em ditongos abertos paroxítonos (ideia) e manutenção do diferencial apenas em 'pôr' e 'pôde'.",
+        "A questão 06 exige homogeneidade. 'Árvore', 'número' e 'quilômetro' são todas proparoxítonas, compartilhando a mesma regra universal.",
+        "A questão 07 trata de ortografia. 'Alvará' (acentuado), 'inspeção' (grafia oficial), 'vazamento' (com z) e 'rigidez' (substantivo derivado com sufixo -ez).",
+        "A questão 08 foca em compostos. 'Guarda-chuva' mantém hífen (verbo+subst). Diferente de 'paraquedas' que perdeu por perda da noção de composição.",
+        "A questão 09 foca em verbos. 'Têm/Vêm' marcam plural. Derivados como 'Mantém/Mantêm' usam agudo no singular e circunflexo no plural. 'Para' perdeu o acento.",
+        "A questão 10 identifica o erro técnico. 'Mês' é monossílabo tônico, não oxítona. Oxítonas exigem no mínimo duas sílabas."
+    ];
+
+    function loadQuestions() {
+        const container = document.getElementById('questions-container');
+        questions.forEach((q, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question';
+            qDiv.id = `q-block-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                const label = String.fromCharCode(65 + optIndex); // A, B, C...
+                optionsHtml += `
+                    <label class="option">
+                        <input type="radio" name="q${index}" value="${optIndex}">
+                        <span>${label}) ${opt}</span>
+                    </label>
+                `;
+            });
+
+            qDiv.innerHTML = `
+                <h2><span class="q-number">${q.id}</span> ${q.text}</h2>
+                <div class="options">${optionsHtml}</div>
+            `;
+            container.appendChild(qDiv);
+        });
+    }
+
+    function gradeQuiz() {
+        let score = 0;
+        const resContainer = document.getElementById('resolutions-container');
+        resContainer.innerHTML = '';
+        
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === q.correct;
+            if (isCorrect) score++;
+
+            // Highlight in question
+            const qBlock = document.getElementById(`q-block-${index}`);
+            qBlock.style.borderColor = isCorrect ? 'var(--correct-border)' : 'var(--wrong-border)';
+            qBlock.style.backgroundColor = isCorrect ? 'var(--correct-bg)' : 'var(--wrong-bg)';
+
+            // Build Resolution Card
+            const resCard = document.createElement('div');
+            resCard.className = 'resolution-card';
+            const statusClass = isCorrect ? 'status-correct' : 'status-wrong';
+            const statusText = isCorrect ? 'Acertou' : 'Errou';
+            const correctLetter = String.fromCharCode(65 + q.correct);
+
+            resCard.innerHTML = `
+                <span class="status-tag ${statusClass}">${statusText}</span>
+                <h3>Questão ${q.id}</h3>
+                <p class="correct-answer-info">Gabarito: Alternativa ${correctLetter}</p>
+                <div class="explanation-text">
+                    <strong>Resolução:</strong> ${techResolutions[index]}
+                </div>
+            `;
+            resContainer.appendChild(resCard);
+        });
+
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${questions.length}</strong> questões.`;
+        
+        document.getElementById('results-section').style.display = 'block';
+        window.scrollTo({
+            top: document.getElementById('results-section').offsetTop - 20,
+            behavior: 'smooth'
+        });
+    }
+
+    // Initialize
+    window.onload = loadQuestions;
+</script>
+
+</body>
+</html>

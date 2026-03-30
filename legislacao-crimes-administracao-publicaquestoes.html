@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Crimes contra a Administração Pública</title>
+    <style>
+        :root {
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --accent: #2563eb;
+            --success: #16a34a;
+            --error: #dc2626;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .option-label input {
+            margin-top: 5px;
+            margin-right: 15px;
+        }
+
+        /* Classes para o resultado */
+        .option-label.correct {
+            background-color: #f0fdf4;
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .option-label.incorrect {
+            background-color: #fef2f2;
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .resolution-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            display: none; /* Escondido até o fim */
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #result-summary {
+            display: none;
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-val {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            padding: 10px;
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Questões de Direito Penal: Fundatec</h1>
+        <p class="description">Crimes contra a Administração Pública (Art. 312 ao 327 CP)</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- Questões serão geradas aqui via JS -->
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="finishQuiz()">Finalizar Simulado e Ver Resoluções</button>
+    </div>
+
+    <div id="result-summary">
+        <h2>Resultado Final</h2>
+        <span class="score-val" id="score-display">0/10</span>
+        <p id="score-text"></p>
+        <p>Role para baixo para conferir as resoluções de cada questão.</p>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "Roberto, servidor público estadual responsável pelo almoxarifado central da Secretaria de Obras, aproveitando-se da facilidade proporcionada por seu cargo e detendo a posse legítima de diversos materiais de construção destinados à manutenção de rodovias, decide levar para sua residência particular dez sacos de cimento e cinco latas de tinta de alta performance, integrando tais bens ao seu patrimônio pessoal para realizar uma reforma em sua área de lazer. Diante da conduta descrita e considerando a tipificação dos crimes praticados por funcionário público contra a administração em geral, assinale a alternativa CORRETA:",
+            options: [
+                "Roberto praticou o crime de peculato-furto, uma vez que subtraiu bens móveis pertencentes ao Estado, valendo-se da facilidade de acesso ao local de armazenamento.",
+                "Roberto cometeu o crime de peculato-apropriação, pois apropriou-se de dinheiro, valor ou qualquer outro bem móvel público de que tinha a posse em razão do cargo.",
+                "Roberto incorreu no crime de furto qualificado pelo abuso de confiança, uma vez que subtraiu bem móvel alheio pertencente ao município mediante fraude.",
+                "Roberto praticou o crime de peculato-desvio, já que, no exercício de suas funções, desviou bem público móvel sob sua administração em proveito próprio.",
+                "La conduta de Roberto configura o crime de peculato mediante erro de outrem, uma vez que ele se aproveitou da falha de fiscalização."
+            ],
+            correct: 1,
+            resolution: "O caso descreve o peculato-apropriação (Art. 312, caput, 1ª parte). Roberto detinha a posse legítima em razão do cargo e inverteu o título da posse ao levar os bens para casa. Não é desvio porque ele integrou o bem ao patrimônio pessoal (apropriação)."
+        },
+        {
+            id: 2,
+            text: "Um guarda municipal, ao proceder a fiscalização, solicita ou recebe para si vantagem indevida ou aceita a promessa de facilitar o ingresso do seu filho em um cargo público, mesmo sem os devidos requisitos. Qual crime foi cometido pelo guarda municipal?",
+            options: [
+                "Prevaricação.",
+                "Peculato.",
+                "Concurso de competência.",
+                "Extravio documental.",
+                "Corrupção passiva."
+            ],
+            correct: 4,
+            resolution: "O crime de corrupção passiva (Art. 317) se configura pelo ato de solicitar, receber ou aceitar promessa de vantagem indevida em razão da função."
+        },
+        {
+            id: 3,
+            text: "Acerca dos crimes contra a administração pública, à luz do disposto no Código Penal, analise as assertivas abaixo e assinale a alternativa INCORRETA:",
+            options: [
+                "Teófilo, exercente de cargo em entidade paraestatal, ao desviar bem móvel público, em proveito alheio, está incurso nas sanções atinentes ao crime de peculato.",
+                "Caso Teobaldo, ocupante de cargo em comissão em autarquia municipal, revele fato sigiloso, responderá pelo delito de violação de sigilo funcional, sem lhe ser aplicável a causa de aumento de pena da terça parte.",
+                "Tâmara ajustou com Taciana a contratação de sua empresa pelo município por meio de inexigibilidade fora das hipóteses legais; ambas responderão pelo delito.",
+                "A reparação do dano no peculato culposo, se precede à sentença irrecorrível, extingue a punibilidade; se lhe é posterior, reduz de metade a pena.",
+                "Considera-se funcionário público, para os efeitos penais, quem, embora transitoriamente ou sem remuneração, exerce cargo, emprego ou função pública."
+            ],
+            correct: 1,
+            resolution: "A alternativa B é a incorreta pois, conforme o Art. 327, §2º, a pena é aumentada da terça parte para quem ocupa cargo em comissão ou função de direção/assessoramento. Sendo Teobaldo comissionado, a majorante se aplica."
+        },
+        {
+            id: 4,
+            text: "Analise as assertivas abaixo sobre os crimes contra a administração pública:\nI. Comete prevaricação o funcionário que deixar, por indulgência, de responsabilizar subordinado.\nII. Revelar fato sigiloso em razão do cargo configura condescendência criminosa.\nIII. Se o funcionário exige tributo que sabe indevido ou emprega meio vexatório, comete excesso de exação.\nIV. Exigir vantagem indevida configura corrupção passiva.\nQuais estão corretas?",
+            options: [
+                "Apenas III.",
+                "Apenas IV.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, III e IV."
+            ],
+            correct: 0,
+            resolution: "Apenas a III está correta (Art. 316, §1º). I é Condescendência Criminosa; II é Violação de Sigilo Funcional; IV é Concussão (devido ao verbo 'exigir')."
+        },
+        {
+            id: 5,
+            text: "De acordo com o Código Penal, são considerados crimes praticados por funcionário público contra a administração em geral:\nI. Prevaricação (retardar ato para satisfazer interesse pessoal).\nII. Condescendência criminosa (deixar de responsabilizar subordinado por indulgência).\nIII. Advocacia administrativa (patrocinar interesse privado, ainda que não se valha da qualidade de funcionário).\nQuais estão corretas?",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas I e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "A assertiva III está incorreta porque a advocacia administrativa (Art. 321) exige que o funcionário se valha de sua qualidade para patrocinar o interesse privado."
+        },
+        {
+            id: 6,
+            text: "Sobre os crimes contra a administração pública e suas peculiaridades, assinale a alternativa correta:",
+            options: [
+                "No crime de concussão (art. 316), o agente exige vantagem indevida; a exigência é suficiente para a consumação, independente da obtenção da vantagem.",
+                "O crime de prevaricação exige que o interesse pessoal seja de natureza econômica ou patrimonial.",
+                "Na corrupção passiva, quando o funcionário solicita vantagem, o crime só se consuma com a efetiva entrega.",
+                "O peculato culposo admite extinção da punibilidade se o ressarcimento ocorrer antes da denúncia.",
+                "No crime de advocacia administrativa, é necessário que o interesse defendido seja ilegítimo."
+            ],
+            correct: 0,
+            resolution: "A concussão é um crime formal, consumando-se com a exigência. O recebimento é mero exaurimento."
+        },
+        {
+            id: 7,
+            text: "Considere a definição legal de funcionário público para fins penais (Art. 327). É correto afirmar que:",
+            options: [
+                "Exige-se o requisito da permanência para a condição de funcionário público.",
+                "Somente é funcionário quem recebe remuneração.",
+                "Quem exerce cargo em paraestatais não é considerado funcionário para efeitos penais.",
+                "O perito judicial não é funcionário público por exercer função transitória.",
+                "É equiparado a funcionário público quem trabalha para empresa contratada para execução de atividade típica da Administração Pública."
+            ],
+            correct: 4,
+            resolution: "O Art. 327, §1º, equipara expressamente os funcionários de empresas contratadas/conveniadas para atividades típicas."
+        },
+        {
+            id: 8,
+            text: "Maria, servidora, para obter vantagem indevida para o primo, acessa o banco de dados e altera a classificação dele em um concurso. Ela praticou:",
+            options: [
+                "Modificação ou alteração não autorizada de sistema de informações.",
+                "Inserção de dados falsos em sistema de informações.",
+                "Prevaricação.",
+                "Peculato mediante erro de outrem.",
+                "Corrupção passiva privilegiada."
+            ],
+            correct: 1,
+            resolution: "Maria praticou Inserção de Dados Falsos (Art. 313-A), pois como funcionária autorizada, alterou os dados visando vantagem indevida."
+        },
+        {
+            id: 9,
+            text: "Quanto à causa de aumento de pena prevista no Art. 327, §2º do Código Penal, assinale a alternativa correta:",
+            options: [
+                "A pena aumenta da terça parte para ocupantes de cargos em comissão ou função de direção de órgãos da adm. direta, autarquias, etc.",
+                "A majorante aplica-se apenas a autarquias, excluindo sociedades de economia mista.",
+                "A causa de aumento de pena é de metade se for cargo eletivo.",
+                "O aumento da terça parte aplica-se apenas ao peculato.",
+                "A majorante não incide sobre diretores de empresas públicas."
+            ],
+            correct: 0,
+            resolution: "Literalidade do Art. 327, §2º: aumento de 1/3 para cargos em comissão ou funções de confiança na administração direta e indireta."
+        },
+        {
+            id: 10,
+            text: "Sobre o crime de peculato (Art. 312), analise:\nI. Peculato-desvio: dar destinação diversa em proveito próprio/alheio.\nII. Peculato-furto: subtrair bem valendo-se da facilidade do cargo.\nIII. Peculato culposo: concorrer culposamente para o crime de outrem.\nIV. Peculato-apropriação consuma-se apenas com prejuízo financeiro efetivo.\nQuais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas I, II e III.",
+                "Apenas III e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 1,
+            resolution: "I, II e III estão corretas. A IV está incorreta pois o peculato-apropriação se consuma com a inversão da posse, visando proteger a moralidade administrativa, não apenas o patrimônio líquido."
+        }
+    ];
+
+    function loadQuiz() {
+        const quizContainer = document.getElementById('quiz-form');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+
+            const qText = document.createElement('span');
+            qText.className = 'question-text';
+            qText.innerText = `${index + 1}. ${q.text}`;
+            card.appendChild(qText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            q.options.forEach((opt, optIndex) => {
+                const li = document.createElement('li');
+                li.className = 'option-item';
+
+                const label = document.createElement('label');
+                label.className = 'option-label';
+                label.setAttribute('for', `q${index}-opt${optIndex}`);
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question-${index}`;
+                radio.id = `q${index}-opt${optIndex}`;
+                radio.value = optIndex;
+
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(`${String.fromCharCode(65 + optIndex)}) ${opt}`));
+                li.appendChild(label);
+                optionsList.appendChild(li);
+            });
+
+            card.appendChild(optionsList);
+
+            // Resolução (escondida)
+            const resBox = document.createElement('div');
+            resBox.className = 'resolution-box';
+            resBox.id = `res-${index}`;
+            resBox.innerHTML = `<h4>Resolução</h4><p>${q.resolution}</p>`;
+            card.appendChild(resBox);
+
+            quizContainer.appendChild(card);
+        });
+    }
+
+    function finishQuiz() {
+        let score = 0;
+        const total = questions.length;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            resBox.style.display = 'block';
+
+            const labels = document.querySelectorAll(`#q-card-${index} .option-label`);
+            
+            // Marcar a correta
+            labels[q.correct].classList.add('correct');
+
+            if (selected) {
+                const answer = parseInt(selected.value);
+                if (answer === q.correct) {
+                    score++;
+                } else {
+                    labels[answer].classList.add('incorrect');
+                }
+            }
+            
+            // Desabilitar inputs
+            const inputs = document.querySelectorAll(`input[name="question-${index}"]`);
+            inputs.forEach(input => input.disabled = true);
+        });
+
+        // Mostrar resumo
+        const summary = document.getElementById('result-summary');
+        summary.style.display = 'block';
+        document.getElementById('score-display').innerText = `${score}/${total}`;
+        
+        let msg = "";
+        if (score === total) msg = "Excelente! Você dominou o conteúdo.";
+        else if (score >= 7) msg = "Bom desempenho! Revise os pontos onde houve dúvida.";
+        else msg = "Continue estudando. Os crimes contra a administração exigem atenção aos detalhes.";
+        
+        document.getElementById('score-text').innerText = msg;
+        document.getElementById('submit-btn').style.display = 'none';
+        
+        window.scrollTo({ top: summary.offsetTop - 20, behavior: 'smooth' });
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>

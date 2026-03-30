@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Geral: Arts. 312 a 327 CP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 1px 3px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .term-definition {
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .section-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: #374151;
+        }
+
+        .audio-player-fixed {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid #f3f4f6;
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        .banca-alert {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .btn-navigation {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto;
+            background-color: #111827;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-navigation:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Reprodutor de Áudio -->
+    <div class="audio-player-fixed shadow-sm">
+        <div class="max-w-4xl mx-auto flex flex-col items-center">
+            <p class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter">Audioaula: Crimes Adm. Pública</p>
+            <!-- Substitua o src pelo nome do seu arquivo -->
+            <audio controls class="w-full max-w-md h-10">
+                <source src="legislacao-crimes-administracao-publica.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 py-10">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Guia Definitivo: Crimes contra a Administração</h1>
+            <p class="text-lg text-gray-600 mt-2 italic">Foco Total: Professor EBTT - IFC | Banca Fundatec</p>
+        </header>
+
+        <!-- CONCEITO DE FUNCIONÁRIO PÚBLICO -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">1. Funcionário Público para fins Penais (Art. 327)</h2>
+            <p>O conceito é <span class="highlight">amplo</span>. Esqueça o Direito Administrativo aqui.</p>
+            <ul class="list-disc ml-5 mt-3 space-y-2">
+                <li><span class="term-definition">Próprio (Caput):</span> Quem exerce cargo, emprego ou função, mesmo que <span class="highlight">transitoriamente</span> ou <span class="highlight">sem remuneração</span>.</li>
+                <li><span class="term-definition">Equiparado (§ 1º):</span> Quem trabalha em entidades paraestatais ou empresas terceirizadas que prestam serviço típico da administração.</li>
+                <li><span class="term-definition">Majorante (§ 2º):</span> Pena aumentada em <span class="highlight">1/3</span> se for cargo em comissão ou função de direção/assessoramento.</li>
+            </ul>
+        </section>
+
+        <!-- GRUPO DO PECULATO -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">2. O Universo do Peculato (Art. 312 e 313)</h2>
+            <p>A Fundatec adora as distinções entre as espécies de peculato.</p>
+            
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Espécie</th>
+                            <th>Ação Principal</th>
+                            <th>Observação de Prova</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Peculato-Apropriação</strong></td>
+                            <td>Apropriar-se de dinheiro/bem.</td>
+                            <td>O agente <span class="highlight">já tem a posse</span> do objeto.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peculato-Desvio</strong></td>
+                            <td>Dar destino diverso do público.</td>
+                            <td>Em proveito próprio ou <span class="highlight">alheio</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peculato-Furto</strong></td>
+                            <td>Subtrair ou concorrer para tal.</td>
+                            <td>Não tem a posse, mas usa a <span class="highlight">facilidade do cargo</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peculato Culposo</strong></td>
+                            <td>Concorrer por negligência.</td>
+                            <td>Permite crime de outrem. Único com extinção por reparação.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peculato Digital (313-A)</strong></td>
+                            <td>Inserir dados falsos.</td>
+                            <td>Exige funcionário <span class="highlight">autorizado</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modificação Sistema (313-B)</strong></td>
+                            <td>Alterar sistema sem autorização.</td>
+                            <td>Não exige fim de vantagem.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peculato Mediante Erro (313)</strong></td>
+                            <td>Apropriar-se do erro alheio.</td>
+                            <td>Chamado de <span class="highlight">Peculato Estelionato</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="banca-alert">
+                <strong>🔥 PEGUINHA FUNDATEC:</strong> No <span class="highlight">Peculato Culposo</span>, a reparação do dano <strong>antes</strong> da sentença transitada em julgado <span class="highlight">extingue a punibilidade</span>. Se for <strong>depois</strong>, reduz a pena pela <span class="highlight">metade</span>. Isso não vale para o peculato doloso!
+            </div>
+        </section>
+
+        <!-- CRIMES DE EXIGIR E SOLICITAR -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">3. Concussão vs. Corrupção Passiva</h2>
+            <div class="overflow-x-auto">
+                <table class="bg-white">
+                    <tr class="bg-gray-50">
+                        <td class="font-bold">Crime</td>
+                        <td class="font-bold">Verbos Nucleares</td>
+                        <td class="font-bold">Natureza</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Concussão (316)</strong></td>
+                        <td><span class="highlight">Exigir</span></td>
+                        <td>Crime formal (consuma na exigência).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excesso de Exação (316, §1º)</strong></td>
+                        <td><span class="highlight">Exigir tributo</span> indevido</td>
+                        <td>Ou usar meio vexatório na cobrança.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Corrupção Passiva (317)</strong></td>
+                        <td><span class="highlight">Solicitar, Receber ou Aceitar</span></td>
+                        <td>Independe se o funcionário faz ou não o ato.</td>
+                    </tr>
+                </table>
+            </div>
+            <p class="mt-4"><strong>Nota:</strong> Se o funcionário retarda ato de ofício com infração de dever funcional a pedido de outrem (sem vantagem), é <span class="highlight">Corrupção Passiva Privilegiada</span> (Art. 317, § 2º).</p>
+        </section>
+
+        <!-- CRIMES DE OMISSÃO E SENTIMENTO -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">4. Prevaricação e Correlatos</h2>
+            <ul class="space-y-4">
+                <li>
+                    <strong>Prevaricação (319):</strong> Retardar ou deixar de praticar ato de ofício para satisfazer <span class="highlight">interesse ou sentimento pessoal</span>.
+                    <br><span class="text-sm text-gray-500 italic">Dica: Se houver dinheiro, é Corrupção Passiva. Se for "amizade/raiva", é Prevaricação.</span>
+                </li>
+                <li>
+                    <strong>Condescendência Criminosa (320):</strong> Deixar de responsabilizar subordinado por <span class="highlight">indulgência</span> (piedade/clemência).
+                </li>
+                <li>
+                    <strong>Advocacia Administrativa (321):</strong> Patrocinar interesse privado perante a administração valendo-se da qualidade de funcionário.
+                </li>
+            </ul>
+        </section>
+
+        <!-- CRIMES MENOS COMUNS (MAS QUE CAEM) -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">5. Crimes de Documentos e Sigilo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-3 border rounded border-gray-100 bg-gray-50">
+                    <span class="font-bold">Extravio de Documento (314):</span> Extraviar livro oficial ou documento sob sua guarda.
+                </div>
+                <div class="p-3 border rounded border-gray-100 bg-gray-50">
+                    <span class="font-bold">Emprego Irregular de Verbas (315):</span> Dar às verbas aplicação diversa da estabelecida em lei.
+                </div>
+                <div class="p-3 border rounded border-gray-100 bg-gray-50">
+                    <span class="font-bold">Facilitação de Contrabando (318):</span> Facilitar, com infração de dever funcional, a entrada de mercadoria proibida.
+                </div>
+                <div class="p-3 border rounded border-gray-100 bg-gray-50">
+                    <span class="font-bold">Violência Arbitrária (322):</span> Praticar violência no exercício da função ou a pretexto de exercê-la.
+                </div>
+                <div class="p-3 border rounded border-gray-100 bg-gray-50">
+                    <span class="font-bold">Abandono de Função (323):</span> Abandonar cargo público fora dos casos permitidos em lei.
+                </div>
+                <div class="p-3 border rounded border-gray-100 bg-gray-50">
+                    <span class="font-bold">Violação de Sigilo (325):</span> Revelar fato de que tem ciência em razão do cargo e que deve permanecer segredo.
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGILO EM CERTAME -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">6. Fraudes em Certames (Art. 326)</h2>
+            <p>Comprometer a credibilidade de concursos públicos, processos seletivos ou exames (OAB, ENEM, Concursos).</p>
+            <ul class="list-disc ml-5 mt-2">
+                <li><span class="highlight">Utilizar ou divulgar</span> conteúdo sigiloso.</li>
+                <li>Pena aumenta se o crime é cometido por <span class="highlight">funcionário público</span>.</li>
+                <li>Se resulta em <span class="highlight">dano à administração</span>, a pena é de reclusão e multa.</li>
+            </ul>
+        </section>
+
+        <!-- CONCLUSÃO E DICA FINAL -->
+        <div class="bg-gray-900 text-white p-6 rounded-lg mb-10">
+            <h3 class="text-xl font-bold mb-2">🚀 Recapitulação Flash</h3>
+            <p class="text-gray-300 text-sm">
+                - **CONCUSSÃO** = Exigir <br>
+                - **CORRUPÇÃO PASSIVA** = Solicitar/Receber <br>
+                - **PREVARICAÇÃO** = Sentimento Pessoal <br>
+                - **CONDESCENDÊNCIA** = Indulgência <br>
+                - **PECULATO CULPOSO** = Reparação apaga ou diminui a pena.
+            </p>
+        </div>
+
+        <a href="legislacao-crimes-administracao-publicaquestoes.html" class="btn-navigation">
+            Praticar com Questões Fundatec
+        </a>
+
+    </main>
+
+    <footer class="bg-gray-50 py-8 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-6 text-center text-gray-500 text-sm">
+            Material elaborado para o concurso IFC - Professor de Geografia. <br>
+            Atenção: O Art. 327 é a chave para identificar quem pode ser o sujeito ativo destes crimes.
+        </div>
+    </footer>
+
+</body>
+</html>
