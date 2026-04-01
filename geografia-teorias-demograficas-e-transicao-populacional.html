@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de Elite: Demografia para o IFC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+
+        .highlight {
+            background-color: #fef08a; /* Amarelo suave */
+            color: #000;
+            padding: 0 2px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .important-note {
+            border-left: 5px solid #2563eb;
+            background-color: #f0f7ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px;
+            border: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+        }
+
+        /* Responsividade para Tabelas - Sem scroll horizontal */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr { border: 1px solid #ccc; margin-bottom: 15px; }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                min-height: 40px;
+            }
+            td:before {
+                position: absolute;
+                top: 14px;
+                left: 14px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                content: attr(data-label);
+            }
+        }
+
+        .audio-wrapper {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-footer {
+            display: inline-block;
+            background-color: #111827;
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn-footer:hover {
+            background-color: #374151;
+        }
+
+        .tag-fundatec {
+            display: inline-block;
+            background: #fee2e2;
+            color: #991b1b;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+        <h1 class="text-4xl font-black text-gray-900 mb-4 leading-tight">Teorias Demográficas e Transição: <br><span class="text-blue-600">Foco Concurso IFC / Fundatec</span></h1>
+        <p class="text-gray-500 text-lg italic">Tutor Especialista em Geografia EBTT</p>
+    </header>
+
+    <!-- Audio Player -->
+    <div class="audio-wrapper">
+        <div class="flex items-center gap-3 mb-3 text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+            <span class="font-bold">Resumo em Áudio: Ouça e acompanhe o texto</span>
+        </div>
+        <audio controls class="w-full">
+            <!-- NOME DO ARQUIVO MP3 ABAIXO -->
+            <source src="geografia-teorias-demograficas-e-transicao-populacional.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <!-- Intro -->
+    <section class="mb-12">
+        <h2 class="section-title text-2xl">1. Matriz de Teorias Demográficas</h2>
+        <p class="mb-6">O estudo das teorias é recorrente na Fundatec. A banca costuma cobrar a <span class="highlight">causalidade</span>: o que causa a pobreza ou o que causa o crescimento?</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Teoria</th>
+                    <th>Principais Características</th>
+                    <th>Visão da Pobreza</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Teoria"><strong>Malthusiana</strong> (Séc. XVIII)</td>
+                    <td>População em <span class="highlight">P.G.</span> (2, 4, 8) e alimentos em <span class="highlight">P.A.</span> (1, 2, 3). Defesa do Controle Moral.</td>
+                    <td>Pobreza é culpa do excesso de filhos das classes baixas.</td>
+                </tr>
+                <tr>
+                    <td data-label="Teoria"><strong>Neomalthusiana</strong> (Pós-1945)</td>
+                    <td>Uso de métodos anticoncepcionais. <span class="highlight">Explosão Demográfica</span> impede o capital de investir em produção.</td>
+                    <td>O crescimento populacional <span class="highlight">gera</span> subdesenvolvimento.</td>
+                </tr>
+                <tr>
+                    <td data-label="Teoria"><strong>Reformista</strong> (Marxista)</td>
+                    <td>Investimento em educação e saúde reduz a natalidade naturalmente.</td>
+                    <td>O subdesenvolvimento e a falta de justiça <span class="highlight">geram</span> o crescimento alto.</td>
+                </tr>
+                <tr>
+                    <td data-label="Teoria"><strong>Ecomalthusiana</strong> (Anos 70+)</td>
+                    <td>Limites do planeta. População excessiva destrói os recursos renováveis.</td>
+                    <td>O crescimento populacional ameaça a biosfera terrestre.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Glossário -->
+    <section class="mb-12">
+        <h2 class="section-title text-2xl">2. Conceitos Básicos (Decore para a Prova)</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="p-4 border rounded-lg bg-gray-50">
+                <p><strong>Taxa de Natalidade:</strong> Número de nascidos vivos por mil habitantes ao ano.</p>
+            </div>
+            <div class="p-4 border rounded-lg bg-gray-50">
+                <p><strong>Taxa de Mortalidade:</strong> Número de óbitos por mil habitantes ao ano.</p>
+            </div>
+            <div class="p-4 border rounded-lg bg-gray-50">
+                <p><strong>Taxa de Fecundidade:</strong> Estimativa de filhos por mulher (Idade reprodutiva: <span class="highlight">15-49 anos</span>).</p>
+            </div>
+            <div class="p-4 border rounded-lg bg-gray-50">
+                <p><strong>Crescimento Vegetativo:</strong> Natalidade menos Mortalidade (Ignora Migrações).</p>
+            </div>
+            <div class="p-4 border rounded-lg bg-gray-50">
+                <p><strong>Esperança de Vida:</strong> Média de anos que se espera que uma pessoa viva ao nascer.</p>
+            </div>
+            <div class="p-4 border rounded-lg bg-gray-50">
+                <p><strong>PEA:</strong> População Economicamente Ativa (quem trabalha ou procura emprego).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transição Demográfica Brasileira -->
+    <section class="mb-12">
+        <h2 class="section-title text-2xl">3. Transição Demográfica Brasileira</h2>
+        <p class="mb-4 text-lg">O Brasil está na <span class="highlight">Fase 3 da Transição</span> (Desaceleração). O Censo 2022 confirmou que estamos envelhecendo mais rápido que o previsto.</p>
+        
+        <div class="important-note">
+            <h3 class="font-bold text-blue-800 mb-2">Pilar do Censo 2022 (IBGE)</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li>A taxa de fecundidade do Brasil está em <span class="highlight">1,47</span> (Abaixo da reposição de 2,1).</li>
+                <li>A população cresce apenas <strong>0,52%</strong> ao ano.</li>
+                <li>A pirâmide está perdendo a base (estreitamento) e alargando o topo (idosos).</li>
+            </ul>
+        </div>
+
+        <h3 class="font-bold mb-3">Impactos Críticos:</h3>
+        <ol class="space-y-4">
+            <li class="bg-white p-3 border rounded shadow-sm">
+                <strong>Previdência:</strong> Menos jovens contribuindo para manter mais idosos (Risco do pacto de gerações). Necessidade de reformas estruturais e aumento da produtividade.
+            </li>
+            <li class="bg-white p-3 border rounded shadow-sm">
+                <strong>Educação:</strong> "Ociosidade" de vagas no ensino básico. O foco deixa de ser expansão de rede (quantidade) e passa a ser <span class="highlight">qualidade e tempo integral</span>.
+            </li>
+            <li class="bg-white p-3 border rounded shadow-sm">
+                <strong>Saúde:</strong> Transição Epidemiológica. Menos doenças infectocontagiosas e mais doenças degenerativas (Câncer, Alzheimer, Problemas Cardíacos).
+            </li>
+        </ol>
+    </section>
+
+    <!-- Fundatec EBTT -->
+    <section class="mb-16">
+        <h2 class="section-title text-2xl text-red-600">4. Tendências Fundatec (Nível EBTT)</h2>
+        <div class="space-y-4">
+            <div>
+                <span class="tag-fundatec">PEGUINHA</span>
+                <p>A banca adora confundir <span class="highlight">Crescimento Demográfico Total</span> com <span class="highlight">Crescimento Vegetativo</span>. Lembre-se: O Total inclui o saldo migratório.</p>
+            </div>
+            <div>
+                <span class="tag-fundatec">CONCEITO DOCENTE</span>
+                <p>Para o IFC, a prova pode cobrar a relação entre a queda da natalidade e a diminuição da demanda por professores de Ensino Fundamental, o que impacta concursos municipais e estaduais.</p>
+            </div>
+            <div>
+                <span class="tag-fundatec">DADO TÉCNICO</span>
+                <p>O <strong>Bônus Demográfico</strong> (ou Janela de Oportunidade) ocorre quando a PEA é maior que a população dependente (idosos + crianças). O Brasil está <span class="highlight">encerrando</span> esse bônus (Previsão: até 2033).</p>
+            </div>
+            <div class="important-note bg-red-50 border-red-500">
+                <h3 class="font-bold text-red-800">Cuidado com o "Envelhecimento do Envelhecimento"</h3>
+                <p class="text-sm">Fenômeno onde o grupo que mais cresce proporcionalmente é o de pessoas com <span class="highlight">mais de 80 anos</span>. Isso exige políticas de "cuidados" e infraestrutura urbana específica.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final -->
+    <footer class="text-center py-10 border-t">
+        <p class="text-gray-500 mb-8">Revise este material pelo menos 3 vezes. Os dados do Censo 2022 são a chave para as questões inéditas do IFC.</p>
+        <a href="geografia-teorias-demograficas-e-transicao-populacionalquestoes.html" class="btn-footer shadow-lg hover:shadow-xl transform transition hover:-translate-y-1">
+            ACESSAR BANCO DE QUESTÕES →
+        </a>
+    </footer>
+
+</body>
+</html>

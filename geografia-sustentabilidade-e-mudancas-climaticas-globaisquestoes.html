@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Sustentabilidade, Clima e EPT</title>
+    <style>
+        :root {
+            --bg-color: #fdf6e3; /* Solarized Light - Fundo confortável */
+            --text-color: #2c3e50;
+            --accent-color: #859900;
+            --card-bg: #fcf9f2;
+            --border-color: #eee8d5;
+            --correct-color: #2ecc71;
+            --wrong-color: #e74c3c;
+            --info-bg: #ebf5fb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #657b83;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #eee8d5;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #eee8d5;
+            border-color: var(--accent-color);
+        }
+
+        /* Classes de Resultado */
+        .option-item.correct {
+            border-color: var(--correct-color);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+
+        .option-item.wrong {
+            border-color: var(--wrong-color);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #fff;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            display: none; /* Escondido até finalizar */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: filter 0.2s;
+        }
+
+        .btn-submit:hover {
+            filter: brightness(0.9);
+        }
+
+        #result-summary {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--accent-color);
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: #eee8d5;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #93a1a1;
+        }
+
+        sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+        sup { top: -0.5em; }
+        sub { bottom: -0.25em; }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">Simulado Técnico</span>
+        <h1>Sustentabilidade e Mudanças Climáticas na EPT</h1>
+        <p>Banca: Estilo Fundatec | 10 Questões Completas</p>
+    </header>
+
+    <div id="quiz-form">
+        <!-- As questões serão injetadas aqui pelo JS -->
+    </div>
+
+    <button id="finish-btn" class="btn-submit">Finalizar Simulado</button>
+
+    <div id="result-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-value" id="score-text">0 / 10</div>
+        <p id="performance-msg">Confira abaixo a resolução detalhada de cada questão.</p>
+        <button onclick="window.location.reload()" style="margin-top: 15px; background: none; border: 1px solid #ccc; padding: 5px 15px; cursor: pointer; border-radius: 4px;">Refazer Simulado</button>
+    </div>
+
+    <footer>
+        <p>Desenvolvido para fins de estudo técnico e pedagógico.</p>
+    </footer>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No que tange à fundamentação científica das mudanças climáticas globais, o Painel Intergovernamental sobre Mudanças Climáticas (IPCC) desempenha um papel central na consolidação do conhecimento técnico. Sobre o efeito estufa e o aquecimento global, analise as assertivas a seguir:<br><br>I. O efeito estufa é, em sua origem, um mecanismo físico-químico natural da atmosfera terrestre, essencial para a manutenção da vida.<br>II. O aquecimento global contemporâneo é caracterizado pela intensificação do efeito estufa devido à emissão antropogênica de Gases de Efeito Estufa (GEE), sendo o vapor d'água o principal gás regulado pelo Protocolo de Kyoto.<br>III. O dióxido de carbono (CO<sub>2</sub>), emitido majoritariamente pela queima de combustíveis fósseis e mudanças no uso da terra, é identificado como o principal contribuinte para o forçamento radiativo positivo observado desde a era industrial.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e III.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            explanation: "A alternativa correta é a C. A assertiva II está incorreta porque, embora o vapor d'água seja o gás de efeito estufa mais abundante, ele não é objeto de regulação pelo Protocolo de Kyoto, que foca em emissões antropogênicas diretas persistentes como CO<sub>2</sub>, CH<sub>4</sub>, N<sub>2</sub>O, entre outros."
+        },
+        {
+            id: 2,
+            text: "O Protocolo de Kyoto, adotado em 1997, estabeleceu uma estrutura jurídica para a redução de emissões. Sobre seus mecanismos, é correto afirmar que:",
+            options: [
+                "Estabeleceu metas de redução obrigatórias e uniformes para todos os países signatários.",
+                "O Mecanismo de Desenvolvimento Limpo (MDL) permite que países desenvolvidos invistam em projetos de baixo carbono em países em desenvolvimento.",
+                "A segunda fase do compromisso encerrou-se em 2012, sendo substituída imediatamente pelo Acordo de Paris.",
+                "Os EUA ratificaram integralmente o protocolo em 2001 sob a gestão Bush.",
+                "Foi assinado originalmente durante a Eco-92 no Rio de Janeiro."
+            ],
+            correct: 1,
+            explanation: "A alternativa correta é a B. O MDL (Artigo 12) permitiu que países do Anexo I (ricos) cumprissem metas financiando projetos em países em desenvolvimento, gerando Reduções Certificadas de Emissão (RCEs)."
+        },
+        {
+            id: 3,
+            text: "Diferente da estrutura do Protocolo de Kyoto, o Acordo de Paris (2015) introduziu uma nova lógica. Assinale a característica correta:",
+            options: [
+                "Adoção de comando e controle centralizado pela ONU por município.",
+                "Exclusão definitiva de países em desenvolvimento das discussões.",
+                "Estabelecimento das Contribuições Nacionalmente Determinadas (NDCs), onde cada país define seus próprios compromissos.",
+                "Determinação de limite de aumento de temperatura em 5°C.",
+                "Substituição do Banco Central Europeu por um fundo de moeda verde global."
+            ],
+            correct: 2,
+            explanation: "A alternativa correta é a C. As NDCs representam uma abordagem 'bottom-up', onde cada país submete sua meta de redução conforme suas capacidades, com revisões periódicas."
+        },
+        {
+            id: 4,
+            text: "O fenômeno do 'greenwashing' representa um desafio ético. No contexto de uma análise crítica, ele pode ser definido como:",
+            options: [
+                "Investimento total de lucros em recuperação ambiental sem publicidade.",
+                "Estratégia de marketing que promove discursos sustentáveis sem sustentação prática ou impacto real.",
+                "Processo de certificação ambiental rigoroso conduzido pelo governo.",
+                "Transição efetiva da matriz energética comprovada por auditorias.",
+                "Técnica de agricultura orgânica que utiliza pigmentos verdes nas plantas."
+            ],
+            correct: 1,
+            explanation: "A alternativa correta é a B. Greenwashing é a 'maquiagem verde', onde o marketing é usado para criar uma imagem ecologicamente responsável que não condiz com as práticas reais da organização."
+        },
+        {
+            id: 5,
+            text: "A Educação Profissional e Tecnológica (EPT) busca superar a dualidade histórica. Segundo a Resolução CNE/CP nº 01/2021, um dos pilares é:",
+            options: [
+                "A fragmentação curricular para acelerar a entrada no mercado.",
+                "A centralidade do trabalho assumido como princípio educativo, integrando ciência, cultura e tecnologia.",
+                "A priorização exclusiva de competências instrumentais operacionais.",
+                "O foco absoluto nas demandas imediatas das empresas locais apenas.",
+                "A separação entre teoria e prática para otimizar a didática."
+            ],
+            correct: 1,
+            explanation: "A alternativa correta é a B. O trabalho como princípio educativo visa a formação humana integral, rompendo a separação entre o 'fazer' (técnico) e o 'pensar' (intelectual)."
+        },
+        {
+            id: 6,
+            text: "A defesa de uma sustentabilidade que considere a justiça social na EPT exige:",
+            options: [
+                "Tratar a sustentabilidade como conteúdo periférico e isolado.",
+                "Promover o entendimento das inter-relações entre dimensões econômica, política, ambiental e cultural.",
+                "Aceitar a neutralidade da ciência e tecnologia sem discussões sociais.",
+                "Treinar o aluno para ignorar contradições sociais em favor da eficiência.",
+                "Dissociar a justiça social da sustentabilidade ambiental."
+            ],
+            correct: 1,
+            explanation: "A alternativa correta é a B. A perspectiva crítica na EPT entende que a tecnologia não é neutra e que a sustentabilidade real deve contemplar a equidade social e o senso crítico do trabalhador."
+        },
+        {
+            id: 7,
+            text: "Sobre a trajetória histórica da EPT no Brasil, é correto afirmar:",
+            options: [
+                "Surgiu apenas na década de 1990 com o Sistema S.",
+                "A Rede Federal (2008) foi criada para consolidar a integração entre ensino médio e formação técnica integral.",
+                "A EJA não pode ser articulada com a educação profissional por lei.",
+                "A finalidade precípua é a formação de mão de obra barata externa.",
+                "O currículo integrado visa separar definitivamente a formação geral da técnica."
+            ],
+            correct: 1,
+            explanation: "A alternativa correta é a B. A criação dos Institutos Federais em 2008 marcou a política de expansão e a busca pelo currículo integrado focado na formação humana e técnica conjunta."
+        },
+        {
+            id: 8,
+            text: "No contexto das mudanças climáticas, o conceito de 'Justiça Climática' pressupõe que:",
+            options: [
+                "Todos possuem exatamente a mesma responsabilidade financeira pela crise.",
+                "Os impactos afetam de forma equânime todas as classes sociais.",
+                "Populações marginalizadas e países do Sul Global são os mais afetados, apesar de menos responsáveis pelas emissões.",
+                "Deve-se proibir toda atividade industrial em países em desenvolvimento.",
+                "O debate sobre raça e classe é irrelevante para soluções globais."
+            ],
+            correct: 2,
+            explanation: "A alternativa correta é a C. A Justiça Climática reconhece a dívida histórica dos países desenvolvidos e a vulnerabilidade desproporcional dos mais pobres diante dos eventos climáticos extremos."
+        },
+        {
+            id: 9,
+            text: "Segundo a Política Nacional de Educação Ambiental (Lei nº 9.795/1999), a educação ambiental na EPT deve:",
+            options: [
+                "Ser implementada como disciplina autônoma obrigatória técnica.",
+                "Enfocar a natureza de forma isolada do modelo econômico.",
+                "Ser desenvolvida como prática educativa integrada, contínua e permanente.",
+                "Limitar-se a campanhas de conscientização sobre resíduos nas áreas comuns.",
+                "Ser facultativa para professores de áreas técnicas."
+            ],
+            correct: 2,
+            explanation: "A alternativa correta é a C. A PNEA estabelece que a Educação Ambiental não deve ser uma disciplina isolada, mas um tema transversal presente em todos os níveis e modalidades de ensino."
+        },
+        {
+            id: 10,
+            text: "A análise crítica ao greenwashing vincula-se ao conceito de 'abstração estratégica' através de:",
+            options: [
+                "Esforço sincero corporativo para zerar emissões até 2025.",
+                "Apropriação do discurso ambiental progressista para fins comerciais, mantendo estruturas de exploração inalteradas.",
+                "Modelo de gestão que prioriza o lucro acima de tudo como padrão global.",
+                "Técnica pedagógica para simplificar a ciência do clima na EPT.",
+                "Estratégia governamental para taxar empresas que não poluem."
+            ],
+            correct: 1,
+            explanation: "A alternativa correta é a B. A abstração estratégica ocorre quando conceitos complexos como 'sustentabilidade' são esvaziados de seu conteúdo político para servirem de fachada comercial."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-form');
+    const finishBtn = document.getElementById('finish-btn');
+    const resultSummary = document.getElementById('result-summary');
+    const scoreText = document.getElementById('score-text');
+
+    // Função para renderizar as questões
+    function renderQuiz() {
+        questions.forEach((q, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-block';
+            qDiv.id = `q-block-${index}`;
+            
+            qDiv.innerHTML = `
+                <span class="question-text">Questão ${index + 1}: ${q.text}</span>
+                <ul class="options-list">
+                    ${q.options.map((opt, optIndex) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                            <input type="radio" name="question-${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                            <label for="q${index}o${optIndex}">${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="explanation-box" id="exp-${index}">
+                    <strong>Resolução:</strong><br>
+                    ${q.explanation}
+                </div>
+            `;
+            quizContainer.appendChild(qDiv);
+        });
+    }
+
+    // Gerenciar seleção visual
+    window.selectOption = function(qIndex, oIndex) {
+        const options = document.querySelectorAll(`#q-block-${qIndex} .option-item`);
+        options.forEach(opt => opt.classList.remove('selected'));
+        options[oIndex].classList.add('selected');
+        document.getElementById(`q${qIndex}o${oIndex}`).checked = true;
+    }
+
+    // Processar resultado
+    finishBtn.addEventListener('click', () => {
+        let score = 0;
+        let answeredAll = true;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const qBlock = document.getElementById(`q-block-${index}`);
+            const expBox = document.getElementById(`exp-${index}`);
+            const optionsItems = qBlock.querySelectorAll('.option-item');
+
+            if (selected) {
+                const userAns = parseInt(selected.value);
+                
+                // Marcar correta e errada visualmente
+                optionsItems[q.correct].classList.add('correct');
+                if (userAns === q.correct) {
+                    score++;
+                } else {
+                    optionsItems[userAns].classList.add('wrong');
+                }
+            } else {
+                answeredAll = false;
+                optionsItems[q.correct].classList.add('correct');
+            }
+
+            // Mostrar a explicação sempre ao finalizar
+            expBox.style.display = 'block';
+        });
+
+        // Mostrar resumo
+        scoreText.innerText = `${score} / ${questions.length}`;
+        resultSummary.style.display = 'block';
+        finishBtn.style.display = 'none';
+
+        // Scroll para o topo dos resultados
+        resultSummary.scrollIntoView({ behavior: 'smooth' });
+
+        // Desativar inputs para evitar mudanças pós-resultado
+        document.querySelectorAll('input').forEach(i => i.disabled = true);
+        document.querySelectorAll('.option-item').forEach(i => i.style.pointerEvents = 'none');
+    });
+
+    // Iniciar
+    renderQuiz();
+
+</script>
+
+</body>
+</html>

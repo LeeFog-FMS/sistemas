@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Gestão de Riscos e Vulnerabilidade Social</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --primary-color: #2980b9;
+            --accent-color: #ecf0f1;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --border-color: #dfe6e9;
+            --max-width: 850px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            max-width: var(--max-width);
+            margin: 40px auto;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #636e72;
+            font-style: italic;
+        }
+
+        #quiz-container {
+            max-width: var(--max-width);
+            margin: 20px auto;
+        }
+
+        .question-card {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: var(--accent-color);
+            border-color: var(--primary-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1f6391;
+        }
+
+        #results-section {
+            display: none;
+            max-width: var(--max-width);
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .score-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .resolution-card {
+            margin-top: 25px;
+            padding: 20px;
+            border-left: 5px solid var(--primary-color);
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .correct-answer { color: var(--correct-color); font-weight: bold; }
+        .wrong-answer { color: var(--wrong-color); font-weight: bold; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .question-card { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Simulado: Questão Ambiental e Riscos</h1>
+        <p class="description">Foco: Estudo de desastres, vulnerabilidade social e gestão territorial (Estilo Fundatec)</p>
+    </header>
+
+    <main id="quiz-container">
+        <form id="quiz-form">
+            <!-- As questões serão inseridas aqui via JavaScript -->
+        </form>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+    </main>
+
+    <section id="results-section">
+        <div class="score-box">
+            <h2>Resultado</h2>
+            <div id="score-display" class="score-number">0 / 10</div>
+            <p id="score-message"></p>
+        </div>
+        <div id="resolutions-container">
+            <!-- As resoluções detalhadas aparecerão aqui -->
+        </div>
+    </section>
+
+    <script>
+        const quizData = [
+            {
+                q: "01. No que tange à Lei Federal nº 12.608/2012, que institui a Política Nacional de Proteção e Defesa Civil (PNPDEC), assinale a alternativa que apresenta uma competência que NÃO pertence aos municípios:",
+                options: [
+                    "A) Identificar e mapear as áreas de risco de desastres em seu território.",
+                    "B) Instituir o Plano Nacional de Proteção e Defesa Civil, definindo as diretrizes gerais de integração entre União, Estados e Municípios.",
+                    "C) Declarar situação de emergência e estado de calamidade pública.",
+                    "D) Promover a fiscalização das áreas de risco de desastre e vedar novas ocupações nessas áreas.",
+                    "E) Vistoriar edificações e áreas de risco e promover a intervenção preventiva e a evacuação de populações em perigo iminente."
+                ],
+                correct: 1,
+                resolution: "De acordo com os artigos 6º e 8º da Lei nº 12.608/2012, as competências são distribuídas entre os entes federados. Instituir o Plano Nacional de Proteção e Defesa Civil é uma competência da União (Art. 6º, II). Os municípios são responsáveis pela execução local, mapeamento, fiscalização e declaração de emergência."
+            },
+            {
+                q: "02. Considere a afirmação de que 'não existe desastre natural puro', baseando-se nos estudos de vulnerabilidade socioambiental. Sobre os fatores que transformam um evento natural em uma catástrofe urbana, analise as assertivas abaixo:\n\nI. A impermeabilização do solo e o descarte irregular de lixo são exemplos de intervenções que potencializam o fenômeno de inundação.\nII. A ocupação de encostas e várzeas é um processo puramente biológico que ocorre independentemente do planejamento territorial.\nIII. O desastre é o resultado da interação entre uma ameaça física e uma condição de vulnerabilidade pré-existente.\n\nQuais estão corretas?",
+                options: [
+                    "A) Apenas I.",
+                    "B) Apenas III.",
+                    "C) Apenas I e II.",
+                    "D) Apenas I e III.",
+                    "E) I, II e III."
+                ],
+                correct: 3,
+                resolution: "A assertiva I está correta, pois intervenções antrópicas potencializam inundações. A assertiva II está incorreta, pois a ocupação de encostas é um processo sociopolítico e territorial. A assertiva III define o conceito moderno de risco (Ameaça x Vulnerabilidade)."
+            },
+            {
+                q: "03. De acordo com o Marco de Ação de Hyogo (2005-2015) e as diretrizes de resiliência frente a ameaças naturais, a compreensão do risco exige a integração de diversos elementos. Assinale a alternativa correta sobre esse tema:",
+                options: [
+                    "A) O alerta antecipado é um aspecto acessório e secundário na redução do risco de desastres.",
+                    "B) A vulnerabilidade social está desvinculada da presença ou ausência de mecanismos de seguridade financeira nas sociedades.",
+                    "C) A compreensão do risco exige a elaboração de informações estatísticas em torno dos desastres, mapas de riscos e indicadores de vulnerabilidade.",
+                    "D) As ameaças naturais, isoladamente, explicam a totalidade da alta cifra de vítimas em desastres como terremotos ou enchentes.",
+                    "E) O desenvolvimento da resiliência exige dos países medidas que são, invariavelmente, onerosas demais para serem implementadas com sucesso."
+                ],
+                correct: 2,
+                resolution: "Segundo o Marco de Hyogo, a compreensão do risco não é apenas física, mas estatística e social, exigindo mapas e indicadores. O alerta antecipado é fundamental, e a vulnerabilidade social está intrinsecamente ligada à seguridade financeira."
+            },
+            {
+                q: "04. Na gestão ambiental, a correta distinção entre conceitos fundamentais é essencial para o licenciamento de atividades. Sobre a diferença entre 'aspecto ambiental' e 'impacto ambiental', assinale a alternativa correta:",
+                options: [
+                    "A) Aspecto ambiental é a alteração no meio ambiente, e impacto ambiental é o elemento da atividade que causa essa alteração.",
+                    "B) Aspecto ambiental é sempre negativo, enquanto o impacto ambiental pode ser positivo ou negativo.",
+                    "C) Aspecto ambiental é o elemento da atividade, produto ou serviço que pode interagir com o meio ambiente; impacto ambiental é qualquer modificação no meio ambiente resultante desse aspecto.",
+                    "D) Aspecto ambiental é a consequência última do impacto ambiental após a recuperação da área.",
+                    "E) Não há diferença conceitual significativa entre aspecto e impacto ambiental para fins de licenciamento municipal."
+                ],
+                correct: 2,
+                resolution: "Esta distinção é clássica na gestão ambiental: o aspecto é a causa potencial (ex: emissão de gases) e o impacto é a consequência efetiva (ex: poluição do ar/alteração do meio)."
+            },
+            {
+                q: "05. Sobre a atuação dos profissionais de saúde e assistência social em situações de desastres que provocam rupturas no acesso a água, moradia e alimentação, agravando a vulnerabilidade social, é correto afirmar que as ações devem ser guiadas pelo princípio da:",
+                options: [
+                    "A) Seletividade socioeconômica.",
+                    "B) Integralidade da assistência.",
+                    "C) Centralização administrativa.",
+                    "D) Fragmentação intersetorial.",
+                    "E) Exclusividade hospitalar."
+                ],
+                correct: 1,
+                resolution: "Em desastres, a assistência deve seguir o princípio da integralidade, abordando todas as necessidades da vítima e agindo de forma intersetorial (prevenção, resposta e reabilitação)."
+            },
+            {
+                q: "06. A respeito das enchentes que atingiram o Rio Grande do Sul em maio de 2024, analise as assertivas abaixo e assinale V, se verdadeiras, ou F, se falsas:\n\n( ) A cidade de Canoas registrou a evacuação de diversos bairros por determinação da prefeitura devido à elevação das águas.\n( ) Porto Alegre, Roca Sales e Eldorado do Sul figuram entre as cidades mais atingidas pelo evento hidrológico.\n( ) O Aeroporto Salgado Filho foi fechado no início de maio devido à elevação das águas do Guaíba, que superou marcos históricos.",
+                options: [
+                    "A) V – V – V.",
+                    "B) V – V – F.",
+                    "C) V – F – F.",
+                    "D) F – F – F.",
+                    "E) F – V – V."
+                ],
+                correct: 0,
+                resolution: "Todas as assertivas são verdadeiras com base nos registros históricos do evento de maio de 2024: Canoas teve evacuações massivas, as cidades citadas foram epicentros do desastre e o aeroporto foi inundado pela cheia do Guaíba."
+            },
+            {
+                q: "07. A Lei Federal nº 12.608/2012 alterou o Estatuto da Cidade para integrar a gestão de riscos ao planejamento urbano. Sobre essa integração, assinale a alternativa INCORRETA:",
+                options: [
+                    "A) Cabe ao Município instituir e manter sistema de informações e monitoramento de desastres.",
+                    "B) É permitida a concessão de licença para construir em áreas de risco identificadas no Plano Diretor, independentemente de obras de mitigação, desde que o proprietário assine um termo de responsabilidade.",
+                    "C) Municípios com áreas suscetíveis a deslizamentos de grande impacto ou inundações bruscas devem elaborar mapeamento de risco e Plano de Contingência.",
+                    "D) O descumprimento do dever de fiscalização das áreas de risco pelo prefeito pode gerar responsabilidade por improbidade administrativa.",
+                    "E) A Defesa Civil deve estar integrada às políticas de ordenamento territorial, saúde, meio ambiente e mudanças climáticas."
+                ],
+                correct: 1,
+                resolution: "A alternativa B está incorreta porque a legislação proíbe a concessão de licença para construir em áreas de risco identificadas sem que sejam executadas obras de mitigação que garantam a segurança técnica (Art. 42-A do Estatuto da Cidade)."
+            },
+            {
+                q: "08. A vulnerabilidade social manifestada em municípios de pequeno porte e base rural, como o caso de Arroio do Padre (RS), possui características específicas. Segundo estudos sobre o tema, qual fator atua como agravante da vulnerabilidade local nessas ocasiões?",
+                options: [
+                    "A) A agricultura ser a principal fonte de renda, tornando a economia dependente de condições ambientais estáveis.",
+                    "B) A baixa densidade populacional, que impede qualquer tipo de ação de socorro pela Defesa Civil.",
+                    "C) O excesso de materiais acadêmicos e técnicos abordando a região, o que confunde os gestores públicos.",
+                    "D) A ausência total de registros de eventos extremos na localidade nas últimas décadas.",
+                    "E) O fato de a zona rural ser imune aos danos causados por eventos climáticos extremos."
+                ],
+                correct: 0,
+                resolution: "Em municípios rurais pequenos, o fato de a economia depender da agricultura agrava a vulnerabilidade social, pois desastres destroem simultaneamente a moradia e a fonte de subsistência das famílias."
+            },
+            {
+                q: "09. Sobre os processos erosivos que causam deslizamentos em encostas urbanas, como observado historicamente em cidades brasileiras, analise as afirmações abaixo:\n\nI. A ocupação de encostas de morros e várzeas de rios não afeta a erosão causada pelas chuvas.\nII. No Brasil, a ocupação desordenada dessas áreas desencadeia catástrofes durante o período de chuvas intensas.\nIII. O mapeamento de riscos e a proibição de novas ocupações são competências municipais essenciais para mitigar esses processos.\n\nQuais estão corretas?",
+                options: [
+                    "A) Apenas I.",
+                    "B) Apenas III.",
+                    "C) Apenas I e II.",
+                    "D) Apenas II e III.",
+                    "E) I, II e III."
+                ],
+                correct: 3,
+                resolution: "A afirmação I é falsa pois a ocupação humana acelera a erosão (retirada de vegetação, alteração de drenagem). As afirmações II e III estão corretas, refletindo a realidade urbana brasileira e o dever legal dos municípios."
+            },
+            {
+                q: "10. No âmbito da Política Nacional do Meio Ambiente, o Relatório de Impacto Ambiental (RIMA) possui um papel estratégico no processo de licenciamento de atividades com potencial degradador. Qual é o seu objetivo primordial?",
+                options: [
+                    "A) Substituir a necessidade do Estudo de Impacto Ambiental (EIA) para simplificar o processo administrativo.",
+                    "B) Garantir que os dados técnicos sejam mantidos em sigilo absoluto para evitar pânico na população.",
+                    "C) Apresentar de forma acessível à sociedade e aos tomadores de decisão os riscos e benefícios ambientais do projeto, permitindo a participação pública.",
+                    "D) Isentar o empreendedor de quaisquer responsabilidades civis ou penais decorrentes de acidentes futuros.",
+                    "E) Definir as multas que serão aplicadas caso o empreendimento cause algum dano ambiental irreversível."
+                ],
+                correct: 2,
+                resolution: "O RIMA é o documento de comunicação pública. Seu objetivo é traduzir o conteúdo técnico do EIA para uma linguagem acessível, garantindo transparência e permitindo o controle social no licenciamento."
+            }
+        ];
+
+        function initQuiz() {
+            const form = document.getElementById('quiz-form');
+            quizData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                
+                const qText = document.createElement('span');
+                qText.className = 'question-text';
+                qText.innerText = item.q;
+                card.appendChild(qText);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options-container';
+
+                item.options.forEach((opt, optIndex) => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${index}`;
+                    radio.value = optIndex;
+                    
+                    label.appendChild(radio);
+                    label.append(opt);
+                    optionsDiv.appendChild(label);
+                });
+
+                card.appendChild(optionsDiv);
+                form.appendChild(card);
+            });
+        }
+
+        function gradeQuiz() {
+            let score = 0;
+            const resContainer = document.getElementById('resolutions-container');
+            resContainer.innerHTML = '';
+            
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const userChoice = selected ? parseInt(selected.value) : null;
+                const isCorrect = userChoice === item.correct;
+                
+                if (isCorrect) score++;
+
+                const resCard = document.createElement('div');
+                resCard.className = 'resolution-card';
+                
+                const statusHtml = isCorrect 
+                    ? `<span class="correct-answer">✓ Você acertou!</span>` 
+                    : `<span class="wrong-answer">✗ Você errou.</span>`;
+
+                resCard.innerHTML = `
+                    <span class="resolution-title">Questão ${index + 1} - Resolução</span>
+                    <p>${statusHtml}</p>
+                    <p style="margin-top:10px"><strong>Gabarito:</strong> ${item.options[item.correct]}</p>
+                    <p style="margin-top:10px; color: #444;">${item.resolution}</p>
+                `;
+                resContainer.appendChild(resCard);
+            });
+
+            // Exibir resultados
+            document.getElementById('results-section').style.display = 'block';
+            document.getElementById('score-display').innerText = `${score} / 10`;
+            
+            const msg = score >= 7 ? "Excelente desempenho! Você domina bem os conceitos da Fundatec." : "Bom esforço! Revise as resoluções abaixo para fortalecer seus conhecimentos.";
+            document.getElementById('score-message').innerText = msg;
+
+            // Rolar para os resultados
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
