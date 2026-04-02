@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Urbanização Mundial e Brasileira</title>
+    <style>
+        :root {
+            --bg-color: #f9f9f9;
+            --container-bg: #ffffff;
+            --text-color: #2d3436;
+            --primary-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --resolution-bg: #f1f2f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        header {
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: #1e272e;
+        }
+
+        .topic-info {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-top: 10px;
+        }
+
+        .question {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-header {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option:hover {
+            background-color: #f0f7ff;
+            border-color: var(--primary-color);
+        }
+
+        .option input {
+            margin-right: 15px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary-color);
+        }
+
+        /* Feedback Styles */
+        .correct-answer {
+            background-color: #e8f5e9 !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .wrong-answer {
+            background-color: #ffebee !important;
+            border-color: var(--error-color) !important;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--resolution-bg);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        #result-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed var(--primary-color);
+        }
+
+        #result-summary h2 {
+            margin-top: 0;
+        }
+
+        .score-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        table.info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        table.info-table th, table.info-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table.info-table th {
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Quiz: Urbanização Mundial e Brasileira</h1>
+        <p class="topic-info">Processo de Urbanização: Da Revolução Industrial à Era Informacional sob a Ótica da Urbanização Corporativa e da Macrocefalia.</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- QUESTÃO 01 -->
+        <div class="question" id="q1-block">
+            <span class="question-header">QUESTÃO 01</span>
+            <p>O fenômeno da urbanização mundial encontra sua gênese moderna nas transformações técnicas e sociais advindas da Revolução Industrial iniciada na Inglaterra no século XVIII. Sobre a evolução das cidades desde a Primeira Revolução Industrial até a consolidação do modelo industrial clássico, analise as seguintes assertivas:</p>
+            <p>I. A introdução da máquina a vapor e a subsequente mecanização da produção têxtil permitiram a desvinculação das unidades produtivas em relação às fontes de energia hidráulica, promovendo uma concentração demográfica sem precedentes em sítios urbanos dotados de infraestrutura ferroviária e carbonífera.<br>
+            II. A cidade industrial do século XIX, nos países pioneiros, caracterizou-se por um planejamento urbano antecipado que visava mitigar os impactos da densidade populacional, garantindo que o crescimento das vilas operárias ocorresse em harmonia com as condições sanitárias ideais.<br>
+            III. O êxodo rural ocorrido nesse período foi impulsionado pelo processo de cercamentos (enclosures) no campo inglês, que transformou a terra em mercadoria e o camponês em força de trabalho disponível para as manufaturas urbanas.</p>
+            <p>Quais estão corretas?</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q1" value="B"> B) Apenas II.</label>
+                <label class="option"><input type="radio" name="q1" value="C"> C) Apenas I e III.</label>
+                <label class="option"><input type="radio" name="q1" value="D"> D) Apenas II e III.</label>
+                <label class="option"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <strong>Resolução:</strong> A assertiva I está correta (papel da máquina a vapor). A II está incorreta porque a urbanização do século XIX foi caótica e sem planejamento, gerando insalubridade extrema. A III está correta, pois os cercamentos expulsaram camponeses para as cidades.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 02 -->
+        <div class="question" id="q2-block">
+            <span class="question-header">QUESTÃO 02</span>
+            <p>No contexto brasileiro, a transição de uma sociedade agrário-exportadora para uma sociedade urbano-industrial ocorreu de forma tardia e acelerada, concentrando-se fundamentalmente no século XX. Sobre os marcos temporais e as características desse processo, assinale a alternativa correta:</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q2" value="A"> A) A inversão do perfil demográfico brasileiro, na qual a população urbana superou a rural, ocorreu na década de 1940.</label>
+                <label class="option"><input type="radio" name="q2" value="B"> B) O processo de urbanização no Brasil foi dissociado da industrialização, uma vez que a expansão das cidades ocorreu prioritariamente pela ocupação de áreas rurais.</label>
+                <label class="option"><input type="radio" name="q2" value="C"> C) A Era Vargas e o Plano de Metas de Juscelino Kubitschek foram fundamentais para consolidar a urbanização brasileira, utilizando a industrialização por substituição de importações como motor.</label>
+                <label class="option"><input type="radio" name="q2" value="D"> D) De acordo com os dados preliminares do Censo 2022, o Brasil apresenta atualmente um equilíbrio demográfico perfeito (50/50).</label>
+                <label class="option"><input type="radio" name="q2" value="E"> E) A urbanização brasileira seguiu rigorosamente o modelo de "urbanização por adesão" com oferta plena de serviços antes do crescimento.</label>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <strong>Resolução:</strong> Alternativa C. Vargas (indústria de base) e JK (automobilística/rodoviarismo) consolidaram a base urbano-industrial do país. A inversão demográfica real só ocorreu no final da década de 60.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 03 -->
+        <div class="question" id="q3-block">
+            <span class="question-header">QUESTÃO 03</span>
+            <p>A obra de Milton Santos propõe uma leitura crítica sobre a produção do espaço urbano em países subdesenvolvidos, cunhando o conceito de "urbanização corporativa". De acordo com essa perspectiva teórica, esse fenômeno é caracterizado por:</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q3" value="A"> A) Uma gestão urbana democrática que prioriza o valor de uso da cidade.</label>
+                <label class="option"><input type="radio" name="q3" value="B"> B) Um processo empreendido sob o comando dos interesses das grandes firmas, no qual o espaço urbano é moldado para atender à lógica da acumulação privada.</label>
+                <label class="option"><input type="radio" name="q3" value="C"> C) A eliminação das desigualdades socioespaciais através da aplicação uniforme de tecnologias de informação.</label>
+                <label class="option"><input type="radio" name="q3" value="D"> D) Uma forma de ocupação do solo que impede a gentrificação.</label>
+                <label class="option"><input type="radio" name="q3" value="E"> E) Um modelo de planejamento que prioriza os gastos sociais em detrimento dos investimentos econômicos.</label>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <strong>Resolução:</strong> Alternativa B. A urbanização corporativa é aquela onde o Estado cria "próteses técnicas" (infraestrutura) para servir aos fluxos do capital global, deixando a população em segundo plano.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 04 -->
+        <div class="question" id="q4-block">
+            <span class="question-header">QUESTÃO 04</span>
+            <p>A rápida transferência populacional para as cidades em países de capitalismo periférico, sem o correspondente dinamismo do setor secundário, gera o fenômeno da macrocefalia urbana. Analise as assertivas abaixo sobre as causas e consequências desse processo:</p>
+            <p>I. A macrocefalia urbana manifesta-se através de uma hipertrofia do setor terciário, onde uma massa populacional excluída busca sobrevivência em atividades informais.<br>
+            II. O crescimento desordenado e a falta de investimentos públicos resultam em graves problemas como déficits habitacionais e saneamento precário.<br>
+            III. A macrocefalia urbana é um reflexo direto da modernização conservadora do campo, que expulsa mão de obra sem que a cidade esteja preparada para absorvê-la.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q4" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q4" value="B"> B) Apenas II.</label>
+                <label class="option"><input type="radio" name="q4" value="C"> C) Apenas I e III.</label>
+                <label class="option"><input type="radio" name="q4" value="D"> D) Apenas II e III.</label>
+                <label class="option"><input type="radio" name="q4" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <strong>Resolução:</strong> Todas corretas. A macrocefalia é o "inchaço" desproporcional decorrente de um êxodo rural acelerado e uma industrialização que não absorve toda a mão de obra, gerando informalidade e favelização.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 05 -->
+        <div class="question" id="q5-block">
+            <span class="question-header">QUESTÃO 05</span>
+            <p>Na transição para a era informacional, o espaço geográfico é reorganizado sob o Meio Técnico-Científico-Informacional (MTCI). Segundo Milton Santos e Maria Laura Silveira, é correto afirmar que:</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q5" value="A"> A) O MTCI promoveu a descentralização total do poder econômico.</label>
+                <label class="option"><input type="radio" name="q5" value="B"> B) A era informacional é marcada pela "unicidade técnica", na qual a informação e a ciência tornam-se as variáveis-chave, acentuando a hierarquia entre cidades.</label>
+                <label class="option"><input type="radio" name="q5" value="C"> C) O principal critério definidor da regionalização dos "Quatro Brasis" é o trinômio relevo-clima-vegetação.</label>
+                <label class="option"><input type="radio" name="q5" value="D"> D) No MTCI, a cidade perde sua função de nó logístico devido à virtualização.</label>
+                <label class="option"><input type="radio" name="q5" value="E"> E) A urbanização na era informacional caracteriza-se pela redução da seletividade espacial.</label>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <strong>Resolução:</strong> Alternativa B. O MTCI aprofunda a seletividade espacial. As cidades com maior densidade técnica/informacional (pontos luminosos) comandam os fluxos globais.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 06 -->
+        <div class="question" id="q6-block">
+            <span class="question-header">QUESTÃO 06</span>
+            <p>Sobre o fenômeno da gentrificação e a atuação do Estado nas metrópoles brasileiras, assinale a alternativa que descreve corretamente essa dinâmica:</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q6" value="A"> A) A gentrificação visa a permanência das populações de baixa renda em seus locais de origem.</label>
+                <label class="option"><input type="radio" name="q6" value="B"> B) O Estado frequentemente utiliza a remoção de moradores de áreas valorizadas para permitir a exploração imobiliária de alta renda, elevando a renda fundiária.</label>
+                <label class="option"><input type="radio" name="q6" value="C"> C) As favelas são consolidadas como zonas de preservação ambiental intocáveis.</label>
+                <label class="option"><input type="radio" name="q6" value="D"> D) A gentrificação reduz a necessidade de políticas públicas de habitação.</label>
+                <label class="option"><input type="radio" name="q6" value="E"> E) O aumento da renda da terra financia exclusivamente infraestrutura nas periferias.</label>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <strong>Resolução:</strong> Alternativa B. A gentrificação é a "elitização" de espaços urbanos, expulsando as classes populares para as periferias para dar lugar a empreendimentos lucrativos.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 07 -->
+        <div class="question" id="q7-block">
+            <span class="question-header">QUESTÃO 07</span>
+            <p>A relação entre o campo e a cidade no Brasil foi alterada pela modernização da agricultura. Sobre o impacto dessas mudanças, é correto afirmar que:</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q7" value="A"> A) O Estatuto da Terra logrou realizar uma reforma agrária distributiva.</label>
+                <label class="option"><input type="radio" name="q7" value="B"> B) A modernização agrícola baseada no crédito subsidiado e na mecanização favoreceu a grande propriedade, atuando como um poderoso fator de expulsão rural.</label>
+                <label class="option"><input type="radio" name="q7" value="C"> C) O êxodo rural brasileiro foi planejado para esvaziar os campos e permitir a recuperação florestal.</label>
+                <label class="option"><input type="radio" name="q7" value="D"> D) A mecanização da lavoura de subsistência impediu o fluxo migratório para o Sudeste.</label>
+                <label class="option"><input type="radio" name="q7" value="E"> E) A urbanização brasileira ocorreu de forma independente das transformações no campo.</label>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <strong>Resolução:</strong> Alternativa B. A "Modernização Conservadora" do campo mecanizou a produção sem mexer na estrutura fundiária, forçando a migração em massa para as cidades (êxodo rural).
+            </div>
+        </div>
+
+        <!-- QUESTÃO 08 -->
+        <div class="question" id="q8-block">
+            <span class="question-header">QUESTÃO 08</span>
+            <p>De acordo com o IBGE (REGIC 2018/2020), a classificação que coloca os centros urbanos em ordem decrescente de poder de comando e oferta de serviços complexos é:</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q8" value="A"> A) Metrópole Nacional – Capital Regional – Centro Sub-regional – Centro de Zona – Centro Local.</label>
+                <label class="option"><input type="radio" name="q8" value="B"> B) Centro Local – Centro de Zona – Capital Regional – Metrópole – Megacidade.</label>
+                <label class="option"><input type="radio" name="q8" value="C"> C) Grande Metrópole Nacional – Cidade Global – Vila – Distrito Industrial.</label>
+                <label class="option"><input type="radio" name="q8" value="D"> D) Capital Federal – Capital Estadual – Município Sede – Vila Rural.</label>
+                <label class="option"><input type="radio" name="q8" value="E"> E) Metrópole – Centro Urbano – Polo Agrícola – Aldeia.</label>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <strong>Resolução:</strong> Alternativa A. Segue a hierarquia oficial do IBGE baseada na influência territorial e complexidade de serviços.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 09 -->
+        <div class="question" id="q9-block">
+            <span class="question-header">QUESTÃO 09</span>
+            <p>Sobre os impactos da urbanização em microbacias hidrográficas urbanas e a gestão de riscos, analise as assertivas:</p>
+            <p>I. A impermeabilização do solo aumenta o tempo de concentração das águas pluviais e reduz as inundações graduais.<br>
+            II. O processo de urbanização acelerada frequentemente negligencia as funções ecológicas, transformando rios em canais de esgoto.<br>
+            III. A prevenção de desastres exige resiliência das cidades frente às mudanças climáticas.</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q9" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q9" value="B"> B) Apenas II.</label>
+                <label class="option"><input type="radio" name="q9" value="C"> C) Apenas III.</label>
+                <label class="option"><input type="radio" name="q9" value="D"> D) Apenas II e III.</label>
+                <label class="option"><input type="radio" name="q9" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <strong>Resolução:</strong> Alternativa D. A assertiva I está errada: a impermeabilização *reduz* o tempo de concentração (a água chega mais rápido ao rio), agravando as enchentes.
+            </div>
+        </div>
+
+        <!-- QUESTÃO 10 -->
+        <div class="question" id="q10-block">
+            <span class="question-header">QUESTÃO 10</span>
+            <p>De acordo com Lencioni (2008), a metrópole contemporânea diferencia-se da metrópole moderna por sua organização. Preencha as lacunas:</p>
+            <p>"A metrópole moderna é caracterizada quanto à rede como __________, e a metrópole contemporânea como __________. Quanto à aglomeração, a metrópole moderna é classificada como __________, e a metrópole contemporânea como __________."</p>
+            <div class="options">
+                <label class="option"><input type="radio" name="q10" value="A"> A) hierárquica – anastomosada – concentrada – dispersa.</label>
+                <label class="option"><input type="radio" name="q10" value="B"> B) anastomosada – hierárquica – dispersa – definida.</label>
+                <label class="option"><input type="radio" name="q10" value="C"> C) policêntrica – centralizada – definida – fragmentada.</label>
+                <label class="option"><input type="radio" name="q10" value="D"> D) fragmentada – integrada – contínua – descontínua.</label>
+                <label class="option"><input type="radio" name="q10" value="E"> E) centralizada – policêntrica – urbana – rural.</label>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <strong>Resolução:</strong> Alternativa A. A metrópole moderna era compacta e centralizada; a contemporânea é em rede (anastomosada) e espalhada pelo território (dispersa).
+            </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="finishQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </form>
+
+    <div id="result-summary">
+        <h2>Resultado Final</h2>
+        <p id="score-display" class="score-text"></p>
+        <p>Confira as resoluções detalhadas abaixo de cada questão.</p>
+        <button type="button" class="btn-submit" style="background-color: #636e72; max-width: 200px; margin: 20px auto;" onclick="window.location.reload()">Refazer Quiz</button>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'C',
+        q2: 'C',
+        q3: 'B',
+        q4: 'E',
+        q5: 'B',
+        q6: 'B',
+        q7: 'B',
+        q8: 'A',
+        q9: 'D',
+        q10: 'A'
+    };
+
+    function finishQuiz() {
+        let score = 0;
+        let total = Object.keys(answers).length;
+        const form = document.getElementById('quiz-form');
+        
+        // Loop through each question to check answers
+        for (let i = 1; i <= total; i++) {
+            const questionName = 'q' + i;
+            const selected = form.querySelector(`input[name="${questionName}"]:checked`);
+            const options = form.querySelectorAll(`input[name="${questionName}"]`);
+            const resolution = document.getElementById(`res-q${i}`);
+            
+            // Show resolution
+            resolution.style.display = 'block';
+
+            options.forEach(opt => {
+                const parent = opt.parentElement;
+                // Highlight correct answer
+                if (opt.value === answers[questionName]) {
+                    parent.classList.add('correct-answer');
+                }
+                // Highlight wrong selection
+                if (selected && selected.value === opt.value && opt.value !== answers[questionName]) {
+                    parent.classList.add('wrong-answer');
+                }
+            });
+
+            if (selected && selected.value === answers[questionName]) {
+                score++;
+            }
+        }
+
+        // Show Score Summary
+        const resultSummary = document.getElementById('result-summary');
+        const scoreDisplay = document.getElementById('score-display');
+        resultSummary.style.display = 'block';
+        scoreDisplay.textContent = `Você acertou ${score} de ${total} questões! (${(score/total*100).toFixed(0)}%)`;
+
+        // Scroll to results
+        resultSummary.scrollIntoView({ behavior: 'smooth' });
+        
+        // Disable inputs
+        const allInputs = form.querySelectorAll('input');
+        allInputs.forEach(input => input.disabled = true);
+        
+        // Hide submit button
+        form.querySelector('.btn-submit').style.display = 'none';
+    }
+
+    // Add visual selection class
+    document.querySelectorAll('.option').forEach(label => {
+        label.addEventListener('click', function() {
+            const radio = this.querySelector('input');
+            if (radio.disabled) return;
+            
+            const name = radio.name;
+            document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                r.parentElement.classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+    });
+</script>
+
+</body>
+</html>

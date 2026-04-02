@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Dinâmica Populacional e Mobilidade no Brasil</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --container-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-secondary: #4a5568;
+            --accent-color: #3182ce;
+            --correct-color: #38a169;
+            --incorrect-color: #e53e3e;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .question-card {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-card:last-of-type {
+            border-bottom: none;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .question-text {
+            white-space: pre-line;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            background-color: #f7fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .option-item.selected {
+            background-color: #ebf8ff;
+            border-color: var(--accent-color);
+        }
+
+        /* Classes para o resultado */
+        .option-item.correct {
+            background-color: #f0fff4 !important;
+            border-color: var(--correct-color) !important;
+            color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-item.wrong {
+            background-color: #fff5f5 !important;
+            border-color: var(--incorrect-color) !important;
+            color: var(--incorrect-color);
+        }
+
+        .resolution-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            display: none;
+            font-size: 0.95rem;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        #submit-btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background-color: #edf2f7;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .footer-info {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Fundatec</h1>
+        <p class="description">Dinâmica Populacional e Mobilidade no Brasil</p>
+    </header>
+
+    <div id="quiz-content">
+        <!-- Perguntas serão inseridas aqui via JS -->
+    </div>
+
+    <div id="results-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-display" id="score-text">0 / 10</div>
+        <p id="feedback-text"></p>
+        <button onclick="window.location.reload()" style="margin-top:15px; padding:10px 20px; cursor:pointer; border-radius:5px; border:1px solid #cbd5e0;">Refazer Simulado</button>
+    </div>
+
+    <button id="submit-btn" onclick="gradeQuiz()">Finalizar e Ver Resoluções</button>
+
+    <div class="footer-info">
+        Material preparado com base em dados do Censo 2022 e OBMigra. Estilo Banca Fundatec.
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "No que concerne às transformações recentes da dinâmica migratória interna no Brasil, observadas a partir dos dados consolidados do Censo Demográfico de 2022 e de análises conjunturais do Instituto de Pesquisa Econômica Aplicada (IPEA), analise as assertivas abaixo:\n\nI. O padrão migratório tradicional, hegemônico entre as décadas de 1950 e 1980 e marcado pelo êxodo rural massivo em direção às metrópoles do Sudeste, sofreu uma retração significativa, sendo substituído por fluxos de desconcentração espacial.\nII. O fortalecimento de novos polos regionais, especialmente em cidades médias do interior, tem alterado a atratividade das capitais litorâneas, consolidando o que a geografia demográfica denomina \"migração por etapas\" invertida.\nIII. Os estados do Nordeste, em sua totalidade, mantiveram a tendência histórica de perda populacional absoluta entre 2017 e 2022, não registrando nenhum caso de saldo migratório positivo devido à estagnação das economias regionais.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "A assertiva I está correta: o padrão migratório tradicional de êxodo rural massivo para o Sudeste foi substituído por desconcentração espacial. A II está correta: cidades médias agora atraem mais que as capitais tradicionais. A III está incorreta: o Nordeste não é homogêneo na perda de população; a Paraíba, por exemplo, registrou saldo migratório positivo no período."
+        },
+        {
+            id: 2,
+            text: "A mobilidade espacial da população brasileira é um reflexo direto da reestruturação produtiva e da organização do território nacional. Sobre o saldo migratório e as taxas líquidas de migração por Unidade da Federação no período de 2017 a 2022, assinale a alternativa correta:",
+            options: [
+                "O estado de São Paulo manteve sua hegemonia histórica como o maior receptor de migrantes, registrando o saldo migratório positivo mais expressivo do país, superior a 500 mil pessoas.",
+                "Santa Catarina consolidou-se como o principal destino migratório recente, apresentando a maior taxa líquida de migração do Brasil, com um ganho populacional superior a 350 mil indivíduos.",
+                "O Rio de Janeiro, apesar dos desafios socioeconômicos, logrou manter um saldo migratório positivo, atraindo principalmente migrantes qualificados do setor de petróleo e gás.",
+                "O Distrito Federal registrou o maior saldo migratório positivo da região Centro-Oeste, servindo de anteparo para os fluxos que se dirigiam anteriormente para o Norte.",
+                "Minas Gerais e Bahia foram os estados que, historicamente, menos perderam naturais para outras regiões, mantendo mais de 95% de sua população original dentro de seus limites territoriais."
+            ],
+            correct: 1,
+            resolution: "Santa Catarina foi o estado com a maior taxa líquida de migração (4,66%) e o maior ganho absoluto (354.350 pessoas). São Paulo e Rio de Janeiro apresentaram saldos negativos, enquanto Goiás liderou no Centro-Oeste, não o DF."
+        },
+        {
+            id: 3,
+            text: "A migração pendular e o processo de metropolização representam facetas cruciais da mobilidade populacional no Brasil contemporâneo. Em relação a esses fenômenos, analise as assertivas abaixo e assinale V, se verdadeiras, ou F, se falsas.\n\n( ) A migração pendular caracteriza-se pelo deslocamento diário de indivíduos entre municípios distintos para fins de trabalho ou estudo, sendo uma evidência da integração dos mercados de trabalho metropolitanos.\n( ) De acordo com dados de 2022, a imensa maioria da população ocupada no Brasil (mais de 50%) realiza deslocamentos pendulares intermunicipais de três ou mais dias por semana.\n( ) O rendimento domiciliar per capita exerce influência na intensidade da pendularidade, sendo que as classes de maior rendimento apresentam maiores proporções de deslocamento para outros municípios.\n( ) A pendularidade é um movimento migratório de longa duração que implica a mudança definitiva de residência do migrante para o polo de atração econômica.",
+            options: [
+                "V – F – V – F.",
+                "V – V – F – V.",
+                "F – V – F – V.",
+                "V – V – V – F.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: "A primeira é V (definição de pendularidade). A segunda é F (apenas 10,7% fazem pendularidade intermunicipal). A terceira é V (rendas maiores tendem a se deslocar mais). A quarta é F (pendularidade é diária, não definitiva)."
+        },
+        {
+            id: 4,
+            text: "O processo de êxodo rural no Brasil passou por transformações profundas entre o final do século XX e o início do século XXI. Sobre a transição entre o modelo clássico de urbanização e as novas dinâmicas do campo, é correto afirmar que:",
+            options: [
+                "O bônus demográfico atingiu seu ápice nas áreas rurais em 2024, revertendo definitivamente a tendência de crescimento urbano observada desde a década de 1940.",
+                "A mecanização agrícola intensiva e a concentração fundiária, embora tenham sido motores do êxodo rural histórico, hoje sustentam frentes de expansão que atraem mão de obra altamente qualificada para o Centro-Oeste.",
+                "O isolamento geográfico absoluto de territórios quilombolas e comunidades tradicionais resultou em taxas de mortalidade infantil nulas nesses locais durante a última década.",
+                "O fenômeno do \"Inchaço Populacional\" (Boomtown effect) ocorre exclusivamente em áreas rurais de reforma agrária, sem relação com grandes projetos de infraestrutura ou mineração.",
+                "O êxodo rural foi totalmente estancado no Brasil a partir de 2010, devido às políticas de transferência de renda que fixaram o homem no campo de forma permanente."
+            ],
+            correct: 1,
+            resolution: "A alternativa B está correta. A agroindústria moderna e as novas fronteiras agrícolas demandam pessoal qualificado no campo, criando um fluxo de atração para o interior, diferente da expulsão braçal do passado."
+        },
+        {
+            id: 5,
+            text: "A migração de retorno tem se manifestado como um vetor de reconfiguração demográfica, especialmente em direção à região Nordeste. Sobre as características desse fluxo e os dados recentes do IBGE, analise as assertivas abaixo:\n\nI. A migração de retorno é impulsionada, em parte, pelo amadurecimento dos polos industriais e de serviços regionais, além de laços afetivos e familiares.\nII. O estado da Paraíba exemplifica essa tendência, registrando seu primeiro saldo migratório positivo em décadas, com influxos significativos provenientes de São Paulo e Rio de Janeiro.\nIII. Estatisticamente, a migração de retorno é um fenômeno juvenil, composto majoritariamente por indivíduos entre 15 e 24 anos que não conseguiram inserção no mercado de trabalho do Sudeste.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "I e II estão corretas. A migração de retorno é ligada ao desenvolvimento regional e laços familiares. A Paraíba é o maior exemplo recente de saldo positivo. A III está incorreta porque o retorno costuma envolver adultos mais maduros ou pessoas em fase de aposentadoria, não sendo um fenômeno estritamente juvenil."
+        },
+        {
+            id: 6,
+            text: "O perfil da imigração internacional para o Brasil sofreu alterações drásticas nas últimas décadas. Com base nos resultados do Censo 2022, assinale a alternativa que descreve corretamente a tendência recente:",
+            options: [
+                "O Brasil continua apresentando uma redução contínua no estoque de estrangeiros residentes, mantendo a tendência de queda iniciada em 1960.",
+                "Os fluxos oriundos do \"Norte Global\" (Europa e América do Norte) cresceram 70% em termos absolutos entre 2010 e 2022, tornando-se a principal fonte de mão de obra imigrante.",
+                "A Venezuela consolidou-se como a principal origem de imigrantes recentes, com o fluxo de nacionais desse país saltando de 2 mil para cerca de 199 mil indivíduos no intervalo entre os dois últimos censos.",
+                "O perfil do imigrante vindo de Portugal e do Japão em 2022 é composto majoritariamente por estrangeiros natos, diferentemente do perfil dos anos 2010.",
+                "A imigração de haitianos e bolivianos foi completamente substituída pelo fluxo de refugiados ucranianos e afegãos a partir de 2020."
+            ],
+            correct: 2,
+            resolution: "A Venezuela é o destaque absoluto, saltando de um número ínfimo para quase 200 mil pessoas no Censo 2022. Pela primeira vez em décadas, o estoque total de estrangeiros voltou a crescer no Brasil."
+        },
+        {
+            id: 7,
+            text: "No que tange à inserção de imigrantes e refugiados no mercado de trabalho brasileiro contemporâneo, a análise de dados do Observatório das Migrações (OBMigra) e do Ministério da Justiça permite afirmar que:",
+            options: [
+                "O setor de serviços é o maior empregador formal de migrantes, sendo responsável por mais de 90% das admissões registradas no primeiro semestre de 2024.",
+                "A Região Sul do Brasil, liderada por Santa Catarina e Paraná, destaca-se pela maior oferta de empregos formais para a população migrante, especialmente no setor industrial.",
+                "O saldo de contratações de trabalhadores migrantes aponta para uma paridade absoluta entre gêneros, com homens e mulheres ocupando exatamente o mesmo número de postos de trabalho.",
+                "O Brasil restringe a concessão de autorização de residência para trabalho a migrantes que tenham concluído pós-graduação no território nacional, visando proteger a mão de obra local.",
+                "A maioria dos venezuelanos inseridos formalmente no mercado de trabalho brasileiro possui rendimentos médios superiores a cinco salários mínimos."
+            ],
+            correct: 1,
+            resolution: "O Sul do Brasil é o maior gerador de empregos para migrantes, com foco forte na indústria (frigoríficos, por exemplo). Não há paridade de gênero (homens são contratados em maior número) e a remuneração média costuma ser baixa."
+        },
+        {
+            id: 8,
+            text: "Sobre o papel dos refugiados e solicitantes de refúgio na dinâmica demográfica e laboral do Brasil, considere as seguintes informações:\n\nI. O número de processos de naturalização recebidos pelo Departamento de Migrações aumentou significativamente em 2024, refletindo o desejo de integração permanente dessa população.\nII. O cruzamento de bases de dados como o CAGED e a RAIS permite ao governo monitorar a inserção laboral e os padrões de remuneração de solicitantes de refúgio.\nIII. A condição de refugiado no Brasil impede, por lei, que o indivíduo exerça atividades remuneradas por um período de carência de dois anos após o pedido de asilo.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 2,
+            resolution: "I e II estão corretas. A III é falsa: o Brasil permite trabalho formal imediato mediante o protocolo de solicitação de refúgio, sem carência."
+        },
+        {
+            id: 9,
+            text: "A gestão das políticas migratórias e o acolhimento de populações vulneráveis envolvem diversos órgãos e resoluções. Sobre o marco normativo e institucional atual, é correto afirmar que:",
+            options: [
+                "O Comitê Nacional para Refugiados (CONARE) é o órgão responsável pelas decisões sobre o reconhecimento da condição de refugiado, atuando em parceria com agências como o ACNUR.",
+                "A resolução do Conselho Nacional de Imigração (CNIg) de 2024 extinguiu o direito de residência para trabalho de recém-formados estrangeiros em universidades brasileiras.",
+                "O ACNUR atua exclusivamente na repatriação forçada de migrantes irregulares, sem participação na coleta de dados estatísticos sobre deslocamento.",
+                "A Operação Acolhida, focada no fluxo venezuelano, restringe-se ao atendimento emergencial em Roraima, sem promover a interiorização de migrantes para outros estados.",
+                "O Brasil não reconhece a condição de apátrida, exigindo que todo imigrante comprove nacionalidade anterior para ingressar no mercado de trabalho formal."
+            ],
+            correct: 0,
+            resolution: "O CONARE decide sobre refúgio. A Operação Acolhida inclui interiorização. O ACNUR não faz repatriação forçada. O Brasil reconhece apátridas. E o CNIg facilitou residência para graduados em 2024."
+        },
+        {
+            id: 10,
+            text: "Considerando a transição demográfica e seus impactos na mobilidade populacional futura do Brasil, analise as assertivas abaixo:\n\nI. A queda acentuada na taxa de fecundidade, que atingiu 1,57 filho por mulher em 2022, sinaliza um envelhecimento populacional que poderá demandar maior abertura para fluxos migratórios internacionais para recompor a população em idade ativa.\nII. A imigração de retorno para o Nordeste é um fenômeno que tende a se intensificar proporcionalmente ao agravamento das crises climáticas nas áreas de fronteira agrícola do Centro-Oeste.\nIII. O deslocamento pendular intermunicipal tende a diminuir nas próximas décadas devido à consolidação do trabalho remoto, tornando obsoleta a análise de integração metropolitana baseada em transporte físico.",
+            options: [
+                "Apenas I.",
+                "Apenas II.",
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "I, II e III."
+            ],
+            correct: 0,
+            resolution: "Apenas a I está correta. O envelhecimento e a baixa fecundidade tornam a imigração necessária para sustentar a PEA. A II não tem base estatística de causalidade direta atual. A III é improvável, pois a grande maioria da população não exerce atividades compatíveis com home office total."
+        }
+    ];
+
+    function loadQuiz() {
+        const container = document.getElementById('quiz-content');
+        questions.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            card.innerHTML = `
+                <div class="question-header">
+                    <span>${q.id}.</span>
+                    <div class="question-text">${q.text}</div>
+                </div>
+                <ul class="options-list">
+                    ${q.options.map((opt, optIndex) => `
+                        <li class="option-item" onclick="selectOption(${index}, ${optIndex})">
+                            <input type="radio" name="q${index}" id="q${index}o${optIndex}" value="${optIndex}">
+                            <label for="q${index}o${optIndex}">${opt}</label>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="resolution-box" id="res-${index}">
+                    <h4>Resolução e Comentário</h4>
+                    <p>${q.resolution}</p>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    window.selectOption = function(qIndex, optIndex) {
+        // Desmarcar outros na mesma questão visualmente
+        const items = document.querySelectorAll(`#q-card-${qIndex} .option-item`);
+        items.forEach(item => item.classList.remove('selected'));
+        
+        // Marcar o selecionado
+        items[optIndex].classList.add('selected');
+        const input = document.getElementById(`q${qIndex}o${optIndex}`);
+        input.checked = true;
+    }
+
+    window.gradeQuiz = function() {
+        let score = 0;
+        let unanswered = false;
+
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            const items = document.querySelectorAll(`#q-card-${index} .option-item`);
+            
+            resolutionBox.style.display = 'block';
+
+            if (selected) {
+                const userChoice = parseInt(selected.value);
+                if (userChoice === q.correct) {
+                    score++;
+                    items[userChoice].classList.add('correct');
+                } else {
+                    items[userChoice].classList.add('wrong');
+                    items[q.correct].classList.add('correct');
+                }
+            } else {
+                items[q.correct].classList.add('correct');
+                unanswered = true;
+            }
+        });
+
+        // Mostrar Sumário
+        const summary = document.getElementById('results-summary');
+        summary.style.display = 'block';
+        document.getElementById('score-text').innerText = `${score} / ${questions.length}`;
+        
+        const feedback = score >= 7 ? "Excelente desempenho! Você domina os dados recentes do Censo 2022." : 
+                         score >= 5 ? "Bom resultado. Revise as resoluções para fixar os detalhes técnicos." : 
+                         "Recomendamos uma leitura atenta das resoluções para compreender as novas dinâmicas migratórias.";
+        document.getElementById('feedback-text').innerText = feedback;
+
+        // Esconder botão de envio
+        document.getElementById('submit-btn').style.display = 'none';
+
+        // Scroll para o topo para ver o resultado
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>

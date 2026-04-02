@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor IFC: Urbanização Mundial e Brasileira</title>
+    <style>
+        :root {
+            --primary-color: #1a202c;
+            --accent-color: #2d3748;
+            --highlight-bg: #fff9c4;
+            --important-text: #c53030;
+            --border-gray: #e2e8f0;
+            --bg-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-white);
+            color: var(--primary-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            border-left: 6px solid var(--primary-color);
+            padding-left: 15px;
+            margin-top: 45px;
+            background: #f7fafc;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #4a5568;
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        /* Audio Player */
+        .audio-container {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-gray);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .audio-container label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        audio {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Typography & Marks */
+        p { margin-bottom: 20px; }
+
+        .grifado {
+            background-color: var(--highlight-bg);
+            font-weight: 600;
+            padding: 0 2px;
+        }
+
+        .alerta {
+            color: var(--important-text);
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* Responsive Tables */
+        .table-wrapper {
+            width: 100%;
+            margin: 25px 0;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto; /* Permite ajuste ao conteúdo */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-gray);
+            text-align: left;
+            vertical-align: top;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #edf2f7;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Boxes */
+        .banca-box {
+            background-color: #fff;
+            border: 2px solid var(--primary-color);
+            padding: 25px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .banca-box::before {
+            content: "FOCO FUNDATEC";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Button */
+        .btn-questoes {
+            display: block;
+            width: 250px;
+            margin: 60px auto;
+            padding: 18px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-questoes:hover {
+            opacity: 0.9;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            th, td { padding: 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1>Urbanização Mundial e Brasileira</h1>
+        <p>Evolução, Redes e Fenômenos Contemporâneos - Foco IFC</p>
+    </header>
+
+    <div class="audio-container">
+        <label>🎧 Ouça a Aula em Áudio:</label>
+        <!-- Nome do arquivo para preencher: coloque seu_audio.mp3 na mesma pasta -->
+        <audio controls>
+            <source src="geografia-processo-de-urbanizacao-mundial-e-brasileira.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
+    <article>
+        <p>Esta aula aborda a transição do espaço geográfico através da técnica, focando na urbanização enquanto processo <span class="grifado">sócio-espacial segregador</span>, especialmente nos países periféricos.</p>
+
+        <h2>1. Evolução Histórica e Modelos de Urbanização</h2>
+        <p>A urbanização não é homogênea. Ela segue o ritmo das Revoluções Industriais e da capacidade técnica de cada território.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Período</th>
+                        <th>Características Principais</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Rev. Industrial (I e II)</strong></td>
+                        <td>Séc. XVIII - XIX</td>
+                        <td>Processo <span class="grifado">lento e planejado</span> nos países centrais. As cidades crescem junto com a oferta de empregos industriais.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tardia / Periférica</strong></td>
+                        <td>Pós-1945</td>
+                        <td>Processo <span class="grifado">acelerado e caótico</span>. Países subdesenvolvidos (Brasil, México, Índia). Descompasso entre migração e infraestrutura.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Era Informacional</strong></td>
+                        <td>Séc. XXI</td>
+                        <td>Domínio do <span class="grifado">meio técnico-científico-informacional</span>. A cidade é um nó de fluxos digitais e financeiros.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>2. Urbanização Brasileira: O Êxodo e a Indústria</h2>
+        <p>No Brasil, a urbanização é indissociável da industrialização por substituição de importações. O marco é a década de 1970, quando o país torna-se majoritariamente urbano.</p>
+        
+        <h3>Fatores de Expulsão e Atração</h3>
+        <ul>
+            <li><strong>Repulsão (Campo):</strong> A <span class="alerta">Modernização Conservadora</span> (mecanização do campo mantendo a estrutura latifundiária) expulsou o trabalhador rural.</li>
+            <li><strong>Atração (Cidade):</strong> A ilusão do setor industrial e a concentração de serviços básicos (saúde/educação) nos centros urbanos.</li>
+        </ul>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Década</th>
+                        <th>Status</th>
+                        <th>Fenômeno Geográfico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1940-1960</strong></td>
+                        <td>Concentração</td>
+                        <td>Formação das grandes metrópoles nacionais (SP e RJ).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1970</strong></td>
+                        <td>Inversão</td>
+                        <td>Brasil oficializa-se Urbano (> 50% de taxa de urbanização).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1990-2020</strong></td>
+                        <td>Desconcentração</td>
+                        <td>Crescimento das <span class="grifado">Cidades Médias</span> e desindustrialização das metrópoles.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>3. Milton Santos e a Abstração Estratégica</h2>
+        <p>Para o concurso do IFC, Milton Santos é a principal referência. O conceito de <span class="grifado">Urbanização Corporativa</span> explica como as cidades são moldadas para o mercado global.</p>
+        
+        <h3>Macrocefalia Urbana e Hipertrofia do Terciário</h3>
+        <p>A <span class="alerta">Macrocefalia Urbana</span> é o crescimento desproporcional de uma cidade em relação à sua rede. Isso gera a <strong>Hipertrofia do Setor Terciário</strong>: uma massa de trabalhadores no setor de serviços informais (vendedores ambulantes, subempregos) porque a indústria não consegue absorver a todos.</p>
+
+        <h3>Os Dois Circuitos da Economia Urbana</h3>
+        <ul>
+            <li><strong>Circuito Superior:</strong> Moderno, tecnológico, capital-intensivo, ligado ao sistema bancário e corporações.</li>
+            <li><strong>Circuito Inferior:</strong> Baseado em mão de obra, informal, pequenas escalas, essencial para a sobrevivência da população pobre.</li>
+        </ul>
+
+        <h2>4. Dicionário de Termos para a Prova</h2>
+        <p>Memorize estas definições para não cair em pegadinhas conceituais:</p>
+        <ul>
+            <li><span class="grifado">Conurbação:</span> Encontro físico de duas ou mais cidades devido à expansão horizontal.</li>
+            <li><span class="grifado">Megalópole:</span> Junção de duas ou mais metrópoles (Ex: Boston-Washington ou Rio-São Paulo - embora em estágio de formação).</li>
+            <li><span class="grifado">Gentrificação:</span> Processo de "enobrecimento" de áreas periféricas ou degradadas, expulsando a população original pelo aumento do custo de vida.</li>
+            <li><span class="grifado">Regiões Metropolitanas:</span> Unidades administrativas criadas por lei estadual para gerir serviços comuns (transporte, saneamento).</li>
+        </ul>
+
+        <div class="banca-box">
+            <h3>⚠️ TENDÊNCIAS FUNDATEC (EBTT)</h3>
+            <p>A Fundatec adora cobrar a relação entre <strong>Urbanização e Meio Ambiente</strong>. Fique atento a:</p>
+            <ol>
+                <li><strong>Ilhas de Calor:</strong> Diferença de temperatura entre o centro urbanizado e a periferia/campo.</li>
+                <li><strong>Inversão Térmica:</strong> Fenômeno climático que impede a dispersão de poluentes no inverno.</li>
+                <li><strong>Estatuto da Cidade:</strong> A banca cobra o conceito de <span class="alerta">Função Social da Propriedade</span>.</li>
+                <li><strong>Hierarquia Urbana:</strong> Saiba que a rede urbana brasileira está se tornando mais complexa, com as cidades médias ganhando relevância.</li>
+            </ol>
+        </div>
+
+        <h2>5. Resumo para Revisão Rápida</h2>
+        <ul>
+            <li><strong>Mundo:</strong> De cidades industriais para cidades informacionais (fluxos).</li>
+            <li><strong>Brasil:</strong> Urbanização tardia, acelerada, concentrada e macrocefálica.</li>
+            <li><strong>Causas:</strong> Industrialização (atração) + Concentração fundiária (repulsão).</li>
+            <li><strong>Consequências:</strong> Segregação socioespacial, favelização, precariedade de serviços.</li>
+            <li><strong>Fundatec:</strong> Foca na desigualdade social no espaço urbano e conceitos de Milton Santos.</li>
+        </ul>
+
+        <a href="geografia-processo-de-urbanizacao-mundial-e-brasileiraquestoes.html" class="btn-questoes">PRATICAR COM QUESTÕES</a>
+    </article>
+</div>
+
+</body>
+</html>
