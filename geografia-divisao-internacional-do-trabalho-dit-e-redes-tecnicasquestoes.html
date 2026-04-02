@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: DIT e Redes Técnicas</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --wrong-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        label:hover {
+            background-color: #f1f2f6;
+        }
+
+        input[type="radio"] {
+            margin-top: 6px;
+            margin-right: 15px;
+        }
+
+        /* Classes para correção */
+        .correct-answer {
+            background-color: #e8f5e9 !important;
+            border-color: var(--correct-color) !important;
+        }
+
+        .wrong-selection {
+            background-color: #ffebee !important;
+            border-color: var(--wrong-color) !important;
+        }
+
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+        }
+
+        #result-section {
+            display: none;
+            background: #e1f5fe;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 1px solid #81d4fa;
+        }
+
+        #resolutions-section {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .resolution-item {
+            margin-bottom: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .resolution-item h3 {
+            color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .badge-correct { background: #c8e6c9; color: #25732a; }
+        .badge-wrong { background: #ffcdd2; color: #c62828; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Quiz: DIT e Redes Técnicas</h1>
+        <p class="intro-text">Análise da evolução da Divisão Internacional do Trabalho e a importância das redes de transporte e comunicação.</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 1 -->
+        <div class="question-card" id="q1-card">
+            <span class="question-header">Questão 1</span>
+            <p>A Divisão Internacional do Trabalho (DIT) é um conceito fundamental para a compreensão da organização do espaço geográfico mundial, refletindo a especialização produtiva de cada nação no sistema capitalista. Ao longo da história, essa divisão passou por metamorfoses profundas que acompanharam as revoluções industriais e as mudanças nos modelos de acumulação de capital. Sobre as fases da DIT e suas características, analise as seguintes assertivas:</p>
+            <p>I. Na fase do Capitalismo Comercial, a DIT era marcada pela relação entre metrópoles e colônias, em que estas últimas funcionavam como fornecedoras de metais preciosos, especiarias e matérias-primas por meio de regimes de exploração colonial direta.<br>
+            II. A DIT Clássica, correspondente ao Capitalismo Industrial, estabeleceu uma hierarquia clara entre países industrializados, exportadores de bens manufaturados, e países não industrializados, que atuavam como exportadores de produtos primários e consumidores de produtos industrializados.<br>
+            III. Na Nova Divisão Internacional do Trabalho, característica do Capitalismo Financeiro e Informacional, observa-se uma fragmentação da produção, permitindo que países subdesenvolvidos industrializados ou emergentes exportem produtos manufaturados, embora mantenham dependência em relação a capitais e tecnologia de ponta provenientes dos centros globais.<br>
+            IV. A transição para a Nova DIT eliminou a dependência econômica dos países periféricos, uma vez que a industrialização tardia permitiu que nações como o Brasil atingissem plena autonomia tecnológica e financeira no cenário global.</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q1" value="A"> A. Apenas I e II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="B"> B. Apenas I e III.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="C"> C. Apenas I, II e III.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="D"> D. Apenas II, III e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q1" value="E"> E. I, II, III e IV.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 2 -->
+        <div class="question-card" id="q2-card">
+            <span class="question-header">Questão 2</span>
+            <p>O geógrafo Milton Santos propôs o conceito de Meio Técnico-Científico-Informacional (MTCI) para descrever a atual configuração do espaço geográfico, onde a ciência, a tecnologia e a informação são os principais vetores da produção e da organização social. Considerando as redes técnicas e a dinâmica de fixos e fluxos nesse contexto, assinale a alternativa correta:</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q2" value="A"> A. O espaço geográfico contemporâneo é caracterizado pela dissociação total entre fixos e fluxos, de modo que a infraestrutura material não exerce mais influência sobre a circulação de informações.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="B"> B. No MTCI, os fluxos imateriais (informação e capital financeiro) tornam-se os elementos de comando que organizam a distribuição e a lógica dos fluxos materiais no território.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="C"> C. A rede técnica de transportes é a única responsável pela organização do espaço global, sendo a rede de comunicações um elemento secundário e sem impacto na Divisão Internacional do Trabalho.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="D"> D. O processo de globalização garantiu uma distribuição homogênea das redes técnicas pelo globo, eliminando as desigualdades territoriais entre os países desenvolvidos e subdesenvolvidos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q2" value="E"> E. A informação no mundo contemporâneo é um recurso acessível de forma equânime a todos os agentes econômicos, o que impede a formação de monopólios ou hegemonias corporativas.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 3 -->
+        <div class="question-card" id="q3-card">
+            <span class="question-header">Questão 3</span>
+            <p>As redes de transporte e comunicação constituem a base material da globalização, permitindo a aceleração dos fluxos de mercadorias, capitais e informações. No que tange à logística e à importância da multimodalidade para a competitividade na DIT contemporânea, é correto afirmar:</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q3" value="A"> A. A multimodalidade refere-se ao uso exclusivo do modal rodoviário, que, por sua flexibilidade, é o único capaz de sustentar a complexidade do comércio global de longa distância.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="B"> B. O uso de redes técnicas integradas e de diferentes modais de transporte visa otimizar o tempo e reduzir os custos de circulação, sendo um fator determinante para a inserção de um país nas cadeias globais de valor.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="C"> C. Nos países subdesenvolvidos, as redes técnicas de transporte são altamente integradas entre si, o que facilita o desenvolvimento endógeno e a redução da dependência externa.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="D"> D. O avanço das tecnologias de comunicação reduziu a importância dos sistemas de transporte físico, uma vez que a circulação de mercadorias passou a ocorrer prioritariamente por meios digitais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q3" value="E"> E. A eficiência logística é um critério de natureza puramente técnica, não sendo influenciada por decisões políticas ou acordos econômicos internacionais.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 4 -->
+        <div class="question-card" id="q4-card">
+            <span class="question-header">Questão 4</span>
+            <p>A ideia de que "os fluxos imateriais comandam os fluxos materiais" é uma abstração central para entender a geografia econômica atual. Esse fenômeno implica que:</p>
+            <p>I. O capital financeiro e a informação estratégica determinam a localização das plantas produtivas e o ritmo da circulação de mercadorias físicas.<br>
+            II. A produção material de objetos tornou-se irrelevante para a acumulação de riqueza, sendo substituída integralmente pela especulação financeira.<br>
+            III. As decisões tomadas em centros de comando global (cidades globais) orientam a logística e a extração de recursos em áreas periféricas distantes.<br>
+            IV. A materialidade do espaço (portos, ferrovias, fábricas) é moldada para atender às necessidades de fluidez exigidas pelo capital globalizado.</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q4" value="A"> A. Apenas I e II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="B"> B. Apenas III e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="C"> C. Apenas I, III e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="D"> D. Apenas II, III e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q4" value="E"> E. I, II, III e IV.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 5 -->
+        <div class="question-card" id="q5-card">
+            <span class="question-header">Questão 5</span>
+            <p>A Nova Divisão Internacional do Trabalho (Nova DIT) trouxe maior complexidade às relações comerciais entre os países. Sobre a posição de países como Brasil, China e os chamados "Tigres Asiáticos" nesse cenário, assinale a alternativa que descreve corretamente essa dinâmica:</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q5" value="A"> A. Esses países permanecem exclusivamente como exportadores de matérias-primas e importadores de manufaturados, seguindo estritamente a DIT Clássica do século XIX.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="B"> B. Houve uma deslocalização industrial em direção a esses países, que passaram a receber etapas de produção de baixo valor agregado e indústrias de bens de consumo, enquanto o desenvolvimento tecnológico de ponta permanece concentrado nos países centrais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="C"> C. A China, devido ao seu programa de reformas econômicas e abertura, tornou-se o centro de comando financeiro global, superando a necessidade de infraestrutura de transporte material.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="D"> D. O Brasil, por ser um país subdesenvolvido industrializado, exporta majoritariamente bens de alta complexidade tecnológica para os Estados Unidos e a Europa.</label></div>
+                <div class="option-item"><label><input type="radio" name="q5" value="E"> E. A industrialização dos países emergentes foi um processo autônomo e independente do capital transnacional, visando exclusivamente o fortalecimento dos mercados internos.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 6 -->
+        <div class="question-card" id="q6-card">
+            <span class="question-header">Questão 6</span>
+            <p>No contexto da globalização e das redes técnicas, Milton Santos distingue as "horizontalidades" das "verticalidades" no território usado. Sobre esses conceitos aplicados à DIT, é correto afirmar que:</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q6" value="A"> A. As horizontalidades representam os pontos do território ligados por processos sociais globais e por centros de comando distantes, funcionando de forma hierarquizada.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="B"> B. As verticalidades são formadas por forças que agem localmente, promovendo a solidariedade entre os lugares vizinhos e o desenvolvimento de circuitos econômicos de proximidade.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="C"> C. As redes geográficas contemporâneas funcionam prioritariamente como verticalidades, onde os fluxos de informação e capital integram pontos distantes para atender a interesses externos ao lugar.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="D"> D. A organização do espaço em redes horizontais eliminou a necessidade de fixos materiais, como armazéns e portos, no comércio internacional.</label></div>
+                <div class="option-item"><label><input type="radio" name="q6" value="E"> E. O controle local da produção é a característica predominante das verticalidades no meio técnico-científico-informacional.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 7 -->
+        <div class="question-card" id="q7-card">
+            <span class="question-header">Questão 7</span>
+            <p>As redes técnicas de comunicações permitem a unificação do tempo em escala planetária, possibilitando a circulação instantânea do capital financeiro. Esse fenômeno tem como consequência para a DIT:</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q7" value="A"> A. A estabilização das economias periféricas, que agora possuem acesso igualitário aos investimentos internacionais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="B"> B. A intensificação da especulação financeira e a capacidade de investidores globais retirarem capitais de mercados emergentes em tempo real, gerando instabilidades territoriais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="C"> C. O fim da hierarquia urbana mundial, uma vez que qualquer pequena cidade pode agora competir com as grandes bolsas de valores de Nova York ou Londres.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="D"> D. A redução da importância da informação estratégica, já que todos os dados econômicos são agora compartilhados publicamente pela internet.</label></div>
+                <div class="option-item"><label><input type="radio" name="q7" value="E"> E. A desconexão entre o capital financeiro e o capital produtivo, de modo que as crises financeiras não afetam a produção material de mercadorias.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 8 -->
+        <div class="question-card" id="q8-card">
+            <span class="question-header">Questão 8</span>
+            <p>Ao analisar a evolução da DIT, percebe-se que cada período histórico exige uma infraestrutura logística específica. Relacione os modais e infraestruturas ao seu contexto de predominância na DIT:</p>
+            <p>1. DIT Colonial<br>
+            2. DIT Clássica (Industrial)<br>
+            3. Nova DIT (Informacional)</p>
+            <p>( ) Predomínio de ferrovias e portos de grande calado para escoamento de produção em massa e transporte de carvão e aço.<br>
+            ( ) Redes de fibra óptica, satélites, aeroportos de carga e sistemas multimodais integrados por software.<br>
+            ( ) Grandes navegações, portos coloniais e rotas marítimas rudimentares baseadas no vento e correntes.</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q8" value="A"> A. 1 – 2 – 3.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="B"> B. 2 – 3 – 1.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="C"> C. 3 – 1 – 2.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="D"> D. 2 – 1 – 3.</label></div>
+                <div class="option-item"><label><input type="radio" name="q8" value="E"> E. 3 – 2 – 1.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 9 -->
+        <div class="question-card" id="q9-card">
+            <span class="question-header">Questão 9</span>
+            <p>A fragmentação produtiva global, marca da contemporaneidade, exige que as redes de transporte sejam cada vez mais eficientes para compensar as distâncias geográficas. Esse fenômeno é conhecido como "deslocalização" ou "outsourcing". Sobre o impacto da deslocalização industrial na DIT, analise as afirmativas:</p>
+            <p>I. Permite a redução dos custos de produção ao deslocar fábricas para locais com mão de obra barata e poucos encargos sociais.<br>
+            II. Gera uma interdependência produtiva, na qual um único produto pode ter componentes fabricados em dezenas de países diferentes.<br>
+            III. Concentra o comando da produção e a propriedade das patentes em países periféricos para evitar a tributação nos países desenvolvidos.<br>
+            IV. Reconfigura o território por meio de zonas de processamento de exportação e corredores logísticos específicos.</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q9" value="A"> A. Apenas I e II.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="B"> B. Apenas III e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="C"> C. Apenas I, II e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="D"> D. Apenas II, III e IV.</label></div>
+                <div class="option-item"><label><input type="radio" name="q9" value="E"> E. I, II, III e IV.</label></div>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10-card">
+            <span class="question-header">Questão 10</span>
+            <p>A desigualdade no acesso às redes técnicas é um dos principais fatores de exclusão na globalização. Lugares que não possuem infraestrutura de transporte e comunicação eficiente tendem a tornar-se:</p>
+            
+            <div class="options-list">
+                <div class="option-item"><label><input type="radio" name="q10" value="A"> A. Áreas de comando na nova economia informacional.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="B"> B. Espaços opacos no mapa dos fluxos globais, com baixa capacidade de atrair investimentos transnacionais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="C"> C. Centros de inovação tecnológica devido à necessidade de superar a falta de recursos.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="D"> D. Regiões privilegiadas pela Nova Divisão Internacional do Trabalho por manterem a pureza de seus recursos naturais.</label></div>
+                <div class="option-item"><label><input type="radio" name="q10" value="E"> E. Cidades globais de pequeno porte, focadas exclusivamente em fluxos de capital imaterial.</label></div>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="button" id="submit-btn" onclick="submitQuiz()">Finalizar Quiz e Ver Resoluções</button>
+        </div>
+    </form>
+
+    <section id="result-section">
+        <h2>Resultado Final</h2>
+        <p id="score-text" style="font-size: 1.5rem; font-weight: bold;"></p>
+        <p>Role para baixo para ver a resolução detalhada de cada questão.</p>
+    </section>
+
+    <section id="resolutions-section">
+        <h2 style="text-align: center; margin-bottom: 40px;">Resoluções Detalhadas</h2>
+        
+        <div id="res-1" class="resolution-item">
+            <h3>Resolução Questão 1</h3>
+            <p>A compreensão da Divisão Internacional do Trabalho (DIT) exige uma análise diacrônica do sistema capitalista. A DIT não é um fenômeno estático; ela é a expressão espacial da forma como o capital se acumula em diferentes épocas.</p>
+            <p>A primeira fase (I) é a do Capitalismo Comercial (séculos XV ao XVIII). Neste período, o mundo era regido pela lógica do pacto colonial. As metrópoles europeias acumulavam capital por meio do comércio de bens de alto valor e da extração de recursos em suas colônias.</p>
+            <p>A fase II aborda a DIT Clássica, surgida com a Revolução Industrial. O mundo dividiu-se entre países industrializados (centros) e países fornecedores de matérias-primas (periferias).</p>
+            <p>A fase III reflete a Nova DIT, onde grandes corporações transnacionais fragmentam suas etapas produtivas, permitindo a industrialização tardia de alguns países periféricos, mas mantendo a dependência tecnológica.</p>
+            <p>O erro da IV é que a industrialização tardia não eliminou a dependência financeira ou tecnológica de países como o Brasil.</p>
+            <table>
+                <tr><th>Fase da DIT</th><th>Papel dos Centrais</th><th>Papel dos Periféricos</th></tr>
+                <tr><td>Colonial</td><td>Manufaturados</td><td>Matérias-primas/Escravos</td></tr>
+                <tr><td>Clássica</td><td>Bens Industriais</td><td>Bens Primários</td></tr>
+                <tr><td>Nova DIT</td><td>Tecnologia/Finanças</td><td>Industrialização Tardia/Commodities</td></tr>
+            </table>
+        </div>
+
+        <div id="res-2" class="resolution-item">
+            <h3>Resolução Questão 2</h3>
+            <p>O conceito de Meio Técnico-Científico-Informacional (MTCI) de Milton Santos define que os fluxos imateriais (informação e capital) comandam a lógica dos fluxos materiais. A alternativa B é a correta. No MTCI, a infraestrutura (fixos) serve de suporte para que as ordens e capitais (fluxos) organizem o território global de acordo com os interesses corporativos.</p>
+        </div>
+
+        <div id="res-3" class="resolution-item">
+            <h3>Resolução Questão 3</h3>
+            <p>A multimodalidade é o uso integrado de diferentes meios de transporte (marítimo, ferroviário, rodoviário e aéreo) sob coordenação única. Isso visa otimizar o tempo e reduzir os custos de circulação, essencial para a competitividade nas cadeias globais de valor.</p>
+            <table>
+                <tr><th>Modal</th><th>Custo</th><th>Velocidade</th><th>Papel na DIT</th></tr>
+                <tr><td>Marítimo</td><td>Baixo</td><td>Baixa</td><td>Comércio Global (Volumes)</td></tr>
+                <tr><td>Rodoviário</td><td>Alto</td><td>Média</td><td>Distribuição Regional</td></tr>
+            </table>
+        </div>
+
+        <div id="res-4" class="resolution-item">
+            <h3>Resolução Questão 4</h3>
+            <p>As assertivas I, III e IV estão corretas. A assertiva II está incorreta porque a produção material não se tornou irrelevante; ela ainda é a base da vida, embora o comando sobre onde e como produzir tenha passado para o capital financeiro e informativo.</p>
+        </div>
+
+        <div id="res-5" class="resolution-item">
+            <h3>Resolução Questão 5</h3>
+            <p>A alternativa B descreve a deslocalização industrial. Empresas dos países centrais movem fábricas de baixo valor agregado para países periféricos para aproveitar mão de obra barata, mantendo a inovação tecnológica concentrada no centro.</p>
+        </div>
+
+        <div id="res-6" class="resolution-item">
+            <h3>Resolução Questão 6</h3>
+            <p>Verticalidades (alternativa C) são pontos ligados para atender a lógicas globais distantes (ex: uma fazenda de soja ligada a uma multinacional). Horizontalidades são as relações de proximidade e solidariedade local. A DIT contemporânea funciona prioritariamente via verticalidades.</p>
+        </div>
+
+        <div id="res-7" class="resolution-item">
+            <h3>Resolução Questão 7</h3>
+            <p>A circulação instantânea de capital gera instabilidade (alternativa B). O capital especulativo pode entrar e sair de países emergentes em segundos, causando crises cambiais e instabilidade territorial.</p>
+        </div>
+
+        <div id="res-8" class="resolution-item">
+            <h3>Resolução Questão 8</h3>
+            <p>A sequência correta é B. (2) Clássica = Ferrovias/Carvão; (3) Nova = Satélites/Internet; (1) Colonial = Navegações a vela.</p>
+        </div>
+
+        <div id="res-9" class="resolution-item">
+            <h3>Resolução Questão 9</h3>
+            <p>A alternativa C é correta. A deslocalização reduz custos (I), cria interdependência (II) e reconfigura o território com corredores logísticos (IV). A III está errada: o comando e as patentes NÃO ficam em países periféricos.</p>
+        </div>
+
+        <div id="res-10" class="resolution-item">
+            <h3>Resolução Questão 10</h3>
+            <p>Lugares sem redes técnicas tornam-se "espaços opacos" (alternativa B). São áreas desconectadas dos grandes fluxos globais, com baixa capacidade de atrair investimentos e gerar desenvolvimento tecnológico.</p>
+        </div>
+    </section>
+</div>
+
+<script>
+    const answers = {
+        q1: 'C',
+        q2: 'B',
+        q3: 'B',
+        q4: 'C',
+        q5: 'B',
+        q6: 'C',
+        q7: 'B',
+        q8: 'B',
+        q9: 'C',
+        q10: 'B'
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const formData = new FormData(form);
+
+        // Validar se todas foram respondidas
+        if (formData.getAll('q1').length === 0 || formData.getAll('q2').length === 0 || 
+            formData.getAll('q3').length === 0 || formData.getAll('q4').length === 0 || 
+            formData.getAll('q5').length === 0 || formData.getAll('q6').length === 0 || 
+            formData.getAll('q7').length === 0 || formData.getAll('q8').length === 0 || 
+            formData.getAll('q9').length === 0 || formData.getAll('q10').length === 0) {
+            
+            // Criar um aviso visual simples
+            alert("Por favor, responda todas as questões antes de finalizar.");
+            return;
+        }
+
+        // Desabilitar o botão e os inputs após submeter
+        document.getElementById('submit-btn').disabled = true;
+        const inputs = form.querySelectorAll('input[type="radio"]');
+        inputs.forEach(input => input.disabled = true);
+
+        // Corrigir questões
+        for (let key in answers) {
+            const selectedValue = formData.get(key);
+            const questionCard = document.getElementById(`${key}-card`);
+            const options = questionCard.querySelectorAll('label');
+
+            options.forEach(label => {
+                const radio = label.querySelector('input');
+                // Se for a resposta correta, destaca em verde
+                if (radio.value === answers[key]) {
+                    label.classList.add('correct-answer');
+                    const badge = document.createElement('span');
+                    badge.className = 'badge badge-correct';
+                    badge.innerText = 'Resposta Correta';
+                    label.appendChild(badge);
+                }
+                // Se o usuário errou, destaca o erro em vermelho
+                if (selectedValue === radio.value && selectedValue !== answers[key]) {
+                    label.classList.add('wrong-selection');
+                    const badge = document.createElement('span');
+                    badge.className = 'badge badge-wrong';
+                    badge.innerText = 'Sua escolha (Incorreta)';
+                    label.appendChild(badge);
+                }
+            });
+
+            if (selectedValue === answers[key]) {
+                score++;
+            }
+        }
+
+        // Exibir Resultado
+        const resultSection = document.getElementById('result-section');
+        const scoreText = document.getElementById('score-text');
+        resultSection.style.display = 'block';
+        scoreText.innerText = `Você acertou ${score} de 10 questões! (${(score/10)*100}%)`;
+
+        // Exibir Resoluções
+        document.getElementById('resolutions-section').style.display = 'block';
+
+        // Scroll suave até o resultado
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

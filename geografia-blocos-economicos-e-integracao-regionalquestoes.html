@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Geopolítica: Blocos Econômicos e Brasil</title>
+    <style>
+        :root {
+            --bg-color: #f9f7f2; /* Tom de papel levemente envelhecido para não cansar */
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --border-color: #dfe6e9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-serif: Georgia, 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-style: italic;
+            color: #636e72;
+        }
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .question-card {
+            background: #ffffff;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f1f2f6;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        #submit-btn {
+            background-color: var(--text-color);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        #submit-btn:hover {
+            background-color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Seção de Resultados */
+        #results-section {
+            display: none;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .score-box {
+            background: var(--text-color);
+            color: white;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            display: block;
+            font-weight: bold;
+        }
+
+        .resolution-item {
+            background: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .res-header {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .correct-badge { color: var(--success-color); }
+        .incorrect-badge { color: var(--error-color); }
+
+        .res-content {
+            font-size: 0.95rem;
+            color: #444;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .res-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+
+        .res-content th, .res-content td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .res-content th { background: #f4f4f4; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            .question-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Desafio Geopolítico: Blocos Econômicos</h1>
+    <p class="subtitle">Integração Regional, Multilateralismo e o Papel do Brasil</p>
+</header>
+
+<main>
+    <div id="quiz-container">
+        <!-- As questões serão inseridas via JS -->
+    </div>
+
+    <div class="btn-container">
+        <button id="submit-btn" onclick="finishQuiz()">Finalizar Quiz e Ver Resoluções</button>
+    </div>
+
+    <section id="results-section">
+        <div class="score-box">
+            <span id="score-text">Você acertou</span>
+            <span class="score-number" id="final-score">0/10</span>
+            <p id="performance-msg"></p>
+        </div>
+        <div id="resolutions-container">
+            <!-- As resoluções serão inseridas aqui -->
+        </div>
+    </section>
+</main>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            q: "No âmbito da economia internacional e da geografia política, os blocos econômicos são organizados em diferentes níveis de integração, dependendo da profundidade dos acordos entre os Estados-membros. Sobre esses níveis e a configuração dos principais blocos mundiais, analise as assertivas abaixo:<br><br>I. Uma Zona de Livre Comércio visa à redução ou eliminação de tarifas alfandegárias entre os países membros, mas cada nação mantém sua própria tarifa externa para trocas com países de fora do bloco.<br>II. A União Aduaneira, estágio em que se encontra o MERCOSUL, exige a adoção de uma Tarifa Externa Comum (TEC) e uma política comercial unificada em relação a terceiros mercados.<br>III. O Mercado Comum caracteriza-se pela livre circulação de bens, serviços, capitais e pessoas, sendo a União Europeia o único bloco que superou tecnicamente este estágio para atingir a união monetária.<br>IV. A União Econômica e Monetária pressupõe a adoção de uma moeda única e a coordenação total das políticas macroeconômicas, estágio plenamente consolidado por todos os 27 países da União Europeia.<br><br>Quais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2, // Índice C (A=0, B=1, C=2...)
+            res: "A análise da integração regional exige a compreensão de que este processo não é uniforme. <br><b>Assertiva I (Correta):</b> Zona de Livre Comércio permite autonomia tarifária externa (ex: USMCA). <br><b>Assertiva II (Correta):</b> União Aduaneira exige a TEC (ex: MERCOSUL). <br><b>Assertiva III (Correta):</b> Mercado Comum envolve livre circulação de fatores de produção. <br><b>Assertiva IV (Incorreta):</b> Nem todos os 27 países da UE usam o Euro (apenas 20 na Zona do Euro)."
+        },
+        {
+            id: 2,
+            q: "O Mercado Comum do Sul (MERCOSUL) passou por transformações institucionais e de composição significativas nos últimos anos. Sobre o atual estágio do bloco sul-americano e suas relações externas entre 2024 e 2025, assinale a alternativa INCORRETA:",
+            options: [
+                "A Bolívia concluiu seu processo de adesão formal como membro pleno em 2024, após a ratificação de todos os parlamentos dos Estados Partes.",
+                "O bloco opera tecnicamente como uma União Aduaneira, embora possua diversas exceções à Tarifa Externa Comum (TEC).",
+                "A Venezuela permanece suspensa de todos os seus direitos e obrigações no bloco desde 2017, devido à constatação de ruptura da ordem democrática.",
+                "No segundo semestre de 2025, o Brasil exerceu a presidência pro tempore do bloco, priorizando a assinatura do acordo com a UE.",
+                "O MERCOSUL é caracterizado como uma organização supranacional, onde as decisões são tomadas por maioria de votos e os países cedem totalmente sua soberania."
+            ],
+            correct: 4,
+            res: "O MERCOSUL <b>não</b> é uma organização supranacional. Ele é uma organização <b>intergovernamental</b>. As decisões são tomadas por consenso entre os governos nacionais e o Parlasul não tem caráter legislativo vinculante sobre as soberanias nacionais."
+        },
+        {
+            id: 3,
+            q: "As negociações entre o MERCOSUL e a União Europeia (UE) representam um dos maiores esforços de integração interregional da atualidade. Sobre o desenvolvimento deste acordo e os impasses verificados entre 2024 e 2025, é correto afirmar que:",
+            options: [
+                "A França, principal produtora agrícola da UE, liderou o apoio à ratificação imediata do acordo.",
+                "O acordo foi estruturado em dois instrumentos paralelos: o Acordo de Parceria UE-Mercosul (EMPA) e o Acordo Comercial Interino (iTA).",
+                "A conclusão técnica do acordo foi atingida em 6 de dezembro de 2024, com a assinatura programada para 2025.",
+                "Os agricultores europeus realizaram protestos alegando que os produtos do MERCOSUL seguem padrões ambientais mais rigorosos que os da Europa.",
+                "O texto do acordo exclui qualquer menção a questões ambientais ou ao Acordo de Paris."
+            ],
+            correct: 1,
+            res: "Para facilitar a ratificação, a UE propôs o 'splitting' do acordo: o <b>iTA (Acordo Comercial Interino)</b> foca em comércio (competência exclusiva da UE) para acelerar a entrada em vigor, enquanto o <b>EMPA</b> trata de pilares políticos e exige ratificação individual de cada parlamento nacional."
+        },
+        {
+            id: 4,
+            q: "O agrupamento BRICS passou por uma expansão histórica em 2024 e consolidou novos mecanismos de governança. Com base nos eventos recentes, considere as seguintes afirmações:<br><br>I. Em 1º de janeiro de 2024, ingressaram como membros plenos: Arábia Saudita, Egito, Emirados Árabes Unidos, Etiópia e Irã.<br>II. A Indonésia foi anunciada como membro pleno do grupo em janeiro de 2025.<br>III. Na Cúpula de Kazan (2024), foi criada a categoria de 'Países Parceiros', incluindo nações como Cuba e Nigéria.<br>IV. O Novo Banco de Desenvolvimento (NDB) tem como prioridade exclusiva o financiamento de armamentos.<br><br>Quais estão corretas?",
+            options: [
+                "Apenas I e III.",
+                "Apenas II e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            res: "As assertivas I, II e III estão corretas. O NDB (Assertiva IV) foca em <b>infraestrutura e desenvolvimento sustentável</b> (energia, saneamento, etc.), nunca em financiamento de armamentos ou pautas militares."
+        },
+        {
+            id: 5,
+            q: "O Acordo entre Estados Unidos, México e Canadá (USMCA) substituiu o NAFTA em 2020. Sobre as diferenças entre o USMCA e seu predecessor, assinale a alternativa EXCETO:",
+            options: [
+                "O USMCA aumentou a exigência de Conteúdo de Valor Regional para o setor automotivo para 75%.",
+                "Foi introduzida a 'Cláusula de Revisão' (Sunset Clause), que prevê análise formal a cada seis anos.",
+                "O acordo estabeleceu que 40% a 45% de um veículo deve ser feito por trabalhadores que ganhem ao menos US$ 16/hora.",
+                "O USMCA aboliu completamente todas as proteções à propriedade intelectual e ao comércio digital.",
+                "O tratado inclui capítulos modernizados sobre biotecnologia agrícola e proteções laborais."
+            ],
+            correct: 3,
+            res: "Pelo contrário, o USMCA <b>fortaleceu</b> as proteções de propriedade intelectual e comércio digital, incluindo regras modernas para e-commerce e patentes biotecnológicas que não existiam no NAFTA original."
+        },
+        {
+            id: 6,
+            q: "A geopolítica contemporânea é marcada pela tensão entre o multilateralismo e o protecionismo. No contexto da liderança regional do Brasil e de sua participação no G20 em 2024, qual iniciativa reflete o esforço brasileiro em prol do multilateralismo?",
+            options: [
+                "A criação de uma tarifa protecionista unilateral sobre todas as importações de aço.",
+                "O lançamento da Aliança Global contra a Fome e a Pobreza.",
+                "A decisão de retirar o Brasil da Organização Mundial do Comércio (OMC).",
+                "O fechamento das fronteiras brasileiras para imigrantes venezuelanos.",
+                "A proposta de extinção imediata do Fundo Monetário Internacional (FMI)."
+            ],
+            correct: 1,
+            res: "A <b>Aliança Global contra a Fome e a Pobreza</b> foi a marca da presidência brasileira do G20 em 2024, buscando soluções coletivas e financiamento internacional para políticas sociais, um exemplo clássico de multilateralismo."
+        },
+        {
+            id: 7,
+            q: "A União Europeia (UE) enfrenta desafios significativos para manter a coesão interna. Sobre o funcionamento institucional da UE e eventos recentes, assinale a alternativa INCORRETA:",
+            options: [
+                "O Brexit representou a saída definitiva do Reino Unido do bloco.",
+                "A Zona do Euro é composta por todos os países membros da União Europeia, sendo o Euro a moeda obrigatória para as 27 nações.",
+                "O Espaço Schengen garante a livre circulação de pessoas entre os países signatários.",
+                "A Comissão Europeia é o órgão executivo do bloco, responsável por propor legislação.",
+                "A ratificação de acordos de 'nova geração' enfrenta resistência de parlamentos nacionais."
+            ],
+            correct: 1,
+            res: "Alternativa incorreta. O Euro <b>não é obrigatório</b> para todos nem todos o adotaram. Dos 27 países, apenas 20 estão na Zona do Euro. Países como Suécia, Polônia e Dinamarca (este com opt-out) mantêm suas moedas."
+        },
+        {
+            id: 8,
+            q: "O papel do Brasil como liderança regional na América Latina tem sido exercido através da mediação de conflitos. Sobre a atuação brasileira na crise entre Venezuela e Guiana (2023-2025), é correto afirmar que:",
+            options: [
+                "O Brasil apoiou militarmente a Venezuela na tentativa de anexação de Essequibo.",
+                "O Brasil atuou como mediador principal, facilitando a Declaração de Argyle para o não uso da força.",
+                "O governo brasileiro declarou neutralidade absoluta e recusou-se a participar de reuniões.",
+                "O Brasil solicitou a intervenção imediata da OTAN na região.",
+                "A crise demonstrou a total incapacidade diplomática brasileira, que foi ignorada."
+            ],
+            correct: 1,
+            res: "O Brasil foi o articulador central do diálogo. A <b>Declaração de Argyle</b>, mediada pelo Brasil em parceria com a CELAC e CARICOM, evitou a escalada militar e reafirmou a América do Sul como Zona de Paz."
+        },
+        {
+            id: 9,
+            q: "Em relação à governança global e à atuação do Brasil nos blocos econômicos, considere as seguintes afirmações sobre o cenário de 2025:<br><br>I. O Brasil assumiu a presidência rotativa do BRICS em janeiro de 2025.<br>II. A expansão do BRICS é vista como estratégia para aumentar o poder de barganha do Sul Global.<br>III. O BRICS possui um secretariado permanente com sede em Brasília.<br>IV. A entrada da Bolívia no MERCOSUL é estratégica pois facilita a ligação Atlântico-Pacífico.<br><br>Quais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e IV.",
+                "Apenas I, II e III.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            res: "I, II e IV estão corretas. A III está incorreta: o <b>BRICS não possui secretariado permanente</b> nem sede física fixa; funciona por presidências rotativas. A única instituição permanente é o banco (NDB), sediado na China."
+        },
+        {
+            id: 10,
+            q: "Os blocos econômicos e a integração regional são respostas à globalização. Sobre os conceitos e a realidade atual desses processos, assinale a alternativa correta:",
+            options: [
+                "O protecionismo está em franco declínio global, não havendo barreiras tarifárias relevantes.",
+                "A integração na América Latina é caracterizada por estabilidade institucional perfeita.",
+                "O multilateralismo pressupõe a existência de regras claras e instituições internacionais para resolução de disputas.",
+                "A União Europeia é uma organização intergovernamental clássica baseada em unanimidade absoluta.",
+                "O USMCA é um mercado comum completo, permitindo livre trabalho para mexicanos nos EUA."
+            ],
+            correct: 2,
+            res: "O <b>Multilateralismo</b> define a ordem baseada em normas e organismos como a ONU e a OMC. As outras alternativas erram ao ignorar o crescimento do protecionismo, a instabilidade institucional latina e o fato da UE ser supranacional e o USMCA ser apenas livre comércio."
+        }
+    ];
+
+    function loadQuiz() {
+        const container = document.getElementById('quiz-container');
+        quizData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `
+                <div class="question-text">${item.id}. ${item.q}</div>
+                <div class="options-list">
+                    ${item.options.map((opt, i) => `
+                        <label class="option-item">
+                            <input type="radio" name="q${item.id}" value="${i}">
+                            ${String.fromCharCode(65 + i)}) ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function finishQuiz() {
+        let score = 0;
+        const resContainer = document.getElementById('resolutions-container');
+        resContainer.innerHTML = '';
+
+        quizData.forEach((item) => {
+            const selected = document.querySelector(`input[name="q${item.id}"]:checked`);
+            const isCorrect = selected && parseInt(selected.value) === item.correct;
+            
+            if (isCorrect) score++;
+
+            const resItem = document.createElement('div');
+            resItem.className = 'resolution-item';
+            
+            const badgeClass = isCorrect ? 'correct-badge' : 'incorrect-badge';
+            const badgeText = isCorrect ? '✓ ACERTOU' : '✗ ERROU';
+            const userChoice = selected ? String.fromCharCode(65 + parseInt(selected.value)) : "Sem resposta";
+
+            resItem.innerHTML = `
+                <div class="res-header">
+                    <span>Questão ${item.id}</span>
+                    <span class="${badgeClass}">${badgeText}</span>
+                </div>
+                <div style="font-size: 0.9rem; margin-bottom: 10px;">
+                    Sua resposta: <b>${userChoice}</b> | Gabarito: <b>${String.fromCharCode(65 + item.correct)}</b>
+                </div>
+                <div class="res-content">
+                    <strong>Resolução:</strong><br>
+                    ${item.res}
+                </div>
+            `;
+            resContainer.appendChild(resItem);
+        });
+
+        // Mostrar resultados
+        document.getElementById('final-score').innerText = `${score}/10`;
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+
+        const msg = score >= 7 ? "Excelente desempenho! Você domina o tema." : score >= 5 ? "Bom resultado, mas vale revisar os detalhes técnicos." : "Continue estudando. Geopolítica exige atenção aos detalhes institucionais.";
+        document.getElementById('performance-msg').innerText = msg;
+
+        // Rolar para os resultados
+        window.scrollTo({ top: document.getElementById('results-section').offsetTop - 50, behavior: 'smooth' });
+    }
+
+    window.onload = loadQuiz;
+</script>
+
+</body>
+</html>

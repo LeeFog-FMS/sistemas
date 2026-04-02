@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Técnica: DIT e Redes Técnicas - IFC/Fundatec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .section-title {
+            border-left: 5px solid #1a202c;
+            padding-left: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            font-size: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: -0.025em;
+        }
+
+        .concept-card {
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 0.85rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* Responsive table adjustment */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                margin-bottom: 1.5rem;
+                border: 2px solid #e2e8f0;
+            }
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+                border-bottom: 1px solid #f1f5f9;
+            }
+            td:before {
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                content: attr(data-label);
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+
+        .audio-player-container {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #1a202c;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-questoes {
+            display: inline-block;
+            background-color: #1a202c;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            text-transform: uppercase;
+        }
+
+        .btn-questoes:hover {
+            background-color: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        .note {
+            background-color: #f8fafc;
+            border-left: 4px solid #94a3b8;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12 max-w-5xl mx-auto">
+
+    <header class="mb-12 border-b-2 border-gray-100 pb-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-4xl font-black text-gray-900 leading-tight">DIT e Redes Técnicas</h1>
+                <p class="text-xl text-gray-500 font-medium">Foco em Professor de Geografia - IFC (Banca Fundatec)</p>
+            </div>
+            <div class="text-right hidden md:block">
+                <span class="bg-gray-100 text-gray-800 text-xs font-bold px-3 py-1 rounded">MATERIAL DE REVISÃO</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Reprodutor de Áudio -->
+    <div class="audio-player-container">
+        <h3 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 flex items-center">
+            <span class="mr-2">🔊</span> PODCAST TÉCNICO DE REVISÃO
+        </h3>
+        <audio controls class="w-full">
+            <source src="geografia-divisao-internacional-do-trabalho-dit-e-redes-tecnicas.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <p class="text-xs text-gray-400 mt-3 italic font-medium">Nome do arquivo: aula_dit_redes.mp3</p>
+    </div>
+
+    <main>
+        <!-- SEÇÃO 1: DEFINIÇÃO E EVOLUÇÃO -->
+        <section id="evolucao">
+            <h2 class="section-title">1. Evolução Histórica da DIT</h2>
+            <p class="mb-6">A Divisão Internacional do Trabalho (DIT) é a <span class="highlight">geografia da produção</span>. Ela define como o mundo se organiza para produzir, circular e consumir, criando uma hierarquia entre os Estados.</p>
+            
+            <div class="overflow-hidden">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fase da DIT</th>
+                            <th>Contexto Econômico</th>
+                            <th>Papel do Centro (Norte)</th>
+                            <th>Papel da Periferia (Sul)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Fase da DIT"><strong>Colonial</strong></td>
+                            <td data-label="Contexto Econômico">Capitalismo Comercial (Grandes Navegações)</td>
+                            <td data-label="Papel do Centro">Metrópoles: Acúmulo de metais, manufaturas primitivas.</td>
+                            <td data-label="Papel da Periferia">Colônias: Extração de matéria-prima, escravidão.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Fase da DIT"><strong>Clássica</strong></td>
+                            <td data-label="Contexto Econômico">1ª e 2ª Revolução Industrial (Imperialismo)</td>
+                            <td data-label="Papel do Centro">Países Industrializados: Exportação de produtos e capital.</td>
+                            <td data-label="Papel da Periferia">Colônias/Agrários: Fornecimento de minérios e alimentos.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Fase da DIT"><strong>Nova DIT</strong></td>
+                            <td data-label="Contexto Econômico">Pós-Guerra / Fordismo (Transnacionais)</td>
+                            <td data-label="Papel do Centro">Desenvolvidos: Alta tecnologia, sede das empresas, P&D.</td>
+                            <td data-label="Papel da Periferia">Subdesenvolvidos Industrializados: Mão de obra barata, commodities.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Fase da DIT"><strong>Contemporânea (4.0)</strong></td>
+                            <td data-label="Contexto Econômico">Meio Técnico-Científico-Informacional</td>
+                            <td data-label="Papel do Centro">Gestão de <span class="highlight">Fluxos Imateriais</span>, Patentes, Softwares.</td>
+                            <td data-label="Papel da Periferia">Produção física segmentada e dependência tecnológica.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: REDES TÉCNICAS -->
+        <section id="redes">
+            <h2 class="section-title">2. Redes Técnicas: O Esqueleto da Globalização</h2>
+            <p class="mb-4">As redes são compostas por <span class="highlight">nós (pontos fixos)</span> e <span class="highlight">conexões (fluxos)</span>. Para a Fundatec, entenda que a rede não é neutra; ela é seletiva.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="concept-card bg-gray-50">
+                    <h3 class="font-bold text-lg mb-2">A. Redes de Transporte</h3>
+                    <ul class="list-disc ml-5 space-y-2">
+                        <li><strong>Multimodalidade:</strong> Integração de diferentes modais (rodoviário, ferroviário, hidroviário).</li>
+                        <li><strong>Conteinerização:</strong> Padronização que permitiu a fluidez global.</li>
+                        <li><strong>Logística:</strong> A aplicação da <span class="highlight">informação</span> sobre o transporte físico.</li>
+                    </ul>
+                </div>
+                <div class="concept-card bg-gray-50">
+                    <h3 class="font-bold text-lg mb-2">B. Redes de Comunicação</h3>
+                    <ul class="list-disc ml-5 space-y-2">
+                        <li><strong>Infovias:</strong> Cabos de fibra óptica submarinos e satélites.</li>
+                        <li><strong>Compressão Espaço-Tempo:</strong> (David Harvey) A sensação de aniquilação do espaço pelo tempo.</li>
+                        <li><strong>Ciberspaço:</strong> Onde ocorrem os fluxos de capital especulativo.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: O COMANDO IMATERIAL -->
+        <section id="imaterial">
+            <h2 class="section-title">3. A Abstração Fundamental: Imaterial vs. Material</h2>
+            <div class="p-6 border-2 border-gray-900 rounded-lg mb-8">
+                <p class="text-lg leading-relaxed">
+                    No mundo contemporâneo, a <span class="highlight">informação e o capital (fluxos imateriais)</span> comandam a circulação de mercadorias (fluxos materiais). 
+                    Quem detém o <strong>algoritmo</strong> e o <strong>design</strong> controla a fábrica, mesmo que ela esteja a 15.000km de distância.
+                </p>
+            </div>
+
+            <div class="overflow-hidden">
+                <table class="bg-white">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Fluxos Materiais</th>
+                            <th>Fluxos Imateriais (Dominantes)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Característica"><strong>Exemplos</strong></td>
+                            <td data-label="Fluxos Materiais">Navios, soja, minério, automóveis, pessoas.</td>
+                            <td data-label="Fluxos Imateriais">Dados, dinheiro eletrônico, patentes, marcas.</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Característica"><strong>Velocidade</strong></td>
+                            <td data-label="Fluxos Materiais">Lenta (depende do atrito físico).</td>
+                            <td data-label="Fluxos Imateriais">Instantânea (velocidade da luz).</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Característica"><strong>Importância</strong></td>
+                            <td data-label="Fluxos Materiais">Base física do consumo.</td>
+                            <td data-label="Fluxos Imateriais">Centro do poder e da <span class="highlight">mais-valia global</span>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: CONCEITOS PARA A PROVA -->
+        <section id="glossario">
+            <h2 class="section-title">4. Glossário de Especialista (Memorizar!)</h2>
+            <div class="space-y-4">
+                <div class="concept-card">
+                    <p><strong>Meio Técnico-Científico-Informacional (MTCI):</strong> Termo de <span class="highlight">Milton Santos</span>. O espaço geográfico atual, onde a ciência e a técnica se unem sob o comando da informação para atender ao mercado global.</p>
+                </div>
+                <div class="concept-card">
+                    <p><strong>Rugosidades:</strong> Estruturas do passado (fábricas antigas, portos obsoletos) que permanecem no espaço e influenciam o presente.</p>
+                </div>
+                <div class="concept-card">
+                    <p><strong>Verticalidades:</strong> Fluxos de cima para baixo. Decisões de grandes corporações que ignoram as necessidades locais dos lugares.</p>
+                </div>
+                <div class="concept-card">
+                    <p><strong>Cadeias Globais de Valor (CGV):</strong> A fragmentação da produção. O iPhone é desenhado nos EUA, peças na Coreia e montado na China. O lucro maior fica no <span class="highlight">imaterial (marca/design)</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: ESTRATÉGIA FUNDATEC -->
+        <section id="fundatec">
+            <h2 class="section-title">5. Tendências e "Peguinhas" da Fundatec</h2>
+            <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="text-red-600 font-bold mr-3">⚠️ Peguinha:</span> 
+                        <span>A banca pode afirmar que o <strong>Estado</strong> perdeu sua função. <strong>Errado!</strong> O Estado é o principal agente que investe em infraestrutura para que as redes funcionem.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-red-600 font-bold mr-3">⚠️ Peguinha:</span> 
+                        <span>A ideia de que a globalização é <strong>homogênea</strong>. <strong>Errado!</strong> Ela é seletiva e gera exclusão digital e de transporte (lugares luminosos vs. lugares opacos).</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-600 font-bold mr-3">💡 Dica IFC:</span> 
+                        <span>Para concursos de Institutos Federais, relacione a DIT com a <strong>formação profissional</strong>. O Brasil ainda exporta commodities (baixo valor agregado) e importa tecnologia, o que gera o debate sobre soberania tecnológica.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- BOTÃO FINAL -->
+        <div class="flex flex-col items-center justify-center py-16 gap-6">
+            <p class="text-gray-500 font-medium">Fim do conteúdo de revisão. Clique abaixo para praticar.</p>
+            <a href="geografia-divisao-internacional-do-trabalho-dit-e-redes-tecnicasquestoes.html" class="btn-questoes">
+                Resolver Questões Técnicas
+            </a>
+            <p class="text-xs text-gray-400">Certifique-se de ter lido todos os grifos em amarelo antes de prosseguir.</p>
+        </div>
+    </main>
+
+    <footer class="mt-12 text-center text-gray-400 text-sm border-t border-gray-100 pt-8 pb-12">
+        Tutor Especialista Geografia - Material focado em EBTT/IFC
+    </footer>
+
+</body>
+</html>

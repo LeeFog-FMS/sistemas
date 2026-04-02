@@ -1,169 +1,188 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: Metropolização e Segregação Socioespacial</title>
+    <title>Simulado: Metropolização e Segregação Socioespacial</title>
     <style>
         :root {
-            --bg-color: #fcfcfc;
-            --text-color: #1a1a1a;
-            --accent-color: #2563eb;
-            --border-color: #e5e7eb;
-            --success-color: #16a34a;
-            --error-color: #dc2626;
-            --secondary-bg: #f3f4f6;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #475569;
+            --accent: #2563eb;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --error: #dc2626;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.7;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.8;
             margin: 0;
             padding: 0;
         }
 
         .container {
-            max-width: 850px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         header {
-            border-bottom: 2px solid var(--accent-color);
-            margin-bottom: 40px;
-            padding-bottom: 20px;
+            margin-bottom: 50px;
+            text-align: center;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
             margin-bottom: 10px;
-            line-height: 1.3;
         }
 
-        .description {
-            color: #4b5563;
-            font-size: 1.1rem;
+        .badge {
+            display: inline-block;
+            background: var(--bg-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+            border: 1px solid var(--border);
         }
 
-        .question-card {
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        .question-container {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .question-container:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .question-number {
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: block;
         }
 
         .question-text {
-            font-weight: 600;
-            margin-bottom: 20px;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        .columns-box {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
         }
 
         .options-list {
-            list-style: none;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .option-item {
-            margin-bottom: 12px;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
+        .option {
             display: flex;
             align-items: center;
-        }
-
-        .option-item:hover {
-            background-color: var(--secondary-bg);
-        }
-
-        .option-item input {
-            margin-right: 15px;
+            padding: 14px 20px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--accent);
+        }
+
+        .option input {
+            margin-right: 15px;
+            transform: scale(1.2);
         }
 
         .btn-submit {
             display: block;
             width: 100%;
-            padding: 18px;
-            background-color: var(--accent-color);
+            padding: 20px;
+            background-color: var(--accent);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s;
             margin-top: 40px;
+            transition: opacity 0.2s;
         }
 
         .btn-submit:hover {
-            background-color: #1d4ed8;
+            opacity: 0.9;
         }
 
-        #results-section {
+        #results-area {
             display: none;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 3px solid var(--border-color);
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid var(--border);
         }
 
-        .score-box {
+        .score-summary {
             text-align: center;
-            background: var(--secondary-bg);
-            padding: 30px;
-            border-radius: 12px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
             margin-bottom: 40px;
         }
 
-        .score-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--accent-color);
+        .score-val {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--accent);
         }
 
-        .resolution-card {
-            background: #fff;
-            border-left: 5px solid var(--accent-color);
+        .resolution {
+            margin-top: 20px;
             padding: 20px;
-            margin-top: 15px;
+            background: #fdfdfd;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             font-size: 0.95rem;
-            background-color: #f9fafb;
+            display: none;
         }
 
-        .correct {
-            border-color: var(--success-color) !important;
+        .correct-answer {
+            border-color: var(--success) !important;
             background-color: #f0fdf4 !important;
         }
 
-        .incorrect {
-            border-color: var(--error-color) !important;
+        .wrong-answer {
+            border-color: var(--error) !important;
             background-color: #fef2f2 !important;
         }
 
-        .feedback {
-            font-weight: bold;
+        .label-result {
+            font-weight: 700;
             margin-top: 10px;
             display: block;
         }
 
-        .feedback-correct { color: var(--success-color); }
-        .feedback-incorrect { color: var(--error-color); }
-
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: inherit;
-        }
-
         @media (max-width: 600px) {
-            .container { padding: 20px 15px; }
-            h1 { font-size: 1.5rem; }
+            .container { padding: 30px 15px; }
+            h1 { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -171,230 +190,258 @@
 
 <div class="container">
     <header>
-        <h1>Metropolização e Segregação Socioespacial</h1>
-        <p class="description">Simulado no estilo da banca Fundatec</p>
+        <span class="badge">Simulado Técnico</span>
+        <h1>Metropolização e Segregação</h1>
+        <p style="color: var(--text-muted)">10 questões exclusivas no estilo Fundatec</p>
     </header>
 
     <form id="quiz-form">
-        <!-- Question 1 -->
-        <div class="question-card" id="q1-card">
-            <div class="question-text">Questão 01 - A dinâmica urbana contemporânea é marcada por processos complexos de concentração populacional e centralização de funções de comando econômico. Sobre as categorias de metrópoles, megacidades e cidades globais, e considerando a classificação hierárquica do IBGE, analise as seguintes assertivas:
-            <br><br>
-            I. O conceito de megacidade é estritamente demográfico, referindo-se a aglomerações urbanas que superam a marca de 10 milhões de habitantes, independentemente de sua influência política ou econômica no cenário internacional.<br>
-            II. As cidades globais são definidas pela sua capacidade de polarização em redes técnicas e financeiras mundiais, servindo como nós de fluxos de capitais, informações e serviços de alta complexidade, podendo ou não ser megacidades.<br>
-            III. Segundo o IBGE, a hierarquia urbana brasileira classifica as cidades em cinco grandes níveis: Metrópoles, Capitais Regionais, Centros Sub-regionais, Centros de Zona e Centros Locais, sendo o critério de gestão o principal diferenciador.<br>
-            IV. No Brasil, São Paulo é a única cidade que acumula simultaneamente as classificações de Grande Metrópole Nacional, Megacidade e Cidade Global.</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q1" value="A"> A) Apenas I e II.</label>
-                <label class="option-item"><input type="radio" name="q1" value="B"> B) Apenas III e IV.</label>
-                <label class="option-item"><input type="radio" name="q1" value="C"> C) Apenas I, II e III.</label>
-                <label class="option-item"><input type="radio" name="q1" value="D"> D) Apenas II, III e IV.</label>
-                <label class="option-item"><input type="radio" name="q1" value="E"> E) I, II, III e IV.</label>
+        <!-- Q1 -->
+        <div class="question-container" id="q1-box">
+            <span class="question-number">QUESTÃO 01</span>
+            <div class="question-text">
+                O conceito de "cidade dual", amplamente debatido na sociologia urbana e na geografia, descreve a coexistência de espaços com alta infraestrutura e tecnologia junto a espaços de exclusão e autoconstrução. Sobre este fenómeno, analise as afirmações:
+                <br><br>
+                I. A segregação socioespacial é um reflexo direto da desigualdade de rendimentos, mas também é alimentada pela seletividade dos investimentos públicos em infraestrutura.<br>
+                II. A "cidade legal" e a "cidade ilegal" são termos que reforçam a dualidade, onde a última é frequentemente marcada pela ausência de serviços básicos e informalidade habitacional.<br>
+                III. A gentrificação contribui para a mitigação da dualidade urbana, pois promove a integração de classes sociais nos centros históricos renovados.
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q1" value="A"> A) Apenas I.</label>
+                <label class="option"><input type="radio" name="q1" value="B"> B) Apenas I e II.</label>
+                <label class="option"><input type="radio" name="q1" value="C"> C) Apenas I e III.</label>
+                <label class="option"><input type="radio" name="q1" value="D"> D) Apenas II e III.</label>
+                <label class="option"><input type="radio" name="q1" value="E"> E) I, II e III.</label>
+            </div>
+            <div class="resolution" id="res-q1"></div>
         </div>
 
-        <!-- Question 2 -->
-        <div class="question-card" id="q2-card">
-            <div class="question-text">Questão 02 - A segregação socioespacial manifesta-se como o reflexo geográfico das desigualdades de classe no território urbano. Sobre esse processo e o fenômeno da gentrificação, assinale a alternativa INCORRETA:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q2" value="A"> A) A segregação urbana é caracterizada pela diferença socioeconômica na ocupação territorial, resultando em espaços com acessos desiguais à infraestrutura e serviços.</label>
-                <label class="option-item"><input type="radio" name="q2" value="B"> B) A gentrificação refere-se ao processo de "enobrecimento" de áreas centrais ou históricas, onde o investimento em infraestrutura eleva o valor da terra e substitui a população de baixa renda por estratos de maior poder aquisitivo.</label>
-                <label class="option-item"><input type="radio" name="q2" value="C"> C) A implementação de condomínios fechados em áreas periféricas é uma forma de segregação vinculada à população de alta renda, criando enclaves de exclusividade em meio à precariedade.</label>
-                <label class="option-item"><input type="radio" name="q2" value="D"> D) O processo de segregação urbana no Brasil foi atenuado pela reforma agrária plena, que impediu a saída massiva do campo para as metrópoles nas últimas décadas.</label>
-                <label class="option-item"><input type="radio" name="q2" value="E"> E) A gentrificação atua frequentemente como um mecanismo de valorização imobiliária que afasta populações tradicionais de seus locais de moradia para permitir a renovação estética do cenário urbano.</label>
+        <!-- Q2 -->
+        <div class="question-container" id="q2-box">
+            <span class="question-number">QUESTÃO 02</span>
+            <div class="question-text">
+                As megacidades são centros urbanos que exercem grande influência regional ou global. Segundo o critério demográfico da ONU, para uma cidade ser classificada como megacidade, ela deve possuir uma população mínima de:
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q2" value="A"> A) 5 milhões de habitantes.</label>
+                <label class="option"><input type="radio" name="q2" value="B"> B) 8 milhões de habitantes.</label>
+                <label class="option"><input type="radio" name="q2" value="C"> C) 10 milhões de habitantes.</label>
+                <label class="option"><input type="radio" name="q2" value="D"> D) 15 milhões de habitantes.</label>
+                <label class="option"><input type="radio" name="q2" value="E"> E) 20 milhões de habitantes.</label>
+            </div>
+            <div class="resolution" id="res-q2"></div>
         </div>
 
-        <!-- Question 3 -->
-        <div class="question-card" id="q3-card">
-            <div class="question-text">Questão 03 - O conceito de "dualidade da cidade", frequentemente explorado pela urbanista Ermínia Maricato, descreve a coexistência de realidades antagônicas no mesmo tecido metropolitano. Sobre essa dualidade e o acesso à infraestrutura, analise as assertivas abaixo:
-            <br><br>
-            I. A cidade dual manifesta-se na separação entre a "cidade legal", provida de infraestrutura, regulação e serviços, e a "cidade ilegal", marcada pela autoconstrução e ausência de direitos urbanos básicos.<br>
-            II. O Estado atua como agente produtor dessa dualidade ao concentrar investimentos públicos e equipamentos urbanos prioritariamente em áreas já valorizadas pelo mercado imobiliário.<br>
-            III. A autoconstrução periférica é um mecanismo de produção de moradia onde o trabalhador assume os custos de construção e manutenção de sua residência devido à exclusão do mercado formal de habitação.<br>
-            IV. A dualidade urbana é um fenômeno exclusivo de cidades pequenas, onde a falta de orçamento municipal impede a universalização do saneamento.</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q3" value="A"> A) Apenas I e II.</label>
-                <label class="option-item"><input type="radio" name="q3" value="B"> B) Apenas III e IV.</label>
-                <label class="option-item"><input type="radio" name="q3" value="C"> C) Apenas I, II e III.</label>
-                <label class="option-item"><input type="radio" name="q3" value="D"> D) Apenas I, II e IV.</label>
-                <label class="option-item"><input type="radio" name="q3" value="E"> E) I, II, III e IV.</label>
+        <!-- Q3 -->
+        <div class="question-container" id="q3-box">
+            <span class="question-number">QUESTÃO 03</span>
+            <div class="question-text">
+                O processo de gentrificação é caracterizado por uma série de mudanças socioespaciais em áreas centrais das metrópoles. Assinale a alternativa que descreve corretamente uma consequência desse processo:
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q3" value="A"> A) Desvalorização dos imóveis em áreas históricas para atrair a população de baixa renda.</label>
+                <label class="option"><input type="radio" name="q3" value="B"> B) Democratização do acesso à habitação em áreas providas de infraestrutura.</label>
+                <label class="option"><input type="radio" name="q3" value="C"> C) Expulsão de moradores tradicionais e residentes de baixa renda devido ao aumento do custo de vida e dos imóveis.</label>
+                <label class="option"><input type="radio" name="q3" value="D"> D) Redução da verticalização urbana em favor de áreas verdes preservadas.</label>
+                <label class="option"><input type="radio" name="q3" value="E"> E) Estagnação do comércio local em benefício de cooperativas comunitárias.</label>
+            </div>
+            <div class="resolution" id="res-q3"></div>
         </div>
 
-        <!-- Question 4 -->
-        <div class="question-card" id="q4-card">
-            <div class="question-text">Questão 04 - A urbanização brasileira acelerada no século XX gerou o fenômeno da macrocefalia urbana. Este processo está associado:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q4" value="A"> A) Ao planejamento urbano rígido que distribuiu a população de forma equitativa entre pequenas e médias cidades.</label>
-                <label class="option-item"><input type="radio" name="q4" value="B"> B) À concentração excessiva de atividades econômicas e população em poucas metrópoles, gerando problemas de infraestrutura e serviços públicos insuficientes.</label>
-                <label class="option-item"><input type="radio" name="q4" value="C"> C) À erradicação total do déficit habitacional através de políticas públicas de financiamento popular universal.</label>
-                <label class="option-item"><input type="radio" name="q4" value="D"> D) Ao declínio do setor de serviços nas metrópoles nacionais em favor da atividade agrícola no interior do país.</label>
-                <label class="option-item"><input type="radio" name="q4" value="E"> E) À ausência completa de movimentos migratórios intermunicipais após a década de 1970.</label>
+        <!-- Q4 -->
+        <div class="question-container" id="q4-box">
+            <span class="question-number">QUESTÃO 04</span>
+            <div class="question-text">
+                Sobre a segregação socioespacial autoimposta, típica das elites urbanas nas metrópoles contemporâneas, pode-se afirmar que se manifesta principalmente através de:
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q4" value="A"> A) Cortiços e ocupações em prédios abandonados.</label>
+                <label class="option"><input type="radio" name="q4" value="B"> B) Condomínios fechados (enclaves fortificados) com sistemas de segurança e lazer privativos.</label>
+                <label class="option"><input type="radio" name="q4" value="C"> C) Migração pendular diária em transporte coletivo de massa.</label>
+                <label class="option"><input type="radio" name="q4" value="D"> D) Autoconstrução em áreas de mananciais e encostas.</label>
+                <label class="option"><input type="radio" name="q4" value="E"> E) Deslocamento para cidades médias em busca de agricultura de subsistência.</label>
+            </div>
+            <div class="resolution" id="res-q4"></div>
         </div>
 
-        <!-- Question 5 -->
-        <div class="question-card" id="q5-card">
-            <div class="question-text">Questão 05 - Sobre a hierarquia urbana e a rede de cidades no Brasil, relacione as colunas:
-            <br><br>
-            ( ) Aglomeração urbana com mais de 10 milhões de habitantes, critério quantitativo.<br>
-            ( ) Unidade institucional constituída por agrupamento de municípios limítrofes, visando integrar a organização e funções públicas.<br>
-            ( ) Cidade que exerce forte influência sobre o território em seu entorno, dotada de complexa oferta de bens e serviços.<br>
-            ( ) Nó estratégico na economia mundial, sede de empresas transnacionais.</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q5" value="A"> A) 3 – 2 – 1 – 4.</label>
-                <label class="option-item"><input type="radio" name="q5" value="B"> B) 2 – 3 – 4 – 1.</label>
-                <label class="option-item"><input type="radio" name="q5" value="C"> C) 3 – 1 – 2 – 4.</label>
-                <label class="option-item"><input type="radio" name="q5" value="D"> D) 4 – 2 – 1 – 3.</label>
-                <label class="option-item"><input type="radio" name="q5" value="E"> E) 1 – 4 – 3 – 2.</label>
+        <!-- Q5 - FIXED WITH COLUMNS -->
+        <div class="question-container" id="q5-box">
+            <span class="question-number">QUESTÃO 05</span>
+            <div class="question-text">
+                Relacione a Coluna 1, que apresenta conceitos fundamentais da urbanização, com a Coluna 2, que contém as suas respetivas definições:
             </div>
+            
+            <div class="columns-box">
+                <strong>Coluna 1</strong><br>
+                1. Metrópole<br>
+                2. Região Metropolitana<br>
+                3. Megacidade<br>
+                4. Cidade Global<br><br>
+                
+                <strong>Coluna 2</strong><br>
+                ( ) Aglomeração urbana com mais de 10 milhões de habitantes, critério estritamente demográfico.<br>
+                ( ) Unidade institucional constituída por agrupamento de municípios limítrofes, visando integrar a organização e funções públicas.<br>
+                ( ) Cidade que exerce forte influência sobre o território em seu entorno, dotada de complexa oferta de bens e serviços.<br>
+                ( ) Nó estratégico na economia mundial, sede de empresas transnacionais e serviços de alta complexidade.
+            </div>
+
+            <div class="question-text">A ordem correta de preenchimento dos parênteses, de cima para baixo, é:</div>
+
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q5" value="A"> A) 3 – 2 – 1 – 4.</label>
+                <label class="option"><input type="radio" name="q5" value="B"> B) 2 – 3 – 4 – 1.</label>
+                <label class="option"><input type="radio" name="q5" value="C"> C) 3 – 1 – 2 – 4.</label>
+                <label class="option"><input type="radio" name="q5" value="D"> D) 4 – 2 – 1 – 3.</label>
+                <label class="option"><input type="radio" name="q5" value="E"> E) 1 – 4 – 3 – 2.</label>
+            </div>
+            <div class="resolution" id="res-q5"></div>
         </div>
 
-        <!-- Question 6 -->
-        <div class="question-card" id="q6-card">
-            <div class="question-text">Questão 06 - O Estatuto da Cidade (Lei Federal nº 10.257/2001) estabelece diretrizes para a política urbana. Em relação ao combate à retenção especulativa do solo urbano e à subutilização de imóveis, o Poder Público municipal pode aplicar sucessivamente as seguintes penalidades:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q6" value="A"> A) Multa ambiental, confisco do imóvel e leilão público.</label>
-                <label class="option-item"><input type="radio" name="q6" value="B"> B) Parcelamento ou edificação compulsórios, IPTU progressivo no tempo e desapropriação com pagamento em títulos da dívida pública.</label>
-                <label class="option-item"><input type="radio" name="q6" value="C"> C) Interdição do imóvel, cassação do alvará de funcionamento e demolição administrativa.</label>
-                <label class="option-item"><input type="radio" name="q6" value="D"> D) Aumento da taxa de lixo, proibição de venda e transferência para o estado.</label>
-                <label class="option-item"><input type="radio" name="q6" value="E"> E) Advertência formal, multa diária e prisão do proprietário.</label>
+        <!-- Q6 -->
+        <div class="question-container" id="q6-box">
+            <span class="question-number">QUESTÃO 06</span>
+            <div class="question-text">
+                No Brasil, a autoconstrução é um fenómeno central na produção do espaço periférico. Este processo é caracterizado pelo facto de o próprio trabalhador construir a sua moradia. Qual é a principal causa estrutural deste fenómeno?
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q6" value="A"> A) Escolha cultural por arquiteturas personalizadas.</label>
+                <label class="option"><input type="radio" name="q6" value="B"> B) Ausência de mercado imobiliário formal acessível às classes de baixa renda e insuficiência de políticas habitacionais.</label>
+                <label class="option"><input type="radio" name="q6" value="C"> C) Abundância de terrenos públicos doados pelo Estado em áreas centrais.</label>
+                <label class="option"><input type="radio" name="q6" value="D"> D) Excesso de regulação urbanística que impede a atuação de grandes construtoras.</label>
+                <label class="option"><input type="radio" name="q6" value="E"> E) Priorização do transporte ferroviário em detrimento do rodoviário.</label>
+            </div>
+            <div class="resolution" id="res-q6"></div>
         </div>
 
-        <!-- Question 7 -->
-        <div class="question-card" id="q7-card">
-            <div class="question-text">Questão 07 - No contexto da segregação socioespacial e da autoconstrução, a periferização das metrópoles brasileiras é frequentemente impulsionada pela "lógica da exclusão". Sobre as causas desse processo, assinale a alternativa correta:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q7" value="A"> A) A expansão das cidades médias e grandes ocorre de forma planejada, garantindo a todos os cidadãos o acesso igualitário ao solo urbano.</label>
-                <label class="option-item"><input type="radio" name="q7" value="B"> B) A ausência de políticas públicas habitacionais e a baixa renda da população forçam a ocupação de áreas irregulares e de risco, consolidando a autoconstrução desordenada.</label>
-                <label class="option-item"><input type="radio" name="q7" value="C"> C) O mercado imobiliário formal prioriza a construção de casas populares em áreas centrais para garantir a mistura social.</label>
-                <label class="option-item"><input type="radio" name="q7" value="D"> D) A segregação urbana é um fenômeno natural decorrente exclusivamente da topografia acidentada das cidades brasileiras.</label>
-                <label class="option-item"><input type="radio" name="q7" value="E"> E) A infraestrutura urbana, como saneamento e transporte, é instalada primeiro nas periferias para atrair a ocupação populacional organizada.</label>
+        <!-- Q7 -->
+        <div class="question-container" id="q7-box">
+            <span class="question-number">QUESTÃO 07</span>
+            <div class="question-text">
+                A "macrocefalia urbana" é um termo frequentemente associado à urbanização de países subdesenvolvidos ou emergentes. Refere-se à:
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q7" value="A"> A) Desconcentração industrial para o interior do país.</label>
+                <label class="option"><input type="radio" name="q7" value="B"> B) Hipertrofia de uma ou poucas cidades que concentram população e serviços de forma desproporcional à rede urbana.</label>
+                <label class="option"><input type="radio" name="q7" value="C"> C) Planeamento urbano rigoroso que impede o crescimento das metrópoles.</label>
+                <label class="option"><input type="radio" name="q7" value="D"> D) Especialização de cidades pequenas em funções tecnológicas de ponta.</label>
+                <label class="option"><input type="radio" name="q7" value="E"> E) Fusão de duas ou mais metrópoles formando uma megalópole.</label>
+            </div>
+            <div class="resolution" id="res-q7"></div>
         </div>
 
-        <!-- Question 8 -->
-        <div class="question-card" id="q8-card">
-            <div class="question-text">Questão 08 - O fenômeno das "ilhas de calor" e a impermeabilização do solo são problemas ambientais urbanos agravados pela metropolização. No entanto, a vulnerabilidade a esses fenômenos é desigual. É correto afirmar que:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q8" value="A"> A) A população de alta renda é a mais afetada por inundações, pois reside preferencialmente nas várzeas de rios.</label>
-                <label class="option-item"><input type="radio" name="q8" value="B"> B) A segregação socioespacial empurra a população pobre para áreas de risco geomorfológico, como encostas de morros, onde a autoconstrução aumenta a instabilidade do solo.</label>
-                <label class="option-item"><input type="radio" name="q8" value="C"> C) As ilhas de calor são atenuadas em bairros pobres devido à grande presença de arborização pública e parques planejados.</label>
-                <label class="option-item"><input type="radio" name="q8" value="D"> D) O saneamento básico é distribuído de forma homogênea no território metropolitano, eliminando riscos de doenças infectocontagiosas nas periferias.</label>
-                <label class="option-item"><input type="radio" name="q8" value="E"> E) A poluição atmosférica é um problema que atinge apenas as megacidades dos países desenvolvidos, como Tóquio e Nova Iorque.</label>
+        <!-- Q8 -->
+        <div class="question-container" id="q8-box">
+            <span class="question-number">QUESTÃO 08</span>
+            <div class="question-text">
+                A segregação socioespacial nas metrópoles pode ser fragmentada. O surgimento de novas centralidades nas periferias, voltadas para o consumo das elites, cria o que alguns autores chamam de:
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q8" value="A"> A) Cidades-dormitório.</label>
+                <label class="option"><input type="radio" name="q8" value="B"> B) Enclaves fortificados.</label>
+                <label class="option"><input type="radio" name="q8" value="C"> C) Cinturões verdes.</label>
+                <label class="option"><input type="radio" name="q8" value="D"> D) Subúrbios operários.</label>
+                <label class="option"><input type="radio" name="q8" value="E"> E) Vilas rurais metropolitanas.</label>
+            </div>
+            <div class="resolution" id="res-q8"></div>
         </div>
 
-        <!-- Question 9 -->
-        <div class="question-card" id="q9-card">
-            <div class="question-text">Questão 09 - A mobilidade urbana nas metrópoles é marcada pelo "movimento pendular". Esse conceito refere-se a:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q9" value="A"> A) Migração definitiva de moradores do campo para as capitais em busca de emprego.</label>
-                <label class="option-item"><input type="radio" name="q9" value="B"> B) Deslocamento diário de pessoas entre o município de residência e o de trabalho ou estudo, geralmente entre a periferia/cidades-dormitório e o polo central.</label>
-                <label class="option-item"><input type="radio" name="q9" value="C"> C) Fluxo sazonal de turistas que visitam cidades históricas durante o período de férias.</label>
-                <label class="option-item"><input type="radio" name="q9" value="D"> D) Movimento de retorno de imigrantes estrangeiros aos seus países de origem após a crise econômica.</label>
-                <label class="option-item"><input type="radio" name="q9" value="E"> E) Substituição de moradias horizontais por edifícios de apartamentos em áreas valorizadas.</label>
+        <!-- Q9 -->
+        <div class="question-container" id="q9-box">
+            <span class="question-number">QUESTÃO 09</span>
+            <div class="question-text">
+                Sobre a relação entre metropolização e transporte, assinale a alternativa que indica uma característica da mobilidade nas metrópoles brasileiras marcada pela segregação:
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q9" value="A"> A) Universalidade de ciclovias integrando as periferias aos centros financeiros.</label>
+                <label class="option"><input type="radio" name="q9" value="B"> B) Longos tempos de deslocamento diário da população periférica em sistemas de transporte frequentemente precários (movimento pendular).</label>
+                <label class="option"><input type="radio" name="q9" value="C"> C) Redução drástica da frota de veículos privados em favor do teletrabalho total.</label>
+                <label class="option"><input type="radio" name="q9" value="D"> D) Tarifa zero implantada em todas as regiões metropolitanas nacionais.</label>
+                <label class="option"><input type="radio" name="q9" value="E) E) Inexistência de eixos de comércio junto às estações de transporte.</label>
+            </div>
+            <div class="resolution" id="res-q9"></div>
         </div>
 
-        <!-- Question 10 -->
-        <div class="question-card" id="q10-card">
-            <div class="question-text">Questão 10 - De acordo com a pesquisa REGIC do IBGE, as metrópoles brasileiras são classificadas em três subníveis. Assinale a alternativa que apresenta corretamente a classificação de maior hierarquia na rede urbana brasileira:</div>
-            <div class="options-list">
-                <label class="option-item"><input type="radio" name="q10" value="A"> A) Metrópole Nacional.</label>
-                <label class="option-item"><input type="radio" name="q10" value="B"> B) Metrópole Regional.</label>
-                <label class="option-item"><input type="radio" name="q10" value="C"> C) Capital Regional A.</label>
-                <label class="option-item"><input type="radio" name="q10" value="D"> D) Grande Metrópole Nacional.</label>
-                <label class="option-item"><input type="radio" name="q10" value="E"> E) Metrópole Global.</label>
+        <!-- Q10 -->
+        <div class="question-container" id="q10-box">
+            <span class="question-number">QUESTÃO 10</span>
+            <div class="question-text">
+                A abstração da "dualidade da cidade" sugere que o direito à cidade não é exercido de forma plena por todos. Qual instrumento jurídico brasileiro visa combater essa desigualdade através da função social da propriedade?
             </div>
+            <div class="options-list">
+                <label class="option"><input type="radio" name="q10" value="A"> A) Lei das Terras de 1850.</label>
+                <label class="option"><input type="radio" name="q10" value="B"> B) Código Florestal.</label>
+                <label class="option"><input type="radio" name="q10" value="C"> C) Estatuto da Cidade (Lei 10.257/2001).</label>
+                <label class="option"><input type="radio" name="q10" value="D"> D) Lei da Reforma Agrária.</label>
+                <label class="option"><input type="radio" name="q10" value="E"> E) Consolidação das Leis do Trabalho (CLT).</label>
+            </div>
+            <div class="resolution" id="res-q10"></div>
         </div>
 
-        <button type="button" class="btn-submit" onclick="calculateScore()">Finalizar e Ver Resultados</button>
+        <button type="button" class="btn-submit" onclick="gradeQuiz()">Finalizar Quiz e Mostrar Gabarito</button>
     </form>
 
-    <div id="results-section">
-        <div class="score-box">
-            <h2>Seu Resultado</h2>
-            <div class="score-number" id="final-score">0 / 10</div>
-            <p id="score-text">Confira abaixo as resoluções detalhadas de cada questão.</p>
-        </div>
-
-        <div id="resolutions-list">
-            <!-- As resoluções serão inseridas aqui via JS -->
+    <div id="results-area">
+        <div class="score-summary">
+            <p>Seu desempenho foi de:</p>
+            <div class="score-val" id="score-text">0/10</div>
+            <p id="performance-msg"></p>
         </div>
     </div>
 </div>
 
 <script>
-    const correctAnswers = {
-        q1: 'E', q2: 'D', q3: 'C', q4: 'B', q5: 'A',
-        q6: 'B', q7: 'B', q8: 'B', q9: 'B', q10: 'D'
+    const answers = {
+        q1: 'B', q2: 'C', q3: 'C', q4: 'B', q5: 'A',
+        q6: 'B', q7: 'B', q8: 'B', q9: 'B', q10: 'C'
     };
 
-    const resolutions = {
-        q1: "A compreensão da rede urbana brasileira exige a diferenciação precisa entre critérios demográficos e funcionais. Megacidade é demográfico (>10mi), Cidade Global é funcional (comando financeiro) e o IBGE classifica SP como a única Grande Metrópole Nacional.",
-        q2: "A alternativa D está incorreta pois o Brasil não realizou reforma agrária plena; o êxodo rural foi desordenado e alimentou a periferização das metrópoles, sem suporte de infraestrutura.",
-        q3: "A dualidade urbana (Maricato) separa a 'cidade legal' (infraestruturada) da 'cidade ilegal' (periférica/favelas). É um fenômeno estrutural das grandes metrópoles, não exclusivo de cidades pequenas.",
-        q4: "A macrocefalia urbana ocorre pela concentração excessiva de atividades econômicas em poucas cidades, crescendo mais rápido que a capacidade de absorção de empregos e infraestrutura.",
-        q5: "A ordem 3-2-1-4 relaciona: Megacidade (3-demográfico), Região Metropolitana (2-institucional), Metrópole (1-influência regional) e Cidade Global (4-nó mundial).",
-        q6: "O Estatuto da Cidade prevê o uso sucessivo do PEUC, IPTU Progressivo e desapropriação com títulos para garantir a função social da propriedade e combater a especulação.",
-        q7: "A periferização é fruto da 'lógica da exclusão': sem renda para o mercado formal e sem políticas habitacionais eficazes, os trabalhadores recorrem à autoconstrução em áreas irregulares.",
-        q8: "Desastres urbanos são reflexos da segregação: a população pobre é empurrada para áreas de risco geomorfológico (encostas), onde a autoconstrução instabiliza ainda mais o solo.",
-        q9: "O movimento pendular é o fluxo diário entre residência (periferia/cidade-dormitório) e trabalho (polo central), sintoma da concentração metropolitana de serviços.",
-        q10: "A REGIC/IBGE coloca a 'Grande Metrópole Nacional' (São Paulo) no topo da hierarquia, com influência direta sobre todo o território brasileiro."
+    const explanations = {
+        q1: "<b>Resolução:</b> A afirmação III está incorreta. A gentrificação não mitiga a dualidade; pelo contrário, costuma acentuá-la ao expulsar os moradores originais para áreas ainda mais periféricas devido à valorização imobiliária. I e II descrevem corretamente a segregação e a dualidade legal/ilegal.",
+        q2: "<b>Resolução:</b> Segundo a ONU, o critério para classificar uma 'Megacidade' é exclusivamente demográfico: populações residentes superiores a 10 milhões de habitantes.",
+        q3: "<b>Resolução:</b> A gentrificação envolve a substituição de uma população de menor renda por uma de maior renda através da valorização do espaço, resultando na expulsão (deslocamento) dos residentes tradicionais.",
+        q4: "<b>Resolução:</b> A elite urbana pratica a 'segregação autoimposta' através dos enclaves fortificados, que são condomínios com muros, segurança armada e lazer, separando-se fisicamente do resto do tecido urbano.",
+        q5: "<b>Resolução:</b> A ordem é: (3) Megacidade - 10mi hab; (2) Região Metropolitana - Institucional/limítrofes; (1) Metrópole - Influência entorno; (4) Cidade Global - Nó econômico mundial. Sequência 3-2-1-4.",
+        q6: "<b>Resolução:</b> A autoconstrução é uma resposta à impossibilidade de aceder ao mercado formal (preços altos) e à falha do Estado em prover habitação social suficiente para a massa trabalhadora.",
+        q7: "<b>Resolução:</b> A macrocefalia urbana é o crescimento desmesurado de uma cidade principal em relação às outras da rede urbana, concentrando serviços e pessoas de forma desequilibrada.",
+        q8: "<b>Resolução:</b> Teresa Caldeira utiliza o termo 'enclaves fortificados' para definir esses espaços segregados que podem surgir tanto no centro como em periferias valorizadas (ex: Alphaville).",
+        q9: "<b>Resolução:</b> A segregação manifesta-se na mobilidade através da periferização da moradia, forçando trabalhadores a gastar horas em transportes lotados (movimento pendular).",
+        q10: "<b>Resolução:</b> O Estatuto da Cidade é o principal marco jurídico que regulamenta a função social da propriedade urbana, fornecendo ferramentas para combater a especulação e a desigualdade socioespacial."
     };
 
-    function calculateScore() {
+    function gradeQuiz() {
         let score = 0;
-        const total = Object.keys(correctAnswers).length;
-        const resolutionsDiv = document.getElementById('resolutions-list');
-        resolutionsDiv.innerHTML = ''; // Limpa antes de gerar
-
+        const total = 10;
+        const form = document.getElementById('quiz-form');
+        
         for (let i = 1; i <= total; i++) {
-            const qKey = 'q' + i;
-            const selected = document.querySelector(`input[name="${qKey}"]:checked`);
-            const card = document.getElementById(qKey + '-card');
+            const qName = 'q' + i;
+            const selected = form.elements[qName].value;
+            const resDiv = document.getElementById('res-' + qName);
+            const box = document.getElementById(qName + '-box');
             
-            let isCorrect = false;
-            if (selected && selected.value === correctAnswers[qKey]) {
+            resDiv.innerHTML = explanations[qName];
+            resDiv.style.display = 'block';
+
+            if (selected === answers[qName]) {
                 score++;
-                isCorrect = true;
-            }
-
-            // Aplicar estilos visual no card
-            if (isCorrect) {
-                card.classList.add('correct');
-                card.classList.remove('incorrect');
+                box.classList.add('correct-answer');
+                box.classList.remove('wrong-answer');
+                resDiv.insertAdjacentHTML('afterbegin', '<span class="label-result" style="color:var(--success)">✓ Você acertou!</span>');
             } else {
-                card.classList.add('incorrect');
-                card.classList.remove('correct');
+                box.classList.add('wrong-answer');
+                box.classList.remove('correct-answer');
+                resDiv.insertAdjacentHTML('afterbegin', `<span class="label-result" style="color:var(--error)">✗ Você errou. A resposta correta é a alternativa ${answers[qName]}.</span>`);
             }
-
-            // Adicionar Feedback e Resolução
-            const feedbackHtml = `
-                <div class="feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}">
-                    ${isCorrect ? '✓ Correto!' : '✗ Incorreto. A resposta certa era ' + correctAnswers[qKey] + '.'}
-                </div>
-                <div class="resolution-card">
-                    <strong>Resolução Analítica:</strong><br>
-                    ${resolutions[qKey]}
-                </div>
-            `;
-            
-            const resContainer = document.createElement('div');
-            resContainer.style.marginBottom = "30px";
-            resContainer.innerHTML = `<h3>Questão ${i}</h3>` + feedbackHtml;
-            resolutionsDiv.appendChild(resContainer);
         }
 
-        // Mostrar resultados
-        document.getElementById('final-score').innerText = `${score} / ${total}`;
-        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('score-text').innerText = `${score}/${total}`;
+        document.getElementById('results-area').style.display = 'block';
         
-        // Scroll suave para o resultado
-        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        const msg = score >= 7 ? "Excelente desempenho!" : (score >= 5 ? "Bom desempenho, mas continue estudando." : "Recomendamos revisar os conceitos base.");
+        document.getElementById('performance-msg').innerText = msg;
+
+        // Scroll suave para o topo do resultado
+        document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 

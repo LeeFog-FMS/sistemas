@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Capitalismo, Globalização e Toyotismo</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --text-color: #1a202c;
+            --accent-color: #2b6cb0;
+            --correct-color: #2f855a;
+            --incorrect-color: #c53030;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f7fafc;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Styles for results */
+        .option-item.correct {
+            background-color: #f0fff4;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+            font-weight: 600;
+        }
+
+        .option-item.incorrect {
+            background-color: #fff5f5;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ebf8ff;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #2c5282;
+        }
+
+        #results-summary {
+            display: none;
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .status-msg {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px 15px; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado Fundatec</h1>
+        <p>Capitalismo, Globalização e Reestruturação Produtiva</p>
+    </header>
+
+    <div id="results-summary">
+        <h2>Resultado Final</h2>
+        <div class="score-display" id="final-score">0 / 10</div>
+        <p id="feedback-text"></p>
+    </div>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <span class="question-text">Questão 01: Sobre as fases do capitalismo e os meios geográficos de Milton Santos, assinale a ordem correta:</span>
+            <p>
+                ( ) O Meio Natural caracteriza-se pela integração das técnicas à natureza.<br>
+                ( ) O Meio Técnico marca a natureza instrumentalizada por objetos mecânicos e Fordismo.<br>
+                ( ) O MTCI representa a fase atual com ciência, tecnologia e informação.<br>
+                ( ) A transição para o MTCI é marcada pela democratização do acesso tecnológico.
+            </p>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q1" value="A" id="q1a"><label for="q1a">A) V – V – V – F.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="B" id="q1b"><label for="q1b">B) V – F – V – V.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="C" id="q1c"><label for="q1c">C) F – V – F – V.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="D" id="q1d"><label for="q1d">D) V – V – F – F.</label></div>
+                <div class="option-item"><input type="radio" name="q1" value="E" id="q1e"><label for="q1e">E) F – F – V – V.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q1">
+                <strong>Resolução:</strong> O Meio Natural precede a autonomia técnica. O Meio Técnico é o suporte do Fordismo. O MTCI é a base da globalização. A última assertiva é falsa pois a tecnologia sob a lógica capitalista aprofunda exclusões em vez de democratizar plenamente o acesso.
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <span class="question-text">Questão 02: Sobre as características fundamentais do Toyotismo, quais estão corretas?</span>
+            <p>I. Introduziu o sistema Just-in-Time.<br>II. Exige multifuncionalidade do trabalhador.<br>III. Promoveu concentração industrial verticalizada.<br>IV. Adota métodos como Kanban e Kaizen.</p>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q2" value="A" id="q2a"><label for="q2a">A) Apenas I e II.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="B" id="q2b"><label for="q2b">B) Apenas III e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="C" id="q2c"><label for="q2c">C) Apenas I, II e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="D" id="q2d"><label for="q2d">D) Apenas II, III e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q2" value="E" id="q2e"><label for="q2e">E) I, II, III e IV.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q2">
+                <strong>Resolução:</strong> O item III está incorreto. O Toyotismo promove a desconcentração e fragmentação produtiva em redes, ao contrário da verticalização Fordista.
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <span class="question-text">Questão 03: Segundo Milton Santos, a "globalização como fábula" caracteriza-se por:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q3" value="A" id="q3a"><label for="q3a">A) Revelar o mundo tal como ele realmente é.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="B" id="q3b"><label for="q3b">B) Um discurso ideológico de uma "aldeia global" harmoniosa e consumo acessível.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="C" id="q3c"><label for="q3c">C) Propor uma reorganização solidária do território.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="D" id="q3d"><label for="q3d">D) Representar o estágio de plena soberania do Estado-Nação.</label></div>
+                <div class="option-item"><input type="radio" name="q3" value="E" id="q3e"><label for="q3e">E) Estabelecer uma unicidade técnica que reduz desigualdades imediatas.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q3">
+                <strong>Resolução:</strong> A fábula é a dimensão ideológica que vende a ilusão de um mundo unificado e próspero pelo mercado, escondendo as reais contradições.
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <span class="question-text">Questão 04: Sobre a "globalização como perversidade", é correto afirmar que:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q4" value="A" id="q4a"><label for="q4a">A) É um efeito temporário mitigado pelos mercados autorregulados.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="B" id="q4b"><label for="q4b">B) Manifesta-se no aumento da pobreza, desemprego estrutural e precarização.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="C" id="q4c"><label for="q4c">C) Reside exclusivamente na falta de modernização tecnológica.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="D" id="q4d"><label for="q4d">D) É fruto de escolhas culturais específicas de cada região.</label></div>
+                <div class="option-item"><input type="radio" name="q4" value="E" id="q4e"><label for="q4e">E) Manifesta-se através da homogeneização cultural absoluta sem resistência.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q4">
+                <strong>Resolução:</strong> A perversidade refere-se aos impactos reais e negativos da globalização corporativa sobre a vida das populações mais vulneráveis.
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <span class="question-text">Questão 05: A "globalização como possibilidade" fundamenta-se na ideia de que:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q5" value="A" id="q5a"><label for="q5a">A) A tecnologia deve ser destruída para retorno ao estado natural.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="B" id="q5b"><label for="q5b">B) O sistema técnico atual pode ser apropriado para propósitos sociais e humanos.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="C" id="q5c"><label for="q5c">C) Deve ser gerida por um governo mundial centralizado.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="D" id="q5d"><label for="q5d">D) As multinacionais devem assumir o papel dos governos nacionais.</label></div>
+                <div class="option-item"><input type="radio" name="q5" value="E" id="q5e"><label for="q5e">E) Depende do isolamento total das comunidades locais.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q5">
+                <strong>Resolução:</strong> Milton Santos propõe que o aparato técnico universal criado pode servir a uma nova ordem solidária se apropriado pelos povos.
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <span class="question-text">Questão 06: Sobre o controle das multinacionais e o conceito de "território-recurso", analise as assertivas:</span>
+            <p>I. Impõem verticalidades que atendem interesses externos.<br>II. É marcado pela seletividade espacial (pontos de luz).<br>III. A "guerra dos lugares" ocorre pela competição por vantagens fiscais.<br>IV. O tempo das empresas se impõe sobre o tempo das comunidades.</p>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q6" value="A" id="q6a"><label for="q6a">A) Apenas I e III.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="B" id="q6b"><label for="q6b">B) Apenas II e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="C" id="q6c"><label for="q6c">C) Apenas I, II e III.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="D" id="q6d"><label for="q6d">D) Apenas II, III e IV.</label></div>
+                <div class="option-item"><input type="radio" name="q6" value="E" id="q6e"><label for="q6e">E) I, II, III e IV.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q6">
+                <strong>Resolução:</strong> Todas estão corretas. Elas resumem como o capital transnacional utiliza e fragmenta o território para otimizar seus lucros em detrimento do social.
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <span class="question-text">Questão 07: Qual alternativa descreve corretamente a mudança do papel do Estado na globalização?</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q7" value="A" id="q7a"><label for="q7a">A) Principal planejador que impede entrada de capital estrangeiro.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="B" id="q7b"><label for="q7b">B) Agente facilitador da fluidez territorial e desregulamentador de mercados.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="C" id="q7c"><label for="q7c">C) Foi substituído integralmente por governanças privadas.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="D" id="q7d"><label for="q7d">D) Fortaleceu-se na regulação ambiental proibindo indústrias poluidoras.</label></div>
+                <div class="option-item"><input type="radio" name="q7" value="E" id="q7e"><label for="q7e">E) Prioriza o "território-abrigo" em detrimento da competitividade.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q7">
+                <strong>Resolução:</strong> O Estado torna-se fiador do mercado, investindo em infraestruturas para os fluxos corporativos e flexibilizando legislações.
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <span class="question-text">Questão 08: Assinale o elemento de DIFERENCIAÇÃO do Toyotismo em relação ao Fordismo:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q8" value="A" id="q8a"><label for="q8a">A) Produção baseada em grandes estoques de segurança.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="B" id="q8b"><label for="q8b">B) Rigidez hierárquica e separação absoluta entre mente e braço.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="C" id="q8c"><label for="q8c">C) Trabalhador especialista em única tarefa repetitiva.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="D" id="q8d"><label for="q8d">D) Produção flexível e diversificada para nichos de mercado.</label></div>
+                <div class="option-item"><input type="radio" name="q8" value="E" id="q8e"><label for="q8e">E) Necessidade de localização próxima a fontes de matéria-prima.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q8">
+                <strong>Resolução:</strong> A flexibilidade produtiva e a capacidade de atender demandas customizadas é o grande diferencial da acumulação flexível toyotista.
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <span class="question-text">Questão 09: O "Meio Técnico-Científico-Informacional" é caracterizado por:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q9" value="A" id="q9a"><label for="q9a">A) Desconexão total entre ciência e produção industrial.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="B" id="q9b"><label for="q9b">B) Redes que garantem desenvolvimento igualitário em todas as regiões.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="C" id="q9c"><label for="q9c">C) Hegemonia da técnica e informação para controle remoto de processos e capitais.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="D" id="q9d"><label for="q9d">D) Valorização de técnicas tradicionais sobre biotecnologia.</label></div>
+                <div class="option-item"><input type="radio" name="q9" value="E" id="q9e"><label for="q9e">E) Redução da mobilidade populacional pela virtualização total.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q9">
+                <strong>Resolução:</strong> No MTCI, a informação e a ciência são os motores da produção e da circulação financeira instantânea.
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <span class="question-text">Questão 10: Assinale a alternativa que associa corretamente a fase do capitalismo ao seu motor:</span>
+            <div class="options-list">
+                <div class="option-item"><input type="radio" name="q10" value="A" id="q10a"><label for="q10a">A) Mercantil: Motores a vapor e ferrovias.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="B" id="q10b"><label for="q10b">B) Industrial: Metalismo e grandes navegações.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="C" id="q10c"><label for="q10c">C) Financeiro: Fusão do capital bancário/industrial e motor a combustão.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="D" id="q10d"><label for="q10d">D) Informacional: Hegemonia do carvão e protecionismo absoluto.</label></div>
+                <div class="option-item"><input type="radio" name="q10" value="E" id="q10e"><label for="q10e">E) Globalizado: Fim das corporações transnacionais.</label></div>
+            </div>
+            <div class="resolution-box" id="res-q10">
+                <strong>Resolução:</strong> O Capitalismo Financeiro (Monopolista) marca a união dos bancos com a indústria e a transição para fontes energéticas como o petróleo (combustão).
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn">Finalizar Quiz e Ver Resoluções</button>
+            <p id="error-msg" style="color: red; margin-top: 10px; display: none;">Por favor, responda todas as questões antes de finalizar.</p>
+        </div>
+    </form>
+</div>
+
+<script>
+    const correctAnswers = {
+        q1: 'A', q2: 'C', q3: 'B', q4: 'B', q5: 'B',
+        q6: 'E', q7: 'B', q8: 'D', q9: 'C', q10: 'C'
+    };
+
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        let score = 0;
+        let allAnswered = true;
+        const form = document.getElementById('quiz-form');
+        const errorMsg = document.getElementById('error-msg');
+
+        // Validation
+        for (let i = 1; i <= 10; i++) {
+            if (!form.elements['q' + i].value) {
+                allAnswered = false;
+                break;
+            }
+        }
+
+        if (!allAnswered) {
+            errorMsg.style.display = 'block';
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            return;
+        }
+
+        errorMsg.style.display = 'none';
+
+        // Scoring and Highlighting
+        for (let i = 1; i <= 10; i++) {
+            const userAnswer = form.elements['q' + i].value;
+            const correctAnswer = correctAnswers['q' + i];
+            
+            // Show resolution
+            document.getElementById('res-q' + i).style.display = 'block';
+
+            // Highlight options
+            const options = document.querySelectorAll(`input[name="q${i}"]`);
+            options.forEach(opt => {
+                const parent = opt.parentElement;
+                if (opt.value === correctAnswer) {
+                    parent.classList.add('correct');
+                } else if (opt.value === userAnswer && userAnswer !== correctAnswer) {
+                    parent.classList.add('incorrect');
+                }
+                opt.disabled = true; // Disable changes
+            });
+
+            if (userAnswer === correctAnswer) {
+                score++;
+            }
+        }
+
+        // Summary display
+        const resultsSummary = document.getElementById('results-summary');
+        const scoreDisplay = document.getElementById('final-score');
+        const feedbackText = document.getElementById('feedback-text');
+
+        resultsSummary.style.display = 'block';
+        scoreDisplay.innerText = `${score} / 10`;
+        
+        if (score >= 8) {
+            feedbackText.innerText = "Excelente desempenho! Você domina os conceitos de Milton Santos e a dinâmica do capitalismo.";
+        } else if (score >= 5) {
+            feedbackText.innerText = "Bom trabalho. Revise as resoluções abaixo para fortalecer seus pontos fracos.";
+        } else {
+            feedbackText.innerText = "Continue estudando. Analise cuidadosamente as justificativas de cada questão.";
+        }
+
+        // Hide button
+        this.style.display = 'none';
+
+        // Scroll to top to see result
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>
