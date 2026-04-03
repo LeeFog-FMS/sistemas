@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Agronegócio vs. Agricultura Familiar</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfb;
+            --text-color: #2c3e50;
+            --primary-color: #27ae60;
+            --secondary-color: #e67e22;
+            --wrong-color: #e74c3c;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        p.subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .question-block {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f9f9f9;
+            border-color: #ccc;
+        }
+
+        .option-label input {
+            margin-top: 6px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        /* Classes para o resultado */
+        .option-label.correct {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .option-label.incorrect {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--primary-color);
+            font-size: 0.95rem;
+            color: #444;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        button#submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button#submit-btn:hover {
+            background-color: #219150;
+        }
+
+        #results-summary {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding: 30px;
+            background: #eef7f2;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+        }
+
+        #results-summary h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Agronegócio vs. Agricultura Familiar</h1>
+        <p class="subtitle">Estudo de modelos de produção, segurança alimentar e legislação (Estilo Fundatec).</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-block" data-id="1">
+            <span class="question-text">Questão 01: A Lei nº 11.326/2006 estabelece os critérios de enquadramento para os agricultores familiares. Analise as assertivas:</span>
+            <p>I. O estabelecimento deve possuir área de até 10 módulos fiscais.<br>
+            II. Mão de obra utilizada deve ser predominantemente da própria família.<br>
+            III. Renda familiar deve ser originada de atividades vinculadas ao próprio estabelecimento.<br>
+            IV. O agricultor familiar deve dirigir seu estabelecimento com sua família.</p>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A) Apenas I e II.</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B) Apenas II e III.</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C) Apenas I, II e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D) Apenas II, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q1" value="E"> E) I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: D.</strong> O erro da assertiva I está no limite de área: a lei define o máximo de <strong>4 módulos fiscais</strong>, e não 10. As demais assertivas (predominância de mão de obra familiar, origem da renda e gestão familiar) estão corretas conforme o Art. 3º da Lei 11.326/2006.</p>
+            </div>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-block" data-id="2">
+            <span class="question-text">Questão 02: Sobre o PNAE (Lei nº 11.947/2009) e a aquisição de gêneros alimentícios, assinale a alternativa INCORRETA:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A) No mínimo 30% dos recursos devem ser usados na compra da agricultura familiar.</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B) Deve-se priorizar assentamentos, comunidades indígenas e quilombolas.</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C) A aquisição exige, obrigatoriamente, licitação na modalidade concorrência.</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D) Os cardápios devem respeitar hábitos alimentares e cultura local.</label>
+                <label class="option-label"><input type="radio" name="q2" value="E"> E) Há dispensa de prazos de validade específicos para agricultura familiar em legislações recentes.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: C.</strong> A alternativa C está incorreta porque a legislação permite a <strong>dispensa de licitação</strong> para a compra direta da agricultura familiar através do mecanismo de <strong>Chamada Pública</strong>, visando desburocratizar o acesso do pequeno produtor ao mercado institucional.</p>
+            </div>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-block" data-id="3">
+            <span class="question-text">Questão 03: Com base no Censo Agropecuário de 2017 (IBGE), assinale a alternativa correta:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A) A agricultura familiar representa a minoria dos estabelecimentos (23%).</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B) O setor da agricultura familiar ocupa cerca de 77% da área total do país.</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C) Entre 2006 e 2017, houve redução de 2,2 milhões de trabalhadores na agricultura familiar.</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D) O agronegócio de exportação é o único responsável pela produção de mandioca.</label>
+                <label class="option-label"><input type="radio" name="q3" value="E"> E) A agricultura familiar foca hoje majoritariamente na exportação de grãos.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: C.</strong> O Censo revelou uma perda significativa de ocupação no campo: redução de 2,2 milhões de trabalhadores na agricultura familiar, fruto do envelhecimento e êxodo rural. Lembre-se: a agricultura familiar tem 77% dos estabelecimentos, mas ocupa apenas 23% da área.</p>
+            </div>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-block" data-id="4">
+            <span class="question-text">Questão 04: Sobre Segurança Alimentar e Nutricional (SAN), assinale V ou F:</span>
+            <p>( ) O agronegócio globalizado orienta o território para a competitividade internacional.<br>
+            ( ) A concentração fundiária contribui para a soberania alimentar por aumentar o PIB.<br>
+            ( ) A agricultura familiar é a principal responsável pelo abastecimento da cesta básica brasileira.<br>
+            ( ) A segurança alimentar é garantida por recordes de produção, independente do acesso.</p>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A) V – F – V – F.</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B) V – V – F – V.</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C) F – V – V – F.</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D) F – F – V – V.</label>
+                <label class="option-label"><input type="radio" name="q4" value="E"> E) V – V – V – F.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: A.</strong> Concentração fundiária prejudica a soberania alimentar (reduz oferta local). Recordes de produção não garantem segurança alimentar se não houver acesso econômico e físico aos alimentos pela população.</p>
+            </div>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-block" data-id="5">
+            <span class="question-text">Questão 05: Sobre o Programa de Aquisição de Alimentos (PAA - Lei nº 14.628/2023), é correto:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A) Destina-se exclusivamente à compra de soja para exportação.</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B) Permite dispensa de licitação para compra de alimentos da agricultura familiar.</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C) Exige compra de produtos industrializados para cozinhas solidárias.</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D) É gerido de forma centralizada pelo Ministério da Defesa.</label>
+                <label class="option-label"><input type="radio" name="q5" value="E"> E) O valor individual por agricultor foi reduzido para desestimular produção.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: B.</strong> O PAA é um dos pilares da SAN, permitindo que o governo compre alimentos de pequenos produtores sem licitação para doar a quem tem fome, fortalecendo a economia local.</p>
+            </div>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-block" data-id="6">
+            <span class="question-text">Questão 06: A Lei nº 14.828/2024 prevê que as ações da agricultura familiar devem considerar:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A) Substituição de alimentos básicos por monocultivos de eucalipto.</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B) Modernização e desenvolvimento sustentáveis, inovação e tecnologia.</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C) Proibição de uso de maquinário agrícola em pequenas propriedades.</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D) Fechamento de cooperativas familiares.</label>
+                <label class="option-label"><input type="radio" name="q6" value="E"> E) Obrigatoriedade de venda total para o mercado externo.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: B.</strong> Esta atualização legislativa foca em dar condições para que o jovem permaneça no campo através da tecnologia e inovação, garantindo a sustentabilidade do modelo familiar.</p>
+            </div>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-block" data-id="7">
+            <span class="question-text">Questão 07: Sobre dados de produção e uso do solo no Brasil (ex: Matopiba), assinale a correta:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A) Expansão da soja ocorre em harmonia sem reduzir áreas de arroz e feijão.</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B) No oeste baiano, houve retração drástica na área de arroz em favor da soja.</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C) O sorgo é voltado exclusivamente para consumo humano direto.</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D) Latifúndios são responsáveis por 90% da produção de mandioca.</label>
+                <label class="option-label"><input type="radio" name="q7" value="E"> E) A estrutura fundiária no Brasil é equitativa.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: B.</strong> O agronegócio de exportação frequentemente compete e substitui as áreas de produção de alimentos básicos. O arroz no oeste baiano é um exemplo clássico de cultura que quase desapareceu devido ao avanço da soja.</p>
+            </div>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-block" data-id="8">
+            <span class="question-text">Questão 08: Além de agricultores típicos, quem são beneficiários da Lei 11.326/2006?</span>
+            <p>I. Silvicultores que promovam manejo sustentável.<br>
+            II. Aquicultores com até 2 hectares ou 500m³ em tanques-rede.<br>
+            III. Extrativistas, incluindo garimpeiros e faiscadores.<br>
+            IV. Comunidades quilombolas e povos tradicionais.</p>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A) Apenas I e IV.</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B) Apenas II e III.</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C) Apenas I, II e IV.</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D) Apenas I, III e IV.</label>
+                <label class="option-label"><input type="radio" name="q8" value="E"> E) I, II, III e IV.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: C.</strong> Atenção: a lei exclui expressamente <strong>garimpeiros e faiscadores</strong> da categoria de agricultores familiares/extrativistas artesanais.</p>
+            </div>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-block" data-id="9">
+            <span class="question-text">Questão 09: No contexto institucional, o uso de alimentos da agricultura familiar é incentivado por:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A) Garantir maior teor de aditivos químicos e conservantes.</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B) Promover circuitos locais de produção e consumo.</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C) Ser o modelo que mais utiliza agrotóxicos proibidos.</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D) Favorecer exclusivamente grandes redes de supermercados.</label>
+                <label class="option-label"><input type="radio" name="q9" value="E"> E) Reduzir o custo da merenda através de baixa qualidade.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: B.</strong> Circuitos curtos garantem alimentos mais frescos, reduzem o desperdício no transporte e valorizam a cultura e economia da própria região.</p>
+            </div>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-block" data-id="10">
+            <span class="question-text">Questão 10: Sobre o "Mosaico Alimentar Brasileiro", é correto afirmar que:</span>
+            <div class="options-container">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A) Visa padronizar a alimentação com milho transgênico.</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B) Refere-se à diferenciação regional das dietas e preservação de culturas tradicionais.</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C) É um conceito do agronegócio para soja em terras indígenas.</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D) Foi extinto com a Revolução Verde.</label>
+                <label class="option-label"><input type="radio" name="q10" value="E"> E) Foca apenas em produtos de baixo valor nutricional para exportação.</label>
+            </div>
+            <div class="resolution-box">
+                <h4>Resolução</h4>
+                <p><strong>Gabarito: B.</strong> O mosaico alimentar é a cara do Brasil: feijão tropeiro, acarajé, polenta, tacacá. Isso só existe pela diversidade mantida pela agricultura familiar.</p>
+            </div>
+        </div>
+
+        <button type="button" id="submit-btn" onclick="checkAnswers()">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="results-summary">
+        <h2>Resultado do Simulado</h2>
+        <p class="score-text" id="score-display">0 / 10</p>
+        <p id="feedback-text">Veja abaixo a resolução detalhada de cada questão para fixar o conteúdo.</p>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'D',
+        q2: 'C',
+        q3: 'C',
+        q4: 'A',
+        q5: 'B',
+        q6: 'B',
+        q7: 'B',
+        q8: 'C',
+        q9: 'B',
+        q10: 'B'
+    };
+
+    function checkAnswers() {
+        const form = document.getElementById('quiz-form');
+        let score = 0;
+        let total = Object.keys(answers).length;
+
+        for (let q in answers) {
+            const selected = form.querySelector(`input[name="${q}"]:checked`);
+            const questionBlock = form.querySelector(`.question-block[data-id="${q.replace('q','')}"]`);
+            const options = questionBlock.querySelectorAll('.option-label');
+            const resolution = questionBlock.querySelector('.resolution-box');
+
+            // Mostrar a resolução
+            resolution.style.display = 'block';
+
+            // Resetar estilos anteriores
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+
+            // Marcar a correta sempre
+            options.forEach(opt => {
+                const radio = opt.querySelector('input');
+                if (radio.value === answers[q]) {
+                    opt.classList.add('correct');
+                }
+            });
+
+            // Se errou, marcar a errada
+            if (selected) {
+                if (selected.value === answers[q]) {
+                    score++;
+                } else {
+                    selected.parentElement.classList.add('incorrect');
+                }
+            }
+        }
+
+        // Mostrar resumo
+        const summary = document.getElementById('results-summary');
+        const scoreDisplay = document.getElementById('score-display');
+        summary.style.display = 'block';
+        scoreDisplay.innerText = `${score} / ${total}`;
+
+        // Desativar inputs
+        const inputs = form.querySelectorAll('input[type="radio"]');
+        inputs.forEach(i => i.disabled = true);
+
+        // Scroll suave para o resultado
+        summary.scrollIntoView({ behavior: 'smooth' });
+        
+        // Esconder botão enviar
+        document.getElementById('submit-btn').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

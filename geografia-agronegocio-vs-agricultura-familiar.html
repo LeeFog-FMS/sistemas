@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Técnica: Espaço Agrário Brasileiro - IFC/Fundatec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background-color: #fef08a;
+            padding: 0 4px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .important-box {
+            border: 2px solid #e2e8f0;
+            border-left: 6px solid #1e293b;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background-color: #f8fafc;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            margin: 2rem 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .fundatec-alert {
+            background-color: #fff7ed;
+            border: 1px solid #ffedd5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .btn-action {
+            background-color: #1e293b;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            background-color: #334155;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div class="max-w-5xl mx-auto px-6 py-12">
+        <!-- Áudio Player -->
+        <div class="mb-12 p-6 bg-slate-50 border border-slate-200 rounded-xl shadow-sm">
+            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">🔈 Player de Áudio da Aula</h3>
+            <audio controls class="w-full">
+                <source src="geografia-agronegocio-vs-agricultura-familiar.mp3" type="audio/mpeg">
+                Seu navegador não suporta áudio.
+            </audio>
+            <p class="text-xs text-slate-400 mt-2 italic">* Insira o arquivo "aula_agronegocio_ifc.mp3" no mesmo diretório para funcionar.</p>
+        </div>
+
+        <header class="border-b pb-8 mb-12">
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-4 text-center">Agronegócio vs. Agricultura Familiar</h1>
+            <p class="text-xl text-slate-600 text-center italic">A dicotomia do campo brasileiro na ótica da Banca Fundatec</p>
+        </header>
+
+        <!-- Definição e Características -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-sm">01</span>
+                Definição e Características Essenciais
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-700">Agronegócio (Complexos Agroindustriais - CAI)</h3>
+                    <p>O agronegócio não é apenas "plantar". É a <mark class="highlight">integração sistêmica</mark> entre a produção primária, a indústria de insumos e o setor de serviços/logística. Baseia-se na <mark class="highlight">monocultura</mark>, no uso intensivo de biotecnologia e no foco em <mark class="highlight">commodities</mark> (produtos padronizados para o mercado global).</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-700">Agricultura Familiar</h3>
+                    <p>Definida pela <mark class="highlight">Lei 11.326/2006</mark>, caracteriza-se pela gestão e trabalho familiar em propriedades de até <mark class="highlight">4 módulos fiscais</mark>. É a base da <mark class="highlight">segurança alimentar</mark> do país, produzindo a diversidade de alimentos frescos que compõem a cesta básica brasileira (policultivo).</p>
+                </div>
+            </div>
+
+            <div class="important-box">
+                <p><strong>Conceito de Prova: Modernização Conservadora.</strong> Termo de Caio Prado Jr. e ampliado por geógrafos para explicar como o Brasil se tornou uma potência agropecuária <mark class="highlight">sem fazer reforma agrária</mark>, mantendo a estrutura de latifúndio herdada do período colonial.</p>
+            </div>
+        </section>
+
+        <!-- Comparativo Técnico -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-sm">02</span>
+                Quadro Comparativo: Modelos de Produção
+            </h2>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>Agronegócio (Commodities)</th>
+                            <th>Agricultura Familiar (Subsistência/Mercado)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Propriedade</td>
+                            <td>Grandes Latifúndios (Concentração)</td>
+                            <td>Pequenas e Médias (Até 4 Módulos Fiscais)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Destino</td>
+                            <td><mark class="highlight">Mercado Externo (Exportação)</mark></td>
+                            <td><mark class="highlight">Mercado Interno (Venda Direta/PNAE)</mark></td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Tecnologia</td>
+                            <td>Mecanização Pesada (Capital Intensivo)</td>
+                            <td>Trabalho Manual/Familiar (Mão de obra Intensiva)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Impacto Social</td>
+                            <td>Êxodo Rural e Concentração de Renda</td>
+                            <td>Fixação do Homem no Campo e Soberania Alimentar</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Biodiversidade</td>
+                            <td>Baixa (Monocultivo)</td>
+                            <td>Alta (Policultivo e Agrossistemas)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Segurança Alimentar -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-sm">03</span>
+                Segurança vs. Soberania Alimentar
+            </h2>
+            <p class="mb-4">Para a <strong>Fundatec</strong>, é crucial distinguir esses dois conceitos:</p>
+            <ul class="list-disc pl-6 space-y-3">
+                <li><strong>Segurança Alimentar:</strong> Foca na <mark class="highlight">disponibilidade de calorias</mark> e acesso econômico ao alimento. É uma visão mais quantitativa.</li>
+                <li><strong>Soberania Alimentar:</strong> É o direito dos povos de <mark class="highlight">escolherem o que e como produzir</mark>, priorizando a cultura local e a autonomia camponesa frente às transnacionais.</li>
+            </ul>
+            <div class="fundatec-alert mt-4">
+                <strong>📌 Dado Censo Agro 2017:</strong> A agricultura familiar fornece cerca de <mark class="highlight">70% dos alimentos</mark> consumidos diariamente no Brasil (mandioca, feijão, hortaliças), apesar de ocupar menos de 25% da área total das terras.
+            </div>
+        </section>
+
+        <!-- Peguinhas da Fundatec -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-sm">04</span>
+                Análise de Tendências e "Peguinhas" Fundatec
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="p-4 border-l-4 border-red-500 bg-red-50">
+                    <p><strong>Trap 01: O Módulo Fiscal.</strong> A banca pode dizer que o módulo fiscal tem tamanho fixo em quilômetros. <mark class="highlight">Errado!</mark> O módulo fiscal varia de município para município (entre 5 a 110 hectares), conforme a produtividade da região.</p>
+                </div>
+                <div class="p-4 border-l-4 border-red-500 bg-red-50">
+                    <p><strong>Trap 02: Relação de Trabalho.</strong> Dizer que a agricultura familiar não pode ter empregados. <mark class="highlight">Errado!</mark> A lei permite mão de obra externa desde que a familiar seja predominante.</p>
+                </div>
+                <div class="p-4 border-l-4 border-blue-500 bg-blue-50">
+                    <p><strong>Dica EBTT (IFC):</strong> Em Santa Catarina, existe o modelo de <mark class="highlight">Integração Agroindustrial</mark> (especialmente em aves e suínos). É quando a agricultura familiar produz para grandes empresas (Ex: Sadia/Perdigão). Isso cai como "subordinação da renda da terra ao capital".</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resumo para Memorização -->
+        <section class="mb-16 bg-slate-100 p-8 rounded-2xl">
+            <h2 class="text-xl font-bold text-slate-800 mb-4">Checklist de Revisão Rápida</h2>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div class="flex items-center"><span class="mr-2">✅</span> <strong>Lei 11.326/2006</strong> (Marco da Ag. Familiar)</div>
+                <div class="flex items-center"><span class="mr-2">✅</span> <strong>MATOPIBA</strong> (Expansão do agronegócio no Cerrado)</div>
+                <div class="flex items-center"><span class="mr-2">✅</span> <strong>PNAE</strong> (30% da merenda vem da Ag. Familiar)</div>
+                <div class="flex items-center"><span class="mr-2">✅</span> <strong>CAF</strong> (Substituiu a antiga DAP)</div>
+                <div class="flex items-center"><span class="mr-2">✅</span> <strong>PRONAF</strong> (Principal linha de crédito da Ag. Fam.)</div>
+                <div class="flex items-center"><span class="mr-2">✅</span> <strong>Commodities</strong> (Soja, Milho, Cana, Algodão)</div>
+            </div>
+        </section>
+
+        <!-- Botão de Questões -->
+        <div class="text-center">
+            <a href="geografia-agronegocio-vs-agricultura-familiarquestoes.html" class="btn-action">
+                TESTAR CONHECIMENTOS (QUESTÕES.HTML)
+            </a>
+            <p class="mt-4 text-slate-400 text-sm">A prática é o que leva à aprovação. Clique acima para treinar.</p>
+        </div>
+    </div>
+
+</body>
+</html>

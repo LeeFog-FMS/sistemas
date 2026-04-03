@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Espaço Agrário e Estrutura Fundiária</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --card-bg: #ffffff;
+            --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 90%;
+            margin-bottom: 5rem;
+        }
+
+        .intro-text {
+            color: #636e72;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #219150;
+        }
+
+        /* Results Styles */
+        #results-section {
+            display: none;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .score-banner {
+            text-align: center;
+            padding: 2rem;
+            background: #e8f5e9;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .resolution-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #f1f2f6;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .correct-answer {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .wrong-answer {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24;
+        }
+
+        .label-correct {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .label-wrong {
+            color: var(--error-color);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            color: #b2bec3;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .question-card {
+                padding: 1.2rem;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Quiz: Espaço Agrário, Estrutura Fundiária e MST</h1>
+</header>
+
+<div class="container">
+    <p class="intro-text">Análise da histórica concentração de terras no Brasil e o impacto da modernização conservadora.</p>
+    
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions injected via JavaScript -->
+        </div>
+        
+        <button type="button" id="submit-btn" class="btn-submit">Finalizar e Ver Resoluções</button>
+    </form>
+
+    <div id="results-section">
+        <div class="score-banner">
+            <span id="score-text">Você acertou</span>
+            <span id="score-count" class="score-value">0 / 10</span>
+            <p>Confira abaixo a correção detalhada de cada questão.</p>
+        </div>
+        <div id="resolutions-list">
+            <!-- Detailed resolutions injected here -->
+        </div>
+    </div>
+</div>
+
+<footer>
+    Baseado em simulados estilo Fundatec - Geografia do Brasil
+</footer>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            question: "A formação da estrutura fundiária brasileira é um processo histórico de longa duração, cujas bases foram estabelecidas ainda no período colonial e consolidadas no Império através de instrumentos jurídicos que definiram o acesso à terra. Sobre a evolução histórica da ocupação do território brasileiro e os marcos regulatórios até o século XIX, analise as assertivas abaixo:\n\nI. O sistema de sesmarias, extinto em 1822, consistia na doação de terras pela Coroa Portuguesa a quem tivesse recursos para explorá-las, o que favoreceu a formação de grandes latifúndios voltados à exportação.\nII. A Lei de Terras de 1850 (Lei nº 601) estabeleceu que a única forma de acesso às terras devolutas seria a compra por dinheiro, impedindo o reconhecimento da posse por meio do simples uso ou ocupação.\nIII. Um dos objetivos fundamentais da Lei de Terras de 1850 foi garantir que imigrantes europeus e ex-escravizados não se tornassem proprietários independentes, assegurando a oferta de mão de obra para as grandes fazendas de café.\nIV. A Lei de Terras de 1850 promoveu a democratização do espaço agrário ao obrigar que todos os proprietários de terras doassem 10% de suas áreas para a criação de colônias de pequenos agricultores familiares.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: "As assertivas I, II e III estão corretas. A formação fundiária brasileira é marcada pela exclusão. O sistema de sesmarias favoreceu o latifúndio exportador. A Lei de Terras de 1850 transformou a terra em mercadoria e impediu que ex-escravizados e imigrantes tivessem acesso facilitado à propriedade, garantindo mão de obra para os cafeicultores. A assertiva IV está errada pois a lei foi concentradora, não democrática."
+        },
+        {
+            id: 2,
+            question: "O processo de 'modernização conservadora' na agricultura brasileira, iniciado de forma sistemática a partir da década de 1960, produziu transformações profundas no espaço rural. Sobre esse fenômeno e suas implicações socioespaciais, assinale a alternativa correta:",
+            options: [
+                "A modernização conservadora caracterizou-se pela alteração radical da estrutura fundiária concentrada, promovendo a fragmentação dos latifúndios em pequenas propriedades altamente produtivas.",
+                "O conceito descreve a modernização técnica (mecanização, uso de insumos químicos e sementes selecionadas) sem que houvesse uma mudança na estrutura social e na distribuição da terra.",
+                "O Estado brasileiro, durante o regime militar, restringiu o crédito rural aos grandes latifundiários para priorizar a reforma agrária em assentamentos no Sul do país.",
+                "A modernização conservadora eliminou a dependência tecnológica do Brasil em relação às empresas transnacionais de agrotóxicos e maquinário.",
+                "O impacto desse processo foi a fixação permanente do homem no campo, revertendo o fluxo migratório em direção às metrópoles devido à alta rentabilidade da pequena produção."
+            ],
+            correct: 1,
+            resolution: "A modernização conservadora é definida pela evolução da base técnica (tecnologia, máquinas, agroquímicos) mantendo-se a estrutura agrária arcaica e concentrada. Não houve reforma agrária; pelo contrário, houve incentivo ao latifúndio via crédito rural subsidiado, resultando em êxodo rural maciço."
+        },
+        {
+            id: 3,
+            question: "A estrutura fundiária contemporânea do Brasil é caracterizada por uma elevada concentração de terras, o que pode ser verificado através de indicadores estatísticos e dados do Censo Agropecuário. Com base nos conhecimentos sobre a distribuição da posse de terra no país, analise as afirmações abaixo e assinale V, se verdadeiras, ou F, se falsas:\n\n( ) O índice de Gini da terra no Brasil situa-se historicamente acima de 0,70, indicando uma distribuição de terra extremamente desigual.\n( ) A agricultura familiar, embora ocupe a maior parte do número de estabelecimentos rurais, detém menos de 25% da área total ocupada pela agropecuária nacional.\n( ) A concentração de terras é um fenômeno restrito à região Nordeste, não ocorrendo nas regiões de expansão recente do agronegócio, como o Centro-Oeste.\n( ) O agronegócio de commodities é o principal responsável pela manutenção da estrutura latifundiária devido à necessidade de grandes áreas para a produção mecanizada em escala.",
+            options: [
+                "V – V – F – V.",
+                "V – F – V – F.",
+                "F – V – F – V.",
+                "V – V – V – F.",
+                "F – F – V – V."
+            ],
+            correct: 0,
+            resolution: "A sequência correta é V-V-F-V. O Gini da terra no Brasil é altíssimo (perto de 0.8). A agricultura familiar é maioria numérica (estabelecimentos), mas minoria territorial (área). A concentração não é exclusiva do Nordeste, sendo inclusive mais severa nas frentes de expansão do agronegócio como no Mato Grosso e no MATOPIBA."
+        },
+        {
+            id: 4,
+            question: "O Movimento dos Trabalhadores Rurais Sem-Terra (MST) consolidou-se, a partir da década de 1980, como o maior movimento social de luta pela terra no Brasil. Sobre a trajetória e as estratégias do MST, analise as assertivas abaixo:\n\nI. O movimento utiliza a ocupação de latifúndios improdutivos como ferramenta de pressão política para que o Estado cumpra o preceito constitucional da reforma agrária.\nII. Os assentamentos de reforma agrária, uma vez consolidados, frequentemente buscam organizar a produção de forma coletiva ou cooperativada, focando no abastecimento do mercado interno.\nIII. O MST defende que a modernização tecnológica deve ser restrita apenas à grande propriedade, enquanto os assentados devem utilizar exclusivamente técnicas de subsistência manuais.\nIV. A luta do MST limita-se à entrega da terra, não abrangendo reivindicações por educação, saúde ou assistência técnica no campo.",
+            options: [
+                "Apenas I e II.",
+                "Apenas III e IV.",
+                "Apenas I, II e III.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 0,
+            resolution: "I e II estão corretas. O MST utiliza ocupações para pressionar o INCRA a cumprir a lei de desapropriação de terras improdutivas. Nos assentamentos, estimula-se a cooperação e agroecologia. As assertivas III e IV estão erradas: o MST quer tecnologia adequada para pequenos produtores e luta por direitos plenos (educação, saúde, etc)."
+        },
+        {
+            id: 5,
+            question: "O Estatuto da Terra (Lei nº 4.504/1964) introduziu conceitos jurídicos e espaciais para classificar os imóveis rurais no Brasil. Segundo essa legislação, analise as definições abaixo:\n\nI. O módulo rural é definido como a área mínima necessária para que uma família possa subsistir e progredir social e economicamente, considerando a região e o tipo de exploração.\nII. O minifúndio é o imóvel rural que possui área inferior ao módulo rural fixado para a respectiva região.\nIII. O latifúndio por exploração é a propriedade que, embora produtiva, não atende aos critérios de preservação ambiental estabelecidos pelo Código Florestal.\nIV. A empresa rural é o imóvel rústico que, independentemente de sua área, é explorado de forma racional e econômica, cumprindo sua função social.",
+            options: [
+                "I e II, apenas.",
+                "III e IV, apenas.",
+                "I, II e IV, apenas.",
+                "II, III e IV, apenas.",
+                "I, II, III e IV."
+            ],
+            correct: 2,
+            resolution: "I, II e IV estão corretas. O módulo rural varia geograficamente. Minifúndio é menor que o módulo. Empresa rural é o latifúndio que 'funciona' produtivamente. A III está incorreta porque o Latifúndio por Exploração é aquele mantido improdutivo por vontade do dono, independentemente de questões ambientais específicas do código florestal (embora a função social exija preservação)."
+        },
+        {
+            id: 6,
+            question: "A Constituição Federal de 1988 estabelece que a propriedade rural deve cumprir uma função social para que o direito à propriedade seja plenamente garantido. De acordo com o Artigo 186 da Constituição, a função social NÃO é cumprida quando a propriedade apresenta:",
+            options: [
+                "Aproveitamento racional e adequado.",
+                "Utilização adequada dos recursos naturais disponíveis e preservação do meio ambiente.",
+                "Observância das disposições que regulam as relações de trabalho.",
+                "Exploração que favoreça o bem-estar dos proprietários e dos trabalhadores.",
+                "Garantia de que pelo menos 50% da área total seja destinada obrigatoriamente ao cultivo de soja para exportação."
+            ],
+            correct: 4,
+            resolution: "A alternativa E está incorreta perante a lei e, portanto, é a resposta (que indica o que NÃO faz parte da função social). A Constituição exige produtividade, preservação ambiental e cumprimento de leis trabalhistas, mas não obriga o plantio de uma cultura específica como a soja."
+        },
+        {
+            id: 7,
+            question: "A expansão da fronteira agrícola brasileira tem se deslocado para áreas de cerrado e transição amazônica, gerando novos eixos de acumulação e conflitos. Sobre a região conhecida como MATOPIBA, assinale a alternativa correta:",
+            options: [
+                "Trata-se de um acrônimo para os estados do Mato Grosso, Tocantins, Piauí e Bahia.",
+                "É caracterizada pela ocupação intensiva de grandes propriedades mecanizadas voltadas para o plantio de soja e milho, impactando comunidades tradicionais.",
+                "É a região do Brasil com menor índice de conflitos por terra devido à regularização fundiária digital realizada em 2015.",
+                "A produção agrícola nesta região é baseada exclusivamente na policultura de subsistência e na agricultura orgânica familiar.",
+                "O MATOPIBA localiza-se integralmente no bioma Mata Atlântica, sendo a principal fronteira de reflorestamento do país."
+            ],
+            correct: 1,
+            resolution: "MATOPIBA abrange Maranhão, Tocantins, Piauí e Bahia. É a grande fronteira atual do agronegócio no Cerrado, marcada por alta tecnologia, grandes exportações e graves conflitos fundiários com povos tradicionais."
+        },
+        {
+            id: 8,
+            question: "Os conflitos no campo brasileiro são reflexos da disputa territorial entre diferentes modelos de desenvolvimento. Sobre a violência no campo e os dados monitorados pela Comissão Pastoral da Terra (CPT), é correto afirmar que:",
+            options: [
+                "A violência rurícola diminuiu drasticamente após a mecanização total da agricultura brasileira, uma vez que as máquinas substituiram as disputas por mão de obra.",
+                "Os principais alvos da violência e das tentativas de expulsão são grileiros de terras públicas que lutam contra a expansão dos assentamentos de reforma agrária.",
+                "Indígenas, quilombolas e posseiros são as categorias que mais sofrem com a violência e o cerceamento de direitos em regiões de expansão do agronegócio.",
+                "A grilagem de terras é um fenômeno extinto no Brasil desde a promulgação da Lei de Terras em 1850.",
+                "Os conflitos por água são inexistentes no espaço agrário brasileiro, visto que a legislação garante o uso ilimitado de rios para a irrigação de latifúndios."
+            ],
+            correct: 2,
+            resolution: "A violência no campo continua alta, especialmente nas fronteiras agrícolas. Os grupos mais vulneráveis são comunidades tradicionais (indígenas, quilombolas) e posseiros pobres, que sofrem com a grilagem e a expansão territorial do grande agronegócio."
+        },
+        {
+            id: 9,
+            question: "A modernização da agricultura brasileira transformou o país em um grande exportador de commodities, mas também gerou a exclusão sistemática do pequeno produtor. Sobre esse impacto, assinale a alternativa correta:",
+            options: [
+                "O pequeno produtor foi beneficiado pela modernização, pois o preço das máquinas agrícolas é subsidiado pelo governo para garantir a igualdade técnica no campo.",
+                "A dependência de pacotes tecnológicos (sementes transgênicas e defensivos químicos) e o endividamento bancário levaram muitos pequenos agricultores à perda de suas terras.",
+                "A exclusão rurícola é um processo natural e voluntário, visto que os agricultores familiares preferem migrar para as cidades para trabalhar no setor terciário.",
+                "O agronegócio e a agricultura familiar recebem, anualmente, o mesmo volume de recursos no Plano Safra, garantindo condições equânimes de competitividade.",
+                "A produtividade da agricultura familiar é insignificante para o Brasil, não contribuindo para o abastecimento do mercado interno de alimentos básicos."
+            ],
+            correct: 1,
+            resolution: "A modernização impôs um modelo de alto custo. Pequenos produtores que tentaram entrar no modelo muitas vezes se endividaram com bancos e empresas de insumos, perdendo a terra. O crédito rural é historicamente concentrado no grande produtor."
+        },
+        {
+            id: 10,
+            question: "Relativamente às relações entre o agronegócio globalizado e o espaço urbano no Brasil, conforme a análise de geógrafos contemporâneos, é correto afirmar que:",
+            options: [
+                "O agronegócio promove a descentralização econômica completa, tornando as áreas rurais independentes das cidades e dos serviços urbanos.",
+                "As 'cidades do agronegócio' funcionam como pontos de suporte logístico e financeiro, integrando a produção rural aos circuitos espaciais de produção mundiais.",
+                "A modernização do campo interrompeu o processo de urbanização do país, levando a população urbana de volta às áreas rurais mecanizadas.",
+                "O poder público municipal em áreas de agronegócio prioriza investimentos em transporte público urbano em detrimento da infraestrutura de escoamento de safras.",
+                "As relações campo-cidade tornaram-se menos complexas com o agronegócio, limitando-se à simples troca de excedentes alimentares por ferramentas manuais."
+            ],
+            correct: 1,
+            resolution: "As cidades do agronegócio (como Sorriso-MT ou Rio Verde-GO) são centros de comando e logística que conectam a fazenda mecanizada ao mercado global. O campo hoje é técnico-científico-informacional e depende totalmente de serviços urbanos especializados."
+        }
+    ];
+
+    const questionsContainer = document.getElementById('questions-container');
+    const submitBtn = document.getElementById('submit-btn');
+    const resultsSection = document.getElementById('results-section');
+    const resolutionsList = document.getElementById('resolutions-list');
+    const scoreCount = document.getElementById('score-count');
+
+    // Renderize as questões
+    function renderQuiz() {
+        quizData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `q-card-${index}`;
+            
+            const questionText = document.createElement('span');
+            questionText.className = 'question-text';
+            questionText.innerText = `${item.id}. ${item.question}`;
+            card.appendChild(questionText);
+
+            const optionsList = document.createElement('ul');
+            optionsList.className = 'options-list';
+
+            item.options.forEach((opt, optIndex) => {
+                const li = document.createElement('li');
+                li.className = 'option-item';
+                li.id = `opt-${index}-${optIndex}`;
+                
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question-${index}`;
+                radio.value = optIndex;
+                radio.id = `input-${index}-${optIndex}`;
+
+                const label = document.createElement('label');
+                label.htmlFor = `input-${index}-${optIndex}`;
+                label.innerText = opt;
+                label.style.cursor = 'pointer';
+                label.style.width = '100%';
+
+                li.appendChild(radio);
+                li.appendChild(label);
+
+                li.onclick = (e) => {
+                    if(e.target.tagName !== 'INPUT') {
+                        radio.checked = true;
+                    }
+                };
+
+                optionsList.appendChild(li);
+            });
+
+            card.appendChild(optionsList);
+
+            // Placeholder para resolução (visível após submit)
+            const resolutionBox = document.createElement('div');
+            resolutionBox.className = 'resolution-box';
+            resolutionBox.id = `res-${index}`;
+            resolutionBox.innerHTML = `<strong>Resolução Comentada:</strong><br>${item.resolution}`;
+            card.appendChild(resolutionBox);
+
+            questionsContainer.appendChild(card);
+        });
+    }
+
+    submitBtn.onclick = () => {
+        let score = 0;
+        const total = quizData.length;
+
+        quizData.forEach((item, index) => {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            resBox.style.display = 'block';
+
+            // Marcar a correta sempre
+            const correctLi = document.getElementById(`opt-${index}-${item.correct}`);
+            correctLi.classList.add('correct-answer');
+            correctLi.innerHTML += ' <span class="label-correct">✓ Resposta Correta</span>';
+
+            if (selected) {
+                const selectedIdx = parseInt(selected.value);
+                if (selectedIdx === item.correct) {
+                    score++;
+                } else {
+                    const wrongLi = document.getElementById(`opt-${index}-${selectedIdx}`);
+                    wrongLi.classList.add('wrong-answer');
+                    wrongLi.innerHTML += ' <span class="label-wrong">✗ Sua Resposta</span>';
+                }
+            } else {
+                const card = document.getElementById(`q-card-${index}`);
+                card.style.border = '2px solid #fab1a0';
+            }
+        });
+
+        // Mostrar Banner de Resultado
+        scoreCount.innerText = `${score} / ${total}`;
+        resultsSection.style.display = 'block';
+        submitBtn.style.display = 'none';
+
+        // Scroll suave para o resultado
+        window.scrollTo({ top: resultsSection.offsetTop - 50, behavior: 'smooth' });
+
+        // Desabilitar todos os inputs
+        const allInputs = document.querySelectorAll('input[type="radio"]');
+        allInputs.forEach(input => input.disabled = true);
+    };
+
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>

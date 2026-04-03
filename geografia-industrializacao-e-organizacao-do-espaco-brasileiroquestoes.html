@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Industrialização e Espaço Brasileiro</title>
+    <style>
+        :root {
+            --bg-color: #fdfdfd;
+            --container-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --accent-color: #0984e3;
+            --success-color: #27ae60;
+            --error-color: #d63031;
+            --border-color: #dfe6e9;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 95%;
+            margin-bottom: 4rem;
+        }
+
+        .question-card {
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background-color: #f1f7ff;
+            border-color: var(--accent-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-color);
+        }
+
+        .option-label.selected {
+            background-color: #e3f2fd;
+            border-color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        /* Status classes after finishing */
+        .option-label.correct {
+            background-color: #d4edda;
+            border-color: var(--success-color);
+            color: #155724;
+        }
+
+        .option-label.incorrect {
+            background-color: #f8d7da;
+            border-color: var(--error-color);
+            color: #721c24;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #0873c4;
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Results & Resolutions */
+        .result-panel {
+            display: none;
+            background: white;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .score-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .resolution-box h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .question-card { padding: 1.2rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simulado: Industrialização Brasileira</h1>
+    <p>Análise de Ciclos, ISI e Desconcentração Industrial (Estilo Fundatec)</p>
+</header>
+
+<div class="container">
+    <div id="result-panel" class="result-panel">
+        <h2>Resultado Final</h2>
+        <div class="score-text" id="score-display">0 / 10</div>
+        <p id="score-message"></p>
+        <p>As resoluções detalhadas foram liberadas abaixo de cada questão.</p>
+    </div>
+
+    <form id="quiz-form">
+        <div id="questions-container">
+            <!-- Questions injected via JS -->
+        </div>
+
+        <div class="btn-container">
+            <button type="button" id="submit-btn" class="btn-submit">Finalizar e Ver Resoluções</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const quizData = [
+        {
+            id: 1,
+            q: "QUESTÃO 01 – No que se refere à formação do território brasileiro e à transição entre os ciclos econômicos agroexportadores e a gênese da atividade industrial, analise as assertivas a seguir:<br><br>I. A organização do território brasileiro, fundamentada nos ciclos econômicos da cana-de-açúcar, mineração e café, consolidou uma diferenciação regional onde a divisão territorial do trabalho visava primariamente a exportação para o mercado externo, gerando o que a historiografia clássica denomina 'arquipélagos econômicos'.<br>II. O ciclo do café, embora concentrado no Sudeste, foi o principal catalisador da industrialização, pois permitiu a acumulação de capital, o desenvolvimento de uma rede ferroviária e a formação de um mercado consumidor inicial através do trabalho assalariado imigrante.<br>III. A transição para o modelo industrial ocorreu de maneira homogênea e concomitante em todas as regiões brasileiras, de modo que o Norte e o Nordeste apresentavam, já na década de 1920, parques industriais de complexidade equivalente ao de São Paulo.<br>IV. A infraestrutura de transportes e comunicações, gestada no período cafeeiro, atuou como um fator de inércia espacial, favorecendo a posterior concentração das atividades fabris nas áreas onde a economia exportadora já havia consolidado economias externas.<br><br>Quais estão corretas?",
+            options: [
+                "Apenas I e II.",
+                "Apenas II e III.",
+                "Apenas I, II e IV.",
+                "Apenas II, III e IV.",
+                "I, II, III e IV."
+            ],
+            correct: 2, // Index of C
+            resolution: `<h4>Resolução</h4><p>A resposta correta é a <strong>C</strong>, pois as assertivas I, II e IV descrevem com precisão os mecanismos de transição entre o modelo agrário e o industrial.</p><p>A assertiva III está incorreta porque a industrialização foi um processo marcadamente desigual. O Norte e o Nordeste permaneciam presos a estruturas agrárias tradicionais naquela época.</p>
+            <table>
+                <tr><th>Ciclo Econômico</th><th>Período Principal</th><th>Região Dominante</th><th>Legado para a Indústria</th></tr>
+                <tr><td>Cana-de-Açúcar</td><td>Séc. XVI-XVII</td><td>Nordeste</td><td>Estrutura fundiária concentrada.</td></tr>
+                <tr><td>Mineração</td><td>Séc. XVIII</td><td>Minas Gerais</td><td>Urbanização e integração do mercado interno.</td></tr>
+                <tr><td>Café</td><td>Séc. XIX-XX</td><td>Sudeste</td><td>Acúmulo de capital e ferrovias.</td></tr>
+            </table>`
+        },
+        {
+            id: 2,
+            q: "QUESTÃO 02 – Sobre o processo de Industrialização por Substituição de Importações (ISI) no Brasil e sua relação com o contexto internacional do século XX, assinale a alternativa correta:",
+            options: [
+                "A industrialização brasileira foi impulsionada pela substituição de importações a partir da década de 1930, consolidando um modelo que eliminou a dependência tecnológica e financeira das economias centrais de forma imediata.",
+                "O modelo industrial brasileiro foi estruturado com base na diversificação produtiva espontânea durante o ciclo do açúcar, integrando o país ao sistema fordista global ainda no período colonial.",
+                "A crise de 1929 e as duas Grandes Guerras Mundiais atuaram como 'proteções naturais', dificultando as importações e forçando a elite nacional a investir na produção interna de bens que antes eram adquiridos no exterior.",
+                "As políticas industriais do período de Getúlio Vargas priorizaram o liberalismo econômico radical, abstendo o Estado de qualquer intervenção direta na criação de indústrias de base ou infraestrutura energética.",
+                "O ciclo de substituição de importações completou-se integralmente durante o Governo JK, com a nacionalização total da produção de bens de capital e insumos básicos sem a necessidade de investimentos estatais posteriores."
+            ],
+            correct: 2, // C
+            resolution: "<h4>Resolução</h4><p>A resposta correta é a <strong>C</strong>. Os eventos mundiais (Crise de 1929, 1ª e 2ª Guerras) funcionaram como 'choques de oferta', criando uma oportunidade para que as oficinas nacionais suprissem a demanda que não podia ser importada.</p>"
+        },
+        {
+            id: 3,
+            q: "QUESTÃO 03 – O governo de Juscelino Kubitschek (1956-1961) é reconhecido pela implementação do 'Plano de Metas'. Em relação à organização do espaço e à dinâmica industrial deste período, é INCORRETO afirmar que:",
+            options: [
+                "O Plano de Metas priorizou os setores de energia e transportes, buscando romper os gargalos estruturais que impediam o avanço da produção industrial em larga escala.",
+                "A construção de Brasília foi a meta-síntese do governo, visando a interiorização do desenvolvimento e a integração da região Centro-Oeste ao restante do território nacional.",
+                "O modelo de desenvolvimento de JK baseou-se no 'tripé econômico', atraindo capitais estrangeiros para o setor de bens de consumo duráveis, como a indústria automobilística.",
+                "O processo de industrialização liderado por JK promoveu uma desconcentração industrial imediata, transferindo o polo produtivo têxtil de São Paulo para o sertão do Nordeste em busca de incentivos fiscais.",
+                "A opção pelo modal rodoviário, em detrimento do ferroviário, consolidou uma nova logística de circulação que favoreceu a expansão da indústria de veículos e o consumo de derivados de petróleo."
+            ],
+            correct: 3, // D
+            resolution: "<h4>Resolução</h4><p>A alternativa INCORRETA é a <strong>D</strong>. O governo JK aprofundou a concentração industrial no Sudeste, especialmente no ABC Paulista, devido à atração da indústria automobilística estrangeira.</p>"
+        },
+        {
+            id: 4,
+            q: "QUESTÃO 04 – Analise as assertivas abaixo sobre o II Plano Nacional de Desenvolvimento (II PND), implementado durante o governo de Ernesto Geisel (1975-1979), e assinale V, se verdadeiras, ou F, se falsas:<br><br>( ) O II PND teve como um de seus pilares o aprofundamento da industrialização no setor de bens de capital e de insumos básicos (siderurgia, petroquímica e celulose), visando completar a estrutura produtiva nacional.<br>( ) A estratégia do II PND envolveu o deslocamento das indústrias e a dispersão de polos mínero-industriais para regiões periféricas, como o arco formado por Amapá, Amazonas e Rio Grande do Norte, como forma de integrar o território.<br>( ) O plano ignorou a crise internacional do petróleo, mantendo o foco exclusivo na exportação de café e açúcar e desestimulando a criação de programas de combustíveis alternativos.<br>( ) De acordo com Moreira (2020), o II PND buscou contornar os efeitos da crise fiscal e ambiental através de uma política de redistribuição que acabou por levar problemas socioambientais e sindicais para novas fronteiras do país.",
+            options: [
+                "V – V – F – V.",
+                "V – F – V – F.",
+                "F – V – F – V.",
+                "V – V – V – F.",
+                "F – F – V – V."
+            ],
+            correct: 0, // A
+            resolution: "<h4>Resolução</h4><p>A resposta correta é a <strong>A</strong>. O II PND não ignorou a crise do petróleo; pelo contrário, criou o <strong>Proálcool</strong> para reduzir a dependência externa de combustíveis.</p>"
+        },
+        {
+            id: 5,
+            q: "QUESTÃO 05 – A localização das indústrias no Brasil seguiu padrões de concentração e dispersão. Sobre a hegemonia industrial da região Sudeste e as características de São Paulo nesse cenário, assinale a alternativa correta:",
+            options: [
+                "A região Sudeste foi um polo de atração de grandes empreendimentos estrangeiros devido às suas economias externas já desenvolvidas, resultantes de atividades empresariais anteriores radicadas no país.",
+                "São Paulo deixou o posto de maior economia industrial do Brasil já nos anos 1980, perdendo espaço para a indústria do Rio de Janeiro e de Minas Gerais de forma definitiva.",
+                "A concentração industrial em São Paulo ocorreu independentemente do mercado consumidor, visto que a produção era 100% voltada para o mercado externo da América Latina.",
+                "A atividade industrial, historicamente concentrada no Sudeste, evitou investimentos em Minas Gerais, mantendo o estado estritamente ligado à produção agrícola até o século XXI.",
+                "O processo de industrialização inicial eliminou as disparidades econômicas regionais, distribuindo a renda de forma igualitária entre os trabalhadores fabris do Sul e do Norte."
+            ],
+            correct: 0, // A
+            resolution: "<h4>Resolução</h4><p>A correta é a <strong>A</strong>. As 'economias externas' referem-se à infraestrutura e serviços (bancos, ferrovias, mão de obra qualificada) herdados do período cafeeiro, que atraíram as indústrias para o Sudeste.</p>"
+        },
+        {
+            id: 6,
+            q: "QUESTÃO 06 – A partir da década de 1970, observa-se um processo de desconcentração industrial relativa no Brasil. Sobre os fatores que impulsionam essa migração de empresas do Sudeste para outras regiões, assinale a alternativa correta:",
+            options: [
+                "A saturação das condições socioespaciais das áreas densamente industrializadas, como o alto custo de terrenos, congestionamentos e forte pressão sindical, estimulou a busca por novas localidades.",
+                "A desconcentração industrial eliminou totalmente o papel das metrópoles como centros de comando, transferindo a sede decisória das multinacionais para cidades de pequeno porte no interior.",
+                "O processo de desconcentração é marcado pela busca exclusiva por mão de obra altamente qualificada no interior do Amazonas, superando a oferta técnica de São Paulo.",
+                "A migração industrial para outras regiões foi motivada pela isenção total de impostos em todo o território nacional, o que tornou a localização das empresas um fator irrelevante.",
+                "A desconcentração industrial brasileira é um fenômeno que resultou na homogeneização tecnológica total do território, extinguindo as desigualdades entre as regiões Norte e Sul."
+            ],
+            correct: 0, // A
+            resolution: "<h4>Resolução</h4><p>A resposta é <strong>A</strong>. As 'deseconomias de aglomeração' (custo alto, trânsito, sindicatos fortes) expulsam as fábricas para cidades onde os custos operacionais são menores.</p>"
+        },
+        {
+            id: 7,
+            q: "QUESTÃO 07 – No contexto da globalização e da organização do espaço brasileiro atual, a 'Guerra Fiscal' é um tema recorrente. Sobre esse fenômeno, é correto afirmar que:",
+            options: [
+                "Trata-se da disputa por investimentos industriais entre estados e municípios, realizada através de isenções fiscais, doação de terrenos e criação de infraestruturas específicas para atrair empresas.",
+                "Um exemplo marcante de guerra fiscal no Brasil foi a disputa entre Rio Grande do Sul e Bahia pela instalação de uma fábrica da Ford nos anos 1990, vencida pelo estado nordestino.",
+                "A guerra fiscal foi proibida pela Constituição de 1988, de modo que, atualmente, nenhum estado brasileiro pode oferecer benefícios tributários para atrair indústrias.",
+                "Os benefícios concedidos na guerra fiscal visam exclusivamente o desenvolvimento social das periferias, sem qualquer interesse no crescimento da arrecadação futura dos estados.",
+                "A disputa por investimentos através da guerra fiscal resultou na estatização da economia brasileira, permitindo que o governo assumisse o controle total das montadoras de veículos."
+            ],
+            correct: 1, // B
+            resolution: "<h4>Resolução</h4><p>A correta é a <strong>B</strong>. O caso da Ford (RS vs BA) é o exemplo mais clássico de guerra fiscal, resultando na ida da fábrica para Camaçari (BA).</p>"
+        },
+        {
+            id: 8,
+            q: "QUESTÃO 08 – Sobre os polos industriais no Brasil Meridional (Região Sul) e sua relação com a organização do espaço, assinale a alternativa correta:",
+            options: [
+                "Na Região Sul, as concentrações industriais estendem-se de Porto Alegre a Curitiba, mas as estruturas produtivas locais são totalmente isoladas das dinâmicas financeiras do Sudeste.",
+                "No Rio Grande do Sul, os principais setores exportadores da indústria incluem calçados, fumo, alimentos e mecânica, sendo os três primeiros vinculados ao processamento da produção primária.",
+                "A expansão industrial em Santa Catarina ocorreu de forma centralizada em Florianópolis, impedindo o desenvolvimento de polos fabris no Vale do Itajaí ou no Nordeste catarinense.",
+                "A indústria da Região Sul baseia-se unicamente no capital estatal, sem qualquer participação de investimentos transnacionais ou fusões com conglomerados nacionais.",
+                "O Polo Petroquímico de Triunfo (RS) é uma iniciativa exclusiva da iniciativa privada local, sem qualquer relação com as políticas federais de substituição de importações do século XX."
+            ],
+            correct: 1, // B
+            resolution: "<h4>Resolução</h4><p>A resposta é <strong>B</strong>. A indústria do Sul tem forte ligação com a base agrícola regional, processando couro (calçados), fumo e alimentos.</p>"
+        },
+        {
+            id: 9,
+            q: "QUESTÃO 09 – A década de 1990 foi marcada por transformações significativas na política econômica brasileira. Sobre esse período e seus reflexos na indústria, assinale a alternativa correta:",
+            options: [
+                "A abertura econômica neoliberal levou a um processo de desindustrialização precoce e à reprimarização da pauta de exportações, com o Brasil voltando a focar em commodities.",
+                "O governo brasileiro, nos anos 1990, proibiu a entrada de produtos estrangeiros no mercado nacional para proteger integralmente a indústria de bens de capital.",
+                "Houve uma redução drástica do desemprego estrutural devido à falência massiva de indústrias nacionais que não conseguiram competir com a tecnologia estrangeira.",
+                "O Estado brasileiro intensificou sua participação direta na produção industrial através da criação de novas empresas estatais no setor de microeletrônica.",
+                "A abertura econômica dos anos 1990 foi responsável pela eliminação completa da dependência financeira externa do país."
+            ],
+            correct: 0, // A
+            resolution: "<h4>Resolução</h4><p>A resposta é <strong>A</strong>. A abertura rápida causou a falência de indústrias nacionais despreparadas e o aumento da exportação de commodities (soja, minério).</p>"
+        },
+        {
+            id: 10,
+            q: "QUESTÃO 10 – Analise as opções abaixo sobre a produção de recursos minerais e sua influência na organização do espaço econômico brasileiro e assinale a INCORRETA:",
+            options: [
+                "A mineração de ferro possui papel estratégico na economia brasileira, colocando o país entre os maiores exportadores mundiais, com produção concentrada em províncias minerais associadas a estruturas geológicas antigas.",
+                "As regiões produtoras de minério de ferro exercem forte influência na dinâmica econômica regional, estruturando eixos logísticos ferroviários e portuários.",
+                "O II Plano Nacional de Desenvolvimento (II PND) buscou integrar a mineração ao desenvolvimento industrial, embora tenha gerado tensões socioambientais nas regiões Norte e Nordeste.",
+                "A exploração mineral no Brasil atual é realizada exclusivamente por empresas estatais, sendo proibida a participação de capital estrangeiro ou privado em qualquer fase da extração de ferro.",
+                "A produção mineral brasileira concentra-se em áreas geologicamente favoráveis, como o Quadrilátero Ferrífero em Minas Gerais e a província de Carajás no Pará."
+            ],
+            correct: 3, // D
+            resolution: "<h4>Resolução</h4><p>A INCORRETA é a <strong>D</strong>. A mineração no Brasil não é exclusiva do Estado; a Vale, por exemplo, foi privatizada em 1997.</p>"
+        }
+    ];
+
+    const container = document.getElementById('questions-container');
+
+    // Load questions
+    quizData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `q-card-${index}`;
+
+        const qText = document.createElement('span');
+        qText.className = 'question-text';
+        qText.innerHTML = item.q;
+        card.appendChild(qText);
+
+        const optionsList = document.createElement('ul');
+        optionsList.className = 'options-list';
+
+        item.options.forEach((opt, optIndex) => {
+            const li = document.createElement('li');
+            li.className = 'option-item';
+            
+            const label = document.createElement('label');
+            label.className = 'option-label';
+            label.id = `label-${index}-${optIndex}`;
+            
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `question-${index}`;
+            radio.value = optIndex;
+            radio.onclick = () => {
+                // Clear previous selection highlight
+                for(let i=0; i<item.options.length; i++){
+                    document.getElementById(`label-${index}-${i}`).classList.remove('selected');
+                }
+                label.classList.add('selected');
+            };
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(opt));
+            li.appendChild(label);
+            optionsList.appendChild(li);
+        });
+
+        card.appendChild(optionsList);
+
+        const resBox = document.createElement('div');
+        resBox.className = 'resolution-box';
+        resBox.id = `res-${index}`;
+        resBox.innerHTML = item.resolution;
+        card.appendChild(resBox);
+
+        container.appendChild(card);
+    });
+
+    // Handle Submission
+    document.getElementById('submit-btn').onclick = () => {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        quizData.forEach((item, index) => {
+            const selected = form.querySelector(`input[name="question-${index}"]:checked`);
+            const resBox = document.getElementById(`res-${index}`);
+            
+            // Show resolution
+            resBox.style.display = 'block';
+
+            if (selected) {
+                const userChoice = parseInt(selected.value);
+                const correctChoice = item.correct;
+
+                if (userChoice === correctChoice) {
+                    score++;
+                    document.getElementById(`label-${index}-${userChoice}`).classList.add('correct');
+                } else {
+                    document.getElementById(`label-${index}-${userChoice}`).classList.add('incorrect');
+                    document.getElementById(`label-${index}-${correctChoice}`).classList.add('correct');
+                }
+            } else {
+                // Not answered, just show correct one
+                document.getElementById(`label-${index}-${item.correct}`).classList.add('correct');
+            }
+
+            // Disable all radios
+            const radios = form.querySelectorAll(`input[name="question-${index}"]`);
+            radios.forEach(r => r.disabled = true);
+        });
+
+        // Show result panel
+        const resultPanel = document.getElementById('result-panel');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+        
+        resultPanel.style.display = 'block';
+        scoreDisplay.innerText = `${score} / 10`;
+        
+        if(score >= 8) scoreMessage.innerText = "Excelente desempenho! Você domina o assunto.";
+        else if(score >= 5) scoreMessage.innerText = "Bom desempenho. Revise os pontos onde houve erro.";
+        else scoreMessage.innerText = "Recomendamos ler as resoluções com atenção e refazer o estudo do tema.";
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Simulado Concluído";
+        
+        // Scroll to top to see result
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+</script>
+
+</body>
+</html>
