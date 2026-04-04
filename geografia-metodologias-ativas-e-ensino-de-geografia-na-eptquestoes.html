@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Metodologias Ativas e Ensino de Geografia na EPT</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2c3e50;
+            --primary-color: #34495e;
+            --accent-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #c0392b;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            margin-top: 6px;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Classes para o feedback pós-envio */
+        .option-item.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .option-item.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-color);
+        }
+
+        #results-area {
+            display: none;
+            margin-top: 40px;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 30px;
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 20px;
+            background: #f1f4f9;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .resolution-section {
+            margin-top: 15px;
+            padding: 20px;
+            background: #fdfdfd;
+            border-left: 4px solid var(--accent-color);
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .resolution-title {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        footer {
+            padding: 40px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .question-card {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Questões de Concurso: Metodologias Ativas e Geografia na EPT</h1>
+        <p>Banca: Estilo Fundatec | Simulado de Nível Superior</p>
+    </header>
+
+    <div class="container">
+        <form id="quiz-form">
+            <div id="questions-container">
+                <!-- As questões serão inseridas aqui via JS -->
+            </div>
+
+            <button type="button" id="submit-btn" class="btn-submit" onclick="gradeQuiz()">Finalizar Quiz e Ver Resoluções</button>
+        </form>
+
+        <div id="results-area">
+            <div class="score-box">
+                <div id="score-text">Você acertou <span id="score-value" class="score-number">0</span> de 10 questões.</div>
+                <p id="performance-msg"></p>
+            </div>
+            
+            <div id="detailed-resolutions">
+                <!-- As resoluções detalhadas aparecerão aqui -->
+            </div>
+
+            <button type="button" class="btn-submit" style="background-color: #7f8c8d;" onclick="window.location.reload()">Refazer Quiz</button>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 - Documento Pedagógico para Professores de Geografia - EPT
+    </footer>
+
+    <script>
+        const quizData = [
+            {
+                id: 1,
+                question: "No contexto da Educação Profissional e Tecnológica (EPT), a adoção de metodologias ativas visa superar a fragmentação do conhecimento e a dualidade histórica entre a formação propedêutica e a técnica. Sobre as características gerais dessas metodologias e o papel dos sujeitos no processo de ensino-aprendizagem, analise as assertivas a seguir:<br><br>I. O emprego de metodologias ativas exige que o docente abandone a postura de transmissor único de informações, assumindo funções de mediador, tutor e curador de conteúdos, facilitando o percurso investigativo do estudante.<br>II. O protagonismo discente, pilar central dos métodos ativos, pressupõe que o aluno desenvolva autonomia e responsabilidade pela construção do próprio saber, utilizando-se de situações-problema e reflexões críticas sobre a realidade.<br>III. Na EPT, as metodologias ativas devem ser aplicadas de forma puramente instrumental, focando exclusivamente no desenvolvimento de competências manuais e procedimentais requeridas pelo mercado de trabalho imediato.<br>IV. A interação entre pares e o trabalho colaborativo são estimulados por essas abordagens, permitindo que a construção do conhecimento geográfico ocorra de forma dialógica e situada.",
+                options: {
+                    A: "Apenas I e II.",
+                    B: "Apenas III e IV.",
+                    C: "Apenas I, II e IV.",
+                    D: "Apenas I, III e IV.",
+                    E: "I, II, III e IV."
+                },
+                answer: "C",
+                resolution: "A assertiva III está incorreta porque a EPT integrada combate o instrumentalismo. O foco não é apenas formar 'mão de obra' para o mercado, mas cidadãos que compreendam as bases científicas e sociais do trabalho. As assertivas I, II e IV descrevem corretamente o papel do mediador, a autonomia discente e a colaboração."
+            },
+            {
+                id: 2,
+                question: "A estratégia de Sala de Aula Invertida (Flipped Classroom) tem ganhado relevância no Ensino Médio Integrado. De acordo com as bases teóricas que sustentam essa metodologia aplicada ao ensino de conceitos geográficos, assinale a alternativa correta.",
+                options: {
+                    A: "A inversão pedagógica consiste em realizar a exposição teórica densa durante as aulas presenciais e deixar as atividades práticas para serem executadas de forma autônoma pelo aluno em casa.",
+                    B: "Trata-se de um modelo de ensino híbrido em que o primeiro contato com o conteúdo teórico ocorre em momentos prévios à aula presencial, geralmente por meio de recursos digitais, reservando o tempo em sala para discussões e aplicações práticas.",
+                    C: "No ensino de Geografia, a sala de aula invertida impede a integração curricular, pois isola os conceitos geográficos das disciplinas técnicas.",
+                    D: "Essa metodologia é recomendada apenas para cursos técnicos de informática, dada a necessidade exclusiva de alta tecnologia.",
+                    E: "O papel do professor na sala de aula invertida é minimizado à função de vigilante, uma vez que o conteúdo digital substitui a mediação pedagógica."
+                },
+                answer: "B",
+                resolution: "A alternativa B define corretamente o ciclo de inversão: o conteúdo básico é estudado previamente (em casa/online) e o tempo em sala é otimizado para atividades de maior complexidade cognitiva com a mediação direta do professor."
+            },
+            {
+                id: 3,
+                question: "A Aprendizagem Baseada em Problemas (ABP ou PBL) é uma metodologia ativa que se alinha aos pressupostos do currículo integrado na EPT. Sobre a aplicação da ABP no ensino de conceitos geográficos vinculados ao curso técnico do aluno, considere as seguintes afirmações:<br><br>I. A ABP organiza o ensino a partir de problemas reais ou simulados que exigem a mobilização de conhecimentos geográficos para a resolução de desafios técnicos da área profissional do estudante.<br>II. O ponto de partida da ABP é a aula expositiva tradicional, servindo o 'problema' apenas como um exercício de fixação ao final do bimestre.<br>III. A resolução de problemas na Geografia da EPT favorece o desenvolvimento do pensamento crítico-reflexivo, pois obriga o aluno a compreender as causas socioespaciais de fenômenos que impactam sua profissão.<br>IV. A ABP dispensa a necessidade de fundamentação teórica, priorizando o 'aprender fazendo' empírico em detrimento do rigor científico.",
+                options: {
+                    A: "Apenas I e II.",
+                    B: "Apenas I e III.",
+                    C: "Apenas II e IV.",
+                    D: "Apenas I, III e IV.",
+                    E: "I, II, III e IV."
+                },
+                answer: "B",
+                resolution: "As assertivas I e III são verdadeiras. A ABP usa o problema como *ponto de partida* (invalidando a II) e exige profunda fundamentação teórica para ser resolvida corretamente (invalidando a IV)."
+            },
+            {
+                id: 4,
+                question: "O conceito de 'Lugar' é central na ciência geográfica e, na proposta de Educação Profissional e Tecnológica, pode ser operado como um 'laboratório' para o currículo integrado. Assinale a alternativa que melhor descreve essa aplicação pedagógica.",
+                options: {
+                    A: "O uso do lugar como laboratório implica em restringir o ensino aos limites físicos da sala de aula para não comprometer o tempo técnico.",
+                    B: "Significa utilizar o espaço de vivência do aluno e o ambiente do curso técnico como campo de análise geográfica, permitindo que conceitos como território e redes sejam compreendidos a partir da realidade material.",
+                    C: "O 'lugar' na EPT é entendido apenas como a localização geométrica da escola no mapa para ensino de coordenadas.",
+                    D: "A utilização do lugar serve para substituir o currículo de Geografia Geral por um currículo puramente localista sem conexões globais.",
+                    E: "Trata-se de uma estratégia de memorização de nomes de ruas visando facilitar o deslocamento dos alunos para os estágios."
+                },
+                answer: "B",
+                resolution: "O 'lugar' é a escala do vivido. Transformá-lo em laboratório significa que a realidade imediata do aluno e seu contexto profissional tornam-se objetos de investigação científica, unindo teoria e prática."
+            },
+            {
+                id: 5,
+                question: "A 'Abstração Estratégica' é uma categoria que permite ao docente de Geografia na EPT mediar a relação entre o saber cotidiano e o saber científico. No contexto do ensino integrado, esse processo foca em:",
+                options: {
+                    A: "Ignorar a realidade imediata para focar em teorias puras sem relação com o mundo do trabalho.",
+                    B: "Utilizar elementos da realidade local e técnica como ponto de partida para alcançar a compreensão de leis gerais e processos globais, retornando à realidade para nela intervir.",
+                    C: "Criar modelos matemáticos complexos que afastam o estudante da compreensão social do espaço.",
+                    D: "Substituir a análise crítica da sociedade pela descrição técnica de processos produtivos isolados.",
+                    E: "Eliminar o conteúdo geográfico do currículo para simplificar a formação profissional."
+                },
+                answer: "B",
+                resolution: "A abstração estratégica é o movimento dialético: parte do real (síncrese), utiliza a teoria para analisar as estruturas invisíveis (análise) e retorna ao real com uma visão profunda e transformadora (síntese)."
+            },
+            {
+                id: 6,
+                question: "Considerando o Ensino de Geografia em um curso técnico de Agropecuária integrado ao Ensino Médio, como a Cartografia pode ser utilizada de forma ativa e integrada?",
+                options: {
+                    A: "Através da cópia manual de mapas de atlas antigos sem discussão sobre escalas.",
+                    B: "Utilizando o mapeamento do uso do solo da região ou da fazenda-escola como uma situação-problema, unindo conceitos de orientação e SIG às necessidades técnicas de planejamento agrícola.",
+                    C: "Limitando o estudo à memorização dos fusos horários sem relação com a prática produtiva.",
+                    D: "Proibindo o uso de tecnologias digitais para garantir que o aluno aprenda apenas o desenho rudimentar.",
+                    E: "Definindo a cartografia como disciplina isolada ministrada apenas por professores da área técnica."
+                },
+                answer: "B",
+                resolution: "A cartografia integrada deixa de ser mera representação para tornar-se ferramenta de gestão e planejamento espacial, essencial para o perfil profissional de um técnico em agropecuária."
+            },
+            {
+                id: 7,
+                question: "A integração curricular na EPT busca superar a separação entre 'trabalho manual' e 'trabalho intelectual'. No ensino de Geografia, essa integração é efetivada quando:",
+                options: {
+                    A: "Os conteúdos de Geografia são ensinados de forma estanque e sem menção às disciplinas técnicas.",
+                    B: "O professor de Geografia utiliza exemplos do mundo do trabalho e do contexto técnico para ilustrar conceitos geográficos, permitindo ao aluno compreender a dimensão socioespacial da profissão.",
+                    C: "A carga horária de Geografia é reduzida para dar lugar a mais aulas práticas de oficina.",
+                    D: "A Geografia passa a ser disciplina optativa apenas para quem não tem dificuldades técnicas.",
+                    E: "O currículo ignora questões ambientais para focar apenas na eficiência produtiva das máquinas."
+                },
+                answer: "B",
+                resolution: "A integração ocorre quando os saberes se articulam. A Geografia fornece a leitura crítica que permite ao técnico entender o impacto de sua atuação no território e na sociedade."
+            },
+            {
+                id: 8,
+                question: "Sobre o uso das Tecnologias Digitais de Informação e Comunicação (TDICs) como suporte para metodologias ativas na Geografia da EPT, analise a alternativa que apresenta uma visão crítica e coerente:",
+                options: {
+                    A: "O acesso às TDICs garante automaticamente a aprendizagem significativa.",
+                    B: "As tecnologias devem ser ferramentas de mediação que potencializam a pesquisa e a inversão da aula, adaptadas inclusive para contextos de baixa disponibilidade tecnológica.",
+                    C: "A ausência de recursos de ponta impede totalmente a aplicação de metodologias ativas.",
+                    D: "O uso de celulares deve ser restrito ao lazer, sem função didática em conceitos complexos.",
+                    E: "As TDICs substituem a necessidade de saídas de campo devido aos simuladores virtuais."
+                },
+                answer: "B",
+                resolution: "A tecnologia é um meio, não um fim. Ela potencializa a autonomia e a pesquisa, mas o planejamento pedagógico e a adaptação à realidade da escola (mesmo com poucos recursos) são fundamentais."
+            },
+            {
+                id: 9,
+                question: "A avaliação da aprendizagem em contextos que aplicam Metodologias Ativas e ABP na Geografia da EPT deve ser prioritariamente:",
+                options: {
+                    A: "Somativa e classificatória, focada na reprodução de dados estatísticos.",
+                    B: "Processual, formativa e diagnóstica, valorizando a trajetória de pesquisa, colaboração e articulação conceitual.",
+                    C: "Punitiva, visando identificar alunos com menor aptidão técnica para exclusão.",
+                    D: "Baseada apenas na autoavaliação sem critério de correção ou referência curricular.",
+                    E: "Inexistente, pois pressupõe-se que o aluno aprende por prazer."
+                },
+                answer: "B",
+                resolution: "Em métodos ativos, avalia-se o percurso. A avaliação formativa fornece feedback constante tanto sobre o domínio dos conceitos geográficos quanto sobre as habilidades profissionais desenvolvidas."
+            },
+            {
+                id: 10,
+                question: "Um dos principais desafios para a implementação de metodologias ativas e do currículo integrado na Educação Profissional e Tecnológica é:",
+                options: {
+                    A: "A resistência cultural à mudança de paradigma, a fragmentação dos tempos escolares e a necessidade de formação continuada articulada.",
+                    B: "O excesso de verbas federais destinadas a tablets que retira o foco da teoria.",
+                    C: "A proibição legal de que professores de Geografia usem métodos que não sejam aulas expositivas.",
+                    D: "A falta de interesse dos estudantes por métodos ativos.",
+                    E: "A crença de que a Geografia é meramente descritiva e não possui categorias aplicáveis ao mundo tecnológico."
+                },
+                answer: "A",
+                resolution: "O desafio é estrutural e cultural. Romper com a tradição da aula expositiva e organizar tempos e espaços para a interdisciplinaridade exige formação e vontade política institucional."
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = quizData.map((q, index) => `
+                <div class="question-card" id="q-card-${index}">
+                    <span class="question-number">Questão ${q.id}</span>
+                    <div class="question-text">${q.question}</div>
+                    <ul class="options-list">
+                        ${Object.entries(q.options).map(([key, text]) => `
+                            <li class="option-item" id="opt-${index}-${key}" onclick="selectOption(${index}, '${key}')">
+                                <input type="radio" name="q${index}" value="${key}" id="q${index}${key}">
+                                <label for="q${index}${key}"><strong>${key})</strong> ${text}</label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                    <div id="res-${index}" class="resolution-section" style="display:none">
+                        <span class="resolution-title">Resolução Comentada:</span>
+                        ${q.resolution}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectOption(qIndex, key) {
+            document.getElementById(`q${qIndex}${key}`).checked = true;
+        }
+
+        function gradeQuiz() {
+            let score = 0;
+            const total = quizData.length;
+            let answeredAll = true;
+
+            quizData.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                
+                // Limpar estilos anteriores
+                const items = document.querySelectorAll(`#q-card-${index} .option-item`);
+                items.forEach(item => item.classList.remove('correct', 'incorrect'));
+
+                if (selected) {
+                    const val = selected.value;
+                    if (val === q.answer) {
+                        score++;
+                        document.getElementById(`opt-${index}-${val}`).classList.add('correct');
+                    } else {
+                        document.getElementById(`opt-${index}-${val}`).classList.add('incorrect');
+                        document.getElementById(`opt-${index}-${q.answer}`).classList.add('correct');
+                    }
+                } else {
+                    answeredAll = false;
+                    document.getElementById(`opt-${index}-${q.answer}`).classList.add('correct');
+                }
+                
+                // Mostrar resolução
+                document.getElementById(`res-${index}`).style.display = 'block';
+            });
+
+            // Exibir área de resultados
+            document.getElementById('results-area').style.display = 'block';
+            document.getElementById('score-value').innerText = score;
+            document.getElementById('submit-btn').style.display = 'none';
+
+            let msg = "";
+            if (score === 10) msg = "Excelente! Você domina completamente o tema das Metodologias Ativas na EPT.";
+            else if (score >= 7) msg = "Muito bom! Você tem uma base sólida sobre o currículo integrado.";
+            else msg = "Continue estudando. As resoluções abaixo ajudarão a esclarecer os pontos principais.";
+            
+            document.getElementById('performance-msg').innerText = msg;
+
+            // Rolar para os resultados
+            document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>

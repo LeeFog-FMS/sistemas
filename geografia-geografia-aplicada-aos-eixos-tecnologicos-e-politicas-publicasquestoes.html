@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Geografia Aplicada e Políticas Públicas</title>
+    <style>
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #2d3436;
+            --accent-color: #0984e3;
+            --correct-color: #27ae60;
+            --wrong-color: #d63031;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --resolution-bg: #f1f2f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 95%;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #636e72;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f8f9fa;
+            border-color: var(--accent-color);
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0773c5;
+        }
+
+        #result-section {
+            display: none;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .score-box {
+            text-align: center;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .score-value {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .resolution-card {
+            background-color: var(--resolution-bg);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 1rem;
+        }
+
+        .correct-answer { background-color: #e8f8f0 !important; border-color: var(--correct-color) !important; }
+        .wrong-answer { background-color: #fdf2f2 !important; border-color: var(--wrong-color) !important; }
+
+        @media (max-width: 600px) {
+            .container { margin: 20px auto; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Quiz: Geografia Aplicada</h1>
+        <p class="description">Estudo da Territorialização, Políticas Públicas e Eixos Tecnológicos (Estilo Fundatec)</p>
+    </header>
+
+    <form id="quiz-form">
+        <!-- Questão 01 -->
+        <div class="question-card" id="q1">
+            <span class="question-text">QUESTÃO 01 – A territorialização no âmbito do SUS representa um esforço de planejamento baseado em conceitos da Geografia Crítica. Sobre o "território usado" de Milton Santos, analise as assertivas:</span>
+            <div class="question-content" style="margin-bottom: 15px; font-style: italic; font-size: 0.95rem;">
+                I. O "território usado" é um sistema de objetos e de ações.<br>
+                II. A prática é por vezes criticada por ser excessivamente burocrática.<br>
+                III. O território é um dado imutável e puramente físico.<br>
+                IV. Define territórios de atuação da atenção primária.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q1" value="A"> A) Apenas I e II.</li>
+                <li class="option-item"><input type="radio" name="q1" value="B"> B) Apenas III e IV.</li>
+                <li class="option-item"><input type="radio" name="q1" value="C"> C) Apenas I, II e IV.</li>
+                <li class="option-item"><input type="radio" name="q1" value="D"> D) Apenas II, III e IV.</li>
+                <li class="option-item"><input type="radio" name="q1" value="E"> E) I, II, III e IV.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 02 -->
+        <div class="question-card" id="q2">
+            <span class="question-text">QUESTÃO 02 – Assinale a alternativa que apresenta o tripé fundamental que orienta as medidas estruturantes do programa RS Seguro:</span>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q2" value="A"> A) Repressão + Punição + Isolamento Social.</li>
+                <li class="option-item"><input type="radio" name="q2" value="B"> B) Integração + Inteligência + Investimento Qualificado.</li>
+                <li class="option-item"><input type="radio" name="q2" value="C"> C) Modernização + Militarização + Vigilância Eletrônica.</li>
+                <li class="option-item"><input type="radio" name="q2" value="D"> D) Centralização + Expansão + Monitoramento Remoto.</li>
+                <li class="option-item"><input type="radio" name="q2" value="E"> E) Prevenção + Educação + Urbanização Compulsória.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 03 -->
+        <div class="question-card" id="q3">
+            <span class="question-text">QUESTÃO 03 – Sobre a evolução da infraestrutura ferroviária e portuária nacional, analise:</span>
+            <div class="question-content" style="margin-bottom: 15px; font-style: italic; font-size: 0.95rem;">
+                I. A RFFSA foi extinta em 2007 após o Programa Nacional de Desestatização.<br>
+                II. A criação da SEP e da SAC visou priorizar o planejamento estratégico.<br>
+                III. Após a privatização da Vale, o sistema ferroviário passou a ser gerido exclusivamente pelo Ministério sem privados.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q3" value="A"> A) Apenas I.</li>
+                <li class="option-item"><input type="radio" name="q3" value="B"> B) Apenas II.</li>
+                <li class="option-item"><input type="radio" name="q3" value="C"> C) Apenas I e II.</li>
+                <li class="option-item"><input type="radio" name="q3" value="D"> D) Apenas II e III.</li>
+                <li class="option-item"><input type="radio" name="q3" value="E"> E) I, II e III.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 04 -->
+        <div class="question-card" id="q4">
+            <span class="question-text">QUESTÃO 04 – Relacione as sub-bacias do RS (1. Sinos, 2. Gravataí, 3. Vacacaí, 4. Caí) com suas características. Qual a ordem correta?</span>
+            <div class="question-content" style="margin-bottom: 15px; font-style: italic; font-size: 0.9rem;">
+                ( ) Atividade industrial coureiro-calçadista e petroquímica; muito poluída.<br>
+                ( ) Impacto de lavouras de arroz irrigado reduzindo acumulação hídrica.<br>
+                ( ) Impacto de agrotóxicos no morango e indústria de autopeças.<br>
+                ( ) Demanda por arroz irrigado, tabaco e indústria fumageira.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q4" value="A"> A) 1 – 2 – 4 – 3.</li>
+                <li class="option-item"><input type="radio" name="q4" value="B"> B) 2 – 1 – 3 – 4.</li>
+                <li class="option-item"><input type="radio" name="q4" value="C"> C) 1 – 3 – 2 – 4.</li>
+                <li class="option-item"><input type="radio" name="q4" value="D"> D) 4 – 2 – 1 – 3.</li>
+                <li class="option-item"><input type="radio" name="q4" value="E"> E) 1 – 2 – 3 – 4.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 05 -->
+        <div class="question-card" id="q5">
+            <span class="question-text">QUESTÃO 05 – Sobre o "Arco do Desmatamento" na Amazônia brasileira, é correto afirmar:</span>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q5" value="A"> A) Concentra-se exclusivamente no extremo norte.</li>
+                <li class="option-item"><input type="radio" name="q5" value="B"> B) Avança prioritariamente pelo sul e leste da Amazônia.</li>
+                <li class="option-item"><input type="radio" name="q5" value="C"> C) A Amazônia detém parcela insignificante da biodiversidade.</li>
+                <li class="option-item"><input type="radio" name="q5" value="D"> D) O corte de árvores nobres não possui valor comercial.</li>
+                <li class="option-item"><input type="radio" name="q5" value="E"> E) A destruição beneficia a totalidade da população local.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 06 -->
+        <div class="question-card" id="q6">
+            <span class="question-text">QUESTÃO 06 – Qual o objetivo central da Política Nacional de Turismo baseada na regionalização?</span>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q6" value="A"> A) Isolar os municípios com vocação turística.</li>
+                <li class="option-item"><input type="radio" name="q6" value="B"> B) Promover a convergência e a interação entre entes federativos e gestão descentralizada.</li>
+                <li class="option-item"><input type="radio" name="q6" value="C"> C) Concentrar investimentos apenas nas capitais estaduais.</li>
+                <li class="option-item"><input type="radio" name="q6" value="D"> D) Eliminar a necessidade de instâncias de governança regional.</li>
+                <li class="option-item"><input type="radio" name="q6" value="E"> E) Substituir características locais por padrões globais.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 07 -->
+        <div class="question-card" id="q7">
+            <span class="question-text">QUESTÃO 07 – Sobre o Eixo Tecnológico de "Ambiente e Saúde" no CNCT, analise:</span>
+            <div class="question-content" style="margin-bottom: 15px; font-style: italic; font-size: 0.95rem;">
+                I. Compreende diagnóstico e gestão de soluções mitigadoras de impactos.<br>
+                II. O eixo de "Segurança" foi desmembrado deste recentemente.<br>
+                III. Ignora a legislação, focando só em biologia e química.<br>
+                IV. Perfil exige responsabilidade, ética e sustentabilidade.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q7" value="A"> A) Apenas I e III.</li>
+                <li class="option-item"><input type="radio" name="q7" value="B"> B) Apenas II e IV.</li>
+                <li class="option-item"><input type="radio" name="q7" value="C"> C) Apenas I, II e IV.</li>
+                <li class="option-item"><input type="radio" name="q7" value="D"> D) Apenas II, III e IV.</li>
+                <li class="option-item"><input type="radio" name="q7" value="E"> E) I, II, III e IV.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 08 -->
+        <div class="question-card" id="q8">
+            <span class="question-text">QUESTÃO 08 – Sobre a aplicação de SIG e Análise Espacial, é correto afirmar que:</span>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q8" value="A"> A) Visa exclusivamente a localização de pontos sem relação socioeconômica.</li>
+                <li class="option-item"><input type="radio" name="q8" value="B"> B) Permite mapeamento de áreas verdes e análise de vulnerabilidade dos solos.</li>
+                <li class="option-item"><input type="radio" name="q8" value="C"> C) O planejamento deve ignorar limitações físicas do relevo.</li>
+                <li class="option-item"><input type="radio" name="q8" value="D"> D) A escala geográfica é um conceito irrelevante hoje.</li>
+                <li class="option-item"><input type="radio" name="q8" value="E"> E) Restringe-se ao estudo de fenômenos estáticos.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 09 -->
+        <div class="question-card" id="q9">
+            <span class="question-text">QUESTÃO 09 – O principal critério definidor da regionalização em "Quatro Brasis" de Milton Santos é o:</span>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q9" value="A"> A) Meio técnico-mecanizado-industrializado.</li>
+                <li class="option-item"><input type="radio" name="q9" value="B"> B) Meio científico-polarizado.</li>
+                <li class="option-item"><input type="radio" name="q9" value="C"> C) Meio técnico-científico-informacional.</li>
+                <li class="option-item"><input type="radio" name="q9" value="D"> D) Meio natural-extrativista.</li>
+                <li class="option-item"><input type="radio" name="q9" value="E"> E) Meio histórico-administrativo-setorial.</li>
+            </ul>
+        </div>
+
+        <!-- Questão 10 -->
+        <div class="question-card" id="q10">
+            <span class="question-text">QUESTÃO 10 – Sobre a aglomeração turística de Gramado e Canela (RS), analise:</span>
+            <div class="question-content" style="margin-bottom: 15px; font-style: italic; font-size: 0.95rem;">
+                I. Apresentam processo de conurbação e forte interação socioespacial.<br>
+                II. A rodovia de conexão atua como elemento de tensão e atração turística.<br>
+                III. O planejamento regional desconsidera indicadores sociodemográficos.
+            </div>
+            <ul class="options">
+                <li class="option-item"><input type="radio" name="q10" value="A"> A) Apenas I.</li>
+                <li class="option-item"><input type="radio" name="q10" value="B"> B) Apenas II.</li>
+                <li class="option-item"><input type="radio" name="q10" value="C"> C) Apenas I e II.</li>
+                <li class="option-item"><input type="radio" name="q10" value="D"> D) Apenas II e III.</li>
+                <li class="option-item"><input type="radio" name="q10" value="E"> E) I, II e III.</li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="submitQuiz()">Finalizar Quiz e Ver Resultados</button>
+    </form>
+
+    <div id="result-section">
+        <div class="score-box">
+            <h2>Seu Resultado</h2>
+            <div class="score-value" id="score-display">0/10</div>
+            <p id="score-text">Você completou o simulado!</p>
+        </div>
+
+        <div id="resolutions-container">
+            <!-- As resoluções serão inseridas aqui dinamicamente -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const answers = {
+        q1: 'C', q2: 'B', q3: 'C', q4: 'A', q5: 'B',
+        q6: 'B', q7: 'C', q8: 'B', q9: 'C', q10: 'C'
+    };
+
+    const resolutions = {
+        q1: "A territorialização no SUS baseia-se no 'território usado' (Milton Santos), unindo sistemas de objetos e ações. A crítica sobre a burocratização é válida na prática. A assertiva III está errada pois o território é dinâmico e social, não apenas físico.",
+        q2: "O Programa RS Seguro baseia-se no tripé Integração, Inteligência e Investimento Qualificado, utilizando as AISP (Áreas Integradas de Segurança Pública) para otimizar a gestão estatística.",
+        q3: "Correta a extinção da RFFSA (2007) e a criação das secretarias técnicas (SEP/SAC). A assertiva III é falsa pois o sistema ferroviário é operado por concessões privadas (Vale, Rumo, etc.), não apenas pelo Ministério.",
+        q4: "Sequência 1-2-4-3: Sinos (Indústria/Poluição), Gravataí (Arroz/Vazão hídrica), Caí (Morango/Autopeças) e Vacacaí (Arroz/Tabaco/Central).",
+        q5: "O Arco do Desmatamento avança pelas bordas sul e leste da floresta amazônica (MT, PA, RO, MA), movido pela pecuária e avanço da soja.",
+        q6: "A Regionalização do Turismo busca a convergência e interação entre municípios, estados e governo federal, promovendo uma gestão descentralizada e sustentável em rede.",
+        q7: "O eixo Ambiente e Saúde foca em diagnóstico e mitigação de impactos. O eixo Segurança foi desmembrado dele em 2012. Ética e sustentabilidade são pilares do perfil profissional.",
+        q8: "O SIG permite mapear fenômenos complexos como áreas verdes e vulnerabilidade erosiva, integrando dados ambientais e socioeconômicos para tomada de decisão.",
+        q9: "Milton Santos propôs os 'Quatro Brasis' (Concentrada, Centro-Oeste, Nordeste e Amazônia) baseado no Meio Técnico-Científico-Informacional (densidade de fluxos e técnica).",
+        q10: "Gramado e Canela estão conurbadas (manchas urbanas fundidas) e a RS-235 é o eixo de atração turística. O planejamento regional sério considera sim os dados sociodemográficos."
+    };
+
+    function submitQuiz() {
+        let score = 0;
+        const form = document.getElementById('quiz-form');
+        const resultSection = document.getElementById('result-section');
+        const resolutionsContainer = document.getElementById('resolutions-container');
+        
+        resolutionsContainer.innerHTML = '<h3>Resoluções Detalhadas</h3>';
+
+        for (let i = 1; i <= 10; i++) {
+            const qKey = 'q' + i;
+            const selected = form.elements[qKey].value;
+            const correct = answers[qKey];
+            const questionDiv = document.getElementById(qKey);
+            
+            // Marcar acertos/erros no formulário
+            const options = questionDiv.querySelectorAll('.option-item');
+            options.forEach(opt => {
+                const radio = opt.querySelector('input');
+                if (radio.value === correct) {
+                    opt.classList.add('correct-answer');
+                } else if (radio.checked && radio.value !== correct) {
+                    opt.classList.add('wrong-answer');
+                }
+                radio.disabled = true; // Desativar para não mudar após ver resposta
+            });
+
+            if (selected === correct) {
+                score++;
+            }
+
+            // Adicionar resolução abaixo
+            const resDiv = document.createElement('div');
+            resDiv.className = 'question-card';
+            resDiv.innerHTML = `
+                <strong>QUESTÃO ${i < 10 ? '0'+i : i}: ${selected === correct ? '✅ ACERTOU' : '❌ ERROU'}</strong><br>
+                <small>Sua resposta: ${selected || 'Não respondida'} | Gabarito: ${correct}</small>
+                <div class="resolution-card">
+                    ${resolutions[qKey]}
+                </div>
+            `;
+            resolutionsContainer.appendChild(resDiv);
+        }
+
+        document.getElementById('score-display').innerText = `${score}/10`;
+        resultSection.style.display = 'block';
+        
+        // Scroll suave para os resultados
+        window.scrollTo({
+            top: resultSection.offsetTop - 50,
+            behavior: 'smooth'
+        });
+    }
+
+    // Estilizar o clique no card inteiro para facilitar o uso em touch
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const radio = this.querySelector('input');
+            if (!radio.disabled) {
+                radio.checked = true;
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

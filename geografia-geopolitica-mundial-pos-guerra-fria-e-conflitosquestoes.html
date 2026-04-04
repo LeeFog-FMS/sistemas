@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado: Geopolítica Mundial e Nova Ordem</title>
+    <style>
+        :root {
+            --bg-color: #f9f7f2; /* Tom de papel/creme para não cansar a vista */
+            --text-color: #2c2c2c;
+            --accent-color: #3b5bdb;
+            --correct-color: #2b8a3e;
+            --wrong-color: #c92a2a;
+            --card-bg: #ffffff;
+            --border-color: #e0ddd5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Georgia, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .intro {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .option-item input {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        #results {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .score-card {
+            text-align: center;
+            background: var(--accent-color);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .resolution-box {
+            background: #f1f3f5;
+            padding: 20px;
+            border-left: 5px solid var(--accent-color);
+            margin-top: 15px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .status-indicator {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .correct { color: var(--correct-color); border-color: var(--correct-color); background-color: #ebfbee; }
+        .wrong { color: var(--wrong-color); border-color: var(--wrong-color); background-color: #fff5f5; }
+        
+        .assertion-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Simulado: Geopolítica e Nova Ordem Mundial</h1>
+        <p>Estilo de Banca: Fundatec</p>
+    </header>
+
+    <div id="quiz-container">
+        <!-- Questões serão inseridas aqui via JS -->
+    </div>
+
+    <button class="btn-submit" id="finish-btn" onclick="calculateResults()">Finalizar e Ver Resoluções</button>
+
+    <div id="results">
+        <div class="score-card">
+            <h2 id="score-text">Você acertou 0 de 10 questões.</h2>
+        </div>
+        <div id="review-container">
+            <!-- Resoluções serão mostradas aqui -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            text: "A transição da ordem geopolítica global iniciada no final da década de 1980 culminou no colapso da União Soviética entre 1989 e 1991, encerrando o período da Guerra Fria. Sobre as características da chamada \"Nova Ordem Mundial\" e a configuração do poder no século XXI, analise as assertivas a seguir:<br><br>I. No âmbito econômico, a Nova Ordem é classificada como multipolar devido à existência de múltiplos centros de poder, como a União Europeia, a China, o Japão e o bloco dos BRICS, que rivalizam com a hegemonia tradicional dos Estados Unidos.<br>II. A dimensão militar da ordem contemporânea é marcada por uma \"unimultipolaridade\", termo que descreve a supremacia bélica isolada dos Estados Unidos em contraste com a fragmentação do poder econômico global.<br>III. O fim da Guerra Fria extinguiu completamente as disputas territoriais e as intervenções de cunho neoimperialista, uma vez que a globalização tecnológica eliminou a relevância das fronteiras físicas para a segurança dos Estados.<br>IV. A Nova Ordem Mundial é caracterizada pelo fortalecimento do meio técnico-científico-informacional, onde a fluidez do capital financeiro e a internacionalização da produção criam novos espaços de comando na economia global.<br><br>Quais estão corretas?",
+            options: ["Apenas I e II.", "Apenas II e III.", "Apenas I, II e IV.", "Apenas I, III e IV.", "I, II, III e IV."],
+            answer: 2, // C
+            explanation: "<strong>Gabarito: C</strong><br>A assertiva III está incorreta porque as disputas territoriais permanecem centrais (ex: Ucrânia e Mar do Sul da China). A globalização não eliminou a importância das fronteiras para a segurança. As outras assertivas definem corretamente a multipolaridade econômica, a supremacia militar americana (unimultipolaridade) e a importância do meio técnico-científico-informacional de Milton Santos."
+        },
+        {
+            id: 2,
+            text: "Considere a dinâmica do conflito entre Rússia e Ucrânia no contexto das tensões geopolíticas de 2024-2025. Com base nos dados estratégicos e humanitários recentes, assinale a alternativa correta:",
+            options: [
+                "O conflito na Ucrânia é motivado exclusivamente por divergências religiosas locais.",
+                "Em 2024 e 2025, a estratégia russa focou no ataque coordenado à infraestrutura de energia ucraniana, resultando na emissão de mandados de prisão pelo TPI.",
+                "A guerra na Ucrânia teve impactos mínimos na segurança alimentar global.",
+                "Desde 2022, a Rússia abandonou o uso de \"guerras de atrito\", priorizando negociações sem pré-condições.",
+                "O Tribunal Europeu de Direitos Humanos decidiu que a Rússia não possui responsabilidade legal pela Crimeia."
+            ],
+            answer: 1, // B
+            explanation: "<strong>Gabarito: B</strong><br>A estratégia russa evoluiu para uma guerra de atrito com foco na destruição de infraestruturas críticas (energia) para minar a resistência civil e militar. O impacto na segurança alimentar é alto, já que a região é um 'celeiro' global, e as motivações são de segurança geopolítica (OTAN), não apenas religiosas."
+        },
+        {
+            id: 3,
+            text: "O Mar do Sul da China representa um dos pontos mais críticos para a estabilidade do Indo-Pacífico. Sobre esse foco de tensão, analise as assertivas:<br><br>I. A China reivindica a soberania pela \"Linha de Nove Traços\", confrontando ZEEs de Filipinas, Vietnã e Malásia.<br>II. O Tribunal de Haia em 2016 invalidou as reivindicações chinesas, decisão respeitada por Pequim para evitar a militarização.<br>III. Em 2025, incidentes em Huangyan Dao evidenciaram a persistência das tensões entre China e Filipinas.<br>IV. A região é vital por abrigar rotas comerciais por onde transita grande parte do comércio marítimo global.<br><br>Quais estão corretas?",
+            options: ["Apenas I e II.", "Apenas III e IV.", "Apenas I, III e IV.", "Apenas II, III e IV.", "I, II, III e IV."],
+            answer: 2, // C
+            explanation: "<strong>Gabarito: C</strong><br>A assertiva II está errada porque a China NÃO respeitou a decisão de Haia de 2016, considerando-a nula e continuando a construir ilhas artificiais militares. As outras afirmam corretamente os limites da Linha de Nove Traços, os incidentes recentes e a importância logística da região."
+        },
+        {
+            id: 4,
+            text: "O Estreito de Ormuz é um dos \"chokepoints\" mais sensíveis da economia global. Sobre sua relevância e as tensões em 2025, é correto afirmar que:",
+            options: [
+                "O estreito liga o Mar Mediterrâneo ao Mar Vermelho.",
+                "Cerca de 20% do petróleo consumido no mundo transita diariamente por ele.",
+                "A estabilidade foi garantida pelo fechamento das bases militares dos EUA no Catar.",
+                "As tensões entre Irã e Israel em 2025 resultaram em propostas de fechamento do estreito em retaliação a ataques.",
+                "O Estreito perdeu relevância após a construção do CPEC (100% via terrestre)."
+            ],
+            answer: 3, // D
+            explanation: "<strong>Gabarito: D</strong><br>O Irã utiliza a ameaça de fechar Ormuz como poder de dissuasão. A alternativa B está quase correta estatisticamente, mas a D define o cenário geopolítico atual de 2025 de forma mais precisa no contexto da banca. Nota: A alternativa A descreve o Canal de Suez."
+        },
+        {
+            id: 5,
+            text: "No livro “Prisioneiros da Geografia”, argumenta-se que as condições físicas moldam a política. Aplicando este conceito, analise:<br><br>I. O acesso a rios e mares continua influenciando estratégias militares e economia.<br>II. A Rússia busca portos de águas quentes, explicando o interesse na Crimeia.<br>III. A geografia tornou-se secundária no século XXI devido à superioridade cibernética.<br>IV. Países do Sudeste Asiático firmam acordos com potências externas para compensar vulnerabilidades geográficas.<br><br>Quais estão corretas?",
+            options: ["Apenas I e II.", "Apenas III e IV.", "Apenas I, II e IV.", "Apenas II, III e IV.", "I, II, III e IV."],
+            answer: 2, // C
+            explanation: "<strong>Gabarito: C</strong><br>A assertiva III está incorreta: a geografia não é secundária. Mesmo com a tecnologia, o comércio de commodities depende de navios e rotas físicas. A Rússia continua dependente de portos que não congelam (águas quentes) para projetar poder naval."
+        },
+        {
+            id: 6,
+            text: "A disputa pela hegemonia global entre Estados Unidos e China em 2025 manifesta-se através de uma \"corrida geoestratégica\". Assinale a alternativa que apresenta uma característica desse processo:",
+            options: [
+                "Fim imediato de todas as tarifas comerciais entre as potências.",
+                "Aumento da cooperação militar para bases conjuntas no Mar do Sul da China.",
+                "O processo de \"desacoplamento\" ou \"derisking\" das cadeias de suprimentos.",
+                "Renúncia da China à Iniciativa Cinturão e Rota.",
+                "Estabilização dos preços de energia em níveis históricos baixos."
+            ],
+            answer: 2, // C
+            explanation: "<strong>Gabarito: C</strong><br>O \"Derisking\" é a política ocidental de reduzir a dependência da China em setores estratégicos (chips, baterias) para evitar vulnerabilidades geopolíticas em caso de conflito."
+        },
+        {
+            id: 7,
+            text: "Sobre a Iniciativa Cinturão e Rota (BRI) e rotas comerciais, analise as assertivas:<br><br>I. A China investe no Porto de Gwadar (Paquistão) para evitar o Estreito de Malaca.<br>II. O CPEC visa mitigar o impacto de um possível bloqueio naval em Ormuz.<br>III. A parceria com a Rússia acelerou o uso de ferrovias trans-euroasiáticas.<br>IV. O Porto de Kyaukpyu (Mianmar) permite a entrada de petróleo evitando o Mar do Sul da China.<br><br>Quais estão corretas?",
+            options: ["Apenas I e III.", "Apenas II e IV.", "Apenas I, II e III.", "Apenas I, III e IV.", "I, II, III e IV."],
+            answer: 4, // E
+            explanation: "<strong>Gabarito: E</strong><br>Todas as assertivas estão corretas. Elas descrevem a estratégia chinesa de diversificar rotas (dilema de Malaca) através de corredores terrestres e portos alternativos em países parceiros."
+        },
+        {
+            id: 8,
+            text: "Em relação aos blocos econômicos e fóruns na Nova Ordem Multipolar, analise:<br><br>I. O G20 é o principal foro para gestão de crises financeiras globais.<br>II. A expansão do BRICS em 2024/2025 reflete a busca do Sul Global por alternativas ao dólar.<br>III. A União Europeia enfrenta desafios de segurança diante do conflito no Leste Europeu.<br>IV. Os blocos atuais são puramente comerciais, sem influência geopolítica ou militar.<br><br>Quais estão corretas?",
+            options: ["Apenas I, II e III.", "Apenas II, III e IV.", "Apenas I e III.", "Apenas II e IV.", "I, II, III e IV."],
+            answer: 0, // A
+            explanation: "<strong>Gabarito: A</strong><br>A assertiva IV está errada: blocos modernos são geoeconômicos e geopolíticos (ex: sanções da UE contra a Rússia e o papel político do BRICS+)."
+        },
+        {
+            id: 9,
+            text: "Sobre a \"Guerra Híbrida\" e novas táticas de conflito em 2024 e 2025, assinale a alternativa INCORRETA:",
+            options: [
+                "O uso de drones pelos Houthis visa interromper fluxos comerciais.",
+                "A cibersegurança é crítica para defesa de redes elétricas.",
+                "A desinformação é usada para desestabilizar adversários.",
+                "O controle de satélites (como CBERS-4) é irrelevante para a geopolítica contemporânea.",
+                "A \"armaficação\" da economia inclui o uso de exclusão do sistema SWIFT."
+            ],
+            answer: 3, // D
+            explanation: "<strong>Gabarito: D (Incorreta)</strong><br>O controle espacial e de satélites é EXTREMAMENTE relevante para inteligência, comunicações e guerra moderna. A alternativa diz ser irrelevante, o que a torna a opção incorreta procurada pela questão."
+        },
+        {
+            id: 10,
+            text: "Sobre a \"Soberania Econômica\" e \"Segurança de Recursos\", analise:<br><br>I. O Irã conecta rotas terrestres da China às marítimas.<br>II. Pequim vê a desestabilização do Irã como tentativa de implodir a Rota da Seda.<br>III. A Arábia Saudita busca soluções regionais mais autônomas dos EUA.<br>IV. O controle de minerais críticos (lítio/terras raras) é novo foco de tensão entre blocos.<br><br>Quais estão corretas?",
+            options: ["Apenas I e II.", "Apenas III e IV.", "Apenas I, II e III.", "Apenas II, III e IV.", "I, II, III e IV."],
+            answer: 4, // E
+            explanation: "<strong>Gabarito: E</strong><br>Todas estão corretas. A disputa por recursos energéticos migrou do petróleo para minerais da transição energética, e o Irã é um pilar logístico central para a integração euroasiática liderada pela China."
+        }
+    ];
+
+    function renderQuiz() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-block';
+            qDiv.id = `q-block-${index}`;
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, optIndex) => {
+                optionsHtml += `
+                    <label class="option-item" id="opt-${index}-${optIndex}">
+                        <input type="radio" name="q${index}" value="${optIndex}">
+                        ${opt}
+                    </label>
+                `;
+            });
+
+            qDiv.innerHTML = `
+                <span class="question-text">Questão ${index + 1}</span>
+                <p>${q.text}</p>
+                <div class="options-list">${optionsHtml}</div>
+                <div class="resolution-box" id="res-${index}">${q.explanation}</div>
+            `;
+            container.appendChild(qDiv);
+        });
+    }
+
+    function calculateResults() {
+        let score = 0;
+        questions.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const resolutionBox = document.getElementById(`res-${index}`);
+            resolutionBox.style.display = 'block';
+
+            if (selected) {
+                const userAns = parseInt(selected.value);
+                if (userAns === q.answer) {
+                    score++;
+                    document.getElementById(`opt-${index}-${userAns}`).classList.add('correct');
+                } else {
+                    document.getElementById(`opt-${index}-${userAns}`).classList.add('wrong');
+                    document.getElementById(`opt-${index}-${q.answer}`).classList.add('correct');
+                }
+            } else {
+                // Se não marcou nada, apenas mostra a correta
+                document.getElementById(`opt-${index}-${q.answer}`).classList.add('correct');
+            }
+        });
+
+        document.getElementById('score-text').innerText = `Você acertou ${score} de ${questions.length} questões.`;
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('finish-btn').style.display = 'none';
+        
+        window.scrollTo({ top: document.getElementById('results').offsetTop, behavior: 'smooth' });
+    }
+
+    window.onload = renderQuiz;
+</script>
+
+</body>
+</html>
